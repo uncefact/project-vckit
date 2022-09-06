@@ -1,0 +1,24 @@
+{
+  "shipper": {
+    "address": {}
+  },
+  "consignee": {},
+  "notifyParty": {},
+  "$template": {
+    "type": "EMBEDDED_RENDERER",
+    "name": "BILL_OF_LADING",
+    "url": "https://demo-cnm.openattestation.com"
+  },
+  "issuers": [
+    {
+      "identityProof": {
+        "type": "DNS-TXT",
+        "location": "demo-tradetrust.openattestation.com"
+      },
+      "name": "DEMO STORE",
+      "tokenRegistry": "0x9Eb613a88534E2939518f4ffBFE65F5969b491FF"
+    }
+  ],
+  "name": "Maersk Bill of Lading",
+  "blNumber": "111"
+}

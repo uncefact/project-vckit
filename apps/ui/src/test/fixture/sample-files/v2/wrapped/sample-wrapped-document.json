@@ -1,0 +1,35 @@
+{
+  "version": "https://schema.openattestation.com/2.0/schema.json",
+  "data": {
+    "$template": {
+      "type": "ca6920a7-31a0-4895-ba44-20f405f89786:string:EMBEDDED_RENDERER",
+      "name": "38612e87-dd14-4289-b50e-4a5b53fd626f:string:COVERING_LETTER",
+      "url": "72508472-fa55-4d37-bb2a-bccadc25b86a:string:https://generic-templates.tradetrust.io"
+    },
+    "issuers": [
+      {
+        "name": "77f164da-7123-40b2-9b14-dafc724c0464:string:Demo Issuer",
+        "documentStore": "c830d3b4-5f67-4ebb-b847-4376bcbc51c0:string:0x8bA63EAB43342AAc3AdBB4B827b68Cf4aAE5Caca",
+        "identityProof": {
+          "type": "408429b7-2331-4cd5-a0d4-eea153d0d3d6:string:DNS-TXT",
+          "location": "4586a425-68a6-462d-aab3-f87e92167ca8:string:demo-tradetrust.openattestation.com"
+        }
+      }
+    ],
+    "name": "07a40d7b-47f9-4d29-85f7-903feb4f932d:string:Covering Letter",
+    "logo": "60f825bd-0892-4948-a6fc-a70b5a8ac4f6:string:https://www.aretese.com/images/govtech-animated-logo.gif",
+    "title": "645ee3aa-dfe9-4840-8ca3-2b9ecee335a5:string:Documents Bundle",
+    "remarks": "a51a59bc-8c4a-47e9-8f13-27eaa2d0b799:string:Some very important documents in here for some submission",
+    "links": {
+      "self": {
+        "href": "3980155d-2e06-4680-8332-8e9268e7c5d3:string:https://action.openattestation.com?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Fapi-ropsten.tradetrust.io%2Fstorage%2F6c093b87-e1ae-479c-828c-c14b6b10b6e0%22%2C%22key%22%3A%22a4f72213dbb3208ca3f09a4bae73efe890dbc5149e87f25ffb89223cf67e523b%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22https%3A%2F%2Fdev.tradetrust.io%2F%22%7D%7D"
+      }
+    }
+  },
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "82018d4e6f3807fce0cb6a7c584c9477fdd1719746cbe74804608b7d0f982b7e",
+    "proof": [],
+    "merkleRoot": "82018d4e6f3807fce0cb6a7c584c9477fdd1719746cbe74804608b7d0f982b7e"
+  }
+}

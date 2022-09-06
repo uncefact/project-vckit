@@ -1,0 +1,22 @@
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/resources"
+  to = "/learn"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[build]
+  ignore = "git log -1 --pretty=%B | grep dependabot"
+
+# Unset the infura key with domain restriction for branch previews
+# so that the default key (without domain restriction) is used instead
+[context.deploy-preview]
+  [context.deploy-preview.environment]
+    INFURA_API_KEY = ""

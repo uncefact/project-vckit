@@ -1,0 +1,79 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "browser": true
+  },
+  "extends": ["plugin:react/recommended", "plugin:testcafe/recommended", "plugin:prettier/recommended", "plugin:storybook/recommended"],
+  "plugins": ["react-hooks", "testcafe"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/self-closing-comp": "error",
+    "array-callback-return": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "no-unused-expressions": "off",
+    "jest/no-disabled-tests": "error",
+    "no-shadow": "off"
+  },
+  "overrides": [
+    {
+      "files": ["src/**/*.{ts,tsx}"],
+      "extends": ["plugin:@typescript-eslint/recommended"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-shadow": ["error"]
+      }
+    },
+    {
+      "files": ["*.test.{ts,tsx}", "*.stories.{ts,tsx}"],
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-empty-function": "off"
+      }
+    },
+    {
+      "files": ["*.md"],
+      "rules": {
+        "prettier/prettier": [
+          2,
+          {
+            "parser": "markdown"
+          }
+        ]
+      }
+    },
+    {
+      "files": ["**/*.test.js"],
+      "env": {
+        "jest": true
+      },
+      "extends": ["plugin:jest/all"],
+      "rules": {
+        "jest/prefer-expect-assertions": "off",
+        "jest/no-hooks": "off"
+      }
+    },
+    {
+      "files": ["*.stories.@(ts|tsx|js|jsx|mjs|cjs)"],
+      "rules": {
+        "storybook/hierarchy-separator": "error",
+      }
+    }
+  ]
+}

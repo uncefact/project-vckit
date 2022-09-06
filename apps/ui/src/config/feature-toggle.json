@@ -1,0 +1,10 @@
+{
+  "TITLE_TRANSFER": {
+    "development": true,
+    "production": false
+  },
+  "MAGIC_DEMO": {
+    "development": true,
+    "production": false
+  }
+}

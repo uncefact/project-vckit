@@ -1,0 +1,154 @@
+backend:
+  name: git-gateway
+  branch: master
+  squash_merges: true
+  commit_messages:
+    create: "feat: Create {{collection}} “{{slug}}” {{author-name}} [skip test]"
+    update: "chore: Update {{collection}} “{{slug}}” {{author-name}} [skip test]"
+    delete: "chore: Delete {{collection}} “{{slug}}” {{author-name}} [skip test]"
+    uploadMedia: "chore: Upload “{{path}}” {{author-name}} [skip test]"
+    deleteMedia: "chore: Delete “{{path}}” {{author-name}} [skip test]"
+  preview_context: netlify/tradetrust-mainnet/deploy-preview # beta feature = https://github.com/netlify/netlify-cms/issues/2315, https://github.com/netlify/netlify-cms/issues/4812
+
+local_backend: true
+
+publish_mode: editorial_workflow
+
+media_folder: "public/static/uploads"
+public_folder: "/static/uploads"
+
+collections:
+  - name: "faq"
+    label: "FAQ"
+    folder: "cms/faq"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - { label: "Body", name: "body", widget: "markdown" }
+  - name: "guidelines"
+    label: "Guidelines"
+    folder: "cms/guidelines"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - { label: "Body", name: "body", widget: "markdown" }
+  - name: "article"
+    label: "Article"
+    folder: "cms/article"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+  - name: "newsletter"
+    label: "Newsletter"
+    folder: "cms/newsletter"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "File", name: "file", widget: "file", hint: "File download of newsletter." }
+  - name: "partner-news"
+    label: "Partner News"
+    folder: "cms/partner-news"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown", hint: "Body text of detail page." }
+  - name: "press-release"
+    label: "Press Release"
+    folder: "cms/press-release"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown", hint: "Body text of detail page." }
+  - name: "speech"
+    label: "Speech"
+    folder: "cms/speech"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", hint: "Publish date." }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown", hint: "Body text of detail page." }
+  - name: "event"
+    label: "Event"
+    folder: "cms/event"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Blurb", name: "blurb", widget: "text", hint: "Event Description" }
+      - { label: "Link", name: "link", widget: "string", hint: "Direct link." }
+      - {
+          label: "Time Start",
+          name: "timeStart",
+          widget: "datetime",
+          date_format: false,
+          time_format: "HH:mm",
+          required: false,
+          hint: "Start time of event.",
+          default: "",
+        }
+      - {
+          label: "Time End",
+          name: "timeEnd",
+          widget: "datetime",
+          date_format: false,
+          time_format: "HH:mm",
+          required: false,
+          hint: "End time of event.",
+          default: "",
+        }
+      - {
+          label: "Location",
+          name: "location",
+          widget: "string",
+          required: false,
+          hint: "Location of event.",
+          default: "",
+        }
+      - {
+          label: "Event Details",
+          name: "eventDetails",
+          widget: "markdown",
+          required: false,
+          hint: "Details of the event, i.e. about the speakers, about the event host, etc..",
+          default: "",
+        }
+      - {
+          label: "Downloadable Media Content",
+          name: "downloadableMediaContent",
+          required: false,
+          widget: "list",
+          field: { label: Media, name: media, widget: file },
+          hint: "Upload media contents/materials for user to download",
+        }
+      - { label: "Video Link", name: "videoLink", widget: "string", required: false }
+      - { label: "Slides", name: "slides", widget: "file", required: false, hint: "Presentation slides." }
+      - { label: "Register Link", name: "registerLink", widget: "string", required: false }

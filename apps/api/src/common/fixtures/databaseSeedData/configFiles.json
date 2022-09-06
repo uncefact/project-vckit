@@ -1,0 +1,636 @@
+[
+  {
+    "forms": [
+      {
+        "name": "TradeTrust ChAFTA Certificate of Origin v3",
+        "type": "VERIFIABLE_DOCUMENT",
+        "defaults": {
+          "version": "https://schema.openattestation.com/3.0/schema.json",
+          "@context": [
+            "https://www.w3.org/2018/credentials/v1",
+            "https://schemata.openattestation.com/io/tradetrust/certificate-of-origin/1.0/certificate-of-origin-context.json",
+            "https://schemata.openattestation.com/com/openattestation/1.0/OpenAttestation.v3.json"
+          ],
+          "type": ["VerifiableCredential", "OpenAttestationCredential"],
+          "issuanceDate": "2010-01-01T19:23:24Z",
+          "openAttestationMetadata": {
+            "template": {
+              "type": "EMBEDDED_RENDERER",
+              "name": "CHAFTA_COO",
+              "url": "https://generic-templates.tradetrust.io"
+            },
+            "proof": {
+              "type": "OpenAttestationProofMethod",
+              "method": "DID",
+              "value": "did:ethr:0x1245e5b64d785b25057f7438f715f4aa5d965733",
+              "revocation": {
+                "type": "NONE"
+              }
+            },
+            "identityProof": {
+              "type": "DNS-DID",
+              "identifier": "demo-tradetrust.openattestation.com"
+            }
+          },
+          "credentialSubject": {},
+          "issuer": {
+            "id": "https://example.com",
+            "name": "DEMO DID",
+            "type": "OpenAttestationIssuer"
+          }
+        },
+        "schema": {
+          "type": "object",
+          "properties": {
+            "credentialSubject": {
+              "type": "object",
+              "properties": {
+                "iD": {
+                  "type": "string",
+                  "title": "COO ID"
+                },
+                "issueDateTime": {
+                  "type": "string",
+                  "title": "Issued Date & Time"
+                },
+                "firstSignatoryAuthentication": {
+                  "title": "Signatory Authentication",
+                  "type": "object",
+                  "properties": {
+                    "signature": {
+                      "type": "string",
+                      "title": "First Signatory"
+                    },
+                    "actualDateTime": {
+                      "type": "string",
+                      "title": "Actual Date Time"
+                    }
+                  }
+                },
+                "supplyChainConsignment": {
+                  "type": "object",
+                  "properties": {
+                    "iD": {
+                      "type": "string",
+                      "title": "iD"
+                    },
+                    "information": {
+                      "type": "string",
+                      "title": "Consignment Information"
+                    },
+                    "exportCountry": {
+                      "title": "Export country",
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "title": "Country code"
+                        }
+                      }
+                    },
+                    "exporter": {
+                      "title": "Exporter",
+                      "type": "object",
+                      "properties": {
+                        "iD": {
+                          "title": "iD",
+                          "type": "string"
+                        },
+                        "name": {
+                          "title": "Name",
+                          "type": "string"
+                        },
+                        "postalAddress": {
+                          "title": "",
+                          "type": "object",
+                          "properties": {
+                            "line1": {
+                              "type": "string",
+                              "title": "Address Line 1"
+                            },
+                            "line2": {
+                              "type": "string",
+                              "title": "Address Line 2"
+                            },
+                            "cityName": {
+                              "type": "string",
+                              "title": "City"
+                            },
+                            "postcode": {
+                              "type": "string",
+                              "title": "Postal code"
+                            },
+                            "countrySubDivisionName": {
+                              "type": "string",
+                              "title": "Country Sub Division name"
+                            },
+                            "countryCode": {
+                              "type": "string",
+                              "title": "Country code"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "importCountry": {
+                      "type": "object",
+                      "title": "Import country",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "title": "Country code"
+                        }
+                      }
+                    },
+                    "importer": {
+                      "title": "Importer's Details (if known)",
+                      "type": "object",
+                      "properties": {
+                        "iD": {
+                          "title": "importer iD",
+                          "type": "string"
+                        },
+                        "name": {
+                          "title": "Name",
+                          "type": "string"
+                        },
+                        "postalAddress": {
+                          "title": "",
+                          "type": "object",
+                          "properties": {
+                            "line1": {
+                              "type": "string",
+                              "title": "Address Line 1"
+                            },
+                            "line2": {
+                              "type": "string",
+                              "title": "Address Line 2"
+                            },
+                            "cityName": {
+                              "type": "string",
+                              "title": "City"
+                            },
+                            "postcode": {
+                              "type": "string",
+                              "title": "Postal code"
+                            },
+                            "countrySubDivisionName": {
+                              "type": "string",
+                              "title": "Country Sub Division name"
+                            },
+                            "countryCode": {
+                              "type": "string",
+                              "title": "Country code"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "includedConsignmentItems": {
+                      "type": "array",
+                      "title": "Included Consignment Items",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "iD": {
+                            "type": "string",
+                            "title": "iD"
+                          },
+                          "information": {
+                            "type": "string",
+                            "title": "Information"
+                          },
+                          "crossBorderRegulatoryProcedure": {
+                            "type": "object",
+                            "title": "",
+                            "properties": {
+                              "originCriteriaText": {
+                                "type": "string",
+                                "title": "Origin criteria text"
+                              }
+                            }
+                          },
+                          "manufacturer": {
+                            "type": "object",
+                            "title": "Manufacturer",
+                            "properties": {
+                              "iD": {
+                                "type": "string",
+                                "title": "iD"
+                              },
+                              "name": {
+                                "type": "string",
+                                "title": "Name"
+                              },
+                              "postalAddress": {
+                                "title": "",
+                                "type": "object",
+                                "properties": {
+                                  "line1": {
+                                    "type": "string",
+                                    "title": "Address Line 1"
+                                  },
+                                  "line2": {
+                                    "type": "string",
+                                    "title": "Address Line 2"
+                                  },
+                                  "cityName": {
+                                    "type": "string",
+                                    "title": "City"
+                                  },
+                                  "postcode": {
+                                    "type": "string",
+                                    "title": "Postal code"
+                                  },
+                                  "countrySubDivisionName": {
+                                    "type": "string",
+                                    "title": "Country Sub Division name"
+                                  },
+                                  "countryCode": {
+                                    "type": "string",
+                                    "title": "Country code"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "tradeLineItems": {
+                            "type": "array",
+                            "title": "Trade line Items",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "sequenceNumber": {
+                                  "type": "integer",
+                                  "title": "Sequence Number"
+                                },
+                                "invoiceReference": {
+                                  "type": "object",
+                                  "title": "Invoice reference",
+                                  "properties": {
+                                    "iD": {
+                                      "type": "string",
+                                      "title": "iD"
+                                    },
+                                    "formattedIssueDateTime": {
+                                      "type": "string",
+                                      "title": "Formatted issue date & time"
+                                    },
+                                    "attachedBinaryFile": {
+                                      "type": "object",
+                                      "title": "",
+                                      "properties": {
+                                        "uRI": {
+                                          "type": "string",
+                                          "title": "Attached binary file uRI"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "tradeProduct": {
+                                  "type": "object",
+                                  "title": "Trade product",
+                                  "properties": {
+                                    "iD": {
+                                      "type": "string",
+                                      "title": "iD"
+                                    },
+                                    "description": {
+                                      "type": "string",
+                                      "title": "Description"
+                                    },
+                                    "harmonisedTariffCode": {
+                                      "type": "object",
+                                      "title": "",
+                                      "properties": {
+                                        "classCode": {
+                                          "type": "string",
+                                          "title": "Harmonised tariff class code"
+                                        },
+                                        "className": {
+                                          "type": "string",
+                                          "title": "Harmonised tariff class name"
+                                        }
+                                      }
+                                    },
+                                    "originCountry": {
+                                      "type": "object",
+                                      "title": "Origin country",
+                                      "properties": {
+                                        "code": {
+                                          "type": "string",
+                                          "title": "Code"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "transportPackages": {
+                                  "type": "array",
+                                  "title": "Transport packages",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "iD": {
+                                        "type": "string",
+                                        "title": "iD"
+                                      },
+                                      "grossVolume": {
+                                        "type": "string",
+                                        "title": "Gross volume"
+                                      },
+                                      "grossWeight": {
+                                        "type": "string",
+                                        "title": "Gross weight"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "loadingBaseportLocation": {
+                      "type": "object",
+                      "title": "Loading Baseport Location",
+                      "properties": {
+                        "iD": {
+                          "type": "string",
+                          "title": "iD"
+                        },
+                        "name": {
+                          "type": "string",
+                          "title": "Name"
+                        }
+                      }
+                    },
+                    "mainCarriageTransportMovement": {
+                      "title": "Main Carraige Transport Movement",
+                      "type": "object",
+                      "properties": {
+                        "iD": {
+                          "type": "string",
+                          "title": "iD"
+                        },
+                        "information": {
+                          "type": "string",
+                          "title": "Information"
+                        },
+                        "usedTransportMeans": {
+                          "title": "",
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "title": "Used transport"
+                            },
+                            "iD": {
+                              "type": "string",
+                              "title": "Used transport iD"
+                            }
+                          }
+                        },
+                        "departureEvent": {
+                          "title": "",
+                          "type": "object",
+                          "properties": {
+                            "departureDateTime": {
+                              "type": "string",
+                              "title": "Departure date and time"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "unloadingBaseportLocation": {
+                      "type": "object",
+                      "title": "Unloading Baseport Location",
+                      "properties": {
+                        "iD": {
+                          "type": "string",
+                          "title": "iD"
+                        },
+                        "name": {
+                          "type": "string",
+                          "title": "Name"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "uiSchema": {
+          "credentialSubject": {
+            "firstSignatoryAuthentication": {
+              "signature": {
+                "ui:widget": "file",
+                "ui:options": {
+                  "text": "Upload Signature",
+                  "accept": ".png, .jpeg, .jpg"
+                }
+              },
+              "actualDateTime": {
+                "ui:widget": "datetime"
+              }
+            },
+            "issueDateTime": {
+              "ui:widget": "datetime"
+            },
+            "supplyChainConsignment": {
+              "mainCarriageTransportMovement": {
+                "departureEvent": {
+                  "departureDateTime": {
+                    "ui:widget": "datetime"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "attachments": {
+          "allow": true,
+          "accept": ".pdf"
+        },
+        "extension": "tt"
+      },
+      {
+        "name": "TradeTrust Invoice v3",
+        "type": "VERIFIABLE_DOCUMENT",
+        "defaults": {
+          "version": "https://schema.openattestation.com/3.0/schema.json",
+          "@context": [
+            "https://www.w3.org/2018/credentials/v1",
+            "https://schemata.openattestation.com/io/tradetrust/Invoice/1.0/invoice-context.json",
+            "https://schemata.openattestation.com/com/openattestation/1.0/OpenAttestation.v3.json"
+          ],
+          "type": ["VerifiableCredential", "OpenAttestationCredential"],
+          "issuanceDate": "2010-01-01T19:23:24Z",
+          "openAttestationMetadata": {
+            "template": {
+              "type": "EMBEDDED_RENDERER",
+              "name": "INVOICE",
+              "url": "https://generic-templates.tradetrust.io"
+            },
+            "proof": {
+              "type": "OpenAttestationProofMethod",
+              "method": "DID",
+              "value": "did:ethr:0x1245e5b64d785b25057f7438f715f4aa5d965733",
+              "revocation": {
+                "type": "NONE"
+              }
+            },
+            "identityProof": {
+              "type": "DNS-DID",
+              "identifier": "demo-tradetrust.openattestation.com"
+            }
+          },
+          "credentialSubject": {},
+          "issuer": {
+            "id": "https://example.com",
+            "name": "DEMO DID",
+            "type": "OpenAttestationIssuer"
+          }
+        },
+        "schema": {
+          "type": "object",
+          "properties": {
+            "credentialSubject": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "title": "Invoice ID"
+                },
+                "date": {
+                  "type": "string",
+                  "title": "Date"
+                },
+                "customerId": {
+                  "type": "string",
+                  "title": "Customer ID"
+                },
+                "terms": {
+                  "type": "string",
+                  "title": "Terms"
+                },
+                "billFrom": {
+                  "type": "object",
+                  "title": "Bill From",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Name"
+                    },
+                    "streetAddress": {
+                      "type": "string",
+                      "title": "Street Address"
+                    },
+                    "city": {
+                      "type": "string",
+                      "title": "City"
+                    },
+                    "postalCode": {
+                      "type": "string",
+                      "title": "Postal Code"
+                    },
+                    "phoneNumber": {
+                      "type": "string",
+                      "title": "Phone Number"
+                    }
+                  }
+                },
+                "billTo": {
+                  "type": "object",
+                  "title": "Bill To",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Name"
+                    },
+                    "email": {
+                      "type": "string",
+                      "title": "Email"
+                    },
+                    "company": {
+                      "type": "object",
+                      "title": "Bill To Company",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "title": "Name"
+                        },
+                        "streetAddress": {
+                          "type": "string",
+                          "title": "Street Address"
+                        },
+                        "city": {
+                          "type": "string",
+                          "title": "City"
+                        },
+                        "postalCode": {
+                          "type": "string",
+                          "title": "Postal Code"
+                        },
+                        "phoneNumber": {
+                          "type": "string",
+                          "title": "Phone Number"
+                        }
+                      }
+                    }
+                  }
+                },
+                "billableItems": {
+                  "type": "array",
+                  "title": "Billable Items",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "description": {
+                        "type": "string",
+                        "title": "Description"
+                      },
+                      "quantity": {
+                        "type": "string",
+                        "title": "Quantity"
+                      },
+                      "unitPrice": {
+                        "type": "string",
+                        "title": "Unit Price"
+                      },
+                      "amount": {
+                        "type": "string",
+                        "title": "Amount"
+                      }
+                    }
+                  }
+                },
+                "subtotal": {
+                  "type": "string",
+                  "title": "Subtotal"
+                },
+                "tax": {
+                  "type": "string",
+                  "title": "Tax (%)"
+                },
+                "taxTotal": {
+                  "type": "string",
+                  "title": "Tax Total"
+                },
+                "total": {
+                  "type": "string",
+                  "title": "Total"
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+]

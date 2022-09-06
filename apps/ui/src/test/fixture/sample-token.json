@@ -1,0 +1,57 @@
+{
+    "schema": "tradetrust/v1.0",
+    "version": "1.0",
+    "data": {
+      "id": "41847724-c4b2-489e-8505-2bbb652b205c:string:SGCNM21566325",
+      "$template": {
+        "name": "843cd060-ce78-40a4-948e-de79c7583e7b:string:CERTIFICATE_OF_NON_MANIPULATION",
+        "type": "29c13c0d-d214-4269-a00a-977a6f98719d:string:EMBEDDED_RENDERER",
+        "url": "a5daa965-0313-42b1-af3e-85dd864e647e:string:https://demo-cnm.openattestation.com"
+      },
+      "issuers": [
+        {
+          "name": "dcb782c8-4f0a-4547-be73-5da1b5ed8cc6:string:DEMO STORE",
+          "tokenRegistry": "2ba0f0f1-840d-42f8-b5b5-996b28fbe89e:string:0x48399Fb88bcD031C556F53e93F690EEC07963Af3",
+          "identityProof": {
+            "type": "00627b4c-caa6-411e-b3a5-8775be3f72a1:string:DNS-TXT",
+            "location": "71bd062d-96bc-4a64-9156-4e427ac664ef:string:tradetrust.io"
+          }
+        }
+      ],
+      "recipient": {
+        "name": "34c6b6e2-c11f-47a2-be5c-4d46c1e02c0d:string:SG FREIGHT",
+        "address": {
+          "street": "b085963a-ea65-4610-9c25-d28fc319b6d4:string:101 ORCHARD ROAD",
+          "country": "81515f31-e9a4-45ca-934d-6f688a74ad1d:string:SINGAPORE"
+        }
+      },
+      "consignment": {
+        "description": "68c0d65f-0c06-4136-8eca-a7a4c9182f32:string:16667 CARTONS OF RED WINE",
+        "quantity": {
+          "value": "580cf6fa-d5eb-4864-aedc-6e57e5bc29d9:number:5000",
+          "unit": "f91a54a4-9ebb-454c-9f5b-e8b4bdd232aa:string:LITRES"
+        },
+        "countryOfOrigin": "d360b873-d635-4afa-9708-8d8cb5b5a434:string:AUSTRALIA",
+        "outwardBillNo": "37b78b9b-79c1-428a-9f8b-1e8411302400:string:AQSIQ170923130",
+        "dateOfDischarge": "166f3413-042e-4c58-b86b-0039e14e0b05:string:2018-01-26",
+        "dateOfDeparture": "5acecac4-13a5-4e49-8480-baa869732ac5:string:2018-01-30",
+        "countryOfFinalDestination": "d84018d7-0ab6-4d48-a534-d69e70ddfc5e:string:CHINA",
+        "outgoingVehicleNo": "f365c0f2-b6f3-45b3-85e5-a56f7568d903:string:COSCO JAPAN 074E/30-JAN"
+      },
+      "declaration": {
+        "name": "4a79c990-4d9c-4efb-91a6-272d4514153a:string:PETER LEE",
+        "designation": "5602ac42-1be6-44d8-a8f5-d51b7b7f7e0f:string:SHIPPING MANAGER",
+        "date": "c069427c-c342-49d7-9de7-c2fa917ce4b2:string:2018-01-28"
+      }
+    },
+    "privacy": {
+      "obfuscatedData": []
+    },
+    "signature": {
+      "type": "SHA3MerkleProof",
+      "targetHash": "fc714dc7efa164cd0261d511c51903be392c74698daf331f6f5e4c6be0203939",
+      "proof": [],
+      "merkleRoot": "fc714dc7efa164cd0261d511c51903be392c74698daf331f6f5e4c6be0203939"
+    }
+  }
+  

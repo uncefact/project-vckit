@@ -1,0 +1,12 @@
+export enum QueueState {
+  UNINITIALIZED = "UNINITIALIZED",
+  INITIALIZED = "INITIALIZED",
+  PENDING = "PENDING",
+  CONFIRMED = "CONFIRMED",
+  ERROR = "ERROR",
+}
+
+export enum QueueType {
+  ISSUE = "ISSUE",
+  REVOKE = "REVOKE",
+}

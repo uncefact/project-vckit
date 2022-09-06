@@ -1,0 +1,209 @@
+service: "api"
+provider:
+  lambdaHashingVersion: "20201221"
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  region: ap-southeast-2
+  memorySize: 256
+  timeout: 30 # downstream things take a long time
+  tracing:
+    lambda: true
+    apiGateway: true
+  logs:
+    restApi: true
+  environment:
+    BUCKET_NAME: "${self:custom.BUCKET_NAME}"
+    OBJECT_TTL: "${self:custom.OBJECT_TTL}"
+    S3_REGION: ${self:provider.region}
+  iamRoleStatements:
+    - Effect: Allow
+      Action: ["s3:putObject", "s3:upload", "s3:deleteObject", "s3:getObject"]
+      Resource:
+        - "Fn::Join": ["", ["arn:aws:s3:::", { "Ref": "DeployedBucket" }, "/*"]]
+    - Effect: Allow
+      Action: ["s3:ListBucket"]
+      Resource:
+        - "Fn::Join": ["", ["arn:aws:s3:::", { "Ref": "DeployedBucket" }]]
+resources:
+  Resources:
+    DeployedBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: "${self:custom.BUCKET_NAME}"
+        LifecycleConfiguration:
+          Rules:
+            - ExpirationInDays: ${self:custom.OBJECT_TTL}
+              Prefix: "/"
+              Status: Enabled
+functions:
+  listAllConfig:
+    handler:
+      - index.listAllHandler
+    events:
+      - http:
+          path: "/config-file"
+          method: get
+          cors: true
+
+  createConfig:
+    handler:
+      - index.createConfigHandler
+    events:
+      - http:
+          path: "/config-file"
+          method: post
+          cors: true
+
+  deleteConfig:
+    handler:
+      - index.deleteConfigHandler
+    events:
+      - http:
+          path: "/config-file/{id}"
+          method: delete
+          cors: true
+          request:
+            parameters:
+              paths:
+                id: true
+
+  updateConfig:
+    handler:
+      - index.updateConfigHandler
+    events:
+      - http:
+          path: "/config-file/{id}"
+          method: put
+          cors: true
+          request:
+            parameters:
+              paths:
+                id: true
+
+  getConfig:
+    handler:
+      - index.getConfigHandler
+    events:
+      - http:
+          path: "/config-file/{id}"
+          method: get
+          cors: true
+          request:
+            parameters:
+              paths:
+                id: true
+
+  get:
+    handler: index.getHandler
+    events:
+      - http:
+          path: "/{id}"
+          method: get
+          request:
+            parameters:
+              paths:
+                id: true
+          cors: true
+
+  create:
+    handler: index.createHandler
+    events:
+      - http:
+          path: "/{id}"
+          method: post
+          request:
+            parameters:
+              paths:
+                id: true
+          private: ${self:custom.ENABLE_STORAGE_UPLOAD_API_KEY}
+          cors: true
+  verify:
+    description: "Verify a VC"
+    handler: index.handleVerify
+    timeout: 15 # long timeout as infura api can take awhile
+    events:
+      - http:
+          path: /credentials/verify
+          method: post
+          cors: true
+  issue-default:
+    description: "Issues (wraps and signs) a vc"
+    handler: index.handleIssue
+    timeout: 15 # long timeout as infura api can take awhile
+    events:
+      - http:
+          path: /credentials/issue
+          method: post
+          cors: true
+  issue:
+    description: "Issues (wraps and signs) a vc"
+    handler: index.handleIssue
+    timeout: 15 # long timeout as infura api can take awhile
+    events:
+      - http:
+          path: /credentials/{issuerId}/issue
+          method: post
+          cors: true
+          request:
+            parameters:
+              paths:
+                issuerId: true
+  status:
+    description: "Updates revocation status of credential"
+    handler: index.handleStatus
+    timeout: 15 # long timeout as infura api can take awhile
+    events:
+      - http:
+          path: /credentials/status
+          method: post
+          cors: true
+
+  seedConfig:
+    handler:
+      - index.seedConfigHandler
+    events:
+      - http:
+          path: "/seed/config-files/{id}"
+          method: put
+          cors: true
+          request:
+            parameters:
+              paths:
+                id: true
+
+custom:
+  dotenv:
+    basePath: ../
+  mongodb:
+    instance:
+      port: 27018
+      dbPath: ./common/database
+      storageEngine: "wiredTiger"
+    seed:
+      auto: false
+      dataPath: ./common/fixtures/databaseSeedData
+  s3:
+    port: 8000
+    directory: /tmp
+  BUCKET_NAME: ${env:BUCKET_NAME, "document-storage-api"}-${self:provider.stage}
+  ENABLE_STORAGE_UPLOAD_API_KEY: ${strToBool(${env:ENABLE_STORAGE_UPLOAD_API_KEY, 'false'})}
+  OBJECT_TTL: ${env:OBJECT_TTL, 31} # Object TTL in days
+  serverless-offline:
+    lambdaPort: 5002
+    httpPort: 5010
+  webpack:
+    webpackConfig: "../webpack.config.js"
+    includeModules:
+      packagePath: "../package.json"
+  remover:
+    buckets:
+      - ${self:custom.BUCKET_NAME}
+    prompt: ${self:custom.disableBucketDeletingPrompt.${self:provider.stage}, false}
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-webpack
+  - serverless-s3-local
+  - serverless-s3-remover
+  - serverless-mongodb-local
+  - serverless-offline

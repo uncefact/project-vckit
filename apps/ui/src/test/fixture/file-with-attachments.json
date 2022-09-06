@@ -1,0 +1,80 @@
+{
+    "version": "https://schema.openattestation.com/2.0/schema.json",
+    "data": {
+        "$template": {
+            "type": "7298d8e1-8d99-4699-8be2-bd5e2cce3cb1:string:EMBEDDED_RENDERER",
+            "name": "2699ad33-5527-447d-9633-d6b3d3b55035:string:COVERING_LETTER",
+            "url": "66a43da2-7741-4172-8745-a1d74e2519ca:string:https://generic-templates.openattestation.com"
+        },
+        "issuers": [
+            {
+                "name": "b2f2f6e5-da51-4220-bc87-ea2464b8fa53:string:Demo Issuer",
+                "documentStore": "13a8b227-ab80-477a-ac89-8a6eb636ba40:string:0x8bA63EAB43342AAc3AdBB4B827b68Cf4aAE5Caca",
+                "identityProof": {
+                    "type": "b6d6029d-9300-4e43-85c1-f385ddc2e384:string:DNS-TXT",
+                    "location": "710aba89-a4de-4d4c-be86-3194b80fbde7:string:demo-tradetrust.openattestation.com"
+                }
+            }
+        ],
+        "name": "4daab279-4202-464e-aa94-929a0cd13b17:string:Covering Letter",
+        "logo": "94d76cb0-96aa-4410-a8ca-72efde6da266:string:https://pluspng.com/img-png/logo-dbs-png-file-dbs-bank-logo-svg-1280.png",
+        "backgroundColor": "2549c59b-92c3-4b42-8fa0-874b0c4f5d73:string:black",
+        "titleColor": "f45635c5-b094-45d9-9cc5-1aa2b2e0503f:string:white",
+        "descriptionColor": "f2c7dca7-7485-431a-8b49-481173f84453:string:white",
+        "title": "f57ae883-f47c-43c5-9f80-8e72f9727623:string:Documents Bundle",
+        "description": "37bde5c7-84e1-43ca-9c6b-87703a6bc191:string:Some very important documents in here for some submission",
+        "attachments": [
+            {
+                "data": "a822c232-32c1-4320-a74d-92acaa91c71e:string:aGVsbG8K",
+                "filename": "746f6aef-14a9-427b-a843-86c75b75e049:string:longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong.png",
+                "type": "4b6777c6-0c93-4ecd-a9ba-81dffb067030:string:image/png"
+            },
+            {
+                "data": "427cf103-1510-471d-86d8-0b72a847f960:string:aGVsbG8K",
+                "filename": "5b185252-6765-4e74-bac9-42e868e0b468:string:test.csv",
+                "type": "025abd88-0fe5-44d0-ad38-5d129c6bc7a3:string:text/csv"
+            },
+            {
+                "data": "34999559-0b20-45f5-aaeb-757b6537bf1c:string:aGVsbG8K",
+                "filename": "804c87a3-af62-4d20-8a0b-b90aa40bdd01:string:test.doc",
+                "type": "094b09a2-11f9-43ab-90bd-45fb7757efa9:string:application/msword"
+            },
+            {
+                "data": "61f9306f-c634-4b55-83ac-845edb6f0f1e:string:aGVsbG8K",
+                "filename": "3c003825-5795-48d5-afab-1bd93114514f:string:test.docx",
+                "type": "d13d214a-1dc0-4bac-8fb8-b869d935012e:string:application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            },
+            {
+                "data": "21a1b33e-e649-47c8-84a0-edbd6c7f7901:string:aGVsbG8K",
+                "filename": "64379bc9-3d0c-419c-bfa9-14cae38b1416:string:test.jpg",
+                "type": "b85ccf28-c40e-4d8b-81ed-b7d08c607b95:string:image/jpeg"
+            },
+            {
+                "data": "07267e4f-cea4-408f-811f-ab8015224b2b:string:aGVsbG8K",
+                "filename": "c2c38530-3d00-437f-9bbd-d4bc5be6aabc:string:test.pdf",
+                "type": "ba1a1a0e-3b55-427f-86ae-3e9cc481fb6a:string:application/pdf"
+            },
+            {
+                "data": "a277f963-93cb-4b97-978f-adb58ec95cb8:string:aGVsbG8K",
+                "filename": "1558fd90-9b7b-4296-ab47-dbbaa3d44458:string:test.txt",
+                "type": "825ed709-f67f-4672-b127-6b8f46ed8a8b:string:text/plain"
+            },
+            {
+                "data": "714c5e74-9e5c-4475-9aea-eb20da9ecc9a:string:ewogICAgInRlc3QiOiAiaGVsbG8iCn0=",
+                "filename": "e11dba2e-24dc-4a77-aced-e51adbeafe1a:string:unidentified.json",
+                "type": "07ef2124-8576-401c-860e-7078d0611ed4:string:application/json"
+            }
+        ],
+        "links": {
+            "self": {
+                "href": "1c9cf8a6-134b-43f9-8173-3263744e69d8:string:https://action.openattestation.com/?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Fapi-ropsten.tradetrust.io%2Fstorage%2F3bccac56-7e48-4682-b472-eb98559e3022%22%2C%22key%22%3A%222fa3f6e92b95c5aa3c0905d5e0b566ad495c470fbf03acf7a6bcffc05a5a4366%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22https%3A%2F%2Fdev.tradetrust.io%2F%22%7D%7D"
+            }
+        }
+    },
+    "signature": {
+        "type": "SHA3MerkleProof",
+        "targetHash": "723fab546e7ea92c61b1890e8ebfdaebf74685f0a7a06f6570993ac2590f0304",
+        "proof": [],
+        "merkleRoot": "723fab546e7ea92c61b1890e8ebfdaebf74685f0a7a06f6570993ac2590f0304"
+    }
+}

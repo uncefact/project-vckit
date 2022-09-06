@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "typescript": {
+      "configPath": "./tsconfig.json",
+      "options": {
+        "noEmit": false
+      }
+    }
+  }
+}

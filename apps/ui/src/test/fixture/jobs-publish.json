@@ -1,0 +1,361 @@
+[
+  {
+    "type": "VERIFIABLE_DOCUMENT",
+    "contractAddress": "0x8bA63EAB43342AAc3AdBB4B827b68Cf4aAE5Caca",
+    "documents": [
+      {
+        "type": "VERIFIABLE_DOCUMENT",
+        "contractAddress": "0x8bA63EAB43342AAc3AdBB4B827b68Cf4aAE5Caca",
+        "rawDocument": {
+          "shipper": {
+            "address": {
+              "street": "street",
+              "country": "country"
+            },
+            "name": "Shipper 1"
+          },
+          "consignee": {
+            "name": "consignee_name"
+          },
+          "notifyParty": {
+            "name": "jhbkh"
+          },
+          "blNumber": "BL_NO_2",
+          "vessel": "bjb",
+          "voyageNo": "jh",
+          "portOfLoading": "bjh",
+          "portOfDischarge": "bjh",
+          "placeOfReceipt": "b",
+          "placeOfDelivery": "jhbj",
+          "packages": [
+            {
+              "description": "adsf",
+              "measurement": "sdfsdf",
+              "weight": "sdfsdf"
+            },
+            {
+              "description": "sdf",
+              "measurement": "sdf",
+              "weight": "sdf"
+            }
+          ],
+          "$template": {
+            "type": "EMBEDDED_RENDERER",
+            "name": "BILL_OF_LADING",
+            "url": "https://demo-cnm.openattestation.com"
+          },
+          "issuers": [
+            {
+              "identityProof": {
+                "type": "DNS-TXT",
+                "location": "demo-tradetrust.openattestation.com"
+              },
+              "name": "DEMO STORE",
+              "documentStore": "0x8bA63EAB43342AAc3AdBB4B827b68Cf4aAE5Caca"
+            }
+          ],
+          "name": "Maersk Bill of Lading"
+        },
+        "fileName": "Document-1.tt",
+        "payload": {},
+        "wrappedDocument": {
+          "version": "https://schema.openattestation.com/2.0/schema.json",
+          "data": {
+            "shipper": {
+              "address": {
+                "street": "b5760228-1dfb-48a0-a0bb-15b7376ac510:string:street",
+                "country": "c6683d07-13e6-4e32-b5fc-b6eeb51fb85d:string:country"
+              },
+              "name": "ccd2726a-1605-44d4-8aee-1f090e1082ef:string:Shipper 1"
+            },
+            "consignee": {
+              "name": "c2313cf7-0b98-4141-8b8d-f415301b85e4:string:consignee_name"
+            },
+            "notifyParty": {
+              "name": "41e4c95c-fd3c-4ae7-ae62-7d06ba35b9b0:string:jhbkh"
+            },
+            "blNumber": "e54cbdc6-e8ce-4398-b1a3-17e59d7ba6bd:string:BL_NO_2",
+            "vessel": "ec41412c-a414-48a8-aef1-a18fedba2f9d:string:bjb",
+            "voyageNo": "92c55dc3-805d-4c21-ac1f-4dccd5d34322:string:jh",
+            "portOfLoading": "081e59e8-77c3-4007-95e2-bfe4c37043e7:string:bjh",
+            "portOfDischarge": "14c8e62d-9545-4ac6-986c-906cd5de544b:string:bjh",
+            "placeOfReceipt": "497a48c0-6628-48ca-b9a6-debe1dabe687:string:b",
+            "placeOfDelivery": "9582c26f-4bab-4e82-8cbc-14019702bef7:string:jhbj",
+            "packages": [
+              {
+                "description": "4672afc6-07a1-4bce-a3bf-73a122518262:string:adsf",
+                "measurement": "080e6580-19ce-42a1-8638-04a55f2514e1:string:sdfsdf",
+                "weight": "befad6b2-41a9-4bfd-9a24-dc1b33c7cf33:string:sdfsdf"
+              },
+              {
+                "description": "e9aabaa6-0b7c-48ee-a8a1-afb0e25f4488:string:sdf",
+                "measurement": "fa12a2c2-ff73-4af4-a41e-2acf4faae98f:string:sdf",
+                "weight": "ca1b45ee-4a50-47e4-81a6-48f8a727518b:string:sdf"
+              }
+            ],
+            "$template": {
+              "type": "a5c4c31a-65f1-4d6f-bccb-c923c4ea95c7:string:EMBEDDED_RENDERER",
+              "name": "27f67d78-a228-4203-aebd-a8c1aae43120:string:BILL_OF_LADING",
+              "url": "93d0393d-052e-457d-b5f6-a0ea7d01a4ef:string:https://demo-cnm.openattestation.com"
+            },
+            "issuers": [
+              {
+                "identityProof": {
+                  "type": "0a6c9473-d4bb-4cca-8257-370b12283161:string:DNS-TXT",
+                  "location": "242d8d67-9b79-44cc-a666-afb47113be14:string:demo-tradetrust.openattestation.com"
+                },
+                "name": "e96b45f0-efe7-444c-a95a-214a60d2a9f9:string:DEMO STORE",
+                "documentStore": "64d4f889-5804-4f07-b2b8-31a1a6a171a4:string:0x8bA63EAB43342AAc3AdBB4B827b68Cf4aAE5Caca"
+              }
+            ],
+            "name": "77e2d026-6144-4578-b58c-e68ea74edd82:string:Maersk Bill of Lading"
+          },
+          "signature": {
+            "type": "SHA3MerkleProof",
+            "targetHash": "5c6c5e47c4d86cd16c4b9fc84fc13cb808508ed1a240cc93204bbe0d77973040",
+            "proof": ["578986aa3a9c8d5f7210838f52f0d41aa45ee705cfc3d96a6580cbf7935feef6"],
+            "merkleRoot": "29dcb22aa847c3412ba7fbc3e249383f78e71b720b3480ee83887236e4e8986b"
+          }
+        }
+      },
+      {
+        "type": "VERIFIABLE_DOCUMENT",
+        "contractAddress": "0x8bA63EAB43342AAc3AdBB4B827b68Cf4aAE5Caca",
+        "rawDocument": {
+          "shipper": {
+            "address": {
+              "street": "street",
+              "country": "country"
+            },
+            "name": "Shipper 3"
+          },
+          "consignee": {
+            "name": "consignee_name"
+          },
+          "notifyParty": {
+            "name": "jhbkh"
+          },
+          "blNumber": "BL_NO_2",
+          "vessel": "bjb",
+          "voyageNo": "jh",
+          "portOfLoading": "bjh",
+          "portOfDischarge": "bjh",
+          "placeOfReceipt": "b",
+          "placeOfDelivery": "jhbj",
+          "packages": [
+            {
+              "description": "adsf",
+              "measurement": "sdfsdf",
+              "weight": "sdfsdf"
+            },
+            {
+              "description": "sdf",
+              "measurement": "sdf",
+              "weight": "sdf"
+            }
+          ],
+          "$template": {
+            "type": "EMBEDDED_RENDERER",
+            "name": "BILL_OF_LADING",
+            "url": "https://demo-cnm.openattestation.com"
+          },
+          "issuers": [
+            {
+              "identityProof": {
+                "type": "DNS-TXT",
+                "location": "demo-tradetrust.openattestation.com"
+              },
+              "name": "DEMO STORE",
+              "documentStore": "0x8bA63EAB43342AAc3AdBB4B827b68Cf4aAE5Caca"
+            }
+          ],
+          "name": "Maersk Bill of Lading"
+        },
+        "fileName": "Document-3.tt",
+        "payload": {},
+        "wrappedDocument": {
+          "version": "https://schema.openattestation.com/2.0/schema.json",
+          "data": {
+            "shipper": {
+              "address": {
+                "street": "46eae6ba-6742-479a-9eb4-2e96427b6e49:string:street",
+                "country": "d48aaa51-8f9e-41aa-a3f1-4a7653051763:string:country"
+              },
+              "name": "274b6157-91ce-408a-a694-110f12466291:string:Shipper 3"
+            },
+            "consignee": {
+              "name": "26d8af1d-27d1-4b50-989e-28821f378fd3:string:consignee_name"
+            },
+            "notifyParty": {
+              "name": "00998197-83f6-410c-bf85-4bfe74851511:string:jhbkh"
+            },
+            "blNumber": "c5f0f0ec-77c3-4b25-85e3-b8b20d166a2a:string:BL_NO_2",
+            "vessel": "37847a38-e34c-4276-85cc-dc935977ec1e:string:bjb",
+            "voyageNo": "f42026b3-581f-4200-b32e-53ccb76fee72:string:jh",
+            "portOfLoading": "c2a3f556-b3e2-4b67-b06f-a6022b8d05c7:string:bjh",
+            "portOfDischarge": "d4ad5280-74d2-475a-a270-bc5f61278181:string:bjh",
+            "placeOfReceipt": "0cc8abeb-904e-4453-b566-336ab29e45f5:string:b",
+            "placeOfDelivery": "0123c009-259d-4476-941f-68474dfd2d51:string:jhbj",
+            "packages": [
+              {
+                "description": "1e367b91-9949-4f8a-b81f-eb1f486cf0a0:string:adsf",
+                "measurement": "a4ab85ea-ef50-4880-b70f-3e8849201728:string:sdfsdf",
+                "weight": "d3c70308-a1b0-4fd1-a5af-20b9af34f555:string:sdfsdf"
+              },
+              {
+                "description": "c83572f6-115b-4c3d-8071-7d788822640b:string:sdf",
+                "measurement": "807d3e7e-960a-4e8e-a91b-26fd926888eb:string:sdf",
+                "weight": "c8fd2d87-7361-4455-a44f-064a28ad8c36:string:sdf"
+              }
+            ],
+            "$template": {
+              "type": "550a8374-d7f5-4883-aa75-62de7d9c5e18:string:EMBEDDED_RENDERER",
+              "name": "dcd5ca13-e608-46e5-bab7-fd4369e31240:string:BILL_OF_LADING",
+              "url": "c748b985-a784-4a11-8836-69750bf052af:string:https://demo-cnm.openattestation.com"
+            },
+            "issuers": [
+              {
+                "identityProof": {
+                  "type": "7356ae25-ec4b-45b1-b404-3826e1926a1e:string:DNS-TXT",
+                  "location": "626036bf-2248-4a77-a5e8-29f5fa867d92:string:demo-tradetrust.openattestation.com"
+                },
+                "name": "a3fa38d6-8828-42d7-ac09-6e079e56d8ef:string:DEMO STORE",
+                "documentStore": "7afe42fd-6ba8-4ba0-8e73-c6f68093f945:string:0x8bA63EAB43342AAc3AdBB4B827b68Cf4aAE5Caca"
+              }
+            ],
+            "name": "f01f71d4-a0da-4754-891e-ea7b448339c0:string:Maersk Bill of Lading"
+          },
+          "signature": {
+            "type": "SHA3MerkleProof",
+            "targetHash": "578986aa3a9c8d5f7210838f52f0d41aa45ee705cfc3d96a6580cbf7935feef6",
+            "proof": ["5c6c5e47c4d86cd16c4b9fc84fc13cb808508ed1a240cc93204bbe0d77973040"],
+            "merkleRoot": "29dcb22aa847c3412ba7fbc3e249383f78e71b720b3480ee83887236e4e8986b"
+          }
+        }
+      }
+    ],
+    "merkleRoot": "29dcb22aa847c3412ba7fbc3e249383f78e71b720b3480ee83887236e4e8986b"
+  },
+  {
+    "type": "VERIFIABLE_DOCUMENT",
+    "contractAddress": "0x8AE02d36F5eE60604cf46C086b3Ad5Ac43137f58",
+    "documents": [
+      {
+        "type": "VERIFIABLE_DOCUMENT",
+        "contractAddress": "0x8AE02d36F5eE60604cf46C086b3Ad5Ac43137f58",
+        "rawDocument": {
+          "shipper": {
+            "address": {
+              "street": "street",
+              "country": "country"
+            },
+            "name": "Shipper 2"
+          },
+          "consignee": {
+            "name": "consignee_name"
+          },
+          "notifyParty": {
+            "name": "jhbkh"
+          },
+          "blNumber": "BL_NO_2",
+          "vessel": "bjb",
+          "voyageNo": "jh",
+          "portOfLoading": "bjh",
+          "portOfDischarge": "bjh",
+          "placeOfReceipt": "b",
+          "placeOfDelivery": "jhbj",
+          "packages": [
+            {
+              "description": "adsf",
+              "measurement": "sdfsdf",
+              "weight": "sdfsdf"
+            },
+            {
+              "description": "sdf",
+              "measurement": "sdf",
+              "weight": "sdf"
+            }
+          ],
+          "$template": {
+            "type": "EMBEDDED_RENDERER",
+            "name": "BILL_OF_LADING",
+            "url": "https://demo-cnm.openattestation.com"
+          },
+          "issuers": [
+            {
+              "identityProof": {
+                "type": "DNS-TXT",
+                "location": "demo-tradetrust.openattestation.com"
+              },
+              "name": "DEMO STORE",
+              "documentStore": "0x8AE02d36F5eE60604cf46C086b3Ad5Ac43137f58"
+            }
+          ],
+          "name": "Bill of Lading"
+        },
+        "fileName": "Document-2.tt",
+        "payload": {},
+        "wrappedDocument": {
+          "version": "https://schema.openattestation.com/2.0/schema.json",
+          "data": {
+            "shipper": {
+              "address": {
+                "street": "6e913273-d18a-446e-9f3c-2f7b19be2bee:string:street",
+                "country": "4a4d05f9-05be-4746-af03-9f239f2ac99a:string:country"
+              },
+              "name": "a5926149-5f86-4ece-806b-0804ebe910f8:string:Shipper 2"
+            },
+            "consignee": {
+              "name": "b3a51aed-356c-42fd-93e4-29e713c048bf:string:consignee_name"
+            },
+            "notifyParty": {
+              "name": "85c1292e-8bd3-41a4-85ea-a4cc000e5ef6:string:jhbkh"
+            },
+            "blNumber": "bc00706a-be32-4e08-9535-50c0225be2aa:string:BL_NO_2",
+            "vessel": "8a7ef1aa-b8eb-422b-9f7d-dbc220757896:string:bjb",
+            "voyageNo": "eb634ee5-2a8c-4f55-aa75-4d16c58f0277:string:jh",
+            "portOfLoading": "f04cfb34-6350-496e-8391-191b122423b0:string:bjh",
+            "portOfDischarge": "2bb0bf17-985b-419b-a88c-0b6b5bb6f969:string:bjh",
+            "placeOfReceipt": "09884cbd-166d-473f-b2e0-d90b6d3a0bac:string:b",
+            "placeOfDelivery": "463420e3-9664-48b1-b732-a049a12ef74e:string:jhbj",
+            "packages": [
+              {
+                "description": "999f6cfc-7bea-448d-a122-edef7ebc6a1d:string:adsf",
+                "measurement": "ae8df078-43ae-4ce6-b7e2-35bd10e8ebb6:string:sdfsdf",
+                "weight": "2c9b9e70-6380-479c-811d-b81765c78efa:string:sdfsdf"
+              },
+              {
+                "description": "0ceb536f-31a2-4295-a59e-afd6474a6afd:string:sdf",
+                "measurement": "53be11d0-7956-49ce-aa4d-593f2d294721:string:sdf",
+                "weight": "6a68a7a1-0b5e-4bbe-af1a-7449e5e1565e:string:sdf"
+              }
+            ],
+            "$template": {
+              "type": "6c73fad2-3482-4370-bbec-2008a2f3d976:string:EMBEDDED_RENDERER",
+              "name": "f2192e5e-acfc-48dd-b088-0b016fa01991:string:BILL_OF_LADING",
+              "url": "829e5918-b377-46d6-871a-59fe9f50598a:string:https://demo-cnm.openattestation.com"
+            },
+            "issuers": [
+              {
+                "identityProof": {
+                  "type": "e4a11280-96da-4262-a8a7-a43cd1f4165b:string:DNS-TXT",
+                  "location": "ab915a4b-4a88-4c4e-92d4-23ae50f10b68:string:demo-tradetrust.openattestation.com"
+                },
+                "name": "6c6619d3-30f9-4c16-90a9-e9f107a10d2d:string:DEMO STORE",
+                "documentStore": "96b11079-c3e6-42eb-ab25-32f80b8012ec:string:0x8AE02d36F5eE60604cf46C086b3Ad5Ac43137f58"
+              }
+            ],
+            "name": "6b23be72-0a22-4f05-ba3d-3ee9772e0ea8:string:Bill of Lading"
+          },
+          "signature": {
+            "type": "SHA3MerkleProof",
+            "targetHash": "0fe387fa5e01c0407f1f5d5a3f7576c87122d9626904b76cf6fc0157ddaeda2c",
+            "proof": [],
+            "merkleRoot": "0fe387fa5e01c0407f1f5d5a3f7576c87122d9626904b76cf6fc0157ddaeda2c"
+          }
+        }
+      }
+    ],
+    "merkleRoot": "0fe387fa5e01c0407f1f5d5a3f7576c87122d9626904b76cf6fc0157ddaeda2c"
+  }
+]
