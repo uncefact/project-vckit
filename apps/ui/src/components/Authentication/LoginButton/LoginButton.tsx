@@ -1,8 +1,8 @@
 import React, { FunctionComponent, useState } from "react";
-import { Button, ButtonDVP } from "../../UI/Button";
+import { Button, ButtonVCKit } from "../../UI/Button";
 import { useAuthContext } from "../../../common/contexts/AuthenticationContext";
 
-export const LoginButton: FunctionComponent<ButtonDVP> = (props) => {
+export const LoginButton: FunctionComponent<ButtonVCKit> = (props) => {
   const { login } = useAuthContext();
 
   const [isLoading, setIsLoading] = useState(false);

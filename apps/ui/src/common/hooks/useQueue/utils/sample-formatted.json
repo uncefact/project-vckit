@@ -26,7 +26,7 @@
       },
       "links": {
         "self": {
-          "href": "http://dvp-test.com?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Fapi-ropsten.tradetrust.io%2Fstorage%2F123%22%2C%22key%22%3A%22123%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22http%3A%2F%2Fdev.dvp-test.com%2F%22%7D%7D"
+          "href": "http://vckit-test.com?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Fapi-ropsten.tradetrust.io%2Fstorage%2F123%22%2C%22key%22%3A%22123%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22http%3A%2F%2Fdev.vckit-test.com%2F%22%7D%7D"
         }
       }
     },
@@ -61,7 +61,7 @@
       },
       "links": {
         "self": {
-          "href": "http://dvp-test.com?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Fapi-ropsten.tradetrust.io%2Fstorage%2F123%22%2C%22key%22%3A%22123%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22http%3A%2F%2Fdev.dvp-test.com%2F%22%7D%7D"
+          "href": "http://vckit-test.com?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Fapi-ropsten.tradetrust.io%2Fstorage%2F123%22%2C%22key%22%3A%22123%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22http%3A%2F%2Fdev.vckit-test.com%2F%22%7D%7D"
         }
       }
     },
@@ -101,7 +101,7 @@
       },
       "links": {
         "self": {
-          "href": "http://dvp-test.com?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Fapi-ropsten.tradetrust.io%2Fstorage%2F123%22%2C%22key%22%3A%22123%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22http%3A%2F%2Fdev.dvp-test.com%2F%22%7D%7D"
+          "href": "http://vckit-test.com?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Fapi-ropsten.tradetrust.io%2Fstorage%2F123%22%2C%22key%22%3A%22123%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22http%3A%2F%2Fdev.vckit-test.com%2F%22%7D%7D"
         }
       }
     },
@@ -136,7 +136,7 @@
       },
       "links": {
         "self": {
-          "href": "http://dvp-test.com?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Fapi-ropsten.tradetrust.io%2Fstorage%2F123%22%2C%22key%22%3A%22123%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22http%3A%2F%2Fdev.dvp-test.com%2F%22%7D%7D"
+          "href": "http://vckit-test.com?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Fapi-ropsten.tradetrust.io%2Fstorage%2F123%22%2C%22key%22%3A%22123%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22http%3A%2F%2Fdev.vckit-test.com%2F%22%7D%7D"
         }
       }
     },

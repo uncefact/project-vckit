@@ -73,7 +73,7 @@ module.exports = {
       template: `${__dirname}/public/static/index.html`,
       GA_MEASUREMENT_ID,
       GA_CONFIG_OPTION,
-      APP_NAME: APP_NAME || "Digital Verification Platform",
+      APP_NAME: APP_NAME || "VCKit Exemplar",
       FAVICON_PATH: FAVICON_PATH || "/static/images/favicon/favicon.png",
     }),
     ...(!IS_DEV_SERVER

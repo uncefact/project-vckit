@@ -19,10 +19,10 @@ const mockAugmentPDF = jest.spyOn(PDF, "augmentPDF");
 
 jest.mock("axios");
 jest.mock("../../../../appConfig", () => ({
-  VCKIT_DOMAIN: "dvp-test.com",
+  VCKIT_DOMAIN: "vckit-test.com",
   PROTOCOL: "http",
-  VCKIT_WEBSITE: "http://dvp-test.com",
-  VCKIT_API: "http://api.dvp-test.com",
+  VCKIT_WEBSITE: "http://vckit-test.com",
+  VCKIT_API: "http://api.vckit-test.com",
 }));
 
 const sampleConfig = {
