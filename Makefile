@@ -19,25 +19,25 @@ DATABASE_SERVER_SELECTION_TIMEOUT ?= 3000
 .EXPORT_ALL_VARIABLES: ; # send all vars to shell
 
 install:
-	cd apps/dvp-website && npm ci
+	cd apps/ui && npm ci
 	cd apps/api && npm ci
 
 lint:
-	cd apps/dvp-website && npm run lint
+	cd apps/ui && npm run lint
 	cd apps/api && npm run lint
 
 unit-test:
-	cd apps/dvp-website && npm run test:coverage
+	cd apps/ui && npm run test:coverage
 	cd apps/api && npm run test:coverage
 
 build:
-	cd apps/dvp-website && npm run build
+	cd apps/ui && npm run build
 	cd apps/api && npm run build
 
 # helper command to create a `artifacts` dir locally (mirroring what happens in CI pipeline)
 create-artifacts-locally:
 	mkdir -p ./artifacts
-	cp -r apps/dvp-website/dist/. ./artifacts/dvp-website-build/
+	cp -r apps/ui/dist/. ./artifacts/ui-build/
 	cp -r apps/api/.webpack/. ./artifacts/api-build/
 
 ### Deployment
