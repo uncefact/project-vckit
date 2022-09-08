@@ -1,0 +1,31 @@
+{
+  "version": "https://schema.openattestation.com/2.0/schema.json",
+  "data": {
+    "shipper": { "address": {} },
+    "consignee": {},
+    "notifyParty": {},
+    "$template": {
+      "type": "51c24df9-7926-43ce-82d2-53812bca32af:string:EMBEDDED_RENDERER",
+      "name": "af11f7f8-6ee6-45c1-b948-f0d9404f48b7:string:BILL_OF_LADING",
+      "url": "5ec32a9f-aca4-4865-ab90-1d7abf2552ba:string:https://demo-cnm.openattestation.com"
+    },
+    "issuers": [
+      {
+        "identityProof": {
+          "type": "27e512a1-3307-4466-b18b-125efb0755a4:string:DNS-TXT",
+          "location": "7f7ac17d-3b3b-400d-9b08-29bbd135e30c:string:demo-tradetrust.openattestation.com"
+        },
+        "name": "4b79b29d-96b2-473a-92bf-1a49fdc72494:string:DEMO STORE",
+        "tokenRegistry": "19b80653-bffc-40d6-9096-8c9a0982c192:string:0x9Eb613a88534E2939518f4ffBFE65F5969b491FF"
+      }
+    ],
+    "name": "f4b4c725-d66a-4298-984c-d869368dfa6e:string:Maersk Bill of Lading",
+    "blNumber": "f08bc913-2000-41f3-832e-dd5df9d0cd6a:string:111"
+  },
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "3e7418c37f878fd8585950210aca250a11002bb121d5624ef985a43a31381302",
+    "proof": [],
+    "merkleRoot": "3e7418c37f878fd8585950210aca250a11002bb121d5624ef985a43a31381302"
+  }
+}

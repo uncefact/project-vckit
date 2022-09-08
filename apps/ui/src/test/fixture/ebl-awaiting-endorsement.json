@@ -1,0 +1,67 @@
+{
+  "schema": "tradetrust/v1.0",
+  "data": {
+    "$template": {
+      "type": "a58bd296-f84c-4fde-b0ac-2be7f985e7ca:string:EMBEDDED_RENDERER",
+      "name": "a46978a3-a1c5-497f-91a9-821e70e6d494:string:BILL_OF_LADING",
+      "url": "eecf8c61-73fb-49b6-9314-d436e246fb20:string:https://demo-cnm.openattestation.com"
+    },
+    "issuers": [
+      {
+        "identityProof": {
+          "type": "5cd12611-75ab-4142-b91e-33ab84dd4b8b:string:DNS-TXT",
+          "location": "9e7dfeb8-e17f-464d-8103-71c4f4597a26:string:tradetrust.io"
+        },
+        "name": "a3b6d689-080f-499a-85f1-b7ab992bc1aa:string:DEMO STORE",
+        "tokenRegistry": "516e7763-3605-46b1-96f1-de93cd791768:string:0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+      }
+    ],
+    "consignee": {
+      "name": "a4259b74-329e-4c4a-81e7-c9ea15afe0f3:string:Demo Consignee",
+      "type": "eb003928-a1a7-43dc-af12-1d33077facc8:string:To the owner of"
+    },
+    "notifyParty": {
+      "name": "ea1ef14f-331f-4c19-89d2-4b58950bb29d:string:Demo Notify"
+    },
+    "shipper": {
+      "address": {
+        "street": "3b185dc8-317a-4ba0-83e6-bc4e20cb52ec:string:One North",
+        "country": "b97635f1-9ef1-4b94-b4e2-b3e5bf42f342:string:Singapore"
+      },
+      "name": "3ce767e3-484e-40d9-bc7c-18e734453d63:string:Demo Shipper"
+    },
+    "packages": [
+      {
+        "description": "d725e782-3ac3-4084-88d6-bc2c0c3ad15f:string:Green Apples",
+        "weight": "bb1425f7-aef8-4431-807c-97e6086d48a0:number:20",
+        "measurement": "f32e325a-c2d8-4e6d-8be0-abfde2f2ceb7:string:100"
+      }
+    ],
+    "id": "a0c9c588-66a2-4de4-80b5-0003ea8252d9:string:123",
+    "name": "80989c7c-18cd-4ab7-afdc-0379fc2cd6cd:string:Maersk Bill of Lading",
+    "initialTokenOwnerAddress": "2a1dfd27-94d5-46ca-b04d-bbe2a9244ec8:string:0x4BD9B0838FcC487DBc883ad0E417aEd98001268a",
+    "recipient": {
+      "name": "46f78198-e402-430b-a5b7-9f04548c75a6:string:SG FREIGHT",
+      "address": {
+        "street": "51559633-b322-4af3-bd64-1adb2f4bf54c:string:101 ORCHARD ROAD",
+        "country": "20d71be3-796d-4bf2-b330-8659ef83ecb7:string:SINGAPORE"
+      }
+    },
+    "vessel": "b528c339-3424-4a91-b8b2-95d3af378bf2:string:1",
+    "voyageNo": "7beceb5a-0ae9-4e7e-898a-93179b303dcc:number:100",
+    "portOfLoading": "8429f3f6-3ffb-4d88-b37b-fd952acc230c:string:Singapore Port",
+    "portOfDischarge": "60d1795f-0885-4519-92e8-ab834ab9da43:string:China Port",
+    "placeOfReceipt": "845c745b-dd03-45a3-beed-4c6795387ac9:string:Beijing",
+    "placeOfDelivery": "abd339fa-53fa-4c82-863b-a028aa459748:string:Singapore",
+    "blNumber": "524c8507-8d81-4552-b549-5906e06fd256:string:987"
+  },
+  "privacy": {
+    "obfuscatedData": []
+  },
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "97d56a966c4b7c4eac12233af6a851707bb23564056f445e89f1fa66df2c024a",
+    "proof": [],
+    "merkleRoot": "97d56a966c4b7c4eac12233af6a851707bb23564056f445e89f1fa66df2c024a"
+  }
+}

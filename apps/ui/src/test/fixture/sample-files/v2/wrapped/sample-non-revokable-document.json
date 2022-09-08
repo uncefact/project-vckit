@@ -1,0 +1,36 @@
+{
+  "version": "https://schema.openattestation.com/2.0/schema.json",
+  "data": {
+    "shipper": { "address": {} },
+    "consignee": {},
+    "notifyParty": {},
+    "$template": {
+      "type": "8f5becd0-3224-48dd-81e5-4368936824e6:string:EMBEDDED_RENDERER",
+      "name": "de92c05a-5787-44a9-ba3e-0a7496f114a3:string:BILL_OF_LADING",
+      "url": "d2cc4d96-39fb-41a4-8d11-0e2de82fe908:string:https://generic-templates.tradetrust.io"
+    },
+    "issuers": [
+      {
+        "identityProof": {
+          "type": "8e7e762a-9cca-49cc-9535-787dc9275554:string:DNS-TXT",
+          "location": "9533b337-6f46-4c24-92bc-b20a5950b8d0:string:demo-tradetrust.openattestation.com"
+        },
+        "name": "f2cc3f53-26e6-4be1-9816-8a41bb0ec0c5:string:DEMO TOKEN REGISTRY",
+        "tokenRegistry": "7963ba38-1b33-49b4-a316-2f2ff85a1ed8:string:0x72d9a82203Ef9177239A5E3cB7A8FB9a78D04f17"
+      }
+    ],
+    "blNumber": "ff993ec9-54fc-496f-992c-9785bfadab9d:string:123456",
+    "scac": "e38a433b-720b-4765-b56d-0da44833628e:string:abc123",
+    "links": {
+      "self": {
+        "href": "e975a87e-6064-4fe5-bd51-8b8cdcebad8c:string:https://action.openattestation.com?q=%7B%22type%22%3A%22DOCUMENT%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Fapi-ropsten.tradetrust.io%2Fstorage%2Fe71f9dd5-ef6d-4668-b012-7982a40b7ba5%22%2C%22key%22%3A%22f3a024d80e5573a6e81c5e60a24872f0a37329f2c6038b5dd991627fd54fe1e1%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22https%3A%2F%2Fdev.tradetrust.io%2F%22%7D%7D"
+      }
+    }
+  },
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "e16e35d19f12c2011bfd5fc1f253aa65c427f7d11b2acf16670a74ee9981cf51",
+    "proof": [],
+    "merkleRoot": "e16e35d19f12c2011bfd5fc1f253aa65c427f7d11b2acf16670a74ee9981cf51"
+  }
+}

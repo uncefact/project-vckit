@@ -1,0 +1,58 @@
+{
+  "schema": "tradetrust/v1.0",
+  "data": {
+    "$template": {
+      "type": "7c512350-6017-4b40-b181-474c2f53b645:string:EMBEDDED_RENDERER",
+      "name": "a3a488ae-4bf7-47cd-a51e-2193350dbd70:string:BILL_OF_LADING",
+      "url": "f514127f-dc38-4ea2-aff6-20d28c5bab70:string:https://demo-cnm.openattestation.com"
+    },
+    "issuers": [
+      {
+        "identityProof": {
+          "type": "4f6ebcbe-2339-4e3b-a0c2-81d878903d23:string:DNS-TXT",
+          "location": "c0af6c57-f1d3-4078-ba0f-8b7968ea34c7:string:tradetrust.io"
+        },
+        "name": "e7ee2413-ab58-4e91-82dd-515ceee86c4f:string:DEMO STORE",
+        "tokenRegistry": "a178b6a8-b451-4bae-9f31-0282ad7997e6:string:0xdA8DBd2Aaffc995F11314c0040716E791de5aEd2"
+      }
+    ],
+    "consignee": {
+      "name": "e30f1245-d34c-47c9-a9a0-96fa3f208a13:string:Demo Consignee",
+      "type": "1e9a01b8-df9e-4d57-b121-63d22259438a:string:To the owner of"
+    },
+    "notifyParty": {
+      "name": "0ed79972-c6e6-4a13-9be9-d04481dc29f3:string:Demo Notify"
+    },
+    "shipper": {
+      "address": {
+        "street": "8ed83700-72ee-4ac7-ab36-1605b3a99d69:string:One North",
+        "country": "915abd48-fd89-452a-9019-d887c2a95b60:string:Singapore"
+      },
+      "name": "a44e6a2a-8c85-4990-aa27-05c413ef4c82:string:Demo Shipper"
+    },
+    "packages": [
+      {
+        "description": "c2a63d6c-a6a5-48af-9730-a84a13ce6be7:string:Green Apples",
+        "weight": "5ebaad3b-35c7-4319-a594-3f67871f9d21:number:20",
+        "measurement": "12964348-fac0-493f-b67e-981c2e58afd1:string:100"
+      }
+    ],
+    "blNumber": "a6e6f432-5252-4e85-9f3b-960ed9c45cf2:string:123",
+    "name": "31acc0cd-5f66-400e-a13c-40d632bfa782:string:Maersk Bill of Lading",
+    "vessel": "c4899f8a-4a08-42a5-8032-9107bcca2875:string:1",
+    "voyageNo": "76d4886e-8f9f-4b61-b570-025c571f3940:number:100",
+    "portOfLoading": "6df8f71b-5f1e-4298-b898-29f0df286925:string:Singapore Port",
+    "portOfDischarge": "0f3b67c0-e150-4816-9524-019ce1716789:string:China Port",
+    "placeOfReceipt": "db16b057-5241-4505-8be1-e943bdd439e3:string:Beijing",
+    "placeOfDelivery": "50a3028a-0c62-4e51-87c4-4fba9470e475:string:Singapore"
+  },
+  "privacy": {
+    "obfuscatedData": []
+  },
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066",
+    "proof": [],
+    "merkleRoot": "5d063d51d222c0f5f84fbe18f8e5102859a262f5e1b50148131282d0ebde0066"
+  }
+}

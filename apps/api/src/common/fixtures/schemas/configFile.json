@@ -1,0 +1,46 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/object1657602015.json",
+  "title": "Root",
+  "type": "object",
+  "required": ["forms"],
+  "properties": {
+    "network": {
+      "$id": "#root/network",
+      "title": "Network",
+      "type": "string",
+      "default": "",
+      "pattern": "^.*$"
+    },
+    "wallet": {
+      "$id": "#root/wallet",
+      "title": "Wallet",
+      "type": "object",
+      "required": ["type", "encryptedJson"],
+      "properties": {
+        "type": {
+          "$id": "#root/wallet/type",
+          "title": "Type",
+          "type": "string",
+          "default": "",
+          "pattern": "^.*$"
+        },
+        "encryptedJson": {
+          "$id": "#root/wallet/encryptedJson",
+          "title": "Encryptedjson",
+          "type": "string",
+          "default": "",
+          "pattern": "^.*$"
+        }
+      }
+    },
+    "forms": {
+      "$id": "#root/forms",
+      "title": "Forms",
+      "type": "array",
+      "default": []
+    }
+  },
+  "additionalProperties": false
+}

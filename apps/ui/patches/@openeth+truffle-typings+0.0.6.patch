@@ -1,0 +1,15 @@
+diff --git a/node_modules/@openeth/truffle-typings/index.d.ts b/node_modules/@openeth/truffle-typings/index.d.ts
+index 5de91fb..cb8bc00 100644
+--- a/node_modules/@openeth/truffle-typings/index.d.ts
++++ b/node_modules/@openeth/truffle-typings/index.d.ts
+@@ -9,8 +9,8 @@ declare type Web3 = import("web3").default;
+ 
+ declare type provider = import("web3-core").provider
+ 
+-declare const assert: Chai.AssertStatic;
+-declare const expect: Chai.ExpectStatic;
++// declare const assert: Chai.AssertStatic;
++// declare const expect: Chai.ExpectStatic;
+ 
+ declare const web3: Web3;
+ 

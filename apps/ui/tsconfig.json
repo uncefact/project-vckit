@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "esnext"],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
+    "sourceMap": true,
+    "types": ["jest", "node", "webpack-env", "@testing-library/jest-dom", "@types/gtag.js"],
+    "allowJs": true,
+    "noEmit": true,
+    "useUnknownInCatchVariables": true,
+    "baseUrl": "."
+  },
+  "include": ["src"]
+}

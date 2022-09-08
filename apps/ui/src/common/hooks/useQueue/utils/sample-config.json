@@ -1,0 +1,101 @@
+{
+  "network": "ropsten",
+  "wallet": "{\"address\":\"1245e5b64d785b25057f7438f715f4aa5d965733\",\"id\":\"bf069d1b-4e88-487c-b695-f2e03ed7c1ff\",\"version\":3,\"Crypto\":{\"cipher\":\"aes-128-ctr\",\"cipherparams\":{\"iv\":\"1f34e7bfdaee4b0778ecea4c8d12a543\"},\"ciphertext\":\"4f6cee88b4776f4f6f8eedf3da11c6a13542aa4bb65d46a5c1bc44c100a96f54\",\"kdf\":\"scrypt\",\"kdfparams\":{\"salt\":\"d931e0ea13032fd70060e40054c5a76c0571f4d840ec91eeda1bf68bdcad84db\",\"n\":1,\"dklen\":32,\"p\":1,\"r\":8},\"mac\":\"06c7897e3ff04245bf4f0765d8b6a8482c1c9981cb46ae88f636f9c83cd0b891\"},\"x-ethers\":{\"client\":\"ethers.js\",\"gethFilename\":\"UTC--2020-05-15T09-03-13.0Z--1245e5b64d785b25057f7438f715f4aa5d965733\",\"mnemonicCounter\":\"99b7f5b6897dcfe22fc7aa00d8e3cf5e\",\"mnemonicCiphertext\":\"6e7c1d38f162e54050b125f1f51b43ca\",\"path\":\"m/44'/60'/0'/0/0\",\"version\":\"0.1\"}}",
+  "forms": [
+    {
+      "name": "COO (ChAFTA)",
+      "type": "VERIFIABLE_DOCUMENT",
+      "defaults": {
+        "$template": {
+          "type": "EMBEDDED_RENDERER",
+          "name": "custom",
+          "url": "https://chafta.tradetrust.io"
+        },
+        "issuers": [
+          {
+            "name": "Demo Issuer",
+            "documentStore": "0x8bA63EAB43342AAc3AdBB4B827b68Cf4aAE5Caca",
+            "identityProof": {
+              "type": "DNS-TXT",
+              "location": "demo-tradetrust.openattestation.com"
+            }
+          }
+        ],
+        "name": "CHAFTA Certificate of Origin"
+      },
+      "schema": {
+        "type": "object",
+        "properties": {
+          "iD": { "type": "string", "title": "COO ID" },
+          "issueDateTime": {
+            "type": "string",
+            "title": "Issued Date & Time"
+          }
+        }
+      },
+      "attachments": {
+        "allow": true,
+        "accept": ".pdf"
+      }
+    },
+    {
+      "name": "Bill of Lading",
+      "type": "TRANSFERABLE_RECORD",
+      "defaults": {
+        "$template": {
+          "type": "EMBEDDED_RENDERER",
+          "name": "BILL_OF_LADING",
+          "url": "https://demo-cnm.openattestation.com"
+        },
+        "issuers": [
+          {
+            "identityProof": {
+              "type": "DNS-TXT",
+              "location": "demo-tradetrust.openattestation.com"
+            },
+            "name": "DEMO STORE",
+            "tokenRegistry": "0x10E936e6BA85dC92505760259881167141365821"
+          }
+        ],
+        "name": "Maersk Bill of Lading"
+      },
+      "schema": {
+        "type": "object",
+        "required": ["blNumber"],
+        "properties": {
+          "blNumber": {
+            "type": "string",
+            "title": "BL Number"
+          },
+          "shipper": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "address": {
+                "type": "object",
+                "properties": {
+                  "street": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "attachments": {
+        "allow": true,
+        "accept": ".pdf, .json"
+      }
+    }
+  ],
+  "documentStorage": {
+    "apiKey": "randonKey",
+    "url": "https://api-ropsten.tradetrust.io/storage"
+  }
+}
