@@ -419,7 +419,7 @@ const provider = new aws.Provider(`${stack}-provider-us-east-1`, { region: "us-e
 const sslCertificate = pulumi.output(
   aws.acm.getCertificate(
     {
-      domain: config.dvpApiDomain,
+      domain: config.vckitApiDomain,
       statuses: ["ISSUED"],
     },
     { provider: provider }
@@ -432,14 +432,14 @@ const hostedZoneId = aws.route53.getZone({ name: config.targetDomain }, {}).then
 // Register custom domain name with ApiGateway
 const apiDomainName = new aws.apigateway.DomainName(`${stack}-api-domain-name`, {
   certificateArn: sslCertificate.arn,
-  domainName: config.dvpApiDomain,
+  domainName: config.vckitApiDomain,
 });
 
 // Create dns record
 new aws.route53.Record(`${stack}-api-dns`, {
   zoneId: hostedZoneId,
   type: "A",
-  name: config.dvpApiDomain,
+  name: config.vckitApiDomain,
   aliases: [
     {
       name: apiDomainName.cloudfrontDomainName,
@@ -457,4 +457,4 @@ new aws.apigateway.BasePathMapping(`${stack}-api-domain-mapping`, {
 });
 
 export const storageApiBucketUrl = storageApiBucket.websiteEndpoint;
-export const apigatewayUrl = `https://${config.dvpApiDomain}`;
+export const apigatewayUrl = `https://${config.vckitApiDomain}`;

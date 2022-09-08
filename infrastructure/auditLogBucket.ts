@@ -6,18 +6,18 @@ import { kmsCmkAlias } from "./kms";
 import { originAccessIdentity } from "./originAccessIdentity";
 
 const config = {
-  dvpStack: pulumi.getStack(),
-  dvpApp: process.env.APP_NAME,
-  dvpEnv: process.env.ENV,
+  vckitStack: pulumi.getStack(),
+  vckitApp: process.env.APP_NAME,
+  vckitEnv: process.env.ENV,
 };
 
 //
 // Create S3 Bucket for audit logs
 // NB - SSE-KMS is not supported for s3 access logging
 // (https://aws.amazon.com/premiumsupport/knowledge-center/s3-server-access-log-not-delivered/)
-export const auditLogBucket = new Components.aws.S3Bucket(`${config.dvpStack}-audit-logs`, {
-  description: `S3 Bucket for ${config.dvpStack} audit logs.`,
-  bucketName: `${config.dvpStack}-audit-logs`,
+export const auditLogBucket = new Components.aws.S3Bucket(`${config.vckitStack}-audit-logs`, {
+  description: `S3 Bucket for ${config.vckitStack} audit logs.`,
+  bucketName: `${config.vckitStack}-audit-logs`,
   logBucket: "none",
   forceDestroy: true,
 });

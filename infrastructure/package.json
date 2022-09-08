@@ -1,5 +1,5 @@
 {
-  "name": "ha-dvp",
+  "name": "ha-vckit",
   "scripts": {
     "postinstall": "cd policypack && npm install"
   },

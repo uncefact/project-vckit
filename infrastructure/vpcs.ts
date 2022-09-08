@@ -8,7 +8,7 @@ const stack = pulumi.getStack();
 //
 // Create `trustbridgeVpc` and S3 Bucket for VPC Flowlogs
 const flowlogBucket = new Components.aws.S3Bucket(`${stack}-trustbridgevpc-flowlogs`, {
-  description: "S3 Bucket for `dvpWebsite` static website contents.",
+  description: "S3 Bucket for `vckitWebsite` static website contents.",
   bucketName: `${stack}-trustbridgevpc-flowlogs`,
   logBucket: auditLogBucket.bucket,
   logBucketPrefix: `s3/trustbridgevpc-flowlogs/`,

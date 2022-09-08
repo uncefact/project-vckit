@@ -15,7 +15,7 @@ if (
 
 export const config = {
   targetDomain: process.env.TARGET_DOMAIN,
-  dvpApiDomain: process.env.VCKIT_API_DOMAIN,
+  vckitApiDomain: process.env.VCKIT_API_DOMAIN,
   databaseCollectionName: process.env.CONFIGFILE_DATABASE_COLLECTION_NAME,
   databaseServerSelectionTimeout: process.env.DATABASE_SERVER_SELECTION_TIMEOUT,
   databaseOptions: {

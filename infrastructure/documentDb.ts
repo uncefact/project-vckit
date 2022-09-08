@@ -41,7 +41,7 @@ export const schemaRegistryDocumentDbCluster = new aws.docdb.Cluster("schemaRegi
   engine: "docdb",
   kmsKeyId: kmsCmkAlias.targetKeyArn,
   masterPassword: schemaRegistryDocumentDbMasterPassword.result,
-  masterUsername: "dvpMasterUser",
+  masterUsername: "vckitMasterUser",
   preferredBackupWindow: "07:00-09:00",
   skipFinalSnapshot: true,
   storageEncrypted: true,

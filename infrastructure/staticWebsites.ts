@@ -8,20 +8,20 @@ import { originAccessIdentity } from "./originAccessIdentity";
 
 const config = {
   hostedZoneDomain: process.env.TARGET_DOMAIN,
-  dvpDomain: process.env.VCKIT_DOMAIN,
-  dvpApp: process.env.APP_NAME,
-  dvpEnv: process.env.ENV,
+  vckitDomain: process.env.VCKIT_DOMAIN,
+  vckitApp: process.env.APP_NAME,
+  vckitEnv: process.env.ENV,
 };
 
-if (!(config.hostedZoneDomain && config.dvpDomain && config.dvpApp && config.dvpEnv)) {
+if (!(config.hostedZoneDomain && config.vckitDomain && config.vckitApp && config.vckitEnv)) {
   throw new pulumi.RunError(`Missing one or more of the required environment variables: TARGET_DOMAIN, VCKIT_DOMAIN, APP_NAME, ENV"`);
 }
 
 //
-// Create S3 Bucket and Cloudfront Distribution for `dvpWebsite`
-const dvpWebsiteS3Bucket = new Components.aws.S3Bucket("dvpWebsiteS3Bucket", {
-  description: "S3 Bucket for `dvpWebsite` static website contents.",
-  bucketName: config.dvpDomain,
+// Create S3 Bucket and Cloudfront Distribution for `vckitWebsite`
+const vckitWebsiteS3Bucket = new Components.aws.S3Bucket("vckitWebsiteS3Bucket", {
+  description: "S3 Bucket for `vckitWebsite` static website contents.",
+  bucketName: config.vckitDomain,
   /**
    * NOTE on argument `kmsMasterKeyId` -
    * Cloudfront cannot by default access S3 objects encrypted with SSE-KMS. To do so requires setting up Cloudfront Lambda@Edge.
@@ -31,22 +31,22 @@ const dvpWebsiteS3Bucket = new Components.aws.S3Bucket("dvpWebsiteS3Bucket", {
    */
   // kmsMasterKeyId: kmsCmkAlias.targetKeyId,
   logBucket: auditLogBucket.bucket,
-  logBucketPrefix: `s3/${config.dvpDomain}/`,
-  pathToBucketContents: "../artifacts/dvp-website-build",
+  logBucketPrefix: `s3/${config.vckitDomain}/`,
+  pathToBucketContents: "../artifacts/vckit-website-build",
   website: { indexDocument: "index.html", errorDocument: "index.html" },
   forceDestroy: true,
 });
-const dvpWebsite = new Components.aws.CloudfrontWebsite("dvpWebsite", {
-  description: "Static website for dvpWebsite SPA. Stored on S3. Served via Cloudfront",
+const vckitWebsite = new Components.aws.CloudfrontWebsite("vckitWebsite", {
+  description: "Static website for vckitWebsite SPA. Stored on S3. Served via Cloudfront",
 
-  s3Bucket: dvpWebsiteS3Bucket.bucket,
+  s3Bucket: vckitWebsiteS3Bucket.bucket,
 
   hostedZoneDomain: config.hostedZoneDomain,
-  targetDomain: config.dvpDomain,
+  targetDomain: config.vckitDomain,
   logBucket: auditLogBucket.bucket,
-  logBucketPrefix: `cloudfront/${config.dvpDomain}/`,
+  logBucketPrefix: `cloudfront/${config.vckitDomain}/`,
   originAccessIdentity: originAccessIdentity,
 });
 
-export const dvpWebsiteBucketName = dvpWebsiteS3Bucket.bucketName();
-export const dvpWebsiteCloudfrontAliases = dvpWebsite.cloudfrontAliases();
+export const vckitWebsiteBucketName = vckitWebsiteS3Bucket.bucketName();
+export const vckitWebsiteCloudfrontAliases = vckitWebsite.cloudfrontAliases();

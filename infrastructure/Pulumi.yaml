@@ -1,5 +1,5 @@
-name: ha-dvp
+name: ha-vckit
 runtime: nodejs
-description: Pulumi project for GoSource HA-DVP project
+description: Pulumi project for GoSource HA-vckit project
 options:
   refresh: always
