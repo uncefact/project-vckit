@@ -1,9 +1,9 @@
 import { decodeQrCode, encodeQrCode, getDocumentNetwork } from "./utils";
 
 jest.mock("../../appConfig", () => ({
-  VCKIT_DOMAIN: "dvp-test.com",
+  VCKIT_DOMAIN: "vckit-test.com",
   PROTOCOL: "http",
-  VCKIT_WEBSITE: "http://dvp-test.com",
+  VCKIT_WEBSITE: "http://vckit-test.com",
 }));
 
 describe("encodeQrCode", () => {
@@ -19,7 +19,7 @@ describe("encodeQrCode", () => {
     };
 
     expect(encodeQrCode(qrCode)).toStrictEqual(
-      "http://dvp-test.com?q=%7B%22type%22%3A%22url%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Ftesturl.com%22%2C%22key%22%3A%22123%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22test%20Site%22%7D%7D"
+      "http://vckit-test.com?q=%7B%22type%22%3A%22url%22%2C%22payload%22%3A%7B%22uri%22%3A%22https%3A%2F%2Ftesturl.com%22%2C%22key%22%3A%22123%22%2C%22permittedActions%22%3A%5B%22STORE%22%5D%2C%22redirect%22%3A%22test%20Site%22%7D%7D"
     );
   });
 });
@@ -27,9 +27,9 @@ describe("encodeQrCode", () => {
 describe("decodeQrCode", () => {
   it("decodes an action correctly regardless of trailing slash", () => {
     const encodedQrCodeSlash =
-      "http://dvp-test.com/?q=%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D";
+      "http://vckit-test.com/?q=%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D";
     const encodedQrCodeNoSlash =
-      "http://dvp-test.com?q=%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D";
+      "http://vckit-test.com?q=%7B%22uri%22%3A%22https%3A%2F%2Fsample.domain%2Fdocument%2Fid%3Fq%3Dabc%23123%22%7D";
 
     expect(decodeQrCode(encodedQrCodeSlash)).toStrictEqual({
       uri: "https://sample.domain/document/id?q=abc#123",

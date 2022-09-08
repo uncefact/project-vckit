@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useState } from "react";
-import { Button, ButtonDVP } from "../../UI/Button";
+import { Button, ButtonVCKit } from "../../UI/Button";
 import { useAuthContext } from "../../../common/contexts/AuthenticationContext";
 import { useConfigContext } from "../../../common/contexts/config";
 import { usePersistedConfigFile } from "../../../common/hooks/usePersistedConfigFile";
 
-export const LogoutButton: FunctionComponent<ButtonDVP> = (props) => {
+export const LogoutButton: FunctionComponent<ButtonVCKit> = (props) => {
   const { logout } = useAuthContext();
   const { setConfig } = useConfigContext();
   const { setConfigFile } = usePersistedConfigFile();

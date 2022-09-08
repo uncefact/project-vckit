@@ -36,4 +36,4 @@ export class Logger {
   }
 }
 
-export const logger = new Logger("dvp-functions");
+export const logger = new Logger("vckit-functions");

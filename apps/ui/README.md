@@ -2,7 +2,7 @@
 
 ## White-labelling
 
-The Digital Verification Platform (DVP) supports white-labelling through the use of configuration files.
+VCKit supports white-labelling through the use of configuration files.
 
 ### General Configuration
 
@@ -14,7 +14,7 @@ The `src/tailwind.js` file contains theme and styling variables, such as primary
 
 ### RJSF Custom Layout
 
-The DVP leverages [RJSF](https://react-jsonschema-form.readthedocs.io/en/latest/) to render schema-driven forms. In order to control the layout of the fields, a custom [ObjectFieldTemplate](https://react-jsonschema-form.readthedocs.io/en/latest/advanced-customization/custom-templates/#objectfieldtemplate) is implemented with the feature to allow multiple fields to be on the same row. Every row is divided into 12 columns. To specify the number of columns a field can span, include the `uiLayout` in the corresponding object under `uiSchema` in the config file. The index of an item in the layout array corresponds to the position of the child field. If no span is specified for a particular field then the field takes up the entire row by default. The layout can be configured for each breakpoint size:
+VCKit leverages [RJSF](https://react-jsonschema-form.readthedocs.io/en/latest/) to render schema-driven forms. In order to control the layout of the fields, a custom [ObjectFieldTemplate](https://react-jsonschema-form.readthedocs.io/en/latest/advanced-customization/custom-templates/#objectfieldtemplate) is implemented with the feature to allow multiple fields to be on the same row. Every row is divided into 12 columns. To specify the number of columns a field can span, include the `uiLayout` in the corresponding object under `uiSchema` in the config file. The index of an item in the layout array corresponds to the position of the child field. If no span is specified for a particular field then the field takes up the entire row by default. The layout can be configured for each breakpoint size:
 
 - sm (min-width: 0)
 - md (min-width: 768px)

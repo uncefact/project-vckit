@@ -3,7 +3,7 @@ import { getConfigFile } from "./configFileAPI";
 import { VCKIT_API, CONFIG_FILE_ROUTE } from "../../appConfig";
 
 jest.mock("../../appConfig", () => ({
-  VCKIT_API: "api.dvp-test.com",
+  VCKIT_API: "api.vckit-test.com",
   CONFIG_FILE_ROUTE: "config-file",
 }));
 

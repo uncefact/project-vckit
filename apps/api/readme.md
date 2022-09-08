@@ -13,7 +13,7 @@ To run e2e tests locally:
 
 Please note that the `test:e2e:local` will automatically setup the endpoint for the different API for you. Indeed the command set the environment variable `OFFLINE` to true and in jest configuration, we automatically set the endpoint address when the `OFFLINE` variable is set. You can check more in `jest.setup.js` file.
 
-# DVP Storage API
+# VCKit Storage API
 
 ## Storage
 
@@ -113,6 +113,6 @@ api keys:
 ...
 ```
 
-# DVP Config API
+# VCKit Config API
 
 Will update once implementation is approved

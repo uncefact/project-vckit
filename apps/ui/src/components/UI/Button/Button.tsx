@@ -25,14 +25,14 @@ export enum ButtonVariant {
   DISABLED = "cursor-not-allowed bg-gray-200 text-white hover:bg-gray-200",
 }
 
-export interface ButtonDVP extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonVCKit extends ButtonHTMLAttributes<HTMLButtonElement> {
   name?: string;
   size?: ButtonSize;
   variant?: ButtonVariant;
   loading?: boolean;
 }
 
-export const Button: FunctionComponent<ButtonDVP> = ({
+export const Button: FunctionComponent<ButtonVCKit> = ({
   name,
   className,
   children,

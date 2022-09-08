@@ -40,7 +40,7 @@
         "template": {
           "type": "EMBEDDED_RENDERER",
           "name": "CHAFTA_COO",
-          "url": "https://renderer.dvp.deploy2cloud.com.au"
+          "url": "https://renderer.vckit.deploy2cloud.com.au"
         },
         "proof": {
           "type": "OpenAttestationProofMethod",
