@@ -14,4 +14,4 @@ VCs issued by vckit tooling can be verified using any mobile device camera to sc
 
 # Get Started
 
-TBC once MVP release 1.0 vckit is available.
+TBC once MVP release 1.0 vckit is available.  We expect the first release in March 2023.
