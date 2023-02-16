@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button should render correctly 1`] = `
+<body>
+  <div>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-1yt9wte-MuiButtonBase-root-MuiButton-root"
+      data-testid="button:FooBar"
+      tabindex="0"
+      type="button"
+    >
+      <div
+        class="css-doi3ij-MuiStack-root"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-e784if-MuiTypography-root"
+          data-testid="button:FooBar:label"
+          tabindex="0"
+        >
+          FooBar
+        </p>
+      </div>
+      <span
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+</body>
+`;

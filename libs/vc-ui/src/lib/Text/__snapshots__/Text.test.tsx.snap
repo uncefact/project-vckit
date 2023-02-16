@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Text should render correctly 1`] = `
+<body>
+  <div>
+    <p
+      class="MuiTypography-root MuiTypography-body2 css-e784if-MuiTypography-root"
+      tabindex="0"
+    >
+      Soopa Doopa
+    </p>
+  </div>
+</body>
+`;

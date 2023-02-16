@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card should render correctly 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-nblda9-MuiPaper-root-MuiCard-root"
+    >
+      <div
+        class="MuiCardContent-root css-46bh2p-MuiCardContent-root"
+      >
+        <div
+          class="css-3y1137-MuiStack-root"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-ndaqpv-MuiTypography-root"
+            tabindex="0"
+          >
+            Bob the Builder
+          </p>
+        </div>
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-ik0l5y-MuiTypography-root"
+          tabindex="0"
+        >
+          Can we fix it?
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+`;

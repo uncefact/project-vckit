@@ -1,0 +1,205 @@
+export const OA_CREDENTIAL = {
+  version: 'https://schema.openattestation.com/3.0/schema.json',
+  '@context': [
+    'https://www.w3.org/2018/credentials/v1',
+    'https://schemata.openattestation.com/com/openattestation/1.0/DrivingLicenceCredential.json',
+    'https://schemata.openattestation.com/com/openattestation/1.0/OpenAttestation.v3.json',
+    'https://schemata.openattestation.com/com/openattestation/1.0/CustomContext.json',
+  ],
+  reference: 'SERIAL_NUMBER_123',
+  name: 'Republic of Singapore Driving Licence',
+  issuanceDate: '2010-01-01T19:23:24Z',
+  validFrom: '2010-01-01T19:23:24Z',
+  issuer: {
+    id: 'https://example.com',
+    type: 'OpenAttestationIssuer',
+    name: 'DEMO STORE',
+  },
+  type: [
+    'VerifiableCredential',
+    'DrivingLicenceCredential',
+    'OpenAttestationCredential',
+  ],
+  credentialSubject: {
+    id: 'did:example:SERIAL_NUMBER_123',
+    class: [
+      {
+        type: '3',
+        effectiveDate: '2010-01-01T19:23:24Z',
+      },
+      {
+        type: '3A',
+        effectiveDate: '2010-01-01T19:23:24Z',
+      },
+    ],
+  },
+  openAttestationMetadata: {
+    template: {
+      name: 'CUSTOM_TEMPLATE',
+      type: 'EMBEDDED_RENDERER',
+      url: 'https://localhost:3000/renderer',
+    },
+    proof: {
+      type: 'OpenAttestationProofMethod',
+      method: 'DID',
+      value: 'did:ethr:0x1245e5B64D785b25057f7438F715f4aA5D965733',
+      revocation: {
+        type: 'NONE',
+      },
+    },
+    identityProof: {
+      type: 'DID',
+      identifier: 'did:ethr:0x1245e5B64D785b25057f7438F715f4aA5D965733',
+    },
+  },
+  attachments: [
+    {
+      fileName: 'sample.pdf',
+      mimeType: 'application/pdf',
+      data: 'BASE64_ENCODED_FILE',
+    },
+  ],
+};
+
+export const OA_SIGNED = {
+  version: 'https://schema.openattestation.com/3.0/schema.json',
+  '@context': [
+    'https://www.w3.org/2018/credentials/v1',
+    'https://schemata.openattestation.com/com/openattestation/1.0/DrivingLicenceCredential.json',
+    'https://schemata.openattestation.com/com/openattestation/1.0/OpenAttestation.v3.json',
+    'https://schemata.openattestation.com/com/openattestation/1.0/CustomContext.json',
+  ],
+  reference: 'SERIAL_NUMBER_123',
+  name: 'Republic of Singapore Driving Licence',
+  issuanceDate: '2010-01-01T19:23:24Z',
+  validFrom: '2010-01-01T19:23:24Z',
+  issuer: {
+    id: 'https://example.com',
+    type: 'OpenAttestationIssuer',
+    name: 'DEMO STORE',
+  },
+  type: [
+    'VerifiableCredential',
+    'DrivingLicenceCredential',
+    'OpenAttestationCredential',
+  ],
+  credentialSubject: {
+    id: 'did:example:SERIAL_NUMBER_123',
+    class: [
+      {
+        type: '3',
+        effectiveDate: '2010-01-01T19:23:24Z',
+      },
+      {
+        type: '3A',
+        effectiveDate: '2010-01-01T19:23:24Z',
+      },
+    ],
+  },
+  openAttestationMetadata: {
+    template: {
+      name: 'CUSTOM_TEMPLATE',
+      type: 'EMBEDDED_RENDERER',
+      url: 'https://localhost:3000/renderer',
+    },
+    proof: {
+      type: 'OpenAttestationProofMethod',
+      method: 'DID',
+      value: 'did:ethr:0x1245e5B64D785b25057f7438F715f4aA5D965733',
+      revocation: {
+        type: 'NONE',
+      },
+    },
+    identityProof: {
+      type: 'DID',
+      identifier: 'did:ethr:0x1245e5B64D785b25057f7438F715f4aA5D965733',
+    },
+  },
+  attachments: [
+    {
+      fileName: 'sample.pdf',
+      mimeType: 'application/pdf',
+      data: 'BASE64_ENCODED_FILE',
+    },
+  ],
+  proof: {
+    type: 'OpenAttestationMerkleProofSignature2018',
+    proofPurpose: 'assertionMethod',
+    targetHash:
+      '82f51d6eb620e4264dff0ac2b9d99a965a88ff51e46192bb4808ea969ee67402',
+    proofs: [
+      'a1c633145bc0f37105fe510d335376c1919a6cf51030628877288bdee5541c22',
+      'c3d7c5908f25eba67baf7f607932f1924acdb7a6cf04ad5408dba251bf0a47bc',
+      '94c07ddcc4a2ade59e3120dce9f19f0f4ad80a58943555f4b51af4668b1c1d62',
+    ],
+    merkleRoot:
+      'f43045b0c57072a044e810b798e32b8c1de1d0d0c5774d55c8eed1f3fdec6438',
+    salts:
+      'W3sidmFsdWUiOiIyMTJjMDNmYmIzNmMyMjY2NTU0OGM5OGM5ZjE2ZTYwYTc2MjBjZGM0ZjczMjY3NDMxYzA0ZjYzY2U0MTYxMmVkIiwicGF0aCI6InZlcnNpb24ifSx7InZhbHVlIjoiMDRjZTAzMDliNWU3NTNmOTFiMjdmNmE2Nzg2N2VkZWY2OTY3ZmU4YzAyZmEwNTE5ZjY3Mzc3NDI1ZWI5OTE5ZiIsInBhdGgiOiJAY29udGV4dFswXSJ9LHsidmFsdWUiOiIzNWQ2Njg2YTZjYTI1NmQ3NWRmMzE2YmJlZjUxMjYwYzdiZGIxZWJkODRlZTM3OTM3OTI1MGYxYTVkNjk3ZGRlIiwicGF0aCI6IkBjb250ZXh0WzFdIn0seyJ2YWx1ZSI6IjMyZjIyZjJmMzQwYTgwNmRkMTE0NzQ3NjQ3ZTkwZjlmNjNjNmY4ZDUyMzk5YzI0OWVhN2U4YWZmMWVhNjA3MGUiLCJwYXRoIjoiQGNvbnRleHRbMl0ifSx7InZhbHVlIjoiMGE2NWFkNjQxZmRjYTkxNTdmMmQ5M2UyNmUzZTM4NmU3MTg3NTQyNWI0M2E4OTZkNmJlNWMxY2Q0MTkwNTFhOCIsInBhdGgiOiJAY29udGV4dFszXSJ9LHsidmFsdWUiOiJhZjEzZWMzODgyM2VkODIyZmNjY2Q5YWY2YWRmOWUxNWFjZWIzZjNmZmE2Njk2OGMyZjhmMjk2MzYxNDRhNzYwIiwicGF0aCI6InJlZmVyZW5jZSJ9LHsidmFsdWUiOiI4MDAxNjA5OTUzZmFiYzZjZTZjOGIyOTVmMDdjNTM2MDhhMjQ0ZWIxMmFmMzJlZjQyYjZmYTc1MmFmNDAzOTYxIiwicGF0aCI6Im5hbWUifSx7InZhbHVlIjoiMzc5NDQyY2NiZWMyMTYxNWZmNzM4MDQ2MmEzZjlmYmUyZjc1MmQ5M2IwZGQyZjRjNTM4MGJlYWZmZDVlMjA3OSIsInBhdGgiOiJpc3N1YW5jZURhdGUifSx7InZhbHVlIjoiN2M0MzYyMmNjMTk2ZDJmOWQ5NDU2NjM3NWU2NzRlODk2OTNkYjRjZDA5YjE1MjI0MjJjODIyZGYxN2EyYjI0ZCIsInBhdGgiOiJ2YWxpZEZyb20ifSx7InZhbHVlIjoiNTIwN2M1NGY1MWNhMzlmYWJmZWM3NmFlMDU3YzEzYTc3Y2Q1YTQ3YTVkYTZkYzcwMGQwYjVkNzZhZDQxOTYwNiIsInBhdGgiOiJpc3N1ZXIuaWQifSx7InZhbHVlIjoiODExZWU1MmE0MTQ0MTMzNjc4OWEwOWYzNjIwODcwYWVmNTAzNzEzYzE4YTFlNjY2YzU1MTk5ZjhiYTY5ODRlNCIsInBhdGgiOiJpc3N1ZXIudHlwZSJ9LHsidmFsdWUiOiJiOWUzZDllYjNhYzUwMThjNTEzMDFjNjNkNTIyMWMzY2M3NTZlOGFjYzcxYmY4ZmQxMjlhYmMyNDA5OGRhNzRmIiwicGF0aCI6Imlzc3Vlci5uYW1lIn0seyJ2YWx1ZSI6Ijc1M2FjYTQ3NmI4YWRhNjBjNjQ2ZmUwZjhmMTNiNjhlMzBkMDU5NGVkY2NkYTAxMDJmZTVmMmI0OGRmY2ZlZjYiLCJwYXRoIjoidHlwZVswXSJ9LHsidmFsdWUiOiJjMWY4NDM1YmI4YzQxMzkyMDFlMGY1ZjYwZDkwMDI1M2RkNmJhZDJkODljYjg4N2JlNzdkNmRjYTQ3NmQxMzMxIiwicGF0aCI6InR5cGVbMV0ifSx7InZhbHVlIjoiZWY2MTllMDAzNWRkYThlODhlNTQwZTExMjIyOTk0ZjM4YTM0NTBhYThjM2I5ZjQ1MDFmMmQ3ZmFmN2UzYTNhYiIsInBhdGgiOiJ0eXBlWzJdIn0seyJ2YWx1ZSI6ImFjODRlNjUzMjNhMWQ1MjdiNTQzMmQ3NmM5NWMxOWQ3ODM3MzExOTg1YzY0ODg1NjY1ZDU2NTEyYTE2MDI3NWIiLCJwYXRoIjoiY3JlZGVudGlhbFN1YmplY3QuaWQifSx7InZhbHVlIjoiMDhiYWI3ZGY4YzA1N2JlZGUwYzE4NTA3MTcwMjU5NjkwMDg5MjM0ZDE1NGQyNzlhMThiMzExY2YwZTUyZDVlNCIsInBhdGgiOiJjcmVkZW50aWFsU3ViamVjdC5jbGFzc1swXS50eXBlIn0seyJ2YWx1ZSI6IjFhZDhhYmQyMzhhNmE5NzhjYzdlMmE0NzIwN2FhYjRlZjM1Njc3MDAwMTlmNDg0YzMzMTlkYTI3YzAzMjIwNTEiLCJwYXRoIjoiY3JlZGVudGlhbFN1YmplY3QuY2xhc3NbMF0uZWZmZWN0aXZlRGF0ZSJ9LHsidmFsdWUiOiJiMzdjMzBjNGUzMGM1ZGI4MGZiMzYxMGFkM2U0NmZmMzNmNTc2ZTQ3MGIzZjNjNmIzMDI4ZGUzYWYwNTRjOTVkIiwicGF0aCI6ImNyZWRlbnRpYWxTdWJqZWN0LmNsYXNzWzFdLnR5cGUifSx7InZhbHVlIjoiMTVhNDE2YjhjNWI0MmM3N2E4MGMzYmZmMTRlZmY2YWQ3NzMyMTZmYjAzZjc1OTJiMzM5MGIxZThlMDY1NmJjMiIsInBhdGgiOiJjcmVkZW50aWFsU3ViamVjdC5jbGFzc1sxXS5lZmZlY3RpdmVEYXRlIn0seyJ2YWx1ZSI6ImQ5NzgyNmEyMjI0YTI4MDE2NDVhMmZjOTVmYWFiNzU1NjkzOGE4ZTcwZWNmNDY2ZDE5NzlmYTYzODNjZWRmN2UiLCJwYXRoIjoib3BlbkF0dGVzdGF0aW9uTWV0YWRhdGEudGVtcGxhdGUubmFtZSJ9LHsidmFsdWUiOiI5NzIxMmEwMmQ0NGVlZDA5OTA0YzBhZGY2NTkxNzg0OGQ2YmExMjQxMWIwNTI3Y2IzZjNiNDk0NzQ3Nzc5ODI3IiwicGF0aCI6Im9wZW5BdHRlc3RhdGlvbk1ldGFkYXRhLnRlbXBsYXRlLnR5cGUifSx7InZhbHVlIjoiNTRjZDQ5ZmMxMGUxZjdhN2RmOTE2ZmQ0OGQwNTAzYmY4ODU5NjNhMTZkN2U2MDFiNTFlOWMwZGQxNjkxMTEwOCIsInBhdGgiOiJvcGVuQXR0ZXN0YXRpb25NZXRhZGF0YS50ZW1wbGF0ZS51cmwifSx7InZhbHVlIjoiZDBiMzc0ZDlkZWQxNmZkNDkyZmVlYmZlMTZlOWQ0MWMwMWRhNTgxMmI5NjQ3MmNiNWEzOWQ2MTA5M2JhYjNiNCIsInBhdGgiOiJvcGVuQXR0ZXN0YXRpb25NZXRhZGF0YS5wcm9vZi50eXBlIn0seyJ2YWx1ZSI6IjdkNzRkMjUwZjRhNGU1ZDY5Y2RiM2YxNTJhNmJlNTVhYzNjMWYwYWYxZDMzY2RlNTYxMzBjODc1OTIwYWYxMDMiLCJwYXRoIjoib3BlbkF0dGVzdGF0aW9uTWV0YWRhdGEucHJvb2YubWV0aG9kIn0seyJ2YWx1ZSI6IjUxYmFhY2RjZGM5ZTk4NTg0NTkyMDU2MDhmM2Q5Y2YwYmI5YTI1NmI0ZGUxOGIxMWJlNjU0OTMyN2I5MGUxMzgiLCJwYXRoIjoib3BlbkF0dGVzdGF0aW9uTWV0YWRhdGEucHJvb2YudmFsdWUifSx7InZhbHVlIjoiNzFjZThjMjM3ZGZjNjkxYzBlZDBlMTRkYWM5YmIzOTg5OTJhNWQwNGM3MDlmM2EwNjI0NDE1MTNlZjYxNDhlYiIsInBhdGgiOiJvcGVuQXR0ZXN0YXRpb25NZXRhZGF0YS5wcm9vZi5yZXZvY2F0aW9uLnR5cGUifSx7InZhbHVlIjoiMjQwNWY4NmE5NGNkY2Y5NzExYzI0NzRlZTBmMDc5MDRiNThmZmRmYjNhNjMyMWNjYWEwMDRhZGJlZmIxMjRmZiIsInBhdGgiOiJvcGVuQXR0ZXN0YXRpb25NZXRhZGF0YS5pZGVudGl0eVByb29mLnR5cGUifSx7InZhbHVlIjoiOTdlZmE5MjdlMTVmMGFlYmIxNmEyOWY3NjM2YTVlZmRjYmNhYWU5YzdhM2MwMGFmZDczZmM3MDUzMzNhMjZmOCIsInBhdGgiOiJvcGVuQXR0ZXN0YXRpb25NZXRhZGF0YS5pZGVudGl0eVByb29mLmlkZW50aWZpZXIifSx7InZhbHVlIjoiZTUzYWQ0ODk1Mjg3YTExZjE1MzRiNDRmNDI5ZDgyOTlkZGFmOTkzMTNjZGE1MGE2ZTAyMTE0ZTc2Yjg0NGY4ZSIsInBhdGgiOiJhdHRhY2htZW50c1swXS5maWxlTmFtZSJ9LHsidmFsdWUiOiIxNDU0MGY2ZGViMDBjOGI2OTc3MmE4ZTljNzU1OGU0MTgxMGI1Y2FmYTQzNGQ1NWFjMTIxZTk3MmE1NDY0MDMzIiwicGF0aCI6ImF0dGFjaG1lbnRzWzBdLm1pbWVUeXBlIn0seyJ2YWx1ZSI6IjNiZTUyODM3ZjMwNzcyNDYzZjY1NmM4ZDQ3ZGM1ZWRiZjcyMmY4ZDQ5ZWFiZTI0NWVjZGM2ZWJhODIxNzFjYTAiLCJwYXRoIjoiYXR0YWNobWVudHNbMF0uZGF0YSJ9XQ==',
+    privacy: {
+      obfuscated: [],
+    },
+    key: 'did:ethr:0x1245e5B64D785b25057f7438F715f4aA5D965733#controller',
+    signature:
+      '0x4a054aaf881da5130a3b19160a7f0ce1afef1fe093c83be438c8c40b0a04ace5142f3d48a23c8ce7c32fabe04fc69e6fd4c94cf3ceb4adb4f3da5fa937208d4e1c',
+  },
+};
+
+export const NON_OA_CREDENTIAL = {
+  version: 'https://schema.openattestation.com/3.0/schema.json',
+  '@context': [
+    'https://www.w3.org/2018/credentials/v1',
+    'https://schemata.openattestation.com/com/openattestation/1.0/DrivingLicenceCredential.json',
+    'https://schemata.openattestation.com/com/openattestation/1.0/OpenAttestation.v3.json',
+    'https://schemata.openattestation.com/com/openattestation/1.0/CustomContext.json',
+  ],
+  reference: 'SERIAL_NUMBER_123',
+  name: 'Republic of Singapore Driving Licence',
+  issuanceDate: '2010-01-01T19:23:24Z',
+  validFrom: '2010-01-01T19:23:24Z',
+  issuer: {
+    id: 'https://example.com',
+    type: 'OpenAttestationIssuer',
+    name: 'DEMO STORE',
+  },
+  type: ['VerifiableCredential', 'DrivingLicenceCredential'],
+  credentialSubject: {
+    id: 'did:example:SERIAL_NUMBER_123',
+    class: [
+      {
+        type: '3',
+        effectiveDate: '2010-01-01T19:23:24Z',
+      },
+      {
+        type: '3A',
+        effectiveDate: '2010-01-01T19:23:24Z',
+      },
+    ],
+  },
+  openAttestationMetadata: {
+    template: {
+      name: 'CUSTOM_TEMPLATE',
+      type: 'EMBEDDED_RENDERER',
+      url: 'https://localhost:3000/renderer',
+    },
+    proof: {
+      type: 'OpenAttestationProofMethod',
+      method: 'DID',
+      value: 'did:ethr:0x1245e5B64D785b25057f7438F715f4aA5D965733',
+      revocation: {
+        type: 'NONE',
+      },
+    },
+    identityProof: {
+      type: 'DID',
+      identifier: 'did:ethr:0x1245e5B64D785b25057f7438F715f4aA5D965733',
+    },
+  },
+  attachments: [
+    {
+      fileName: 'sample.pdf',
+      mimeType: 'application/pdf',
+      data: 'BASE64_ENCODED_FILE',
+    },
+  ],
+};
