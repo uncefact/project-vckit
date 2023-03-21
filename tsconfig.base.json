@@ -15,10 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@dvp/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@dvp/api-client": ["libs/api-client/src/index.ts"],
+      "@dvp/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@dvp/server-common": ["libs/server-common/src/index.ts"],
-      "@dvp/vc-ui": ["libs/vc-ui/src/index.ts"]
+      "@dvp/vc-ui": ["libs/vc-ui/src/index.ts"],
+      "@vckit/agent": ["libs/agent/src/index.ts"]
     },
     "esModuleInterop": true
   },
