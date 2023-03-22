@@ -33,7 +33,7 @@
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "npx semantic-release-plus --extends ./packages/agent/release.config.js",
+        "command": "npx semantic-release-plus --extends ./libs/agent/release.config.js",
         "parallel": false
       }
     }
