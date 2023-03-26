@@ -36,6 +36,12 @@
         "command": "npx semantic-release-plus --extends ./libs/agent/release.config.js",
         "parallel": false
       }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "angular"
+      }
     }
   },
   "tags": []
