@@ -1,0 +1,18 @@
+{
+  "projectId": "6424c66a87607e971632",
+  "projectName": "testProject",
+  "functions": [
+    {
+      "$id": "6434db10d9b9f682012d",
+      "name": "vc-kit-db-init",
+      "runtime": "node-16.0",
+      "path": "functions/vc-kit-db-init",
+      "entrypoint": "src/index.js",
+      "ignore": ["node_modules", ".npm"],
+      "execute": [],
+      "events": [],
+      "schedule": "",
+      "timeout": 90
+    }
+  ]
+}

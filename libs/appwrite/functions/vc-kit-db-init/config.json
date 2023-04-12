@@ -1,0 +1,8 @@
+{
+  "dbName": "vc-kit-db",
+  "stringDefaultSize": 1073741824,
+  "bigInt": 9223372036854775807,
+  "projectId": "",
+  "clientUrl": "https://<your ip / url>/v1",
+  "projectAPIKey": ""
+}
