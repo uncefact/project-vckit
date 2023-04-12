@@ -1,0 +1,7 @@
+{
+  "name": "appwrite-function",
+  "projectType": "library",
+  "implicitDependencies": ["api-client"],
+  "targets": {},
+  "tags": []
+}
