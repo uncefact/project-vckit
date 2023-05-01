@@ -1,5 +1,59 @@
 import { OpenAPIV3 } from 'openapi-types'
-import { IAgent } from '@vckit/core-types'
+import { IAgent, IAgentPluginSchema } from '@vckit/core-types'
+
+const getInteropApiPathItem = (method: string, agentSchema: IAgentPluginSchema): {path: string, pathItem: OpenAPIV3.PathItemObject} => {
+  switch(method) {
+    case "resolveDid":
+      return {
+        path: 'identifiers/{did}',
+        pathItem: {
+          get: {
+                summary: "Resolve",
+                operationId: method,
+                description: agentSchema.components.methods[method].description,
+                tags: [
+                  "Identifiers"
+                ],
+                parameters: [
+                  {
+                    name: "did",
+                    in: "path",
+                    required: true,
+                    description: "A decentralized identifier",
+                    schema: {
+                      type: "string"
+                    },
+                    example: "did:web:vckit-holder-demo.herokuapp.com"
+                  }
+                ],
+                responses: {
+                  200: {
+                    // TODO returnType description
+                    description: agentSchema.components.methods[method].description,
+                    content: {
+                      'application/json; charset=utf-8': {
+                        schema: agentSchema.components.methods[method].returnType,
+                      },
+                    },
+                  },
+                  400: {
+                    description: 'Validation error',
+                    content: {
+                      'application/json; charset=utf-8': {
+                        schema: agentSchema.components.schemas.ValidationError,
+                      },
+                    },
+                  },
+                },
+              },
+          
+        }
+      }    
+    default:
+      return {path:'', pathItem:{}}
+  }
+}
+
 
 /**
  * This method can be used to generate an OpenAPIv3 schema to describe how the methods of a Veramo agent can be called
@@ -26,42 +80,13 @@ export const getOpenApiSchema = (
 
   const schemas = {}
   const xMethods: Record<string, any> = {}
-
+  
   for (const method of exposedMethods) {
-    const pathItemObject: OpenAPIV3.PathItemObject = {
-      post: {
-        operationId: method,
-        description: agentSchema.components.methods[method].description,
-        requestBody: {
-          content: {
-            'application/json': {
-              schema: agentSchema.components.methods[method].arguments,
-            },
-          },
-        },
-        responses: {
-          200: {
-            // TODO returnType description
-            description: agentSchema.components.methods[method].description,
-            content: {
-              'application/json; charset=utf-8': {
-                schema: agentSchema.components.methods[method].returnType,
-              },
-            },
-          },
-          400: {
-            description: 'Validation error',
-            content: {
-              'application/json; charset=utf-8': {
-                schema: agentSchema.components.schemas.ValidationError,
-              },
-            },
-          },
-        },
-      },
-    }
-    paths[basePath + '/' + method] = pathItemObject
-    xMethods[method] = agentSchema.components.methods[method]
+    let pathItemObject: OpenAPIV3.PathItemObject;
+      const resource = getInteropApiPathItem(method, agentSchema);
+      pathItemObject = resource.pathItem;
+      paths[basePath + '/' + resource.path] = pathItemObject
+      xMethods[method] = agentSchema.components.methods[method]
   }
 
   const openApi: OpenAPIV3.Document & { 'x-methods'?: Record<string, any> } = {
@@ -70,9 +95,25 @@ export const getOpenApiSchema = (
       title: name || 'DID Agent',
       version: version || '',
     },
+    security: [{ "auth": [] }],
     components: {
       schemas: agent.getSchema().components.schemas,
+      securitySchemes: { auth: { type: "http", scheme: "bearer" } }
     },
+    tags: [
+      {
+        name: "Discovery"
+      },
+      {
+        name: "Identifiers"
+      },
+      {
+        name: "Credentials"
+      },
+      {
+        name: "Presentations"
+      }
+    ],
     paths,
   }
 
