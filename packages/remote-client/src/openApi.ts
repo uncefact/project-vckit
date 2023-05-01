@@ -89,6 +89,197 @@ const getInteropApiPathItem = (method: string, agentSchema: IAgentPluginSchema):
               },
           
         }
+      };
+      case 'createVerifiableCredential':
+      return {
+        path: 'credentials/issue',
+        pathItem: {
+          post: {
+                summary: "Create",
+                operationId: method,
+                description: agentSchema.components.methods[method].description,
+                tags: [
+                  "Credentials"
+                ],
+                // security: [
+                //   {
+                //     OAuth2: [
+                //       "issue:credentials"
+                //     ]
+                //   }
+                // ],
+                requestBody: {
+                  description: "Parameters for issuing the credential.",
+                  content: {
+                    "application/json": {
+                      schema: {
+                        type: "object",
+                        required: [
+                          "credential",
+                          "options"
+                        ],
+                        properties: {
+                          credential: {
+                            type: "object",
+                            required: [
+                              "@context",
+                              "type",
+                              "issuer",
+                              "issuanceDate",
+                              "credentialSubject"
+                            ],
+                            properties: {
+                              "@context": {
+                                description: "The JSON-LD Context defining all terms in the Credential. This array\nSHOULD contain \"https://w3id.org/traceability/v1\".\n",
+                                type: "array",
+                                items: {
+                                  type: "string"
+                                }
+                              },
+                              id: {
+                                description: "The IRI identifying the Credential",
+                                type: "string"
+                              },
+                              type: {
+                                description: "The Type of the Credential",
+                                type: "array",
+                                items: {
+                                  type: "string"
+                                },
+                                minItems: 1
+                              },
+                              issuer: {
+                                description: "This value MUST match the assertionMethod used to create the Verifiable Credential.",
+                                oneOf: [
+                                  {
+                                    type: "string"
+                                  },
+                                  {
+                                    type: "object",
+                                    required: [
+                                      "id"
+                                    ],
+                                    properties: {
+                                      id: {
+                                        description: "The IRI identifying the Issuer",
+                                        type: "string"
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              issuanceDate: {
+                                description: "This value MUST be an XML Date Time String",
+                                type: "string"
+                              },
+                              credentialSubject: {
+                                type: "object",
+                                properties: {
+                                  id: {
+                                    description: "The IRI identifying the Subject",
+                                    type: "string"
+                                  }
+                                }
+                              }
+                            },
+                            example: {
+                              credential: {
+                                "@context": [
+                                  "https://www.w3.org/2018/credentials/v1",
+                                  "https://w3id.org/traceability/v1"
+                                ],
+                                id: "urn:uuid:07aa969e-b40d-4c1b-ab46-ded252003ded",
+                                type: [
+                                  "VerifiableCredential"
+                                ],
+                                issuer: "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
+                                issuanceDate: "2010-01-01T19:23:24Z",
+                                credentialSubject: {
+                                  id: "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn"
+                                }
+                              },
+                              options: {
+                                type: "JsonWebSignature2020",
+                                created: "2020-04-02T18:28:08Z",
+                                credentialStatus: {
+                                  type: "RevocationList2020Status"
+                                }
+                              }
+                            }
+                          },
+                          options: {
+                            title: "Issue Credential Options",
+                            type: "object",
+                            description: "Options for issuing a verifiable credential",
+                            required: [
+                              "type"
+                            ],
+                            properties: {
+                              type: {
+                                type: "string",
+                                description: "Linked Data Signature Suite or signal to use JWT.",
+                                enum: [
+                                  "Ed25519Signature2018",
+                                  // "JsonWebSignature2020",
+                                  "jwt_vc",
+                                  "OpenAttestationMerkleProofSignature2018"
+                                ]
+                              },
+                              created: {
+                                type: "string",
+                                description: "Date the proof was created. This value MUST be an XML Date Time String."
+                              },
+                              credentialStatus: {
+                                type: "object",
+                                description: "The method of credential status.",
+                                required: [
+                                  "type"
+                                ],
+                                properties: {
+                                  type: {
+                                    type: "string",
+                                    description: "The type of credential status.",
+                                    enum: [
+                                      "RevocationList2020Status"
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            example: {
+                              type: "JsonWebSignature2020",
+                              created: "2020-04-02T18:28:08Z",
+                              credentialStatus: {
+                                type: "RevocationList2020Status"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                responses: {
+                  200: {
+                    // TODO returnType description
+                    description: agentSchema.components.methods[method].description,
+                    content: {
+                      'application/json; charset=utf-8': {
+                        schema: agentSchema.components.methods[method].returnType,
+                      },
+                    },
+                  },
+                  400: {
+                    description: 'Validation error',
+                    content: {
+                      'application/json; charset=utf-8': {
+                        schema: agentSchema.components.schemas.ValidationError,
+                      },
+                    },
+                  },
+                },
+              },
+        }
       }    
     default:
       return {path:'', pathItem:{}}
