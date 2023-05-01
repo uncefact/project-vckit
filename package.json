@@ -6,7 +6,7 @@
     "build:js": "pnpm -r --stream build",
     "build:api": "pnpm --package=@veramo/cli -c dlx \"pnpm -r --stream extract-api\"",
     "build:schema": "pnpm --package=@veramo/cli -c dlx \"pnpm -r --stream generate-plugin-schema\"",
-    "veramo": "cross-env NODE_NO_WARNINGS=1 ./packages/cli/bin/vckit.js",
+    "vckit": "cross-env NODE_NO_WARNINGS=1 ./packages/cli/bin/vckit.js",
     "prettier": "prettier --write \"{packages,docs,__tests__,!build}/**/*.{ts,js,json,md,yml}\"",
     "build-clean": "rimraf --glob ./packages/*/build ./packages/*/api ./packages/*/node_modules ./packages/*/tsconfig.tsbuildinfo ./temp ./tmp && jest --clearCache"
   },
