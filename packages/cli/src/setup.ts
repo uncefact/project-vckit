@@ -28,7 +28,7 @@ export const getConfig = async (filePath: fs.PathLike): Promise<{ version?: numb
     fileContent = await fs.promises.readFile(filePath, 'utf8')
   } catch (e) {
     console.log('Config file not found: ' + filePath)
-    console.log('Use "veramo config create" to create one')
+    console.log('Use "vckit config create" to create one')
     process.exit(1)
   }
 

@@ -76,7 +76,7 @@ config
     const agent = await getAgent(options.filename)
     if (!agent) {
       console.error(
-        'unknown error while creating the agent from your config. Consider running `veramo config create` to generate a new configuration file, or to manually compare differences.',
+        'unknown error while creating the agent from your config. Consider running `vckit config create` to generate a new configuration file, or to manually compare differences.',
       )
     } else {
       if (typeof agent[options.method] !== 'function') {
