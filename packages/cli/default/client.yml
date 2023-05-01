@@ -1,0 +1,66 @@
+version: 2.0
+
+agent:
+  $require: '@veramo/core#Agent'
+  $args:
+    - schemaValidation: false
+      plugins:
+        - $require: '@veramo/remote-client#AgentRestClient'
+          $args:
+            - url: http://localhost:3332
+              # headers:
+              #   Authorization: Bearer API_KEY
+              enabledMethods:
+                - keyManagerGetKeyManagementSystems
+                - keyManagerCreate
+                - keyManagerGet
+                - keyManagerDelete
+                - keyManagerImport
+                - keyManagerEncryptJWE
+                - keyManagerDecryptJWE
+                - keyManagerSign
+                - keyManagerSharedSecret
+                - keyManagerSignJWT
+                - keyManagerSignEthTX
+                - didManagerGetProviders
+                - didManagerFind
+                - didManagerGet
+                - didManagerCreate
+                - didManagerGetOrCreate
+                - didManagerImport
+                - didManagerDelete
+                - didManagerAddKey
+                - didManagerRemoveKey
+                - didManagerAddService
+                - didManagerRemoveService
+                - resolveDid
+                - getDIDComponentById
+                - discoverDid
+                - dataStoreGetMessage
+                - dataStoreSaveMessage
+                - dataStoreGetVerifiableCredential
+                - dataStoreSaveVerifiableCredential
+                - dataStoreGetVerifiablePresentation
+                - dataStoreSaveVerifiablePresentation
+                - dataStoreORMGetIdentifiers
+                - dataStoreORMGetIdentifiersCount
+                - dataStoreORMGetMessages
+                - dataStoreORMGetMessagesCount
+                - dataStoreORMGetVerifiableCredentialsByClaims
+                - dataStoreORMGetVerifiableCredentialsByClaimsCount
+                - dataStoreORMGetVerifiableCredentials
+                - dataStoreORMGetVerifiableCredentialsCount
+                - dataStoreORMGetVerifiablePresentations
+                - dataStoreORMGetVerifiablePresentationsCount
+                - handleMessage
+                - packDIDCommMessage
+                - unpackDIDCommMessage
+                - sendDIDCommMessage
+                - sendMessageDIDCommAlpha1
+                - createVerifiableCredential
+                - createVerifiablePresentation
+                - verifyCredential
+                - verifyPresentation
+                - createSelectiveDisclosureRequest
+                - getVerifiableCredentialsForSdr
+                - validatePresentationAgainstSdr
