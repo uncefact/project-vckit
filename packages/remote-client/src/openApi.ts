@@ -48,6 +48,47 @@ const getInteropApiPathItem = (method: string, agentSchema: IAgentPluginSchema):
               },
           
         }
+      };
+      case "dataStoreORMGetVerifiableCredentials":
+      return {
+        path: 'credentials',
+        pathItem: {
+          get: {
+                summary: "List credentials",
+                operationId: method,
+                description: agentSchema.components.methods[method].description,
+                // security: [
+                //   {
+                //     "OAuth2": [
+                //       "resolve:dids"
+                //     ]
+                //   }
+                // ],
+                tags: [
+                  "Credentials"
+                ],
+                responses: {
+                  200: {
+                    // TODO returnType description
+                    description: agentSchema.components.methods[method].description,
+                    content: {
+                      'application/json; charset=utf-8': {
+                        schema: agentSchema.components.methods[method].returnType,
+                      },
+                    },
+                  },
+                  400: {
+                    description: 'Validation error',
+                    content: {
+                      'application/json; charset=utf-8': {
+                        schema: agentSchema.components.schemas.ValidationError,
+                      },
+                    },
+                  },
+                },
+              },
+          
+        }
       }    
     default:
       return {path:'', pathItem:{}}
