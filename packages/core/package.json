@@ -1,0 +1,47 @@
+{
+  "name": "@veramo/core",
+  "description": "Veramo Core Logic & Interfaces.",
+  "version": "5.1.2",
+  "main": "build/index.js",
+  "exports": {
+    ".": "./build/index.js",
+    "./build/plugin.schema.json": "./build/plugin.schema.json"
+  },
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "extract-api": "node ../cli/bin/veramo.js dev extract-api"
+  },
+  "dependencies": {
+    "@veramo/core-types": "^5.1.2",
+    "debug": "^4.3.4",
+    "events": "^3.2.0",
+    "z-schema": "^5.0.5"
+  },
+  "devDependencies": {
+    "@types/debug": "4.1.7",
+    "typescript": "4.9.4"
+  },
+  "files": [
+    "build/**/*",
+    "src/**/*",
+    "plugin.schema.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "git@github.com:uport-project/veramo.git",
+  "author": "Simonas Karuzas <simonas.karuzas@mesh.xyz>",
+  "contributors": [
+    "Mircea Nistor <mircea.nistor@mesh.xyz>"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [],
+  "type": "module",
+  "moduleDirectories": [
+    "node_modules",
+    "src"
+  ]
+}
