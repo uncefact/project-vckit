@@ -89,17 +89,17 @@ server:
     - - $require: 'cors?t=function#default'
 
     # Add agent to the request object
-    - - $require: '@veramo/remote-server?t=function#RequestWithAgentRouter'
+    - - $require: '@vckit/remote-server?t=function#RequestWithAgentRouter'
         $args:
           - agent:
               $ref: /agent
 
     # DID Documents
-    - - $require: '@veramo/remote-server?t=function#WebDidDocRouter'
+    - - $require: '@vckit/remote-server?t=function#WebDidDocRouter'
 
     # API base path
     - - /messaging
-      - $require: '@veramo/remote-server?t=function#MessagingRouter'
+      - $require: '@vckit/remote-server?t=function#MessagingRouter'
         $args:
           - metaData:
               type: DIDComm
@@ -107,17 +107,17 @@ server:
 
     # API base path
     - - /agent
-      - $require: '@veramo/remote-server?t=function#apiKeyAuth'
+      - $require: '@vckit/remote-server?t=function#apiKeyAuth'
         $args:
           - apiKey: test123
-      - $require: '@veramo/remote-server?t=function#AgentRouter'
+      - $require: '@vckit/remote-server?t=function#AgentRouter'
         $args:
           - exposedMethods:
               $ref: /constants/methods
 
     # Open API schema
     - - /open-api.json
-      - $require: '@veramo/remote-server?t=function#ApiSchemaRouter'
+      - $require: '@vckit/remote-server?t=function#ApiSchemaRouter'
         $args:
           - basePath: :3332/agent
             securityScheme: bearer
@@ -137,7 +137,7 @@ server:
 
   # Execute during server initialization
   init:
-    - $require: '@veramo/remote-server?t=function#createDefaultDid'
+    - $require: '@vckit/remote-server?t=function#createDefaultDid'
       $args:
         - agent:
             $ref: /agent
@@ -274,7 +274,7 @@ credentialIssuerLD:
 
 # Agent
 agent:
-  $require: '@veramo/core#Agent'
+  $require: '@vckit/core#Agent'
   $args:
     - schemaValidation: false
       plugins:

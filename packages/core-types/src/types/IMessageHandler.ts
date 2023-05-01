@@ -19,9 +19,9 @@ export interface IHandleMessageArgs {
 
   /**
    * Optional. If set to `true`, the message will be saved using
-   * {@link @veramo/core-types#IDataStore.dataStoreSaveMessage | dataStoreSaveMessage}
+   * {@link @vckit/core-types#IDataStore.dataStoreSaveMessage | dataStoreSaveMessage}
    * <p/><p/>
-   * @deprecated Please call {@link @veramo/core-types#IDataStore.dataStoreSaveMessage | dataStoreSaveMessage()} after
+   * @deprecated Please call {@link @vckit/core-types#IDataStore.dataStoreSaveMessage | dataStoreSaveMessage()} after
    *   handling the message and determining that it must be saved.
    */
   save?: boolean
@@ -36,10 +36,10 @@ export interface IMessageHandler extends IPluginMethodMap {
    * Parses a raw message.
    *
    * After the message is parsed, you can decide if it should be saved, and pass the result to
-   * {@link @veramo/core-types#IDataStore.dataStoreSaveMessage | dataStoreSaveMessage()} to save it.
+   * {@link @vckit/core-types#IDataStore.dataStoreSaveMessage | dataStoreSaveMessage()} to save it.
    *
    * @param args - The `raw` message to be handled along with optional `metadata` about the origin.
-   * @param context - Execution context. Requires agent with {@link @veramo/core-types#IDataStore} methods
+   * @param context - Execution context. Requires agent with {@link @vckit/core-types#IDataStore} methods
    */
   handleMessage(args: IHandleMessageArgs, context: IAgentContext<IDataStore>): Promise<IMessage>
 }

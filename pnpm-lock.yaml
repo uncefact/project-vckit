@@ -164,12 +164,18 @@ importers:
       '@types/swagger-ui-express':
         specifier: ^4.1.3
         version: 4.1.3
-      '@veramo/core':
-        specifier: ^5.1.2
+      '@vckit/core':
+        specifier: 0.1.0
         version: link:../core
-      '@veramo/core-types':
-        specifier: ^5.1.2
-        version: link:../core-types
+      '@vckit/core-types':
+        specifier: 0.1.0
+        version: 0.1.0
+      '@vckit/remote-client':
+        specifier: ^0.1.0
+        version: link:../remote-client
+      '@vckit/remote-server':
+        specifier: ^0.1.0
+        version: link:../remote-server
       '@veramo/credential-eip712':
         specifier: ^5.1.2
         version: 5.1.2
@@ -218,12 +224,6 @@ importers:
       '@veramo/message-handler':
         specifier: ^5.1.2
         version: 5.1.2
-      '@veramo/remote-client':
-        specifier: ^5.1.2
-        version: link:../remote-client
-      '@veramo/remote-server':
-        specifier: ^5.1.2
-        version: link:../remote-server
       '@veramo/selective-disclosure':
         specifier: ^5.1.2
         version: 5.1.2
@@ -360,7 +360,7 @@ importers:
 
   packages/core:
     dependencies:
-      '@veramo/core-types':
+      '@vckit/core-types':
         specifier: ^5.1.2
         version: link:../core-types
       debug:
@@ -404,9 +404,9 @@ importers:
 
   packages/remote-client:
     dependencies:
-      '@veramo/core-types':
-        specifier: ^5.1.2
-        version: link:../core-types
+      '@vckit/core-types':
+        specifier: 0.1.0
+        version: 0.1.0
       cross-fetch:
         specifier: ^3.1.4
         version: 3.1.5
@@ -426,11 +426,11 @@ importers:
 
   packages/remote-server:
     dependencies:
-      '@veramo/core-types':
-        specifier: ^5.1.2
-        version: link:../core-types
-      '@veramo/remote-client':
-        specifier: ^5.1.2
+      '@vckit/core-types':
+        specifier: 0.1.0
+        version: 0.1.0
+      '@vckit/remote-client':
+        specifier: 0.1.0
         version: link:../remote-client
       debug:
         specifier: ^4.3.3
@@ -5486,6 +5486,17 @@ packages:
       wonka: 4.0.15
     dev: false
     optional: true
+
+  /@vckit/core-types@0.1.0:
+    resolution: {integrity: sha512-fy7VUbIshuxk6YkM8m/KMtzN5c6799ZAuLMmMUPEC8JHJtcT/pUVDnjsmrH4pqOoHYQYvM1+Ba2apZ2IIh5wuw==}
+    dependencies:
+      credential-status: 2.0.5
+      debug: 4.3.4
+      did-jwt-vc: 3.1.0
+      did-resolver: 4.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /@veramo/core-types@5.1.2:
     resolution: {integrity: sha512-IVmbcn9yBE8v/x29nGvScCT9sIKu/iYJ8+dqN3jIVL2t//HRvNhrHsxw83Wb6DGqr46r0ebM+kEnPfZAAxdk/w==}

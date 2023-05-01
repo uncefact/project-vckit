@@ -1,4 +1,4 @@
-# Veramo Core
+# vckit Core
 
 ### Core functions
 

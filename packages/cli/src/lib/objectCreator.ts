@@ -28,7 +28,7 @@ import { resolve } from 'path'
  * ```json
  * {
  *   "agent": {
- *     "$require": "@veramo/core#Agent",
+ *     "$require": "@vckit/core#Agent",
  *     "$args": {
  *       "plugins": [
  *         { "$require": "@veramo/did-comm#DIDComm" },

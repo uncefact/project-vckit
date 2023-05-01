@@ -1,4 +1,4 @@
-import { IAgent } from '@veramo/core-types'
+import { IAgent } from '@vckit/core-types'
 import { Request, Response, NextFunction, Router, json } from 'express'
 import Debug from 'debug'
 
@@ -17,9 +17,9 @@ export interface AgentRouterOptions {
 }
 
 /**
- * Creates a router that exposes {@link @veramo/core#Agent} methods remotely.
+ * Creates a router that exposes {@link @vckit/core#Agent} methods remotely.
  *
- * This can be used by {@link @veramo/remote-client#AgentRestClient | AgentRestClient} to instantiate the methods of
+ * This can be used by {@link @vckit/remote-client#AgentRestClient | AgentRestClient} to instantiate the methods of
  * this agent on the client.
  *
  * @param options - Initialization option

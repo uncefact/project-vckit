@@ -1,7 +1,7 @@
 /**
- * Provides {@link @veramo/core#Agent} implementation and defines {@link @veramo/core-types#IResolver},
- * {@link @veramo/core-types#IDIDManager}, {@link @veramo/core-types#IKeyManager}, {@link
- * @veramo/core-types#IDataStore}, {@link @veramo/core-types#IMessageHandler} plugin interfaces
+ * Provides {@link @vckit/core#Agent} implementation and defines {@link @vckit/core-types#IResolver},
+ * {@link @vckit/core-types#IDIDManager}, {@link @vckit/core-types#IKeyManager}, {@link
+ * @vckit/core-types#IDataStore}, {@link @vckit/core-types#IMessageHandler} plugin interfaces
  *
  * @packageDocumentation
  */

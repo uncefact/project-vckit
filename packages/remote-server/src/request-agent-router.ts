@@ -1,4 +1,4 @@
-import { IAgent } from '@veramo/core-types'
+import { IAgent } from '@vckit/core-types'
 import { Request, Router } from 'express'
 
 export interface RequestWithAgent extends Request {
