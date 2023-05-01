@@ -1,4 +1,4 @@
-import { IDIDManagerCreateArgs, IIdentifier } from '@veramo/core-types'
+import { IDIDManagerCreateArgs, IIdentifier } from '@vckit/core-types'
 import { getAgent } from './setup.js'
 import inquirer from 'inquirer'
 import { Command } from 'commander'

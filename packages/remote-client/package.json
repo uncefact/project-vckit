@@ -1,16 +1,16 @@
 {
-  "name": "@veramo/remote-client",
-  "description": "A remote client plugin for Veramo",
-  "version": "5.1.2",
+  "name": "@vckit/remote-client",
+  "description": "A remote client plugin for vckit",
+  "version": "0.1.0",
   "main": "build/index.js",
   "exports": "./build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "extract-api": "node ../cli/bin/veramo.js dev extract-api"
+    "extract-api": "node ../cli/bin/vckit.js dev extract-api"
   },
   "dependencies": {
-    "@veramo/core-types": "^5.1.2",
+    "@vckit/core-types": "0.1.0",
     "cross-fetch": "^3.1.4",
     "debug": "^4.3.3",
     "openapi-types": "12.1.0"
@@ -28,7 +28,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": "git@github.com:uport-project/veramo.git",
+  "repository": "git@github.com:uncefact/project-vckit.git",
   "author": "Simonas Karuzas <simonas.karuzas@mesh.xyz>",
   "contributors": [
     "Mircea Nistor <mircea.nistor@mesh.xyz>"

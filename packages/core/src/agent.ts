@@ -1,9 +1,9 @@
-import { IAgent, IPluginMethodMap, IAgentOptions, TAgent, IAgentPluginSchema } from '@veramo/core-types'
+import { IAgent, IPluginMethodMap, IAgentOptions, TAgent, IAgentPluginSchema } from '@vckit/core-types'
 import { validateArguments, validateReturnType } from './validator.js'
 import ValidationErrorSchema from './schemas/ValidationError.js'
 import Debug from 'debug'
 import { EventEmitter } from 'events'
-import { CoreEvents } from '@veramo/core-types'
+import { CoreEvents } from '@vckit/core-types'
 
 /**
  * Filters unauthorized methods. By default, all methods are authorized
@@ -235,12 +235,12 @@ export class Agent implements IAgent {
  * Helper function to create a new instance of the {@link Agent} class with correct type
  *
  * @remarks
- * Use {@link @veramo/core-types#TAgent} to configure agent type (list of available methods) for autocomplete in IDE
+ * Use {@link @vckit/core-types#TAgent} to configure agent type (list of available methods) for autocomplete in IDE
  *
  * @example
  * ```typescript
- * import { createAgent, IResolver, IMessageHandler } from '@veramo/core'
- * import { AgentRestClient } from '@veramo/remote-client'
+ * import { createAgent, IResolver, IMessageHandler } from '@vckit/core'
+ * import { AgentRestClient } from '@vckit/remote-client'
  * import { CredentialIssuer, ICredentialIssuer } from '@veramo/credential-w3c'
  * const agent = createAgent<IResolver & IMessageHandler & ICredentialIssuer>({
  *   plugins: [

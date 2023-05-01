@@ -1,4 +1,4 @@
-# Veramo Express
+# vckit Express
 
 A utility module that contains express.js routers to:
 

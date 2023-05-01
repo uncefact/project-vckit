@@ -1,5 +1,5 @@
 /**
- * Provides a {@link @veramo/remote-client#AgentRestClient | plugin} for the {@link @veramo/core#Agent} that
+ * Provides a {@link @vckit/remote-client#AgentRestClient | plugin} for the {@link @vckit/core#Agent} that
  * can proxy method execution over HTTPS
  *
  * @packageDocumentation

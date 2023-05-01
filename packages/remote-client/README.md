@@ -1,3 +1,3 @@
-# Veramo remote client
+# vckit remote client
 
-A Veramo agent plugin that can expose methods from a remote agent locally.
+A vckit agent plugin that can expose methods from a remote agent locally.

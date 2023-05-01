@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getOpenApiSchema } from '@veramo/remote-client'
+import { getOpenApiSchema } from '@vckit/remote-client'
 import { RequestWithAgent } from './request-agent-router.js'
 
 /**
@@ -37,7 +37,7 @@ export interface ApiSchemaRouterOptions {
 }
 
 /**
- * Creates a router that exposes {@link @veramo/core#Agent} OpenAPI schema
+ * Creates a router that exposes {@link @vckit/core#Agent} OpenAPI schema
  *
  * @param options - Initialization option
  * @returns Expressjs router

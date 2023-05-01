@@ -1,11 +1,11 @@
 version: 2.0
 
 agent:
-  $require: '@veramo/core#Agent'
+  $require: '@vckit/core#Agent'
   $args:
     - schemaValidation: false
       plugins:
-        - $require: '@veramo/remote-client#AgentRestClient'
+        - $require: '@vckit/remote-client#AgentRestClient'
           $args:
             - url: http://localhost:3332
               # headers:

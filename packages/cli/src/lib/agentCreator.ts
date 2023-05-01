@@ -1,4 +1,4 @@
-import { TAgent, IPluginMethodMap } from '@veramo/core-types'
+import { TAgent, IPluginMethodMap } from '@vckit/core-types'
 import { createObjects } from './objectCreator.js'
 
 /**

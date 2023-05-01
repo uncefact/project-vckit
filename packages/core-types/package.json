@@ -1,5 +1,5 @@
 {
-  "name": "@veramo/core-types",
+  "name": "@vckit/core-types",
   "description": "Veramo Core Logic & Interfaces.",
   "version": "5.1.2",
   "main": "build/index.js",
@@ -10,7 +10,7 @@
   "types": "build/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "generate-plugin-schema": "node ../cli/bin/veramo.js dev generate-plugin-schema"
+    "generate-plugin-schema": "node ../cli/bin/vckit.js dev generate-plugin-schema"
   },
   "veramo": {
     "pluginInterfaces": {
