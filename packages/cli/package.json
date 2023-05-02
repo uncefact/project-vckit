@@ -1,7 +1,7 @@
 {
   "name": "@vckit/cli",
   "description": "vckit command line application.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "exports": {
     ".": {
       "types": "./build/cli.d.ts",
@@ -38,13 +38,13 @@
     "@transmute/credentials-context": "^0.7.0-unstable.79",
     "@types/blessed": "^0.1.19",
     "@types/swagger-ui-express": "^4.1.3",
-    "@vckit/core": "^0.2.0",
-    "@vckit/core-types": "^0.2.0",
-    "@vckit/remote-client": "^0.2.0",
-    "@vckit/remote-server": "^0.2.0",
+    "@vckit/core": "^0.2.1",
+    "@vckit/core-types": "^0.2.1",
+    "@vckit/credential-w3c": "^0.2.1",
+    "@vckit/remote-client": "^0.2.1",
+    "@vckit/remote-server": "^0.2.1",
     "@veramo/credential-eip712": "^5.1.2",
     "@veramo/credential-ld": "^5.1.2",
-    "@vckit/credential-w3c": "^0.2.0",
     "@veramo/data-store": "^5.1.2",
     "@veramo/did-comm": "^5.1.2",
     "@veramo/did-discovery": "^5.1.2",
