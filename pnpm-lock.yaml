@@ -169,7 +169,7 @@ importers:
         version: link:../core
       '@vckit/core-types':
         specifier: 0.1.0
-        version: 0.1.0
+        version: link:../core-types
       '@vckit/remote-client':
         specifier: ^0.1.0
         version: link:../remote-client
@@ -361,7 +361,7 @@ importers:
   packages/core:
     dependencies:
       '@vckit/core-types':
-        specifier: ^5.1.2
+        specifier: ^0.1.0
         version: link:../core-types
       debug:
         specifier: ^4.3.4
@@ -402,11 +402,58 @@ importers:
         specifier: 4.9.4
         version: 4.9.4
 
+  packages/credential-oa:
+    dependencies:
+      '@vckit/core-types':
+        specifier: ^0.1.0
+        version: link:../core-types
+      '@veramo/message-handler':
+        specifier: ^5.1.2
+        version: 5.1.2
+      '@veramo/utils':
+        specifier: ^5.1.2
+        version: 5.1.2
+      canonicalize:
+        specifier: ^1.0.8
+        version: 1.0.8
+      debug:
+        specifier: ^4.3.3
+        version: 4.3.4
+      did-jwt:
+        specifier: ^6.11.0
+        version: 6.11.0
+      did-jwt-vc:
+        specifier: ^3.1.0
+        version: 3.1.0
+      did-resolver:
+        specifier: ^4.0.1
+        version: 4.0.1
+      uint8arrays:
+        specifier: ^3.0.0
+        version: 3.1.1
+      uuid:
+        specifier: ^9.0.0
+        version: 9.0.0
+    optionalDependencies:
+      '@veramo/credential-ld':
+        specifier: ^5.1.2
+        version: 5.1.2(expo@48.0.15)(react-native@0.71.7)
+    devDependencies:
+      '@types/debug':
+        specifier: 4.1.7
+        version: 4.1.7
+      '@types/uuid':
+        specifier: 9.0.0
+        version: 9.0.0
+      typescript:
+        specifier: 4.9.4
+        version: 4.9.4
+
   packages/remote-client:
     dependencies:
       '@vckit/core-types':
         specifier: 0.1.0
-        version: 0.1.0
+        version: link:../core-types
       cross-fetch:
         specifier: ^3.1.4
         version: 3.1.5
@@ -428,7 +475,7 @@ importers:
     dependencies:
       '@vckit/core-types':
         specifier: 0.1.0
-        version: 0.1.0
+        version: link:../core-types
       '@vckit/remote-client':
         specifier: 0.1.0
         version: link:../remote-client
@@ -7517,17 +7564,6 @@ packages:
     dev: false
     optional: true
 
-  /@vckit/core-types@0.1.0:
-    resolution: {integrity: sha512-fy7VUbIshuxk6YkM8m/KMtzN5c6799ZAuLMmMUPEC8JHJtcT/pUVDnjsmrH4pqOoHYQYvM1+Ba2apZ2IIh5wuw==}
-    dependencies:
-      credential-status: 2.0.5
-      debug: 4.3.4
-      did-jwt-vc: 3.1.0
-      did-resolver: 4.0.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
   /@veramo/core-types@5.1.2:
     resolution: {integrity: sha512-IVmbcn9yBE8v/x29nGvScCT9sIKu/iYJ8+dqN3jIVL2t//HRvNhrHsxw83Wb6DGqr46r0ebM+kEnPfZAAxdk/w==}
     dependencies:
@@ -7560,7 +7596,7 @@ packages:
       '@digitalcredentials/jsonld': 5.2.1(expo@48.0.15)(react-native@0.71.7)
       '@digitalcredentials/jsonld-signatures': 9.3.1(expo@48.0.15)(react-native@0.71.7)
       '@digitalcredentials/vc': 5.0.0(expo@48.0.15)(react-native@0.71.7)
-      '@transmute/credentials-context': 0.7.0-unstable.79
+      '@transmute/credentials-context': 0.7.0-unstable.80
       '@transmute/ed25519-signature-2018': 0.7.0-unstable.80(expo@48.0.15)(react-native@0.71.7)
       '@transmute/json-web-signature': 0.7.0-unstable.80(expo@48.0.15)(react-native@0.71.7)
       '@veramo-community/lds-ecdsa-secp256k1-recovery2020': github.com/uport-project/EcdsaSecp256k1RecoverySignature2020/ab0db52de6f4e6663ef271a48009ba26e688ef9b(expo@48.0.15)(react-native@0.71.7)
