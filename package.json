@@ -8,7 +8,8 @@
     "build:schema": "pnpm --package=@veramo/cli -c dlx \"pnpm -r --stream generate-plugin-schema\"",
     "vckit": "cross-env NODE_NO_WARNINGS=1 ./packages/cli/bin/vckit.js",
     "prettier": "prettier --write \"{packages,docs,__tests__,!build}/**/*.{ts,js,json,md,yml}\"",
-    "build-clean": "rimraf --glob ./packages/*/build ./packages/*/api ./packages/*/node_modules ./packages/*/tsconfig.tsbuildinfo ./temp ./tmp && jest --clearCache"
+    "build-clean": "rimraf --glob ./packages/*/build ./packages/*/api ./packages/*/node_modules ./packages/*/tsconfig.tsbuildinfo ./temp ./tmp && jest --clearCache",
+    "version": "lerna version"
   },
   "devDependencies": {
     "@ethersproject/contracts": "^5.7.0",
