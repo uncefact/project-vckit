@@ -1,0 +1,20 @@
+{
+  "version": "0.1.0",
+  "npmClient": "pnpm",
+  "changelog": {
+    "repo": "uncefact/project-vckit",
+    "cacheDir": ".changelog"
+  },
+  "command": {
+    "publish": {
+      "allowBranch": [
+        "main",
+        "next"
+      ],
+      "conventionalCommits": true,
+      "gitRemote": "origin",
+      "message": "chore(release): %s [skip ci]"
+    }
+  },
+  "useWorkspaces": true
+}
