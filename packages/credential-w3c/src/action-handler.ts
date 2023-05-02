@@ -234,7 +234,30 @@ export class CredentialPlugin implements IAgentPlugin {
             'invalid_setup: your agent does not seem to have ICredentialIssuerEIP712 plugin installed',
           )
         }
-      } else {
+      } else if (proofFormat === 'OpenAttestationMerkleProofSignature2018'){
+        // if (typeof context.agent.createVerifiableCredentialOA === 'function') {
+          verifiableCredential = {
+            "credentialSubject": {
+              "emailAddress": "email@thing.com",
+              "id": "did:web:vckit-holder-demo.herokuapp.com"
+            },
+            "issuer": {
+              "id": "did:web:vckit-holder-demo.herokuapp.com"
+            },
+            "type": [
+              "VerifiableCredential",
+              "EmailCredentialSchema"
+            ],
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1"
+            ],
+            "issuanceDate": "2023-02-02T03:22:39.000Z",
+            "proof": {
+              "type": "JwtProof2020",
+              "jwt": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJ2YyI6eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSJdLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwiRW1haWxDcmVkZW50aWFsU2NoZW1hIl0sImNyZWRlbnRpYWxTdWJqZWN0Ijp7ImVtYWlsQWRkcmVzcyI6ImVtYWlsQHRoaW5nLmNvbSJ9fSwic3ViIjoiZGlkOndlYjp2Y2tpdC1ob2xkZXItZGVtby5oZXJva3VhcHAuY29tIiwibmJmIjoxNjc1MzA4MTU5LCJpc3MiOiJkaWQ6d2ViOnZja2l0LWhvbGRlci1kZW1vLmhlcm9rdWFwcC5jb20ifQ.2Ma8mEcd5drz8EeAqwlWqtSKypRuleUR7MXbAqN38CN0wJ3VxgiJuX6dUAh3TT8_YwIWk28DUyvVmXjbCAbACg"
+            }
+          }
+        } else {
         //FIXME: `args` should allow picking a key or key type
         const key = identifier.keys.find((k) => k.type === 'Secp256k1' || k.type === 'Ed25519')
         if (!key) throw Error('No signing key for ' + identifier.did)
