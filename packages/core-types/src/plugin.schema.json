@@ -4068,8 +4068,8 @@
             },
             "save": {
               "type": "boolean",
-              "description": "If this parameter is true, the resulting VerifiablePresentation is sent to the\n {@link  @vckit/core-types#IDataStore | storage plugin }  to be saved.",
-              "deprecated": "Please call\n{@link @vckit/core-types#IDataStore.dataStoreSaveVerifiableCredential | dataStoreSaveVerifiableCredential()} to save\nthe credential after creating it."
+              "description": "If this parameter is true, the resulting VerifiablePresentation is sent to the\n {@link  @veramo/core-types#IDataStore | storage plugin }  to be saved.",
+              "deprecated": "Please call\n{@link @veramo/core-types#IDataStore.dataStoreSaveVerifiableCredential | dataStoreSaveVerifiableCredential()} to save\nthe credential after creating it."
             },
             "proofFormat": {
               "$ref": "#/components/schemas/ProofFormat",
@@ -4282,8 +4282,8 @@
             },
             "save": {
               "type": "boolean",
-              "description": "If this parameter is true, the resulting VerifiablePresentation is sent to the\n {@link  @vckit/core-types#IDataStore | storage plugin }  to be saved. <p/><p/>",
-              "deprecated": "Please call\n{@link @vckit/core-types#IDataStore.dataStoreSaveVerifiablePresentation | dataStoreSaveVerifiablePresentation()} to\nsave the credential after creating it."
+              "description": "If this parameter is true, the resulting VerifiablePresentation is sent to the\n {@link  @veramo/core-types#IDataStore | storage plugin }  to be saved. <p/><p/>",
+              "deprecated": "Please call\n{@link @veramo/core-types#IDataStore.dataStoreSaveVerifiablePresentation | dataStoreSaveVerifiablePresentation()} to\nsave the credential after creating it."
             },
             "challenge": {
               "type": "string",
