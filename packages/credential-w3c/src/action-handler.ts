@@ -19,6 +19,8 @@ import {
   W3CVerifiablePresentation,
 } from '@veramo/core-types'
 
+import { wrapDocument, signDocument, SUPPORTED_SIGNING_ALGORITHM, __unsafe__use__it__at__your__own__risks__wrapDocument, OpenAttestationDocument } from "@govtechsg/open-attestation";
+
 import schema from '@veramo/core-types/build/plugin.schema.json' assert { type: 'json' }
 
 import {
@@ -236,27 +238,98 @@ export class CredentialPlugin implements IAgentPlugin {
         }
       } else if (proofFormat === 'OpenAttestationMerkleProofSignature2018'){
         // if (typeof context.agent.createVerifiableCredentialOA === 'function') {
-          verifiableCredential = {
-            "credentialSubject": {
-              "emailAddress": "email@thing.com",
-              "id": "did:web:vckit-holder-demo.herokuapp.com"
-            },
-            "issuer": {
-              "id": "did:web:vckit-holder-demo.herokuapp.com"
-            },
-            "type": [
-              "VerifiableCredential",
-              "EmailCredentialSchema"
-            ],
+        //@ts-ignore 
+        const wrappedDocument: OpenAttestationDocument = await __unsafe__use__it__at__your__own__risks__wrapDocument({
+            version: "https://schema.openattestation.com/3.0/schema.json",
             "@context": [
-              "https://www.w3.org/2018/credentials/v1"
+              "https://www.w3.org/2018/credentials/v1",
+              "https://schemata.openattestation.com/io/tradetrust/Invoice/1.0/invoice-context.json",
+              "https://schemata.openattestation.com/com/openattestation/1.0/OpenAttestation.v3.json"
             ],
-            "issuanceDate": "2023-02-02T03:22:39.000Z",
-            "proof": {
-              "type": "JwtProof2020",
-              "jwt": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJ2YyI6eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSJdLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwiRW1haWxDcmVkZW50aWFsU2NoZW1hIl0sImNyZWRlbnRpYWxTdWJqZWN0Ijp7ImVtYWlsQWRkcmVzcyI6ImVtYWlsQHRoaW5nLmNvbSJ9fSwic3ViIjoiZGlkOndlYjp2Y2tpdC1ob2xkZXItZGVtby5oZXJva3VhcHAuY29tIiwibmJmIjoxNjc1MzA4MTU5LCJpc3MiOiJkaWQ6d2ViOnZja2l0LWhvbGRlci1kZW1vLmhlcm9rdWFwcC5jb20ifQ.2Ma8mEcd5drz8EeAqwlWqtSKypRuleUR7MXbAqN38CN0wJ3VxgiJuX6dUAh3TT8_YwIWk28DUyvVmXjbCAbACg"
+            type: [
+              "VerifiableCredential",
+              "OpenAttestationCredential"
+            ],
+            issuanceDate: "2010-01-01T19:23:24Z",
+            issuer: {
+              id: "https://example.com",
+              name: "DEMO STORE"
+            },
+            openAttestationMetadata: {
+              template: {
+                //@ts-ignore
+                type: "EMBEDDED_RENDERER",
+                name: "INVOICE",
+                url: "https://generic-templates.tradetrust.io"
+              },
+              proof: {
+                //@ts-ignore
+                type: "OpenAttestationProofMethod",
+                //@ts-ignore
+                method: "DOCUMENT_STORE",
+                value: "0x49b2969bF0E4aa822023a9eA2293b24E4518C1DD"
+              },
+              identityProof: {
+                //@ts-ignore
+                type: "DNS-TXT",
+                identifier: "demo-tradetrust.openattestation.com"
+              }
+            },
+            credentialSubject: {
+              name: "TradeTrust Invoice v3",
+              id: "1111",
+              date: "2018-02-21",
+              customerId: "564",
+              terms: "Due Upon Receipt",
+              billFrom: {
+                name: "ABC Company",
+                streetAddress: "Level 1, Industry Offices",
+                city: "Singapore",
+                postalCode: "123456",
+                phoneNumber: "60305029"
+              },
+              billTo: {
+                company: {
+                  name: "DEF Company",
+                  streetAddress: "Level 2, Industry Offices",
+                  city: "Singapore",
+                  postalCode: "612345",
+                  phoneNumber: "61204028"
+                },
+                name: "James Lee",
+                email: "def@company.com"
+              },
+              billableItems: [
+                {
+                  description: "Service Fee",
+                  quantity: "1",
+                  unitPrice: "200",
+                  amount: "200"
+                },
+                {
+                  description: "Labor: 5 hours at $75/hr",
+                  quantity: "5",
+                  unitPrice: "75",
+                  amount: "375"
+                },
+                {
+                  description: "New client discount",
+                  quantity: "1",
+                  unitPrice: "50",
+                  amount: "50"
+                }
+              ],
+              subtotal: "625",
+              tax: "0",
+              taxTotal: "0",
+              total: "625",
             }
-          }
+          })
+          //@ts-ignore
+          verifiableCredential = signDocument(wrappedDocument, SUPPORTED_SIGNING_ALGORITHM.Secp256k1VerificationKey2018, {
+            public: 'did:ethr:0x4FC1E99Fb7833517e3460de4b38C3C9218bB8F52',
+            private: '0x3064dc4a1976a4bc78abe74dc49f19cc866d3e8963d06947631601da6d3f54fe'
+          })
         } else {
         //FIXME: `args` should allow picking a key or key type
         const key = identifier.keys.find((k) => k.type === 'Secp256k1' || k.type === 'Ed25519')
