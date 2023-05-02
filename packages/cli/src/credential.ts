@@ -32,7 +32,7 @@ credential
       {
         type: 'list',
         name: 'proofFormat',
-        choices: ['jwt', 'lds', 'EthereumEip712Signature2021'],
+        choices: ['jwt', 'lds', 'EthereumEip712Signature2021', 'OpenAttestationMerkleProofSignature2018'],
         message: 'Credential proofFormat',
       },
       {

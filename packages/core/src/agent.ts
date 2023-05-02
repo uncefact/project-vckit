@@ -241,7 +241,7 @@ export class Agent implements IAgent {
  * ```typescript
  * import { createAgent, IResolver, IMessageHandler } from '@vckit/core'
  * import { AgentRestClient } from '@vckit/remote-client'
- * import { CredentialIssuer, ICredentialIssuer } from '@veramo/credential-w3c'
+ * import { CredentialIssuer, ICredentialIssuer } from '@vckit/credential-w3c'
  * const agent = createAgent<IResolver & IMessageHandler & ICredentialIssuer>({
  *   plugins: [
  *     new CredentialIssuer(),
