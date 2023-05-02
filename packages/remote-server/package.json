@@ -1,7 +1,7 @@
 {
   "name": "@vckit/remote-server",
   "description": "Express.js module that can expose some agent methods and messaging endpoints",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "build/index.js",
   "exports": "./build/index.js",
   "types": "build/index.d.ts",
@@ -10,8 +10,8 @@
     "extract-api": "node ../cli/bin/vckit.js dev extract-api"
   },
   "dependencies": {
-    "@vckit/core-types": "^0.2.0",
-    "@vckit/remote-client": "^0.2.0",
+    "@vckit/core-types": "^0.2.1",
+    "@vckit/remote-client": "^0.2.1",
     "debug": "^4.3.3",
     "did-resolver": "^4.0.1",
     "express": "^4.18.2",
