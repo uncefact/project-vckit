@@ -1,7 +1,7 @@
 {
   "name": "@vckit/credential-w3c",
   "description": "vckit plugin for working with W3C Verifiable Credentials & Presentations.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "build/index.js",
   "exports": {
     ".": "./build/index.js",
