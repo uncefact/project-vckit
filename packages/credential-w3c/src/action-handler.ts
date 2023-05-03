@@ -17,11 +17,11 @@ import {
   VerifierAgentContext,
   W3CVerifiableCredential,
   W3CVerifiablePresentation,
-} from '@veramo/core-types'
+} from '@vckit/core-types'
 
 import { wrapDocument, signDocument, SUPPORTED_SIGNING_ALGORITHM, __unsafe__use__it__at__your__own__risks__wrapDocument, OpenAttestationDocument } from "@govtechsg/open-attestation";
 
-import schema from '@veramo/core-types/build/plugin.schema.json' assert { type: 'json' }
+import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' }
 
 import {
   createVerifiableCredentialJwt,

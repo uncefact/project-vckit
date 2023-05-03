@@ -1,6 +1,12 @@
 import { OpenAPIV3 } from 'openapi-types'
 import { IAgent, IAgentPluginSchema } from '@vckit/core-types'
 
+type XBadges = {
+  color: string,
+  label: string
+}
+
+
 const getInteropApiPathItem = (method: string, agentSchema: IAgentPluginSchema): {path: string, pathItem: OpenAPIV3.PathItemObject} => {
   switch(method) {
     case "resolveDid":
@@ -321,6 +327,54 @@ export const getOpenApiSchema = (
       xMethods[method] = agentSchema.components.methods[method]
   }
 
+  // FIXME: include legacy veramo rest api methods for now
+  // progressivly migrate to more RESTy strcuture
+  for (const method of exposedMethods) {
+    const pathItemObject: OpenAPIV3.PathItemObject<{'x-badges': Array<XBadges>}> = {
+      post: {
+        operationId: method,
+        description: agentSchema.components.methods[method].description,
+        tags: [
+          "Veramo Default"
+        ],
+        'x-badges': [
+          {
+          color: 'red',
+          label: 'Legacy'
+        }
+      ],
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: agentSchema.components.methods[method].arguments,
+            },
+          },
+        },
+        responses: {
+          200: {
+            // TODO returnType description
+            description: agentSchema.components.methods[method].description,
+            content: {
+              'application/json; charset=utf-8': {
+                schema: agentSchema.components.methods[method].returnType,
+              },
+            },
+          },
+          400: {
+            description: 'Validation error',
+            content: {
+              'application/json; charset=utf-8': {
+                schema: agentSchema.components.schemas.ValidationError,
+              },
+            },
+          },
+        },
+      },
+    }
+    paths[basePath + '/' + method] = pathItemObject
+    xMethods[method] = agentSchema.components.methods[method]
+  }
+
   const openApi: OpenAPIV3.Document & { 'x-methods'?: Record<string, any> } = {
     openapi: '3.0.0',
     info: {
@@ -344,6 +398,9 @@ export const getOpenApiSchema = (
       },
       {
         name: "Presentations"
+      },
+      {
+        name: "Veramo Default"
       }
     ],
     paths,
