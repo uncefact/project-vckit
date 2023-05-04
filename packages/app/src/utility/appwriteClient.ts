@@ -1,7 +1,7 @@
 import { Account, Appwrite, Storage } from "@refinedev/appwrite";
 
-const APPWRITE_URL = "https://refine.appwrite.org/v1";
-const APPWRITE_PROJECT = "61c4368b4e349";
+const APPWRITE_URL = "https://admin.vckit.io/v1";
+const APPWRITE_PROJECT = "63e9a3cad8d5d694e3d0";
 
 const appwriteClient = new Appwrite();
 
