@@ -130,6 +130,13 @@ server:
     - - /api-docs
       - $require: '@vckit/remote-server?t=function#ApiSchemaRouter'
 
+  # Agent explorer
+    - - $require: '@vckit/app?t=function#ExplorerRouter'
+        # $args:
+        #   - - schemaUrl: https://example.com/open-api.json
+        #       name: Example name
+        #       apiKey: exampleKey123
+
   # Execute during server initialization
   init:
     - $require: '@vckit/remote-server?t=function#createDefaultDid'
