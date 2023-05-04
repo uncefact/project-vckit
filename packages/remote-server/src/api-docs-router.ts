@@ -16,7 +16,7 @@ export const ApiDocsRouter = (): Router => {
     <head>
       <meta charset='utf-8'>
       <meta name='viewport' content='width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes'>
-      <script type='module' src='./rapidoc-min.js'></script>
+      <script src="https://cdn.jsdelivr.net/npm/rapidoc@9.3.4/dist/rapidoc-min.min.js"></script>
     </head>
     <body>
       <rapi-doc
@@ -31,7 +31,7 @@ export const ApiDocsRouter = (): Router => {
     </body>
   </html>
   `
-  router.get('/api-docs', (req: RequestWithAgent, res) => {
+  router.get('/', (req: RequestWithAgent, res) => {
     res.status(200)
     res.set('Content-Type', 'text/html');
     res.send(Buffer.from(rapidoc));
