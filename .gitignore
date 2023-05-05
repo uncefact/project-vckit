@@ -86,3 +86,5 @@ data
 .vscode-upload.json
 
 local-database*.json
+
+/scratch
