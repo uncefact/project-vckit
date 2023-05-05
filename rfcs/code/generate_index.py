@@ -32,7 +32,7 @@ def main(fname = None):
     all.sort(key=lambda x: x.num)
     tmp_fname = fname + '.tmp'
     with open(tmp_fname, 'w', encoding='utf-8') as out:
-        out.write("# Aries RFCs by Status\n")
+        out.write("# vc-kit RFCs by Status\n")
         for status in rfcs.status_list:
             out.write(f"\n## [{status}](README.md#{status.lower()})\n")
             with_status = [rfc for rfc in all if rfc.status == status]

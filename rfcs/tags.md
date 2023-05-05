@@ -12,7 +12,7 @@ Defines one or more [decorators](concepts/0011-decorators/README.md) that act as
 Defines a specific, concrete feature that [agents](concepts/0004-agents/README.md) might support.
 
 ### `concept`
-Defines a general aspect of the Aries mental model, or a pattern that manifests in many different features.
+Defines a general aspect of the vc-kit mental model, or a pattern that manifests in many different features.
 
 ### `community-update`
 An RFC that tracks a community-coordinated update, as described in [RFC

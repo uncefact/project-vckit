@@ -6,12 +6,8 @@
 
 | Name             | Github           | LFID             |
 | ---------------- | ---------------- | ---------------- |
-|	Daniel Hardman | dhh1128 | |
-|	George Aristy | llorllale | |
-|	Nathan George | nage | |
-|	Stephen Curran | swcurran | |
-|	Drummond Reed | talltree | |
-|	Sam Curren | TelegramSam | |
+|	Richard Spellman | arpentnoir | |
+
 
 ## Emeritus Maintainers
 
@@ -21,7 +17,7 @@
 
 ## Becoming a Maintainer
 
-The Aries community welcomes contributions. Contributors may progress to become a
+The vc-kit community welcomes contributions. Contributors may progress to become a
 maintainer. To become a maintainer the following steps occur, roughly in order.
 
 - 5 significant changes have been authored by the proposed maintainer and
