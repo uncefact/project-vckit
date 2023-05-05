@@ -34,10 +34,10 @@ export const AgentRouter = (options: AgentRouterOptions): Router => {
   for (const exposedMethod of options.exposedMethods) {
     Debug('veramo:remote-server:initializing')(exposedMethod)
 
-    router.post('/' + exposedMethod, async (req: RequestWithAgent, res: Response, next: NextFunction) => {
+    router.post('/credentials/issue', async (req: RequestWithAgent, res: Response, next: NextFunction) => {
       if (!req.agent) throw Error('Agent not available')
       try {
-        const result = await req.agent.execute(exposedMethod, req.body)
+        const result = await req.agent.execute('createVerifiableCredential', req.body)
         res.status(200).json(result)
       } catch (e: any) {
         if (e.name === 'ValidationError') {
