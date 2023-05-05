@@ -11,8 +11,6 @@
 
 One paragraph explanation of the feature.
 
-> NOTE: If you are creating a **protocol** RFC, please use [this template](https://github.com/hyperledger/aries-rfcs/blob/main/0000-template-protocol.md) instead.
-
 ## Motivation
 
 Why are we doing this? What use cases does it support? What is the expected
@@ -21,12 +19,12 @@ outcome?
 ## Tutorial
 
 Explain the proposal as if it were already implemented and you
-were teaching it to another Aries contributor or Aries consumer. That generally
+were teaching it to another vc-kit contributor or vc-kit consumer. That generally
 means:
 
 - Introducing new named concepts.
 - Explaining the feature largely in terms of examples.
-- Explaining how Aries contributors and/or consumers should *think* about the
+- Explaining how vc-kit contributors and/or consumers should *think* about the
 feature, and how it should impact the way they use the ecosystem.
 - If applicable, provide sample error messages, deprecation warnings, or
 migration guidance.
@@ -75,9 +73,7 @@ interesting to us whether they are brand new or if they are an adaptation
 from other communities.
 
 Note that while precedent set by other communities is some motivation, it
-does not on its own motivate an enhancement proposal here. Please also take
-into consideration that Aries sometimes intentionally diverges from common
-identity features.
+does not on its own motivate an enhancement proposal here.
 
 ## Unresolved questions
 
@@ -91,7 +87,7 @@ solution that comes out of this doc?
    
 ## Implementations
 
-The following lists the implementations (if any) of this RFC. Please do a pull request to add your implementation. If the implementation is open source, include a link to the repo or to the implementation within the repo. Please be consistent in the "Name" field so that a mechanical processing of the RFCs can generate a list of all RFCs supported by an Aries implementation.
+The following lists the implementations (if any) of this RFC. Please do a pull request to add your implementation. If the implementation is open source, include a link to the repo or to the implementation within the repo. Please be consistent in the "Name" field so that a mechanical processing of the RFCs can generate a list of all RFCs supported by a vc-kit implementation.
 
 *Implementation Notes* [may need to include a link to test results](/README.md#accepted).
 
