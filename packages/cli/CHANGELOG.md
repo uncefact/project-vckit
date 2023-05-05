@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/uport-project/veramo/compare/v0.2.2...v0.3.0) (2023-05-05)
+
+### Features
+
+- add wallet app to default config ([0372201](https://github.com/uport-project/veramo/commit/0372201cf40bd1b0bee41f187bfccaada8694c38))
+
 ## [0.2.2](https://github.com/uport-project/veramo/compare/v0.2.1...v0.2.2) (2023-05-03)
 
 **Note:** Version bump only for package @vckit/cli
