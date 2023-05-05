@@ -1,35 +1,34 @@
-# ![Aries RFCs](collateral/aries-rfcs-logo.png)
+# vc-kit RFCs
 
 ## Contributing
 
 ### Do you need an RFC?
 
-Use an RFC to advocate substantial changes to the Aries ecosystem, where
-those changes need to be understood by developers who *use* Aries. Minor
+Use an RFC to advocate substantial changes to the vc-kit ecosystem, where
+those changes need to be understood by developers who *use* vc-kit. Minor
 changes are not RFC-worthy, and changes that are internal in nature,
-invisible to those consuming Aries, should be documented elsewhere.
+invisible to those consuming vc-kit, should be documented elsewhere.
 
 ### Preparation
 
-Before writing an RFC, consider exploring the idea on
-[chat](https://chat.hyperledger.org/channel/aries), on community calls
-(see the [Hyperledger Community Calendar](
-https://wiki.hyperledger.org/community/calendar-public-meetings)),
-or on [aries@lists.hyperledger.org](
-mailto:aries@lists.hyperledger.org). Encouraging feedback from maintainers
+Before writing an RFC, consider exploring the idea on the 
+[vc-kit discord](https://discord.com/channels/1100602714720829543/1103849339400507402)Encouraging feedback from maintainers
 is a good sign that you're on the right track.
 
 ### How to propose an RFC
 
-  - Fork [the RFC repo](https://github.com/hyperledger/aries-RFC).
+  - Fork [the vc-kit repo](https://github.com/uncefact/project-vckit).
+
+> TODO: consider moving RFCs to their own repo? 
+
   - Pick a descriptive folder name for your RFC. Don't pick a number yet.
     See [Best Practices: RFC Naming](concepts/0074-didcomm-best-practices/README.md#rfc-naming)
     for guidance.
   - Decide which parent folder is appropriate for your RFC.
-    If it is about a specific protocol or decorator or feature, its parent
+    If it is a feature, its parent
     should be /features; if it is about a concept that will be used in many
     different features, its parent should be /concepts.
-  - Create the folder and copy either `0000-template.md` or `0000-template-protocol.md` (if your RFC is for a protocol) to `<parent>/<your folder name>/README.md`.
+  - Create the folder and copy either `0000-template.md` to `<parent>/<your folder name>/README.md`.
   - Fill in the RFC. [Use MUST and SHOULD per standard conventions](https://tools.ietf.org/html/rfc2119). Put care into the details: RFCs that do not present
     convincing motivation, demonstrate an understanding of the impact of the
     design, or are disingenuous about the drawbacks or alternatives tend to be
@@ -37,10 +36,10 @@ is a good sign that you're on the right track.
     data, in the RFC's folder. Make sure you follow [community-endorsed best
     practices](concepts/0074-didcomm-best-practices/README.md).
   - Consider how the RFC should be [tagged](/tags.md).
-  - Assign a number to your RFC. Get the number by loading <a target="rfcnum"
-    href="https://dhh1128.github.io/next-aries-rfc-num/">this web page</a> (or,
-    if you want to do it the hard way, by inspecting open and closed PRs against
-    this repo to figure out what the next PR number will be). Rename your folder from
+  - Assign a number to your RFC. 
+> Aries RFCs have a cool process for picking next RFC number based on PRs, but that won't work so neatly here in a monorepo. Probably worth implementing something similar to simplify picking RFC number. But at this stage, manually picking RFC number shouldn't be too onerous. 
+ 
+  - Rename your folder from
     `<your folder name>` to `<your 4-digit number>-<your folder name>`. At the
     top of your README.md, modify the title so it is in the form: `<your 4-digit
     number>: Friendly Version of Your Title`. Commit your changes.
@@ -70,10 +69,11 @@ in the lifecycle, submit a PR with the following characteristics:
 - The title of the PR should include a deadline date for merging the PR and the referenced RFC.
   - Example: `Status to Accepted, deadline 2019.08.15, RFC 0095-basic-message`
 - The PR comment should document why the status is being changed.
-- The deadline date should be 2 weeks after announcing the proposed status change on an Aries WG call. The PR should also be announced on the [#aries rocketchat channel](https://chat.hyperledger.org/channel/aries).
+- The deadline date should be 2 weeks after announcing the proposed status change on [vc-kit discord](https://discord.com/channels/1100602714720829543/1103849339400507402). 
 - Barring negative feedback from the community, the repo's maintainers should merge the PR after the deadline.
 - The deadline should be moved by two weeks after addressing each substantive change to the RFC made during the status change review period.
 
+> TODO: we can probably move a bit faster than the above at this stage
 
 ### How to get an RFC demonstrated
 
@@ -96,13 +96,6 @@ consensus is emerging, and implementation against it makes sense), [submit a PR]
 changes the status to [ACCEPTED](README.md#status--accepted). The status change PR
 will remain open until the maintainers agree on the status change.
 
->NOTE: contributors who used the Indy HIPE process prior to May 2019 should
-see the acceptance process substantially simplified under this approach.
-The bar for acceptance is not perfect consensus and all issues resolved;
-it's just general agreement that a doc is "close enough" that it makes
-sense to put it on a standards track where it can be improved as
-implementation teaches us what to tweak.
-
 ### How to get an RFC adopted
 
 An accepted RFC is a standards-track document. It becomes an acknowledged
@@ -120,7 +113,7 @@ which there will be a vote on disposition.
 
 ### Intellectual Property
 
-This repository is licensed under an [Apache 2 License](LICENSE). It is protected
+These RFCs are licensed under an [Apache 2 License](LICENSE). It is protected
 by a [Developer Certificate of Origin](https://developercertificate.org/) on every commit.
 This means that any contributions you make must be licensed in an Apache-2-compatible
 way, and must be free from patent encumbrances or additional terms and conditions. By
@@ -130,10 +123,10 @@ raising a PR, you certify that this is the case for your contribution.
 
 If you are here because you forgot to sign off your commits, fear not. Check out [how to sign off previous commits](#how-to-sign-off-previous-commits)
 
-We use developer certificate of origin (DCO) in all Hyperledger repositories, so to get your pull requests accepted, you must certify your commits by signing off on each commit.
+We use developer certificate of origin (DCO) on all vc-kit related repositories, so to get your pull requests accepted, you must certify your commits by signing off on each commit.
 
 #### Signing off your current commit
-  - `$ git commit -s -m "your commit message"`
+  - `$ git commit -s -m "docs(rfcs): your commit message"`
   - To see if your commits have been signed off, run `$ git log`. Any commits including a line with `Signed-off-by: Example Author <author.email@example.com>` are signed off.
   - If you need to re-sign the most current commit, use `$ git commit --amend --no-edit -s`.
 

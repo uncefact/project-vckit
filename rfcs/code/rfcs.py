@@ -28,7 +28,7 @@ def walk_files():
 
 
 _field = lambda x: re.compile(r'^[ \t]*[-*][ \t]*' + x + '[ \t]*:[ \t*](.*?)$', re.I | re.M)
-_title_pat = re.compile(r'\s*#[ \t]*(?:(?:Aries )?RFC )?(\d\d\d\d)[ \t]*:[ \t]*(.*?)$', re.I | re.M)
+_title_pat = re.compile(r'\s*#[ \t]*(?:(?:vc-kit )?RFC )?(\d\d\d\d)[ \t]*:[ \t]*(.*?)$', re.I | re.M)
 _author_pat = _field('Authors?')
 _status_pat = _field('Status')
 _since_pat = _field('(?:Since|Status[-_ ]?Date)')
