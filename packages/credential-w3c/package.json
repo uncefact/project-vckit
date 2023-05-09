@@ -10,6 +10,7 @@
   "types": "build/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "watch": "tsc -b --watch",
     "extract-api": "node ../cli/bin/vckit.js dev extract-api"
   },
   "dependencies": {
@@ -24,9 +25,6 @@
     "did-resolver": "^4.0.1",
     "uint8arrays": "^3.0.0",
     "uuid": "^9.0.0"
-  },
-  "optionalDependencies": {
-    "@veramo/credential-ld": "^5.1.2"
   },
   "devDependencies": {
     "@types/debug": "4.1.7",
