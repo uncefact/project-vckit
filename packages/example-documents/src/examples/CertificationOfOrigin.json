@@ -1,0 +1,43 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/traceability/v1"
+  ],
+  "id": "urn:uuid:326c74c8-f4d7-4c1b-b158-2683deb8768e",
+  "type": [
+    "VerifiableCredential",
+    "CertificationOfOrigin"
+  ],
+  "name": "Certificate of Origin",
+  "issuanceDate": "2019-12-11T03:50:55Z",
+  "issuer": {
+    "type": [
+      "Organization"
+    ],
+    "id": "did:key:z6MktHQo3fRRohk44dsbE76CuiTpBmyMWq2VVjvV6aBSeE3U",
+    "name": "North Italy Chamber of Commerce"
+  },
+  "credentialSubject": {
+    "items": [
+      {
+        "type": [
+          "TradeLineItem"
+        ],
+        "name": "Espresso Italiano",
+        "description": "Premium Prosumer Espresso Makers - Model Dolce",
+        "product": {
+          "type": ["Product"],
+          "commodity": {
+            "type": [
+              "Commodity"
+            ],
+            "commodityCode": "851671",
+            "commodityCodeType": "HS"
+          }
+        }
+      }
+    ],
+    "manufacturingCountry": "IT",
+    "dateOfExport": "2022-02-02T09:30:00Z"
+  }
+}
