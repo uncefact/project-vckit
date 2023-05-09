@@ -10,6 +10,7 @@
   "types": "build/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "watch": "tsc -b --watch",
     "extract-api": "node ../cli/bin/vckit.js dev extract-api"
   },
   "dependencies": {

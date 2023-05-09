@@ -59,7 +59,8 @@
     "build": "refine build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "refine": "refine"
+    "refine": "refine",
+    "watch": "npm-watch"
   },
   "eslintConfig": {
     "extends": [
