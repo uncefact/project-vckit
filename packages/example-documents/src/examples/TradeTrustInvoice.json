@@ -1,0 +1,86 @@
+{
+  "version": "https://schema.openattestation.com/3.0/schema.json",
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://schemata.openattestation.com/io/tradetrust/Invoice/1.0/invoice-context.json",
+    "https://schemata.openattestation.com/com/openattestation/1.0/OpenAttestation.v3.json"
+  ],
+  "type": [
+    "VerifiableCredential",
+    "OpenAttestationCredential"
+  ],
+  "issuanceDate": "2010-01-01T19:23:24Z",
+  "issuer": {
+    "id": "https://example.com",
+    "name": "DEMO STORE",
+    "type": "OpenAttestationIssuer"
+  },
+  "openAttestationMetadata": {
+    "template": {
+      "type": "EMBEDDED_RENDERER",
+      "name": "INVOICE",
+      "url": "https://generic-templates.tradetrust.io"
+    },
+    "proof": {
+      "type": "OpenAttestationProofMethod",
+      "method": "DID",
+      "value": "did:ethr:0x4FC1E99Fb7833517e3460de4b38C3C9218bB8F52",
+      "revocation": {
+        "type": "NONE"
+      }
+    },
+    "identityProof": {
+      "type": "DID",
+      "identifier": "did:ethr:0x4FC1E99Fb7833517e3460de4b38C3C9218bB8F52"
+    }
+  },
+  "credentialSubject": {
+    "name": "TradeTrust Invoice v3",
+    "id": "1111",
+    "date": "2018-02-21",
+    "customerId": "564",
+    "terms": "Due Upon Receipt",
+    "billFrom": {
+      "name": "ABC Company",
+      "streetAddress": "Level 1, Industry Offices",
+      "city": "Singapore",
+      "postalCode": "123456",
+      "phoneNumber": "60305029"
+    },
+    "billTo": {
+      "company": {
+        "name": "DEF Company",
+        "streetAddress": "Level 2, Industry Offices",
+        "city": "Singapore",
+        "postalCode": "612345",
+        "phoneNumber": "61204028"
+      },
+      "name": "James Lee",
+      "email": "def@company.com"
+    },
+    "billableItems": [
+      {
+        "description": "Service Fee",
+        "quantity": "1",
+        "unitPrice": "200",
+        "amount": "200"
+      },
+      {
+        "description": "Labor: 5 hours at $75/hr",
+        "quantity": "5",
+        "unitPrice": "75",
+        "amount": "375"
+      },
+      {
+        "description": "New client discount",
+        "quantity": "1",
+        "unitPrice": "50",
+        "amount": "50"
+      }
+    ],
+    "subtotal": "625",
+    "tax": "0",
+    "taxTotal": "0",
+    "total": "625",
+  }
+}

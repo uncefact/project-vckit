@@ -1,0 +1,156 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/traceability/v1"
+  ],
+  "type": [
+    "VerifiableCredential",
+    "USMCACertificationOfOrigin"
+  ],
+  "issuanceDate": "2021-06-22T20:29:37+00:00",
+  "expirationDate": "2022-06-22T20:29:37+00:00",
+  "issuer": {
+    "type": [
+      "Organization"
+    ],
+    "id": "did:key:z6MktHQo3fRRohk44dsbE76CuiTpBmyMWq2VVjvV6aBSeE3U",
+    "name": "American Prime Steel Inc.",
+    "description": "Quality Steel since 1952",
+    "location": {
+      "type": [
+        "Place"
+      ],
+      "geo": {
+        "type": [
+          "GeoCoordinates"
+        ],
+        "latitude": "43.655585429184434",
+        "longitude": "-120.33634354756568"
+      },
+      "address": {
+        "type": [
+          "PostalAddress"
+        ],
+        "streetAddress": "1551 Keebler Knoll",
+        "addressLocality": "Vivianeburgh",
+        "addressRegion": "Oregon",
+        "postalCode": "47090",
+        "addressCountry": "US"
+      }
+    },
+    "email": "contact@example.net",
+    "phoneNumber": "555-716-2400"
+  },
+  "credentialSubject": {
+    "type": ["USMCAProductSpecifier"],
+    "product": {
+      "type": [
+        "Product"
+      ],
+      "sku": "323050346937",
+      "description": "Non-alloy steel rolls",
+      "commodity": {
+        "type": [
+          "Commodity"
+        ],
+        "commodityCode": "721320",
+        "commodityCodeType": "HS",
+        "description": "Steel Coils"
+      }
+    },
+    "originCriterion": "A",
+    "countryOfOrigin": "MX",
+    "importerDetails": [{
+      "type": [
+        "Organization"
+      ],
+      "name": "Maxi Acero Mexicano",
+      "description": "Fusión y fabricación de acero sólido",
+      "location": {
+        "type": [
+          "Place"
+        ],
+        "geo": {
+          "type": [
+            "GeoCoordinates"
+          ],
+          "latitude": "25.682338876065607",
+          "longitude": "-100.31373788104028"
+        },
+        "address": {
+          "type": [
+            "PostalAddress"
+          ],
+          "streetAddress": "Avenida Carlos 100",
+          "addressLocality": "Hernádez de Mara",
+          "addressRegion": "Nuevo Leon",
+          "postalCode": "32200",
+          "addressCountry": "Mexico"
+        }
+      },
+      "email": "info@example.net",
+      "phoneNumber": "555-127-7813"
+    }],
+    "exporterDetails": {
+      "type": [
+        "Organization"
+      ],
+      "name": "American Prime Steel Inc.",
+      "description": "Quality Steel since 1952",
+      "location": {
+        "type": [
+          "Place"
+        ],
+        "geo": {
+          "type": [
+            "GeoCoordinates"
+          ],
+          "latitude": "43.655585429184434",
+          "longitude": "-120.33634354756568"
+        },
+        "address": {
+          "type": [
+            "PostalAddress"
+          ],
+          "streetAddress": "1551 Keebler Knoll",
+          "addressLocality": "Vivianeburgh",
+          "addressRegion": "Oregon",
+          "postalCode": "47090",
+          "addressCountry": "US"
+        }
+      },
+      "email": "contact@example.net",
+      "phoneNumber": "555-716-2400"
+    },
+    "producerDetails": [
+      {
+        "type": [
+          "Organization"
+        ],
+        "name": "Melt Global, Inc.",
+        "phoneNumber": "+1 555-323-9000",
+        "location": {
+          "type": [
+            "Place"
+          ],
+          "geo": {
+            "type": [
+              "GeoCoordinates"
+            ],
+            "latitude": "30.893066748785927",
+            "longitude": "-93.80232474809726"
+          },
+          "address": {
+            "type": [
+              "PostalAddress"
+            ],
+            "addressLocality": "Hunter Valley",
+            "addressRegion": "Texas",
+            "postalCode": "78599",
+            "addressCountry": "United States"
+          }
+        }
+      }
+    ]
+  }
+}

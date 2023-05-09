@@ -1,0 +1,65 @@
+{
+  "name": "@vckit/example-documents",
+  "description": "vckit plugin for working with W3C JSON-LD Verifiable Credentials & Presentations.",
+  "version": "0.3.0",
+  "main": "build/index.js",
+  "exports": {
+    ".": "./build/index.js"
+  },
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "veramo": {
+    "pluginInterfaces": {
+      "ICredentialIssuerLD": "./src/action-handler.ts"
+    }
+  },
+  "dependencies": {
+    "@digitalcredentials/ed25519-signature-2020": "^3.0.2",
+    "@digitalcredentials/ed25519-verification-key-2020": "^4.0.0",
+    "@digitalcredentials/jsonld": "^5.2.1",
+    "@digitalcredentials/jsonld-signatures": "^9.3.1",
+    "@digitalcredentials/vc": "^5.0.0",
+    "@transmute/credentials-context": "^0.7.0-unstable.79",
+    "@transmute/ed25519-signature-2018": "^0.7.0-unstable.79",
+    "@transmute/json-web-signature": "^0.7.0-unstable.79",
+    "@veramo/core-types": "^5.1.2",
+    "@veramo/utils": "^5.1.2",
+    "cross-fetch": "^3.1.5",
+    "debug": "^4.3.3",
+    "did-resolver": "^4.0.1",
+    "uint8arrays": "^3.0.0"
+  },
+  "resolutions": {
+    "@types/react": "18.0.26",
+    "jsonld": "npm:@digitalcredentials/jsonld@^5.2.1"
+  },
+  "devDependencies": {
+    "@types/debug": "4.1.7",
+    "borc": "3.0.0",
+    "typescript": "4.9.4"
+  },
+  "files": [
+    "build/**/*",
+    "src/**/*",
+    "src/examples/*.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "git@github.com:uncefact/project-vckit.git",
+  "author": "Mircea Nistor <mircea.nistor@mesh.xyz>",
+  "contributors": [
+    "Richard Spellman <namlleps.drahcir@gmail.com"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [],
+  "type": "module",
+  "moduleDirectories": [
+    "node_modules",
+    "src"
+  ]
+}

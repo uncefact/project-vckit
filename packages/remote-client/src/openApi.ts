@@ -1,5 +1,6 @@
 import { OpenAPIV3 } from 'openapi-types'
 import { IAgent, IAgentPluginSchema } from '@vckit/core-types'
+import { credentialsIssueExamples } from '@vckit/example-documents'
 
 type XBadges = {
   color: string,
@@ -93,7 +94,6 @@ const getInteropApiPathItem = (method: string, agentSchema: IAgentPluginSchema):
                   },
                 },
               },
-          
         }
       };
       case 'createVerifiableCredential':
@@ -118,6 +118,7 @@ const getInteropApiPathItem = (method: string, agentSchema: IAgentPluginSchema):
                   description: "Parameters for issuing the credential.",
                   content: {
                     "application/json": {
+                      examples: credentialsIssueExamples,
                       schema: {
                         type: "object",
                         required: [
@@ -187,30 +188,6 @@ const getInteropApiPathItem = (method: string, agentSchema: IAgentPluginSchema):
                                   }
                                 }
                               }
-                            },
-                            example: {
-                              credential: {
-                                "@context": [
-                                  "https://www.w3.org/2018/credentials/v1",
-                                  "https://w3id.org/traceability/v1"
-                                ],
-                                id: "urn:uuid:07aa969e-b40d-4c1b-ab46-ded252003ded",
-                                type: [
-                                  "VerifiableCredential"
-                                ],
-                                issuer: "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
-                                issuanceDate: "2010-01-01T19:23:24Z",
-                                credentialSubject: {
-                                  id: "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn"
-                                }
-                              },
-                              options: {
-                                type: "JsonWebSignature2020",
-                                created: "2020-04-02T18:28:08Z",
-                                credentialStatus: {
-                                  type: "RevocationList2020Status"
-                                }
-                              }
                             }
                           },
                           options: {
@@ -262,8 +239,10 @@ const getInteropApiPathItem = (method: string, agentSchema: IAgentPluginSchema):
                           }
                         }
                       }
+                      // @ts-ignore
+                      
+                      }
                     }
-                  }
                 },
                 responses: {
                   200: {
