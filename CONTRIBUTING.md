@@ -1,6 +1,6 @@
 # How to contribute
 
-We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's:
+We want to make contributing to this project as easy and transparent as possible, whether it's:
 
 - Reporting a bug
 - Discussing the current state of the code
@@ -26,8 +26,8 @@ We love your input! We want to make contributing to this project as easy and tra
 ### Commit messages
 
 We use github to host code, to track issues and feature requests, as well as accept pull requests.
-We Use [semantic-release](https://github.com/semantic-release/semantic-release) and
-[commitlint](https://github.com/conventional-changelog/commitlint) to automate our release process.
+We Use [lerna](https://github.com/lerna/lerna) with 
+[conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) to automate our release process.
 Versioning, changelogs and publication is all covered by this automation.
 Please see some [commit message examples](https://github.com/semantic-release/semantic-release#commit-message-format)
 
@@ -50,7 +50,7 @@ We prefer to discuss proposals before accepting them into the codebase.
 Open an issue with as much detail and background as possible to make your case.
 Small proposals can come in directly as PRs, but it's generally better to discuss before starting work.
 
-Any contributions you make will be under the Apache-2.0 License
+Any contributions you make will be under the GNU General Public License v3.0
 
 ### Posting PRs
 
@@ -60,3 +60,7 @@ Any contributions you make will be under the Apache-2.0 License
 - Make sure the documentation is still valid if your changes get included.
 
 Thank you for your contribution!
+
+### Attribution
+
+This contributing guide is based on the contributing guide for [Veramo](https://github.com/uport-project/veramo), one of vc-kit's core components. 

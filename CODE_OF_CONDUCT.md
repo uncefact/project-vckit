@@ -30,22 +30,19 @@ We value many things beyond technical expertise, including collaboration and sup
 
 ## Scope
 
-This Code of Conduct applies to all spaces managed by Veramo. This includes, but is not limited to, the Discord server, our repositories on GitHub, and meet-ups. In addition, violations of this code outside these spaces may affect a person's ability to participate within them.
-The Veramo Code of Conduct applies equally to all members of the community, including staff.
-
+> TODO
 
 ## Code of Conduct Policies
 
-### Moderation Policies
-These are the policies for upholding our community’s rules and the code of conduct. If you want to report a situation that needs to be reviewed by our team, please see our reporting guide below.
+> TODO
 
+### Moderation Policies
+
+> TODO
 
 ### Reporting Guide
-Instances of behaviors that violate the Veramo Code of Conduct or rules may be reported by any member of the community. Community members are encouraged to report these situations, including situations they witness involving other community members.
-You may report in the following ways:
-* By tagging the @veramoteam role on the Discord server in situations that require immediate attention.
-* By sending a direct message (DM) to the community manager [@emmanuellar](https://github.com/emmanuellar).
-* By sending an email to [hello@veramo.io](mailto:hello@veramo.io).
+
+> TODO
 
 ## Attribution
-This Code of Conduct and parts of the policies are adapted from the [Adafruit Community Code of Conduct](https://github.com/adafruit/Adafruit_Community_Code_of_Conduct/blob/master/code-of-conduct.md) and [Django Code of Conduct](https://www.djangoproject.com/conduct/)
+This Code of Conduct and parts of the policies are adapted from the [Veramo](https://github.com/uport-project/veramo/blob/next/CODE_OF_CONDUCT.md) code of conduct, which was in turn adapted from the [Adafruit Community Code of Conduct](https://github.com/adafruit/Adafruit_Community_Code_of_Conduct/blob/master/code-of-conduct.md) and [Django Code of Conduct](https://www.djangoproject.com/conduct/)
