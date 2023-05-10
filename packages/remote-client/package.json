@@ -1,7 +1,7 @@
 {
   "name": "@vckit/remote-client",
   "description": "A remote client plugin for vckit",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "main": "build/index.js",
   "exports": "./build/index.js",
   "types": "build/index.d.ts",
@@ -11,9 +11,9 @@
     "extract-api": "node ../cli/bin/vckit.js dev extract-api"
   },
   "dependencies": {
-    "@vckit/app": "^1.0.0-beta.0",
-    "@vckit/core-types": "^1.0.0-beta.0",
-    "@vckit/example-documents": "^1.0.0-beta.0",
+    "@vckit/app": "^1.0.0-beta.1",
+    "@vckit/core-types": "^1.0.0-beta.1",
+    "@vckit/example-documents": "^1.0.0-beta.1",
     "cross-fetch": "^3.1.4",
     "debug": "^4.3.3",
     "openapi-types": "12.1.0"

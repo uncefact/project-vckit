@@ -1,7 +1,7 @@
 {
   "name": "@vckit/credential-w3c",
   "description": "vckit plugin for working with W3C Verifiable Credentials & Presentations.",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "main": "build/index.js",
   "exports": {
     ".": "./build/index.js",
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@govtechsg/open-attestation": "^6.6.0",
-    "@vckit/core-types": "^1.0.0-beta.0",
+    "@vckit/core-types": "^1.0.0-beta.1",
     "@veramo/message-handler": "^5.1.2",
     "@veramo/utils": "^5.1.2",
     "canonicalize": "^1.0.8",

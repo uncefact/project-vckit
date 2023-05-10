@@ -1,7 +1,7 @@
 {
   "name": "@vckit/core",
   "description": "vckit Core Logic & Interfaces.",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "main": "build/index.js",
   "exports": {
     ".": "./build/index.js",
@@ -14,7 +14,7 @@
     "extract-api": "node ../cli/bin/vckit.js dev extract-api"
   },
   "dependencies": {
-    "@vckit/core-types": "^1.0.0-beta.0",
+    "@vckit/core-types": "^1.0.0-beta.1",
     "debug": "^4.3.4",
     "events": "^3.2.0",
     "z-schema": "^5.0.5"

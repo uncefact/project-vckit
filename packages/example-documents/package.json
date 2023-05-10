@@ -1,7 +1,7 @@
 {
   "name": "@vckit/example-documents",
   "description": "vckit sample documents",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "main": "build/index.js",
   "exports": {
     ".": "./build/index.js"
