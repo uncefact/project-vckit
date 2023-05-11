@@ -312,22 +312,22 @@ importers:
         specifier: ^1.0.0-beta.1
         version: link:../app
       '@vckit/core':
-        specifier: ^1.0.0-beta.1
+        specifier: ^1.0.0-beta.2
         version: link:../core
       '@vckit/core-types':
-        specifier: ^1.0.0-beta.1
+        specifier: ^1.0.0-beta.2
         version: link:../core-types
       '@vckit/credential-w3c':
-        specifier: ^1.0.0-beta.1
+        specifier: ^1.0.0-beta.2
         version: link:../credential-w3c
       '@vckit/example-documents':
-        specifier: ^1.0.0-beta.1
+        specifier: ^1.0.0-beta.2
         version: link:../example-documents
       '@vckit/remote-client':
-        specifier: ^1.0.0-beta.1
+        specifier: ^1.0.0-beta.2
         version: link:../remote-client
       '@vckit/remote-server':
-        specifier: ^1.0.0-beta.1
+        specifier: ^1.0.0-beta.2
         version: link:../remote-server
       '@veramo/credential-eip712':
         specifier: ^5.1.2
@@ -511,7 +511,7 @@ importers:
   packages/core:
     dependencies:
       '@vckit/core-types':
-        specifier: ^1.0.0-beta.1
+        specifier: ^1.0.0-beta.2
         version: link:../core-types
       debug:
         specifier: ^4.3.4
@@ -558,7 +558,7 @@ importers:
         specifier: ^6.6.0
         version: 6.6.0
       '@vckit/core-types':
-        specifier: ^1.0.0-beta.1
+        specifier: ^1.0.0-beta.2
         version: link:../core-types
       '@veramo/message-handler':
         specifier: ^5.1.2
@@ -610,10 +610,10 @@ importers:
         specifier: ^1.0.0-beta.1
         version: link:../app
       '@vckit/core-types':
-        specifier: ^1.0.0-beta.1
+        specifier: ^1.0.0-beta.2
         version: link:../core-types
       '@vckit/example-documents':
-        specifier: ^1.0.0-beta.1
+        specifier: ^1.0.0-beta.2
         version: link:../example-documents
       cross-fetch:
         specifier: ^3.1.4
@@ -638,10 +638,10 @@ importers:
         specifier: ^1.0.0-beta.1
         version: link:../app
       '@vckit/core-types':
-        specifier: ^1.0.0-beta.1
+        specifier: ^1.0.0-beta.2
         version: link:../core-types
       '@vckit/remote-client':
-        specifier: ^1.0.0-beta.1
+        specifier: ^1.0.0-beta.2
         version: link:../remote-client
       debug:
         specifier: ^4.3.3
