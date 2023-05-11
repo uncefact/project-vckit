@@ -61,6 +61,8 @@ import VerifiableBusinessCard from './VerifiableBusinessCard.json' assert { type
 import VerifiablePostmanCollection from './VerifiablePostmanCollection.json' assert { type: 'json' };
 import VerifiableScorecard from './VerifiableScorecard.json' assert { type: 'json' };
 
+import TradeTrustInvoice from './TradeTrustInvoice.json' assert { type: 'json' };
+
 export const credentialsIssueExamples = {
   BankAccountCredential: {
     description: 'BankAccountCredential',
@@ -615,6 +617,15 @@ export const credentialsIssueExamples = {
     description: 'VerifiableScorecard',
     value: JSON.stringify({
       credential: VerifiableScorecard,
+      proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      }, null, 2
+    )
+    
+  },
+  TradeTrustInvoice: {
+    description: 'TradeTrustInvoice',
+    value: JSON.stringify({
+      credential: TradeTrustInvoice,
       proofFormat: 'OpenAttestationMerkleProofSignature2018',
       }, null, 2
     )

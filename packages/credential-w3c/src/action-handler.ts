@@ -17,11 +17,17 @@ import {
   VerifierAgentContext,
   W3CVerifiableCredential,
   W3CVerifiablePresentation,
-} from '@vckit/core-types'
+} from '@vckit/core-types';
 
-import { wrapDocument, signDocument, SUPPORTED_SIGNING_ALGORITHM, __unsafe__use__it__at__your__own__risks__wrapDocument, OpenAttestationDocument } from "@govtechsg/open-attestation";
+import {
+  wrapDocument,
+  signDocument,
+  SUPPORTED_SIGNING_ALGORITHM,
+  __unsafe__use__it__at__your__own__risks__wrapDocument,
+  OpenAttestationDocument,
+} from '@govtechsg/open-attestation';
 
-import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' }
+import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
 
 import {
   createVerifiableCredentialJwt,
@@ -30,9 +36,9 @@ import {
   normalizePresentation,
   verifyCredential as verifyCredentialJWT,
   verifyPresentation as verifyPresentationJWT,
-} from 'did-jwt-vc'
+} from 'did-jwt-vc';
 
-import { decodeJWT } from 'did-jwt'
+import { decodeJWT } from 'did-jwt';
 
 import {
   asArray,
@@ -40,11 +46,11 @@ import {
   isDefined,
   MANDATORY_CREDENTIAL_CONTEXT,
   processEntryToArray,
-} from '@veramo/utils'
-import Debug from 'debug'
-import { Resolvable } from 'did-resolver'
+} from '@veramo/utils';
+import Debug from 'debug';
+import { Resolvable } from 'did-resolver';
 
-import canonicalize from 'canonicalize'
+import canonicalize from 'canonicalize';
 
 const enum DocumentFormat {
   JWT,
@@ -52,7 +58,7 @@ const enum DocumentFormat {
   EIP712,
 }
 
-const debug = Debug('veramo:w3c:action-handler')
+const debug = Debug('veramo:w3c:action-handler');
 
 /**
  * A Veramo plugin that implements the {@link @veramo/core-types#ICredentialPlugin | ICredentialPlugin} methods.
@@ -60,7 +66,7 @@ const debug = Debug('veramo:w3c:action-handler')
  * @public
  */
 export class CredentialPlugin implements IAgentPlugin {
-  readonly methods: ICredentialPlugin
+  readonly methods: ICredentialPlugin;
   readonly schema = {
     components: {
       schemas: {
@@ -72,21 +78,22 @@ export class CredentialPlugin implements IAgentPlugin {
         ...schema.ICredentialVerifier.components.methods,
       },
     },
-  }
+  };
 
   constructor() {
     this.methods = {
-      createVerifiablePresentation: this.createVerifiablePresentation.bind(this),
+      createVerifiablePresentation:
+        this.createVerifiablePresentation.bind(this),
       createVerifiableCredential: this.createVerifiableCredential.bind(this),
       verifyCredential: this.verifyCredential.bind(this),
       verifyPresentation: this.verifyPresentation.bind(this),
-    }
+    };
   }
 
   /** {@inheritdoc @veramo/core-types#ICredentialIssuer.createVerifiablePresentation} */
   async createVerifiablePresentation(
     args: ICreateVerifiablePresentationArgs,
-    context: IssuerAgentContext,
+    context: IssuerAgentContext
   ): Promise<VerifiablePresentation> {
     let {
       presentation,
@@ -98,280 +105,273 @@ export class CredentialPlugin implements IAgentPlugin {
       save,
       now,
       ...otherOptions
-    } = args
+    } = args;
     const presentationContext: string[] = processEntryToArray(
       args?.presentation?.['@context'],
-      MANDATORY_CREDENTIAL_CONTEXT,
-    )
-    const presentationType = processEntryToArray(args?.presentation?.type, 'VerifiablePresentation')
+      MANDATORY_CREDENTIAL_CONTEXT
+    );
+    const presentationType = processEntryToArray(
+      args?.presentation?.type,
+      'VerifiablePresentation'
+    );
     presentation = {
       ...presentation,
       '@context': presentationContext,
       type: presentationType,
-    }
+    };
 
     if (!isDefined(presentation.holder)) {
-      throw new Error('invalid_argument: presentation.holder must not be empty')
+      throw new Error(
+        'invalid_argument: presentation.holder must not be empty'
+      );
     }
 
     if (presentation.verifiableCredential) {
-      presentation.verifiableCredential = presentation.verifiableCredential.map((cred) => {
-        // map JWT credentials to their canonical form
-        if (typeof cred !== 'string' && cred.proof.jwt) {
-          return cred.proof.jwt
-        } else {
-          return cred
+      presentation.verifiableCredential = presentation.verifiableCredential.map(
+        (cred) => {
+          // map JWT credentials to their canonical form
+          if (typeof cred !== 'string' && cred.proof.jwt) {
+            return cred.proof.jwt;
+          } else {
+            return cred;
+          }
         }
-      })
+      );
     }
 
-    let identifier: IIdentifier
+    let identifier: IIdentifier;
     try {
-      identifier = await context.agent.didManagerGet({ did: presentation.holder })
+      identifier = await context.agent.didManagerGet({
+        did: presentation.holder,
+      });
     } catch (e) {
-      throw new Error('invalid_argument: presentation.holder must be a DID managed by this agent')
+      throw new Error(
+        'invalid_argument: presentation.holder must be a DID managed by this agent'
+      );
     }
     //FIXME: `args` should allow picking a key or key type
-    const key = identifier.keys.find((k) => k.type === 'Secp256k1' || k.type === 'Ed25519')
-    if (!key) throw Error('key_not_found: No signing key for ' + identifier.did)
+    const key = identifier.keys.find(
+      (k) => k.type === 'Secp256k1' || k.type === 'Ed25519'
+    );
+    if (!key)
+      throw Error('key_not_found: No signing key for ' + identifier.did);
 
-    let verifiablePresentation: VerifiablePresentation
+    let verifiablePresentation: VerifiablePresentation;
 
     if (proofFormat === 'lds') {
       if (typeof context.agent.createVerifiablePresentationLD === 'function') {
-        verifiablePresentation = await context.agent.createVerifiablePresentationLD({ ...args, presentation })
+        verifiablePresentation =
+          await context.agent.createVerifiablePresentationLD({
+            ...args,
+            presentation,
+          });
       } else {
         throw new Error(
-          'invalid_setup: your agent does not seem to have ICredentialIssuerLD plugin installed',
-        )
+          'invalid_setup: your agent does not seem to have ICredentialIssuerLD plugin installed'
+        );
       }
     } else if (proofFormat === 'EthereumEip712Signature2021') {
-      if (typeof context.agent.createVerifiablePresentationEIP712 === 'function') {
-        verifiablePresentation = await context.agent.createVerifiablePresentationEIP712({
-          ...args,
-          presentation,
-        })
+      if (
+        typeof context.agent.createVerifiablePresentationEIP712 === 'function'
+      ) {
+        verifiablePresentation =
+          await context.agent.createVerifiablePresentationEIP712({
+            ...args,
+            presentation,
+          });
       } else {
         throw new Error(
-          'invalid_setup: your agent does not seem to have ICredentialIssuerEIP712 plugin installed',
-        )
+          'invalid_setup: your agent does not seem to have ICredentialIssuerEIP712 plugin installed'
+        );
       }
     } else {
       // only add issuanceDate for JWT
-      now = typeof now === 'number' ? new Date(now * 1000) : now
+      now = typeof now === 'number' ? new Date(now * 1000) : now;
       if (!Object.getOwnPropertyNames(presentation).includes('issuanceDate')) {
-        presentation.issuanceDate = (now instanceof Date ? now : new Date()).toISOString()
+        presentation.issuanceDate = (
+          now instanceof Date ? now : new Date()
+        ).toISOString();
       }
 
-      debug('Signing VP with', identifier.did)
-      let alg = 'ES256K'
+      debug('Signing VP with', identifier.did);
+      let alg = 'ES256K';
       if (key.type === 'Ed25519') {
-        alg = 'EdDSA'
+        alg = 'EdDSA';
       }
-      const signer = wrapSigner(context, key, alg)
+      const signer = wrapSigner(context, key, alg);
 
       const jwt = await createVerifiablePresentationJwt(
         presentation as any,
         { did: identifier.did, signer, alg },
-        { removeOriginalFields, challenge, domain, ...otherOptions },
-      )
+        { removeOriginalFields, challenge, domain, ...otherOptions }
+      );
       //FIXME: flagging this as a potential privacy leak.
-      debug(jwt)
-      verifiablePresentation = normalizePresentation(jwt)
+      debug(jwt);
+      verifiablePresentation = normalizePresentation(jwt);
     }
     if (save) {
-      await context.agent.dataStoreSaveVerifiablePresentation({ verifiablePresentation })
+      await context.agent.dataStoreSaveVerifiablePresentation({
+        verifiablePresentation,
+      });
     }
-    return verifiablePresentation
+    return verifiablePresentation;
   }
 
   /** {@inheritdoc @veramo/core-types#ICredentialIssuer.createVerifiableCredential} */
   async createVerifiableCredential(
     args: ICreateVerifiableCredentialArgs,
-    context: IssuerAgentContext,
+    context: IssuerAgentContext
   ): Promise<VerifiableCredential> {
-    let { credential, proofFormat, keyRef, removeOriginalFields, save, now, ...otherOptions } = args
-    const credentialContext = processEntryToArray(credential['@context'], MANDATORY_CREDENTIAL_CONTEXT)
-    const credentialType = processEntryToArray(credential.type, 'VerifiableCredential')
+    let {
+      credential,
+      proofFormat,
+      keyRef,
+      removeOriginalFields,
+      save,
+      now,
+      ...otherOptions
+    } = args;
+    const credentialContext = processEntryToArray(
+      credential['@context'],
+      MANDATORY_CREDENTIAL_CONTEXT
+    );
+    const credentialType = processEntryToArray(
+      credential.type,
+      'VerifiableCredential'
+    );
 
     // only add issuanceDate for JWT
-    now = typeof now === 'number' ? new Date(now * 1000) : now
+    now = typeof now === 'number' ? new Date(now * 1000) : now;
     if (!Object.getOwnPropertyNames(credential).includes('issuanceDate')) {
-      credential.issuanceDate = (now instanceof Date ? now : new Date()).toISOString()
+      credential.issuanceDate = (
+        now instanceof Date ? now : new Date()
+      ).toISOString();
     }
 
     credential = {
       ...credential,
       '@context': credentialContext,
       type: credentialType,
-    }
+    };
 
-    //FIXME: if the identifier is not found, the error message should reflect that.
-    const issuer = extractIssuer(credential)
-    if (!issuer || typeof issuer === 'undefined') {
-      throw new Error('invalid_argument: credential.issuer must not be empty')
-    }
+    let verifiableCredential: VerifiableCredential;
+    if (proofFormat === 'OpenAttestationMerkleProofSignature2018') {
+      console.log("open attestation document")
+      // if (typeof context.agent.createVerifiableCredentialOA === 'function') {
+      //@ts-ignore
+      const wrappedDocument: OpenAttestationDocument =
+      //@ts-ignore
+        await __unsafe__use__it__at__your__own__risks__wrapDocument(credential);
+      //@ts-ignore
+      verifiableCredential = await signDocument(
+        //@ts-ignore
+        wrappedDocument,
+        SUPPORTED_SIGNING_ALGORITHM.Secp256k1VerificationKey2018,
+        {
+          public: 'did:ethr:0x4FC1E99Fb7833517e3460de4b38C3C9218bB8F52#controller',
+          private:
+            '0x3064dc4a1976a4bc78abe74dc49f19cc866d3e8963d06947631601da6d3f54fe',
+        }
+      );
 
-    let identifier: IIdentifier
-    try {
-      identifier = await context.agent.didManagerGet({ did: issuer })
-    } catch (e) {
-      throw new Error(`invalid_argument: credential.issuer must be a DID managed by this agent. ${e}`)
-    }
-    try {
-      let verifiableCredential: VerifiableCredential
-      if (proofFormat === 'lds') {
-        if (typeof context.agent.createVerifiableCredentialLD === 'function') {
-          verifiableCredential = await context.agent.createVerifiableCredentialLD({ ...args, credential })
-        } else {
-          throw new Error(
-            'invalid_setup: your agent does not seem to have ICredentialIssuerLD plugin installed',
-          )
-        }
-      } else if (proofFormat === 'EthereumEip712Signature2021') {
-        if (typeof context.agent.createVerifiableCredentialEIP712 === 'function') {
-          verifiableCredential = await context.agent.createVerifiableCredentialEIP712({ ...args, credential })
-        } else {
-          throw new Error(
-            'invalid_setup: your agent does not seem to have ICredentialIssuerEIP712 plugin installed',
-          )
-        }
-      } else if (proofFormat === 'OpenAttestationMerkleProofSignature2018'){
-        // if (typeof context.agent.createVerifiableCredentialOA === 'function') {
-        //@ts-ignore 
-        const wrappedDocument: OpenAttestationDocument = await __unsafe__use__it__at__your__own__risks__wrapDocument({
-            version: "https://schema.openattestation.com/3.0/schema.json",
-            "@context": [
-              "https://www.w3.org/2018/credentials/v1",
-              "https://schemata.openattestation.com/io/tradetrust/Invoice/1.0/invoice-context.json",
-              "https://schemata.openattestation.com/com/openattestation/1.0/OpenAttestation.v3.json"
-            ],
-            type: [
-              "VerifiableCredential",
-              "OpenAttestationCredential"
-            ],
-            issuanceDate: "2010-01-01T19:23:24Z",
-            issuer: {
-              id: "https://example.com",
-              name: "DEMO STORE"
-            },
-            openAttestationMetadata: {
-              template: {
-                //@ts-ignore
-                type: "EMBEDDED_RENDERER",
-                name: "INVOICE",
-                url: "https://generic-templates.tradetrust.io"
-              },
-              proof: {
-                //@ts-ignore
-                type: "OpenAttestationProofMethod",
-                //@ts-ignore
-                method: "DOCUMENT_STORE",
-                value: "0x49b2969bF0E4aa822023a9eA2293b24E4518C1DD"
-              },
-              identityProof: {
-                //@ts-ignore
-                type: "DNS-TXT",
-                identifier: "demo-tradetrust.openattestation.com"
-              }
-            },
-            credentialSubject: {
-              name: "TradeTrust Invoice v3",
-              id: "1111",
-              date: "2018-02-21",
-              customerId: "564",
-              terms: "Due Upon Receipt",
-              billFrom: {
-                name: "ABC Company",
-                streetAddress: "Level 1, Industry Offices",
-                city: "Singapore",
-                postalCode: "123456",
-                phoneNumber: "60305029"
-              },
-              billTo: {
-                company: {
-                  name: "DEF Company",
-                  streetAddress: "Level 2, Industry Offices",
-                  city: "Singapore",
-                  postalCode: "612345",
-                  phoneNumber: "61204028"
-                },
-                name: "James Lee",
-                email: "def@company.com"
-              },
-              billableItems: [
-                {
-                  description: "Service Fee",
-                  quantity: "1",
-                  unitPrice: "200",
-                  amount: "200"
-                },
-                {
-                  description: "Labor: 5 hours at $75/hr",
-                  quantity: "5",
-                  unitPrice: "75",
-                  amount: "375"
-                },
-                {
-                  description: "New client discount",
-                  quantity: "1",
-                  unitPrice: "50",
-                  amount: "50"
-                }
-              ],
-              subtotal: "625",
-              tax: "0",
-              taxTotal: "0",
-              total: "625",
-            }
-          })
-          //@ts-ignore
-          verifiableCredential = signDocument(wrappedDocument, SUPPORTED_SIGNING_ALGORITHM.Secp256k1VerificationKey2018, {
-            public: 'did:ethr:0x4FC1E99Fb7833517e3460de4b38C3C9218bB8F52',
-            private: '0x3064dc4a1976a4bc78abe74dc49f19cc866d3e8963d06947631601da6d3f54fe'
-          })
-        } else {
-        //FIXME: `args` should allow picking a key or key type
-        const key = identifier.keys.find((k) => k.type === 'Secp256k1' || k.type === 'Ed25519')
-        if (!key) throw Error('No signing key for ' + identifier.did)
-
-        debug('Signing VC with', identifier.did)
-        let alg = 'ES256K'
-        if (key.type === 'Ed25519') {
-          alg = 'EdDSA'
-        }
-        const signer = wrapSigner(context, key, alg)
-        const jwt = await createVerifiableCredentialJwt(
-          credential as any,
-          { did: identifier.did, signer, alg },
-          { removeOriginalFields, ...otherOptions },
-        )
-        //FIXME: flagging this as a potential privacy leak.
-        debug(jwt)
-        verifiableCredential = normalizeCredential(jwt)
-      }
-      if (save) {
-        await context.agent.dataStoreSaveVerifiableCredential({ verifiableCredential })
+      console.log(JSON.stringify(verifiableCredential, null, 2));
+    } else {
+      //FIXME: if the identifier is not found, the error message should reflect that.
+      const issuer = extractIssuer(credential);
+      if (!issuer || typeof issuer === 'undefined') {
+        throw new Error(
+          'invalid_argument: credential.issuer must not be empty'
+        );
       }
 
-      return verifiableCredential
-    } catch (error) {
-      debug(error)
-      return Promise.reject(error)
+      let identifier: IIdentifier;
+      try {
+        identifier = await context.agent.didManagerGet({ did: issuer });
+      } catch (e) {
+        throw new Error(
+          `invalid_argument: credential.issuer must be a DID managed by this agent. ${e}`
+        );
+      }
+      try {
+        if (proofFormat === 'lds') {
+          if (
+            typeof context.agent.createVerifiableCredentialLD === 'function'
+          ) {
+            verifiableCredential =
+              await context.agent.createVerifiableCredentialLD({
+                ...args,
+                credential,
+              });
+          } else {
+            throw new Error(
+              'invalid_setup: your agent does not seem to have ICredentialIssuerLD plugin installed'
+            );
+          }
+        } else if (proofFormat === 'EthereumEip712Signature2021') {
+          if (
+            typeof context.agent.createVerifiableCredentialEIP712 === 'function'
+          ) {
+            verifiableCredential =
+              await context.agent.createVerifiableCredentialEIP712({
+                ...args,
+                credential,
+              });
+          } else {
+            throw new Error(
+              'invalid_setup: your agent does not seem to have ICredentialIssuerEIP712 plugin installed'
+            );
+          }
+        } else {
+          //FIXME: `args` should allow picking a key or key type
+          const key = identifier.keys.find(
+            (k) => k.type === 'Secp256k1' || k.type === 'Ed25519'
+          );
+          if (!key) throw Error('No signing key for ' + identifier.did);
+
+          debug('Signing VC with', identifier.did);
+          let alg = 'ES256K';
+          if (key.type === 'Ed25519') {
+            alg = 'EdDSA';
+          }
+          const signer = wrapSigner(context, key, alg);
+          const jwt = await createVerifiableCredentialJwt(
+            credential as any,
+            { did: identifier.did, signer, alg },
+            { removeOriginalFields, ...otherOptions }
+          );
+          //FIXME: flagging this as a potential privacy leak.
+          debug(jwt);
+          verifiableCredential = normalizeCredential(jwt);
+        }
+      } catch (error) {
+        debug(error);
+        return Promise.reject(error);
+      }
     }
+    if (save) {
+      await context.agent.dataStoreSaveVerifiableCredential({
+        verifiableCredential,
+      });
+    }
+    return verifiableCredential;
   }
-
   /** {@inheritdoc @veramo/core-types#ICredentialVerifier.verifyCredential} */
-  async verifyCredential(args: IVerifyCredentialArgs, context: VerifierAgentContext): Promise<IVerifyResult> {
-    let { credential, policies, ...otherOptions } = args
-    let verifiedCredential: VerifiableCredential
-    let verificationResult: IVerifyResult = { verified: false }
+  async verifyCredential(
+    args: IVerifyCredentialArgs,
+    context: VerifierAgentContext
+  ): Promise<IVerifyResult> {
+    let { credential, policies, ...otherOptions } = args;
+    let verifiedCredential: VerifiableCredential;
+    let verificationResult: IVerifyResult = { verified: false };
 
-    const type: DocumentFormat = detectDocumentType(credential)
+    const type: DocumentFormat = detectDocumentType(credential);
     if (type == DocumentFormat.JWT) {
-      let jwt: string = typeof credential === 'string' ? credential : credential.proof.jwt
+      let jwt: string =
+        typeof credential === 'string' ? credential : credential.proof.jwt;
 
-      const resolver = { resolve: (didUrl: string) => context.agent.resolveDid({ didUrl }) } as Resolvable
+      const resolver = {
+        resolve: (didUrl: string) => context.agent.resolveDid({ didUrl }),
+      } as Resolvable;
       try {
         // needs broader credential as well to check equivalence with jwt
         verificationResult = await verifyCredentialJWT(jwt, resolver, {
@@ -383,120 +383,141 @@ export class CredentialPlugin implements IAgentPlugin {
             exp: policies?.exp ?? policies?.expirationDate,
             aud: policies?.aud ?? policies?.audience,
           },
-        })
-        verifiedCredential = verificationResult.verifiableCredential
+        });
+        verifiedCredential = verificationResult.verifiableCredential;
 
         // if credential was presented with other fields, make sure those fields match what's in the JWT
-        if (typeof credential !== 'string' && credential.proof.type === 'JwtProof2020') {
-          const credentialCopy = JSON.parse(JSON.stringify(credential))
-          delete credentialCopy.proof.jwt
+        if (
+          typeof credential !== 'string' &&
+          credential.proof.type === 'JwtProof2020'
+        ) {
+          const credentialCopy = JSON.parse(JSON.stringify(credential));
+          delete credentialCopy.proof.jwt;
 
-          const verifiedCopy = JSON.parse(JSON.stringify(verifiedCredential))
-          delete verifiedCopy.proof.jwt
+          const verifiedCopy = JSON.parse(JSON.stringify(verifiedCredential));
+          delete verifiedCopy.proof.jwt;
 
           if (canonicalize(credentialCopy) !== canonicalize(verifiedCopy)) {
-            verificationResult.verified = false
+            verificationResult.verified = false;
             verificationResult.error = new Error(
-              'invalid_credential: Credential JSON does not match JWT payload',
-            )
+              'invalid_credential: Credential JSON does not match JWT payload'
+            );
           }
         }
       } catch (e: any) {
-        let { message, errorCode } = e
+        let { message, errorCode } = e;
         return {
           verified: false,
           error: {
             message,
             errorCode: errorCode ? errorCode : message.split(':')[0],
           },
-        }
+        };
       }
     } else if (type == DocumentFormat.EIP712) {
       if (typeof context.agent.verifyCredentialEIP712 !== 'function') {
         throw new Error(
-          'invalid_setup: your agent does not seem to have ICredentialIssuerEIP712 plugin installed',
-        )
+          'invalid_setup: your agent does not seem to have ICredentialIssuerEIP712 plugin installed'
+        );
       }
 
       try {
-        const result = await context.agent.verifyCredentialEIP712(args)
+        const result = await context.agent.verifyCredentialEIP712(args);
         if (result) {
           verificationResult = {
             verified: true,
-          }
+          };
         } else {
           verificationResult = {
             verified: false,
             error: {
-              message: 'invalid_signature: The signature does not match any of the issuer signing keys',
+              message:
+                'invalid_signature: The signature does not match any of the issuer signing keys',
               errorCode: 'invalid_signature',
             },
-          }
+          };
         }
-        verifiedCredential = <VerifiableCredential>credential
+        verifiedCredential = <VerifiableCredential>credential;
       } catch (e: any) {
-        const { message, errorCode } = e
+        const { message, errorCode } = e;
         return {
           verified: false,
           error: {
             message,
             errorCode: errorCode ? errorCode : e.message.split(':')[0],
           },
-        }
+        };
       }
     } else if (type == DocumentFormat.JSONLD) {
       if (typeof context.agent.verifyCredentialLD !== 'function') {
         throw new Error(
-          'invalid_setup: your agent does not seem to have ICredentialIssuerLD plugin installed',
-        )
+          'invalid_setup: your agent does not seem to have ICredentialIssuerLD plugin installed'
+        );
       }
 
-      verificationResult = await context.agent.verifyCredentialLD({ ...args, now: policies?.now })
-      verifiedCredential = <VerifiableCredential>credential
+      verificationResult = await context.agent.verifyCredentialLD({
+        ...args,
+        now: policies?.now,
+      });
+      verifiedCredential = <VerifiableCredential>credential;
     } else {
-      throw new Error('invalid_argument: Unknown credential type.')
+      throw new Error('invalid_argument: Unknown credential type.');
     }
 
-    if (policies?.credentialStatus !== false && (await isRevoked(verifiedCredential, context as any))) {
+    if (
+      policies?.credentialStatus !== false &&
+      (await isRevoked(verifiedCredential, context as any))
+    ) {
       verificationResult = {
         verified: false,
         error: {
           message: 'revoked: The credential was revoked by the issuer',
           errorCode: 'revoked',
         },
-      }
+      };
     }
 
-    return verificationResult
+    return verificationResult;
   }
 
   /** {@inheritdoc @veramo/core-types#ICredentialVerifier.verifyPresentation} */
   async verifyPresentation(
     args: IVerifyPresentationArgs,
-    context: VerifierAgentContext,
+    context: VerifierAgentContext
   ): Promise<IVerifyResult> {
-    let { presentation, domain, challenge, fetchRemoteContexts, policies, ...otherOptions } = args
-    const type: DocumentFormat = detectDocumentType(presentation)
+    let {
+      presentation,
+      domain,
+      challenge,
+      fetchRemoteContexts,
+      policies,
+      ...otherOptions
+    } = args;
+    const type: DocumentFormat = detectDocumentType(presentation);
     if (type === DocumentFormat.JWT) {
       // JWT
-      let jwt: string
+      let jwt: string;
       if (typeof presentation === 'string') {
-        jwt = presentation
+        jwt = presentation;
       } else {
-        jwt = presentation.proof.jwt
+        jwt = presentation.proof.jwt;
       }
-      const resolver = { resolve: (didUrl: string) => context.agent.resolveDid({ didUrl }) } as Resolvable
+      const resolver = {
+        resolve: (didUrl: string) => context.agent.resolveDid({ didUrl }),
+      } as Resolvable;
 
-      let audience = domain
+      let audience = domain;
       if (!audience) {
-        const { payload } = await decodeJWT(jwt)
+        const { payload } = await decodeJWT(jwt);
         if (payload.aud) {
           // automatically add a managed DID as audience if one is found
-          const intendedAudience = asArray(payload.aud)
-          const managedDids = await context.agent.didManagerFind()
-          const filtered = managedDids.filter((identifier) => intendedAudience.includes(identifier.did))
+          const intendedAudience = asArray(payload.aud);
+          const managedDids = await context.agent.didManagerFind();
+          const filtered = managedDids.filter((identifier) =>
+            intendedAudience.includes(identifier.did)
+          );
           if (filtered.length > 0) {
-            audience = filtered[0].did
+            audience = filtered[0].did;
           }
         }
       }
@@ -514,58 +535,62 @@ export class CredentialPlugin implements IAgentPlugin {
             aud: policies?.aud ?? policies?.audience,
           },
           ...otherOptions,
-        })
+        });
       } catch (e: any) {
-        let { message, errorCode } = e
+        let { message, errorCode } = e;
         return {
           verified: false,
           error: {
             message,
             errorCode: errorCode ? errorCode : message.split(':')[0],
           },
-        }
+        };
       }
     } else if (type === DocumentFormat.EIP712) {
       // JSON-LD
       if (typeof context.agent.verifyPresentationEIP712 !== 'function') {
         throw new Error(
-          'invalid_setup: your agent does not seem to have ICredentialIssuerEIP712 plugin installed',
-        )
+          'invalid_setup: your agent does not seem to have ICredentialIssuerEIP712 plugin installed'
+        );
       }
       try {
-        const result = await context.agent.verifyPresentationEIP712(args)
+        const result = await context.agent.verifyPresentationEIP712(args);
         if (result) {
           return {
             verified: true,
-          }
+          };
         } else {
           return {
             verified: false,
             error: {
-              message: 'invalid_signature: The signature does not match any of the issuer signing keys',
+              message:
+                'invalid_signature: The signature does not match any of the issuer signing keys',
               errorCode: 'invalid_signature',
             },
-          }
+          };
         }
       } catch (e: any) {
-        const { message, errorCode } = e
+        const { message, errorCode } = e;
         return {
           verified: false,
           error: {
             message,
             errorCode: errorCode ? errorCode : e.message.split(':')[0],
           },
-        }
+        };
       }
     } else {
       // JSON-LD
       if (typeof context.agent.verifyPresentationLD === 'function') {
-        const result = await context.agent.verifyPresentationLD({ ...args, now: policies?.now })
-        return result
+        const result = await context.agent.verifyPresentationLD({
+          ...args,
+          now: policies?.now,
+        });
+        return result;
       } else {
         throw new Error(
-          'invalid_setup: your agent does not seem to have ICredentialIssuerLD plugin installed',
-        )
+          'invalid_setup: your agent does not seem to have ICredentialIssuerLD plugin installed'
+        );
       }
     }
   }
@@ -574,33 +599,46 @@ export class CredentialPlugin implements IAgentPlugin {
 function wrapSigner(
   context: IAgentContext<Pick<IKeyManager, 'keyManagerSign'>>,
   key: IKey,
-  algorithm?: string,
+  algorithm?: string
 ) {
   return async (data: string | Uint8Array): Promise<string> => {
-    const result = await context.agent.keyManagerSign({ keyRef: key.kid, data: <string>data, algorithm })
-    return result
-  }
+    const result = await context.agent.keyManagerSign({
+      keyRef: key.kid,
+      data: <string>data,
+      algorithm,
+    });
+    return result;
+  };
 }
 
-function detectDocumentType(document: W3CVerifiableCredential | W3CVerifiablePresentation): DocumentFormat {
-  if (typeof document === 'string' || (<VerifiableCredential>document)?.proof?.jwt) return DocumentFormat.JWT
-  if ((<VerifiableCredential>document)?.proof?.type === 'EthereumEip712Signature2021')
-    return DocumentFormat.EIP712
-  return DocumentFormat.JSONLD
+function detectDocumentType(
+  document: W3CVerifiableCredential | W3CVerifiablePresentation
+): DocumentFormat {
+  if (
+    typeof document === 'string' ||
+    (<VerifiableCredential>document)?.proof?.jwt
+  )
+    return DocumentFormat.JWT;
+  if (
+    (<VerifiableCredential>document)?.proof?.type ===
+    'EthereumEip712Signature2021'
+  )
+    return DocumentFormat.EIP712;
+  return DocumentFormat.JSONLD;
 }
 
 async function isRevoked(
   credential: VerifiableCredential,
-  context: IAgentContext<ICredentialStatusVerifier>,
+  context: IAgentContext<ICredentialStatusVerifier>
 ): Promise<boolean> {
-  if (!credential.credentialStatus) return false
+  if (!credential.credentialStatus) return false;
 
   if (typeof context.agent.checkCredentialStatus === 'function') {
-    const status = await context.agent.checkCredentialStatus({ credential })
-    return status?.revoked == true || status?.verified === false
+    const status = await context.agent.checkCredentialStatus({ credential });
+    return status?.revoked == true || status?.verified === false;
   }
 
   throw new Error(
-    `invalid_setup: The credential status can't be verified because there is no ICredentialStatusVerifier plugin installed.`,
-  )
+    `invalid_setup: The credential status can't be verified because there is no ICredentialStatusVerifier plugin installed.`
+  );
 }
