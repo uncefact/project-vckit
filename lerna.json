@@ -13,5 +13,8 @@
       "message": "chore(release): %s [skip ci]"
     }
   },
-  "useWorkspaces": true
+  "useWorkspaces": true,
+  "workspaces": [
+    "packages/*"
+  ]
 }

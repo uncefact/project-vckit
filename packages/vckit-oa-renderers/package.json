@@ -1,6 +1,6 @@
 {
-  "name": "decentralized-renderer-react-template",
-  "version": "0.0.0-development",
+  "name": "vckit-oa-renderers",
+  "version": "1.0.0-beta.1",
   "private": true,
   "main": "build/index.js",
   "types": "build/index.d.ts",
