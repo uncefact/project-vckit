@@ -4,7 +4,9 @@ A reference implementation of a verifiable credentials platform for digital trad
 
 # Purpose
 
-VCs exemplify a decentralsied model for high integrity digital data excahnge. There is no central data hub.  Instead there is a global ecosystem of thousands or millions of issuers, verifiers, and holders. A critical success factor is to reduce the cost of entry into the ecosystem so that it is cheap, fast, and simple for new issuers and verifiers to empower their communities with high integrity digital credentials. This project aims to provide free tools and guidance to facilitate uptake.
+- VCs exemplify a decentralsied model for high integrity digital data excahnge. There is no central data hub.  Instead there is a global ecosystem of thousands or millions of issuers, verifiers, and holders. A critical success factor is to reduce the cost of entry into the ecosystem so that it is cheap, fast, and simple for new issuers and verifiers to empower their communities with high integrity digital credentials. This project aims to provide free tools and guidance to facilitate uptake.
+
+- This repo also include the renderer (Open-Attestation) to convert VC to nice-looking human readable template
 
 # Audience 
 
