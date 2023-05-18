@@ -1,0 +1,22 @@
+import { Meta, Preview, Props, Description, Story } from "@storybook/addon-docs/blocks";
+import { object } from "@storybook/addon-knobs";
+import { QrcodeCertificateTemplate } from "./qrcodeCertificateTemplate";
+import { qrcodeTemplateSample } from "../samples";
+
+<Meta title="MDX|QrcodeCertificateTemplate" component={QrcodeCertificateTemplate} />
+
+# QrcodeCertificateTemplate component
+
+<Description of={QrcodeCertificateTemplate} />
+
+# Props
+
+<Props of={QrcodeCertificateTemplate} />
+
+# Usage
+
+<Preview>
+  <Story name="basic sample">
+    <QrcodeCertificateTemplate document={object("document", qrcodeTemplateSample)} />
+  </Story>
+</Preview>

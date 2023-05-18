@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>iFrame Rendering</title>
+  </head>
+  <script src="https://unpkg.com/penpal@5.3.0/dist/penpal.min.js"></script>
+  <body>
+    <button onclick="renderDocument()">
+      Render OA document
+    </button>
+    <div id="template-selector"></div>
+    <iframe
+      id="iframe"
+      src="http://localhost:3000"
+      style="width: 100%; border: 0px; overflow: hidden;"
+    ></iframe>
+  </body>
+
+  <script type="text/javascript">
+    const iframe = document.getElementById("iframe");
+    const templateSelector = document.getElementById("template-selector");
+    let frame;
+
+    const oaDocument = {
+      name: "John Doe",
+      institute: "Institute of John Doe",
+      issuers: [
+        {
+          name: "institute of blockchain"
+        }
+      ],
+      $template: {
+        name: "custom",
+        type: "EMBEDDED_RENDERER",
+        url: "http://localhost:3000"
+      },
+      foo: {
+        title: "Bar is awesome"
+      }
+    };
+
+    const dispatch = (action) => {
+      const { type, payload } = action;
+      if (type === "UPDATE_HEIGHT") {
+        iframe.height = payload;
+      }
+    }
+
+    const connection = Penpal.connectToChild({
+      iframe,
+      methods: {
+        dispatch
+      }
+    });
+
+    const renderDocumentAction = {
+      type: "RENDER_DOCUMENT",
+      payload: {
+        document: oaDocument,
+      },
+    };
+
+    const getTemplatesAction = {
+      type: "GET_TEMPLATES",
+      payload: oaDocument
+    };
+
+    const renderDocument = () => {
+      if (!frame) console.warn("frame connection not established.")
+      frame.dispatch(renderDocumentAction);
+    };
+
+    const renderTemplateSelector = () => {
+      if (!frame) console.warn("frame connection not established.")
+      frame.dispatch(getTemplatesAction).then((templates) => {
+        templates.forEach((tab, index) => {
+          const btn = document.createElement("button");
+          btn.innerHTML = tab.label;
+          btn.id = `selector-${tab.id}`;
+          btn.onclick = () => {
+            frame.dispatch({
+              type: "SELECT_TEMPLATE",
+              payload: tab.id
+            });
+          };
+          templateSelector.appendChild(btn);
+        });
+      });
+    }
+
+    connection.promise.then(child => {
+      frame = child;
+      renderTemplateSelector();
+    });
+  </script>
+</html>
