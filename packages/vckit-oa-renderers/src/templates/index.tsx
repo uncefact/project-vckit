@@ -1,10 +1,12 @@
 import { TemplateRegistry } from "@govtechsg/decentralized-renderer-react-components";
 import { templates as customTemplate } from "./customTemplate";
+import { templates as svgTemplate } from "./svgRenderer";
 import styled from "@emotion/styled";
 import { CustomTemplate } from "./customTemplate/customTemplate";
-import { CustomTemplateCertificate } from "./samples";
+import { CustomTemplateCertificate, SVGTemplateCertificate } from "./samples";
 
-export const registry: TemplateRegistry<CustomTemplateCertificate> = {
+const svgRegistry: TemplateRegistry<SVGTemplateCertificate> = { svgTemplate: svgTemplate };
+const customRegistry: TemplateRegistry<CustomTemplateCertificate> = {
   custom: customTemplate,
   red: [
     {
@@ -16,3 +18,5 @@ export const registry: TemplateRegistry<CustomTemplateCertificate> = {
     }
   ]
 };
+
+export const registry = { ...svgRegistry, ...customRegistry };
