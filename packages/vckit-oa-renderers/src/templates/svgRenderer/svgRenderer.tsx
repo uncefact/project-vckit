@@ -39,12 +39,12 @@ function SVGRenderer({ document }: { document: SVGTemplateCertificate }) {
     <>
       {templatePath ? (
         htmlString ? (
-          <div dangerouslySetInnerHTML={{ __html: htmlString }} />
+          <div data-testid="svg-renderer-element" dangerouslySetInnerHTML={{ __html: htmlString }} />
         ) : (
           <div>Loading...</div>
         )
       ) : (
-        <pre>{JSON.stringify(document, null, 2)}</pre>
+        <pre data-testid="json-renderer-element">{JSON.stringify(document, null, 2)}</pre>
       )}
     </>
   );
