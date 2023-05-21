@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Handlebars from "handlebars";
-import { SVGTemplateCertificate } from "./svgTemplateSample";
+import { SVGTemplateCertificate } from "../samples/svgTemplateSample";
 import purchaseOrderForm from "./templates/purchaseOrderForm.svg";
 
 const templates: { [key: string]: any } = {
