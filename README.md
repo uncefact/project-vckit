@@ -13,5 +13,29 @@ If you are an organisation that issues any kind of credential such as a permit, 
 VCs issued by vckit tooling can be verified using any mobile device camera to scan a QR code. This is important so that uptake can remain compatible with today's paper processes. There is no requirement for verifiers of credentials to adopt any new new technology in order to verify a credential. However, if you are an organisation that is likely to be verifying at scale or you wish to extract the digitial data in a credential for use in your business systems then vckit is also for you.  It provides an advanced multi-protocol verification capability that can be integrated with your systems.
 
 # Get Started
+ - This project provide all the utilities needed to create, verify and render veriable credentials
 
-TBC once MVP release 1.0 vckit is available.  We expect the first release in March 2023.
+## Prerequisites
+
+```bash
+    veramo >= 5.2.0
+    node >= 18.0
+```
+
+## How to start.
+
+### To run a local server
+
+```bash
+    pnpm install # to install packages
+    pnpm build # to build and extract api
+    pnpm run vckit server # to start veramon server
+```
+
+### To run a local client
+
+```bash
+    navigate to package/app
+    pnpm build # to build the client project
+    pnpm run dev # to start client
+```
