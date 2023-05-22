@@ -37,7 +37,7 @@ VCs issued by vckit tooling can be verified using any mobile device camera to sc
 - Create an `.env` file and put `REACT_APP_VERAMO_URL` `REACT_APP_VERAMO_API_KEY` . We've provided an `.env.example` so that you can refer to it as an example or you can ask go source fellas to give you one.
 
 ```bash
-    navigate to package/app
+    navigate to packages/app
     pnpm build # to build the client project
     pnpm run dev # to start client app
     navigate to Identifiers or Credentials , you should see your DID and VC you create in cli there.
