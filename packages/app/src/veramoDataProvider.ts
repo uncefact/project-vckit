@@ -6,8 +6,8 @@ import { queryMap, Resource, Method } from "./vermoQueryMapper";
 //https://veramo-holder-demo.herokuapp.com/agent/dataStoreORMGetVerifiableCredentials
 // Bearer 2915c2ee040d8690d95f2895c227e667ffc69606d2510eccc3de52c1b23e2e85
 
-const apiUrl = process.env.REACT_APP_VERAMO_URL
-const apiKey  = process.env.REACT_APP_VERAMO_API_KEY
+const apiUrl = process.env.REACT_APP_VERAMO_URL || 'http://localhost:3332/agent'
+const apiKey  = process.env.REACT_APP_VERAMO_API_KEY || 'test123'
 
 export const dataProvider = (
     httpClient: AxiosInstance = axiosInstance,
@@ -154,7 +154,7 @@ export const dataProvider = (
     },
 
     getApiUrl: () => {
-        return process.env.REACT_APP_VERAMO_URL || '';
+        return process.env.REACT_APP_VERAMO_URL || 'http://localhost:3332/agent';
     },
 
     custom: async ({ url, method, filters, sort, payload, query, headers }) => {

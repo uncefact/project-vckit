@@ -8,13 +8,16 @@ interface GetIdentifierCountResponse {
   count: number
 }
 
+const apiUrl = process.env.REACT_APP_VERAMO_URL || 'http://localhost:3332/agent'
+const apiKey  = process.env.REACT_APP_VERAMO_API_KEY || 'test123'
+
 export const StatisticsCard = ({title, resource}: StatisticsCardProps) => {
   const { data, isLoading } = useCustom<GetIdentifierCountResponse>({
-    url: `${process.env.REACT_APP_VERAMO_URL}/${resource}`,
+    url: `${apiUrl}/${resource}`,
     method: 'post',
     config: {
       headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_VERAMO_API_KEY}`
+        Authorization: `Bearer ${apiKey}`
       }
     }
   })
