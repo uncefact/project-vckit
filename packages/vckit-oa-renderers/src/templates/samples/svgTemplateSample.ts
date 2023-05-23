@@ -1,5 +1,7 @@
 import { v2 } from "@govtechsg/open-attestation";
 
+const rendererApp = process.env.RENDERER_APP || "http://localhost:3000";
+
 interface PersonalInformation {
   type: string[];
   location: {
@@ -64,9 +66,9 @@ export const svgTemplateCertificate: SVGTemplateCertificate = {
   $template: {
     name: "svgTemplate",
     type: v2.TemplateType.EmbeddedRenderer,
-    url: "http://localhost:3000"
+    url: rendererApp
   },
-  svgTemplateFile: "http://localhost:3000/src/templates/samples/purchaseOrderForm.svg",
+  svgTemplateFile: rendererApp + "/src/templates/samples/purchaseOrderForm.svg",
   svgTemplate: "purchaseOrderForm",
   type: ["PurchaseOrder"],
   purchaseOrderNo: "fe71665a-e7b3-49ba-ac89-82fc2bf1e877",

@@ -24,7 +24,7 @@ export const qrcodeTemplateSample: QrcodeTemplateSample = {
   $template: {
     name: "custom",
     type: v2.TemplateType.EmbeddedRenderer,
-    url: "http://localhost:3000"
+    url: process.env.RENDERER_APP
   },
   foo: {
     title: "Bar is awesome"

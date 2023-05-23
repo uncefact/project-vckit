@@ -64,7 +64,7 @@ export const svgTemplateCertificate: SVGTemplateCertificate = {
   $template: {
     name: "svgTemplate",
     type: v2.TemplateType.EmbeddedRenderer,
-    url: "http://localhost:3000"
+    url: process.env.RENDERER_APP
   },
   svgTemplateFile: "http://localhost:3000/src/templates/samples/purchaseOrderForm.svg",
   svgTemplate: "purchaseOrderForm",

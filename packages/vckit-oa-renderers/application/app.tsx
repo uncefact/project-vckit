@@ -3,6 +3,8 @@ import { FrameActions, FrameConnector, HostActionsHandler } from "@govtechsg/dec
 import { css } from "@emotion/core";
 import styled from "@emotion/styled";
 
+const rendererApp = process.env.RENDERER_APP || "http://localhost:3000";
+
 interface AppProps {
   documents: {
     name: string;
@@ -223,7 +225,7 @@ export const App: React.FunctionComponent<AppProps> = ({ documents }): React.Rea
             `}
           >
             <FrameConnector
-              source="http://localhost:3000"
+              source={rendererApp}
               dispatch={fromFrame}
               onConnected={fn}
               css={css`
