@@ -128,7 +128,7 @@ server:
 
     # rapidoc docs
     - - /api-docs
-      - $require: '@vckit/remote-server?t=function#ApiSchemaRouter'
+      - $require: '@vckit/remote-server?t=function#ApiDocsRouter'
 
   # Execute during server initialization
   init:
