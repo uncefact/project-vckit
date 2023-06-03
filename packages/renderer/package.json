@@ -1,0 +1,47 @@
+{
+  "name": "@vckit/renderer",
+  "version": "1.0.0-beta.2",
+  "description": "To render the verifiable credentials.",
+  "keywords": [],
+  "author": "Nam Hoang <hoangxuannam160493@gmail.com>",
+  "homepage": "https://github.com/uncefact/project-vckit#readme",
+  "license": "Apache-2.0",
+  "main": "build/index.js",
+  "exports": {
+    ".": "./build/index.js",
+    "./build/plugin.schema.json": "./build/plugin.schema.json"
+  },
+  "types": "build/index.d.ts",
+  "files": [
+    "build/**/*",
+    "src/**/*",
+    "plugin.schema.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "git@github.com:uncefact/project-vckit.git",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -b --watch",
+    "extract-api": "node ../cli/bin/vckit.js dev extract-api"
+  },
+  "resolutions": {
+    "jsonld": "npm:@digitalcredentials/jsonld@^5.2.1"
+  },
+  "dependencies": {
+    "@vckit/core-types": "^1.0.0-beta.2",
+    "@digitalcredentials/jsonld": "^5.2.1",
+    "handlebars": "^4.7.6"
+  },
+  "type": "module",
+  "moduleDirectories": [
+    "node_modules",
+    "src"
+  ],
+  "devDependencies": {
+    "@types/jsonld": "^1.5.8"
+  }
+}
