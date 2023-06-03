@@ -195,3 +195,25 @@ export interface PresentationPayload {
 
   [x: string]: any
 }
+
+/**
+ * Rendering types that can be used in a {@link RenderMethodPayload}.
+ *
+ * @beta This API may change without prior notice.
+ */
+export enum RenderingType {
+  WebRenderingTemplate2022 = 'WebRenderingTemplate2022',
+  SvgRenderingHint2022 = 'SvgRenderingHint2022',
+}
+
+/**
+ * Interface representing a payload for a render method.
+ *
+ * @beta This API may change without prior notice.
+ */
+export interface RenderMethodPayload {
+  '@id': string;
+  '@type': RenderingType;
+
+  [x: string]: any; // Additional properties can be added dynamically
+}
