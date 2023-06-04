@@ -256,14 +256,14 @@ didDiscovery:
 
 # W3C credentialPlugin
 credentialIssuerLD:
-  $require: '@veramo/credential-ld#CredentialIssuerLD'
+  $require: '@vckit/credential-ld#CredentialIssuerLD'
   $args:
     - suites:
-        - $require: '@veramo/credential-ld#VeramoEd25519Signature2018'
-        - $require: '@veramo/credential-ld#VeramoEcdsaSecp256k1RecoverySignature2020'
+        - $require: '@vckit/credential-ld#VeramoEd25519Signature2018'
+        - $require: '@vckit/credential-ld#VeramoEcdsaSecp256k1RecoverySignature2020'
       contextMaps:
         # The LdDefaultContext is a "catch-all" for now.
-        - $require: '@veramo/credential-ld?t=object#LdDefaultContexts'
+        - $require: '@vckit/credential-ld?t=object#LdDefaultContexts'
         - $require: '@transmute/credentials-context?t=object#contexts'
         #  others should be included here
 

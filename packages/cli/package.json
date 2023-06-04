@@ -46,7 +46,7 @@
     "@vckit/remote-client": "^1.0.0-beta.3",
     "@vckit/remote-server": "^1.0.0-beta.3",
     "@veramo/credential-eip712": "^5.1.2",
-    "@veramo/credential-ld": "^5.1.2",
+    "@vckit/credential-ld": "^1.0.0-beta.3",
     "@veramo/data-store": "^5.1.2",
     "@veramo/did-comm": "^5.1.2",
     "@veramo/did-discovery": "^5.1.2",
