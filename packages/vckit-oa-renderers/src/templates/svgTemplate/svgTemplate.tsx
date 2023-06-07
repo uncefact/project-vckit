@@ -21,11 +21,7 @@ function SvgTemplate({ document }: { document: PurchaseOrderSample }) {
 
   return (
     <div id="svg-template">
-      {htmlString !== "" ? (
-        <div data-testid="svg-renderer-element" dangerouslySetInnerHTML={{ __html: htmlString }} />
-      ) : (
-        <div data-testid="json-renderer-element">Ok</div>
-      )}
+      <div data-testid="svg-renderer-element" dangerouslySetInnerHTML={{ __html: htmlString }} />
     </div>
   );
 }
