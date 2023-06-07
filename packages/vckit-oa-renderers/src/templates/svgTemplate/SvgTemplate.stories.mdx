@@ -1,0 +1,21 @@
+import { Meta, Preview, Props, Description, Story } from "@storybook/addon-docs/blocks";
+import SvgTemplate from "./svgTemplate";
+import { purchaseOrderSample } from "../samples";
+
+<Meta title="MDX|SvgTemplate" component={SvgTemplate} />
+
+# SvgTemplate component
+
+<Description of={SvgTemplate} />
+
+# Props
+
+<Props of={SvgTemplate} />
+
+# Usage
+
+<Preview>
+  <Story name="basic sample">
+    <SvgTemplate document={purchaseOrderSample} />
+  </Story>
+</Preview>
