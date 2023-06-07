@@ -1,11 +1,11 @@
 import { TemplateRegistry } from "@govtechsg/decentralized-renderer-react-components";
 import { templates as customTemplate } from "./customTemplate";
-import { templates as svgTemplate } from "./svgRenderer";
+import { templates as svgTemplate } from "./svgTemplate";
 import styled from "@emotion/styled";
 import { CustomTemplate } from "./customTemplate/customTemplate";
-import { CustomTemplateCertificate, SVGTemplateCertificate } from "./samples";
+import { CustomTemplateCertificate, PurchaseOrderSample } from "./samples";
 
-const svgRegistry: TemplateRegistry<SVGTemplateCertificate> = { svgTemplate: svgTemplate };
+const svgRegistry: TemplateRegistry<PurchaseOrderSample> = { svg: svgTemplate };
 const customRegistry: TemplateRegistry<CustomTemplateCertificate> = {
   custom: customTemplate,
   red: [
@@ -19,4 +19,7 @@ const customRegistry: TemplateRegistry<CustomTemplateCertificate> = {
   ]
 };
 
-export const registry = { ...svgRegistry, ...customRegistry };
+export const registry: TemplateRegistry<any> = {
+  ...svgRegistry,
+  ...customRegistry
+};

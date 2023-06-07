@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import { customTemplateCertificate, svgTemplateCertificate } from "../src/templates/samples";
+import { customTemplateCertificate, purchaseOrderSample } from "../src/templates/samples";
 import React from "react";
 import { App } from "./app";
 
@@ -18,7 +18,7 @@ ReactDOM.render(
           }
         }
       },
-      { name: "SVG document", document: svgTemplateCertificate }
+      { name: "SVG document", document: purchaseOrderSample }
     ]}
   />,
   document.getElementById("root")

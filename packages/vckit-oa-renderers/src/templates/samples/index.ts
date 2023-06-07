@@ -1,2 +1,2 @@
 export * from "./customTemplateSample";
-export * from "./svgTemplateSample";
+export * from "./purchaseOrderSample";
