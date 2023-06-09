@@ -13,7 +13,7 @@
     "jsx": "react",
     "inlineSourceMap": false,
     "sourceMap": true,
-    "types": ["jest", "node"],
+    "types": ["jest", "node", "@emotion/react/types/css-prop"],
     "allowJs": true
   },
   "include": ["src"]

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 import watermark from "./watermark.svg";
 
 export const PrintWatermark: FunctionComponent = () => (

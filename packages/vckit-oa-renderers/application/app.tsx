@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { FrameActions, FrameConnector, HostActionsHandler } from "@govtechsg/decentralized-renderer-react-components";
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 interface AppProps {
