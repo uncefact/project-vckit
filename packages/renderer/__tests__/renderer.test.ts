@@ -5,6 +5,7 @@ import {
   IRendererContext,
   IRenderResult,
 } from '@vckit/core-types';
+import universityDegreeCredential from '../fixtures/university-degree-credential.json';
 
 describe('Renderer', () => {
   // Mock renderer provider
@@ -29,40 +30,11 @@ describe('Renderer', () => {
       WebRenderingTemplate2022,
     },
   });
-  
 
   it('should render a verifiable credential using the specified render methods', async () => {
     // Mock data
     const args: IRenderCredentialArgs = {
-      credential: {
-        '@context': [
-          'https://www.w3.org/2018/credentials/v1',
-          'https://www.w3.org/2018/credentials/examples/v1',
-          {
-            render: 'https://www.w3.org/2018/credentials#renderMethod',
-          },
-        ],
-        id: 'http://example.edu/credentials/3732',
-        type: ['VerifiableCredential', 'UniversityDegreeCredential'],
-        issuer: 'https://example.edu/issuers/565049',
-        issuanceDate: '2010-01-01T00:00:00Z',
-        credentialSubject: {
-          id: 'did:example:ebfeb1f712ebc6f1c276e12ec21',
-          name: 'Jane Smith',
-          degree: {
-            type: 'BachelorDegree',
-            name: 'Bachelor of Science and Arts',
-            institution: 'Example University',
-          },
-        },
-        render: [
-          {
-            '@id':
-              '<div style="width:300px; height:100px; border: 2px solid black; text-align:center">\n  <div>\n    This {{credentialSubject.degree.name}} is conferred to\n  </div>\n  <strong style="font-size: 16px">\n    {{credentialSubject.name}}\n  </strong>\n  <div>\n    by {{credentialSubject.degree.institution}}.\n  </div>\n</div>',
-            '@type': 'WebRenderingTemplate2022',
-          },
-        ],
-      },
+      credential: universityDegreeCredential,
     };
     const context = {};
 
@@ -82,26 +54,7 @@ describe('Renderer', () => {
     // Mock data
     const args: IRenderCredentialArgs = {
       credential: {
-        '@context': [
-          'https://www.w3.org/2018/credentials/v1',
-          'https://www.w3.org/2018/credentials/examples/v1',
-          {
-            render: 'https://www.w3.org/2018/credentials#renderMethod',
-          },
-        ],
-        id: 'http://example.edu/credentials/3732',
-        type: ['VerifiableCredential', 'UniversityDegreeCredential'],
-        issuer: 'https://example.edu/issuers/565049',
-        issuanceDate: '2010-01-01T00:00:00Z',
-        credentialSubject: {
-          id: 'did:example:ebfeb1f712ebc6f1c276e12ec21',
-          name: 'Jane Smith',
-          degree: {
-            type: 'BachelorDegree',
-            name: 'Bachelor of Science and Arts',
-            institution: 'Example University',
-          },
-        },
+        ...universityDegreeCredential,
         render: [
           {
             '@id':
@@ -142,12 +95,6 @@ describe('Renderer', () => {
         issuanceDate: '2010-01-01T00:00:00Z',
         credentialSubject: {
           id: 'did:example:ebfeb1f712ebc6f1c276e12ec21',
-          name: 'Jane Smith',
-          degree: {
-            type: 'BachelorDegree',
-            name: 'Bachelor of Science and Arts',
-            institution: 'Example University',
-          },
         },
       },
     };
@@ -176,17 +123,11 @@ describe('Renderer', () => {
         issuanceDate: '2010-01-01T00:00:00Z',
         credentialSubject: {
           id: 'did:example:ebfeb1f712ebc6f1c276e12ec21',
-          name: 'Jane Smith',
-          degree: {
-            type: 'BachelorDegree',
-            name: 'Bachelor of Science and Arts',
-            institution: 'Example University',
-          },
         },
         render: [
           {
             '@id':
-              '<div style="width:300px; height:100px; border: 2px solid black; text-align:center">\n  <div>\n    This {{credentialSubject.degree.name}} is conferred to\n  </div>\n  <strong style="font-size: 16px">\n    {{credentialSubject.name}}\n  </strong>\n  <div>\n    by {{credentialSubject.degree.institution}}.\n  </div>\n</div>',
+              '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="100">\n  <rect width="100%" height="100%" style="fill:rgb(0,0,255);stroke-width:2;stroke:rgb(0,0,0)" />\n  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" style="font-size:16px">Jane Smith</text>\n</svg>',
             '@type': 'SvgRenderingHint2022',
           },
         ],
@@ -204,26 +145,7 @@ describe('Renderer', () => {
     // Mock data
     const args: IRenderCredentialArgs = {
       credential: {
-        '@context': [
-          'https://www.w3.org/2018/credentials/v1',
-          'https://www.w3.org/2018/credentials/examples/v1',
-          {
-            render: 'https://www.w3.org/2018/credentials#renderMethod',
-          },
-        ],
-        id: 'http://example.edu/credentials/3732',
-        type: ['VerifiableCredential', 'UniversityDegreeCredential'],
-        issuer: 'https://example.edu/issuers/565049',
-        issuanceDate: '2010-01-01T00:00:00Z',
-        credentialSubject: {
-          id: 'did:example:ebfeb1f712ebc6f1c276e12ec21',
-          name: 'Jane Smith',
-          degree: {
-            type: 'BachelorDegree',
-            name: 'Bachelor of Science and Arts',
-            institution: 'Example University',
-          },
-        },
+        ...universityDegreeCredential,
         render: [
           {
             '@id':
@@ -283,5 +205,5 @@ describe('Renderer', () => {
     await expect(
       rendererNoDefault.renderCredential(args, context as IRendererContext)
     ).rejects.toThrow('Renderer provider invalid-render-type not found');
-   })
+  });
 });
