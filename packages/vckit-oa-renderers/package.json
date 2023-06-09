@@ -11,6 +11,7 @@
     "@govtechsg/open-attestation": "^6.5.1",
     "@hot-loader/react-dom": "^16.11.0",
     "debug": "4.1.1",
+    "handlebars": "^4.7.6",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-hot-loader": "^4.12.18"
