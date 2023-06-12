@@ -8,6 +8,7 @@
 export { CoreEvents } from './coreEvents.js'
 export * from './agent.js'
 export * from './types/IAgent.js'
+export * from './types/IOACredentialPlugin.js'
 export * from './types/ICredentialPlugin.js'
 export * from './types/ICredentialIssuer.js'
 export * from './types/ICredentialVerifier.js'
