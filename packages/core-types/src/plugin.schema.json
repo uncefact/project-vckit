@@ -4213,7 +4213,7 @@
             "EthereumEip712Signature2021",
             "OpenAttestationMerkleProofSignature2018"
           ],
-          "description": "The type of encoding to be used for the Verifiable Credential or Presentation to be generated.\n\nOnly `jwt` and `lds` is supported at the moment."
+          "description": "The type of encoding to be used for the Verifiable Credential or Presentation to be generated.\n\nOnly `jwt` , `lds` and `OpenAttestationMerkleProofSignature2018` are supported at the moment."
         },
         "VerifiableCredential": {
           "type": "object",

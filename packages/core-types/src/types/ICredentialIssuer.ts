@@ -13,7 +13,7 @@ import { IKeyManager } from './IKeyManager.js'
 /**
  * The type of encoding to be used for the Verifiable Credential or Presentation to be generated.
  *
- * Only `jwt` and `lds` is supported at the moment.
+ * Only `jwt` , `lds` and `OpenAttestationMerkleProofSignature2018` are supported at the moment.
  *
  * @public
  */
@@ -198,8 +198,8 @@ export interface ICredentialIssuer extends IPluginMethodMap {
    */
   createVerifiableCredential(
     args: ICreateVerifiableCredentialArgs,
-    context: IssuerAgentContext,
-  ): Promise<VerifiableCredential>
+    context: IssuerAgentContext
+  ): Promise<VerifiableCredential>;
 }
 
 /**
