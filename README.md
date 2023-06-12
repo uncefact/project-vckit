@@ -10,7 +10,7 @@ VCs exemplify a decentralsied model for high integrity digital data excahnge. Th
 
 If you are an organisation that issues any kind of credential such as a permit, certificate, accreditation, license, or other "claim" of value to your community or constituency, then this project is for you. vckit provides the tools to equip your existing business systems with the ability to issue your existing credentials as high integrity, standards based, and interoperable VCs that your constituents (VC holders) can present to any party that needs to verify them.
 
-VCs issued by vckit tooling can be verified using any mobile device camera to scan a QR code. This is important so that uptake can remain compatible with today's paper processes. There is no requirement for verifiers of credentials to adopt any new new technology in order to verify a credential. However, if you are an organisation that is likely to be verifying at scale or you wish to extract the digitial data in a credential for use in your business systems then vckit is also for you.  It provides an advanced multi-protocol verification capability that can be integrated with your systems.
+VCs issued by vckit tooling can be verified using any mobile device camera to scan a QR code. This is important so that uptake can remain compatible with today's paper processes. There is no requirement for verifiers of credentials to adopt any new new technology in order to verify a credential. However, if you are an organisation that is likely to be verifying at scale or you wish to extract the digitial data in a credential for use in your business systems then vckit is also for you. It provides an advanced multi-protocol verification capability that can be integrated with your systems.
 
 # Get Started
 
