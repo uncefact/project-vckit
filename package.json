@@ -10,7 +10,8 @@
     "vckit": "cross-env NODE_NO_WARNINGS=1 ./packages/cli/bin/vckit.js",
     "prettier": "prettier --write \"{packages,docs,__tests__,!build}/**/*.{ts,js,json,md,yml}\"",
     "build-clean": "rimraf --glob ./packages/*/build ./packages/*/api ./packages/*/node_modules ./packages/*/tsconfig.tsbuildinfo ./temp ./tmp && jest --clearCache",
-    "version": "lerna version"
+    "version": "lerna version",
+    "lint": "lint-staged"
   },
   "devDependencies": {
     "@ethersproject/contracts": "^5.7.0",
@@ -39,12 +40,14 @@
     "ethr-did-resolver": "^8.0.0",
     "express": "^4.18.2",
     "ganache": "7.7.3",
+    "husky": "^8.0.3",
     "jest": "29.3.1",
     "jest-environment-jsdom": "29.3.1",
     "jest-environment-node": "29.3.1",
     "json-schema": "0.4.0",
     "lerna": "6.4.1",
     "lerna-changelog": "2.2.0",
+    "lint-staged": "^13.2.2",
     "oas-resolver": "2.5.6",
     "openapi-types": "12.1.0",
     "prettier": "2.8.3",
@@ -58,6 +61,9 @@
     "typescript": "4.9.4",
     "uint8arrays": "4.0.3",
     "web-did-resolver": "^2.0.23"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix"
   },
   "repository": {
     "type": "git",

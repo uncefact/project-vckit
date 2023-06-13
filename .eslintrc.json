@@ -1,67 +1,34 @@
 {
-  "root": true,
-  "plugins": ["@nrwl/nx", "@typescript-eslint"],
-  "parser": "@typescript-eslint/parser",
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking"
-  ],
-  "parserOptions": {
-    "project": ["tsconfig.base.json"]
-  },
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
-          "error",
-          {
-            "enforceBuildableLibDependency": true,
-            "allow": ["api-interfaces"],
-            "depConstraints": [
-              {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
-              }
-            ]
-          }
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "@typescript-eslint/ban-ts-ignore": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
         ]
-      }
-    },
-    {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
-    },
-    {
-      "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nrwl/nx/javascript"],
-      "rules": {}
-    },
-    {
-      "files": [
-        "*.spec.ts",
-        "*.spec.tsx",
-        "*.spec.js",
-        "*.spec.jsx",
-        "*.test.ts",
-        "*.test.tsx",
-        "*.test.js",
-        "*.test.jsx"
-      ],
-      "env": {
-        "jest": true
-      },
-      "rules": {
-        "@typescript-eslint/unbound-method": "off"
-      }
     }
-  ],
-  "rules": {
-    "no-console": "warn",
-    "@typescript-eslint/no-unsafe-call": "off",
-    "@typescript-eslint/no-unsafe-member-access": "off",
-    "@typescript-eslint/no-unsafe-assignment": "off"
-  }
 }
