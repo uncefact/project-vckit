@@ -1,0 +1,25 @@
+{
+  "extends": "../tsconfig.settings.json",
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "noEmit": true,
+  },
+  "include": [
+    "src/**/*.ts[x]?"
+  ],
+  "references": [
+    { "path": "../core-types" },
+    { "path": "../core" },
+    { "path": "../credential-w3c" },
+    { "path": "../remote-client" },
+    { "path": "../remote-server" },
+  ]
+}
