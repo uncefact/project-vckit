@@ -7,7 +7,7 @@ interface RequestWithAgent extends Request {
 }
 
 const verifyWebhookEventSignature = (req: Request)  => {
-  const WEBHOOK_KEY='62MGfCkzIqJaPVzB9yZUmQDSnkqf5Hz17BBfoGpUcXU/l/Vk0NaL+nqZ5abVu/6rdPgOsyApF1Ko2OEeiFkFnw=='
+  const WEBHOOK_KEY= process.env.WEBHOOK_KEY
 
   let computedSignature = crypto.createHmac('sha256', WEBHOOK_KEY).update(req.body.toString()).digest('base64');
   let xeroSignature = req.headers['x-xero-signature'];
