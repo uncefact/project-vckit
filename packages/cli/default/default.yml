@@ -254,6 +254,30 @@ didDiscovery:
         - $require: '@veramo/did-manager#AliasDiscoveryProvider'
         - $require: '@veramo/data-store#DataStoreDiscoveryProvider'
 
+# credential router plugin
+credentialRouter:
+  $require: '@vckit/credential-router#CredentialPlugin'
+  $args:
+    - routingConfig:
+        OpenAttestationMerkleProofSignature2018:
+          credentialCreate: createVerifiableCredentialOA
+          credentialVerify: verifyCredentialOA
+        lds:
+          credentialCreate: createVerifiableCredential
+          credentialVerify: verifyCredential
+          presentationCreate: createVerifiablePresentation
+          presentationVerify: verifyCredential
+        jwt:
+          credentialCreate: createVerifiableCredential
+          credentialVerify: verifyCredential
+          presentationCreate: createVerifiablePresentation
+          presentationVerify: verifyCredential
+        EthereumEip712Signature2021:
+          credentialCreate: createVerifiableCredential
+          credentialVerify: verifyCredential
+          presentationCreate: createVerifiablePresentation
+          presentationVerify: verifyCredential
+
 # W3C credentialPlugin
 credentialIssuerLD:
   $require: '@vckit/credential-ld#CredentialIssuerLD'
@@ -279,6 +303,7 @@ agent:
         - $ref: /didDiscovery
         - $ref: /messageHandler
         - $require: '@veramo/did-comm#DIDComm'
+        - $ref: /credentialRouter
         - $require: '@vckit/credential-w3c#CredentialPlugin'
         - $ref: /credentialIssuerLD
         - $require: '@veramo/credential-eip712#CredentialIssuerEIP712'

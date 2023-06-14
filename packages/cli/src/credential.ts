@@ -121,7 +121,7 @@ credential
       }
     }
 
-    const verifiableCredential = await agent.createVerifiableCredential({
+    const verifiableCredential = await agent.credentialCreate({
       save: true,
       credential,
       proofFormat: answers.proofFormat,

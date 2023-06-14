@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/credential-w3c",
+  "name": "@vckit/credential-router",
   "description": "vckit plugin for working with W3C Verifiable Credentials & Presentations.",
   "version": "1.0.0-beta.4",
   "main": "build/index.js",

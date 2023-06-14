@@ -42,6 +42,7 @@
     "@vckit/core": "^1.0.0-beta.4",
     "@vckit/core-types": "^1.0.0-beta.4",
     "@vckit/credential-ld": "^1.0.0-beta.4",
+    "@vckit/credential-router": "workspace:1.0.0-beta.4",
     "@vckit/credential-w3c": "^1.0.0-beta.4",
     "@vckit/example-documents": "^1.0.0-beta.4",
     "@vckit/remote-client": "^1.0.0-beta.4",
