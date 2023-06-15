@@ -9,15 +9,21 @@
 
 ## Summary
 
-One paragraph explanation of the feature.
+Once emerging standard for interactions between verifiable credential agents 
+is the w3c vc-api. This RFC proposes creating an express router that can be 
+added to a vckit/veramo agent such that it exposes agent methods via the 
+vc-api interface. 
 
 ## Motivation
 
 Why are we doing this? What use cases does it support? What is the expected
 outcome?
 
-## Tutorial
+- interoperability
+- expected outcome is the be able to register for and pass vc-api interop test suite.
 
+## Tutorial
+```
 Explain the proposal as if it were already implemented and you
 were teaching it to another vc-kit contributor or vc-kit consumer. That generally
 means:
@@ -31,6 +37,16 @@ migration guidance.
 
 Some enhancement proposals may be more aimed at contributors (e.g. for
 consensus internals); others may be more aimed at consumers.
+```
+> TODO: elaborate on tutorial dot points below
+
+- overview of vc-api operations
+- mapping to agent methods
+- request / response structure mappings
+- authorization
+- testing conformance
+- agent configuration
+- api-docs and example requests
 
 ## Reference
 
@@ -47,12 +63,23 @@ Strive to guarantee that:
 
 Why should we *not* do this?
 
+- still draft/experimental spec
+
 ## Rationale and alternatives
 
 - Why is this design the best in the space of possible designs?
 - What other designs have been considered and what is the rationale for not
 choosing them?
 - What is the impact of not doing this?
+
+- there are multiple other alternatives for interactions between agents, but 
+  no single standardised approach. a large part of the justification for the 
+  choice of veramo as a foundation for vc-kit is it's modularity. The vc-api
+  is an easy win to begin demonstrating conformance / interop with other vc 
+  implementations. 
+
+- also forms a foundation for extending to implement the traceability interop
+  api spec. 
 
 ## Prior art
 
