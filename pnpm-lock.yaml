@@ -173,12 +173,6 @@ importers:
       '@vckit/core-types':
         specifier: ^1.0.0-beta.4
         version: link:../core-types
-      '@vckit/credential-ld':
-        specifier: ^1.0.0-beta.4
-        version: link:../credential-ld
-      '@vckit/credential-w3c':
-        specifier: ^1.0.0-beta.4
-        version: link:../credential-w3c
       '@vckit/example-documents':
         specifier: ^1.0.0-beta.4
         version: link:../example-documents
