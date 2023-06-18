@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.4](https://github.com/uport-project/veramo/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2023-06-04)
+
+### Features
+
+- adds traceability interop default context ([f3783f0](https://github.com/uport-project/veramo/commit/f3783f09cfd9cc9aa55591b98d5ce3e92b1575be))
+
+# [1.0.0-beta.3](https://github.com/uport-project/veramo/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2023-06-02)
+
+**Note:** Version bump only for package @vckit/cli
+
 # [1.0.0-beta.2](https://github.com/uport-project/veramo/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2023-05-11)
 
 **Note:** Version bump only for package @vckit/cli

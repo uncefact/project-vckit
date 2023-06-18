@@ -314,32 +314,35 @@ importers:
         specifier: ^4.1.3
         version: 4.1.3
       '@vckit/app':
-        specifier: ^1.0.0-beta.1
+        specifier: ^1.0.0-beta.4
         version: link:../app
       '@vckit/core':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../core
       '@vckit/core-types':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../core-types
+      '@vckit/credential-ld':
+        specifier: ^1.0.0-beta.4
+        version: link:../credential-ld
       '@vckit/credential-w3c':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../credential-w3c
       '@vckit/example-documents':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../example-documents
       '@vckit/remote-client':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../remote-client
       '@vckit/remote-server':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../remote-server
       '@veramo/credential-eip712':
         specifier: ^5.1.2
         version: 5.1.2
       '@veramo/credential-ld':
         specifier: ^5.1.2
-        version: 5.1.2(expo@48.0.19)(react-native@0.71.10)
+        version: 5.1.2(expo@48.0.16)(react-native@0.71.7)
       '@veramo/data-store':
         specifier: ^5.1.2
         version: 5.1.2(pg@8.7.1)(sqlite3@5.0.8)(ts-node@10.9.1)
@@ -360,7 +363,7 @@ importers:
         version: 5.1.2
       '@veramo/did-provider-key':
         specifier: ^5.1.2
-        version: 5.1.2(expo@48.0.19)(react-native@0.71.10)
+        version: 5.1.2(expo@48.0.16)(react-native@0.71.7)
       '@veramo/did-provider-pkh':
         specifier: ^5.1.2
         version: 5.1.2
@@ -516,7 +519,7 @@ importers:
   packages/core:
     dependencies:
       '@vckit/core-types':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../core-types
       debug:
         specifier: ^4.3.4
@@ -557,13 +560,71 @@ importers:
         specifier: 4.9.4
         version: 4.9.4
 
+  packages/credential-ld:
+    dependencies:
+      '@digitalcredentials/ed25519-signature-2020':
+        specifier: ^3.0.2
+        version: 3.0.2(expo@48.0.16)(react-native@0.71.7)
+      '@digitalcredentials/ed25519-verification-key-2020':
+        specifier: ^4.0.0
+        version: 4.0.0
+      '@digitalcredentials/jsonld':
+        specifier: ^5.2.1
+        version: 5.2.1(expo@48.0.16)(react-native@0.71.7)
+      '@digitalcredentials/jsonld-signatures':
+        specifier: ^9.3.1
+        version: 9.3.1(expo@48.0.16)(react-native@0.71.7)
+      '@digitalcredentials/vc':
+        specifier: ^5.0.0
+        version: 5.0.0(expo@48.0.16)(react-native@0.71.7)
+      '@transmute/credentials-context':
+        specifier: ^0.7.0-unstable.79
+        version: 0.7.0-unstable.80
+      '@transmute/ed25519-signature-2018':
+        specifier: ^0.7.0-unstable.79
+        version: 0.7.0-unstable.80(expo@48.0.16)(react-native@0.71.7)
+      '@transmute/json-web-signature':
+        specifier: ^0.7.0-unstable.79
+        version: 0.7.0-unstable.80(expo@48.0.16)(react-native@0.71.7)
+      '@vckit/core-types':
+        specifier: ^1.0.0-beta.4
+        version: link:../core-types
+      '@veramo-community/lds-ecdsa-secp256k1-recovery2020':
+        specifier: uport-project/EcdsaSecp256k1RecoverySignature2020
+        version: github.com/uport-project/EcdsaSecp256k1RecoverySignature2020/ab0db52de6f4e6663ef271a48009ba26e688ef9b(expo@48.0.16)(react-native@0.71.7)
+      '@veramo/utils':
+        specifier: ^5.1.2
+        version: 5.1.2
+      cross-fetch:
+        specifier: ^3.1.5
+        version: 3.1.5
+      debug:
+        specifier: ^4.3.3
+        version: 4.3.4
+      did-resolver:
+        specifier: ^4.0.1
+        version: 4.1.0
+      uint8arrays:
+        specifier: ^3.0.0
+        version: 3.1.1
+    devDependencies:
+      '@types/debug':
+        specifier: 4.1.7
+        version: 4.1.7
+      borc:
+        specifier: 3.0.0
+        version: 3.0.0
+      typescript:
+        specifier: 4.9.4
+        version: 4.9.4
+
   packages/credential-w3c:
     dependencies:
       '@govtechsg/open-attestation':
         specifier: ^6.6.0
         version: 6.6.0
       '@vckit/core-types':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../core-types
       '@veramo/message-handler':
         specifier: ^5.1.2
@@ -612,13 +673,13 @@ importers:
   packages/remote-client:
     dependencies:
       '@vckit/app':
-        specifier: ^1.0.0-beta.1
+        specifier: ^1.0.0-beta.4
         version: link:../app
       '@vckit/core-types':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../core-types
       '@vckit/example-documents':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../example-documents
       cross-fetch:
         specifier: ^3.1.4
@@ -640,13 +701,13 @@ importers:
   packages/remote-server:
     dependencies:
       '@vckit/app':
-        specifier: ^1.0.0-beta.1
+        specifier: ^1.0.0-beta.4
         version: link:../app
       '@vckit/core-types':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../core-types
       '@vckit/remote-client':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../remote-client
       debug:
         specifier: ^4.3.3
@@ -4587,12 +4648,15 @@ packages:
       factory.ts: 0.5.2
     dev: false
 
-  /@did-core/did-ld-json@0.1.1-unstable.15(expo@48.0.19)(react-native@0.71.10):
-    resolution: {integrity: sha512-p2jKRxSU+eJJqd+ewCklYp/XZ6ysISk8VU2/kANCoB/WwUy/kVgw2rUNScRDXw2utr9Qj36P8EZTYi4aj7vRCQ==}
-    engines: {node: '>=10'}
+  /@did-core/did-ld-json@0.1.1-unstable.15(expo@48.0.16)(react-native@0.71.7):
+    resolution:
+      {
+        integrity: sha512-p2jKRxSU+eJJqd+ewCklYp/XZ6ysISk8VU2/kANCoB/WwUy/kVgw2rUNScRDXw2utr9Qj36P8EZTYi4aj7vRCQ==,
+      }
+    engines: { node: '>=10' }
     dependencies:
       '@transmute/did-context': 0.6.1-unstable.37
-      jsonld-checker: 0.1.8(expo@48.0.19)(react-native@0.71.10)
+      jsonld-checker: 0.1.8(expo@48.0.16)(react-native@0.71.7)
     transitivePeerDependencies:
       - domexception
       - encoding
@@ -9486,6 +9550,14 @@ packages:
       '@sinonjs/commons': 1.8.6
     dev: false
 
+  /@sovpro/delimited-stream@1.1.0:
+    resolution:
+      {
+        integrity: sha512-kQpk267uxB19X3X2T1mvNMjyvIEonpNSHrMlK5ZaBU6aZxw7wPbpgKJOjHN3+/GPVpXgAV9soVT2oyHpLkLtyw==,
+      }
+    engines: { node: '>= 8' }
+    dev: true
+
   /@sqltools/formatter@1.2.5:
     resolution: {integrity: sha512-Uy0+khmZqUrUGm5dmMqVlnvufZRSK0FbYzVgp0UMstm+F5+W2/jnEEQyc9vo1ZR/E5ZI/B1WjjoTqBqwJL6Krw==}
 
@@ -10557,12 +10629,15 @@ packages:
     resolution: {integrity: sha512-p/QnG3QKS4218hjIDgdvJOFATCXsAnZKgy4egqRrJLlo3Y6OaDBg7cA73dixOwUPoEKob0K6rLIGcsCI/L1acw==}
     dev: false
 
-  /@transmute/did-key-common@0.3.0-unstable.10(expo@48.0.19)(react-native@0.71.10):
-    resolution: {integrity: sha512-Iryh/HcGIvmTtWFTRaG/JEgbUsqI5OqKqkR2676yQWK4ajLMsyNattz5n0ZfFQk/4U7Ee6pJvvKRduFDAqqV0Q==}
-    engines: {node: '>=14'}
+  /@transmute/did-key-common@0.3.0-unstable.10(expo@48.0.16)(react-native@0.71.7):
+    resolution:
+      {
+        integrity: sha512-Iryh/HcGIvmTtWFTRaG/JEgbUsqI5OqKqkR2676yQWK4ajLMsyNattz5n0ZfFQk/4U7Ee6pJvvKRduFDAqqV0Q==,
+      }
+    engines: { node: '>=14' }
     dependencies:
       '@did-core/data-model': 0.1.1-unstable.15
-      '@did-core/did-ld-json': 0.1.1-unstable.15(expo@48.0.19)(react-native@0.71.10)
+      '@did-core/did-ld-json': 0.1.1-unstable.15(expo@48.0.16)(react-native@0.71.7)
       '@transmute/did-context': 0.6.1-unstable.37
       '@transmute/ld-key-pair': 0.6.1-unstable.37
       '@transmute/security-context': 0.6.1-unstable.37
@@ -10574,11 +10649,14 @@ packages:
       - web-streams-polyfill
     dev: false
 
-  /@transmute/did-key-ed25519@0.3.0-unstable.10(expo@48.0.19)(react-native@0.71.10):
-    resolution: {integrity: sha512-9QdXl58DjwqBuOJBx6DtvaNW2bZLmVBxMSq2En4RAQcGIz1GGulyEQ1NB7PLIAgnam3LIFxiK6RiQGQTfJmmJg==}
-    engines: {node: '>=14'}
+  /@transmute/did-key-ed25519@0.3.0-unstable.10(expo@48.0.16)(react-native@0.71.7):
+    resolution:
+      {
+        integrity: sha512-9QdXl58DjwqBuOJBx6DtvaNW2bZLmVBxMSq2En4RAQcGIz1GGulyEQ1NB7PLIAgnam3LIFxiK6RiQGQTfJmmJg==,
+      }
+    engines: { node: '>=14' }
     dependencies:
-      '@transmute/did-key-common': 0.3.0-unstable.10(expo@48.0.19)(react-native@0.71.10)
+      '@transmute/did-key-common': 0.3.0-unstable.10(expo@48.0.16)(react-native@0.71.7)
       '@transmute/ed25519-key-pair': 0.6.1-unstable.37
     transitivePeerDependencies:
       - domexception
@@ -10588,11 +10666,14 @@ packages:
       - web-streams-polyfill
     dev: false
 
-  /@transmute/did-key-secp256k1@0.3.0-unstable.10(expo@48.0.19)(react-native@0.71.10):
-    resolution: {integrity: sha512-C/Gyu2U3NQZ9Gxu4WVwUk8h0ERbY9Z4Kjk0P49p3IQFrWK19XmVXjA+b1RiqffhYzWJ6fH5TPYIt2LW5MRQmUA==}
-    engines: {node: '>=14'}
+  /@transmute/did-key-secp256k1@0.3.0-unstable.10(expo@48.0.16)(react-native@0.71.7):
+    resolution:
+      {
+        integrity: sha512-C/Gyu2U3NQZ9Gxu4WVwUk8h0ERbY9Z4Kjk0P49p3IQFrWK19XmVXjA+b1RiqffhYzWJ6fH5TPYIt2LW5MRQmUA==,
+      }
+    engines: { node: '>=14' }
     dependencies:
-      '@transmute/did-key-common': 0.3.0-unstable.10(expo@48.0.19)(react-native@0.71.10)
+      '@transmute/did-key-common': 0.3.0-unstable.10(expo@48.0.16)(react-native@0.71.7)
       '@transmute/secp256k1-key-pair': 0.7.0-unstable.80
     transitivePeerDependencies:
       - domexception
@@ -10602,11 +10683,14 @@ packages:
       - web-streams-polyfill
     dev: false
 
-  /@transmute/did-key-x25519@0.3.0-unstable.10(expo@48.0.19)(react-native@0.71.10):
-    resolution: {integrity: sha512-Jm5UxwI9EhlfVQ9D0Clj9RlMvhOi8nqAgQG30KMzjFMVGfWqIPwQNZFvmL+XsQ7g3dfTo5iQwXBY0de/f+RoMA==}
-    engines: {node: '>=14'}
+  /@transmute/did-key-x25519@0.3.0-unstable.10(expo@48.0.16)(react-native@0.71.7):
+    resolution:
+      {
+        integrity: sha512-Jm5UxwI9EhlfVQ9D0Clj9RlMvhOi8nqAgQG30KMzjFMVGfWqIPwQNZFvmL+XsQ7g3dfTo5iQwXBY0de/f+RoMA==,
+      }
+    engines: { node: '>=14' }
     dependencies:
-      '@transmute/did-key-common': 0.3.0-unstable.10(expo@48.0.19)(react-native@0.71.10)
+      '@transmute/did-key-common': 0.3.0-unstable.10(expo@48.0.16)(react-native@0.71.7)
       '@transmute/x25519-key-pair': 0.7.0-unstable.80
     transitivePeerDependencies:
       - domexception
@@ -11755,24 +11839,27 @@ packages:
       - supports-color
     dev: false
 
-  /@veramo/credential-ld@5.1.2(expo@48.0.19)(react-native@0.71.10):
-    resolution: {integrity: sha512-cq+UcFIEIAUIT0aQbDWBkbGdg5+utyGgYhmekBTRsbXUuDO0TC25HNK4ceYuL+FRPaYHl24vPUuKd609if2L7w==}
+  /@veramo/credential-ld@5.1.2(expo@48.0.16)(react-native@0.71.7):
+    resolution:
+      {
+        integrity: sha512-cq+UcFIEIAUIT0aQbDWBkbGdg5+utyGgYhmekBTRsbXUuDO0TC25HNK4ceYuL+FRPaYHl24vPUuKd609if2L7w==,
+      }
     dependencies:
-      '@digitalcredentials/ed25519-signature-2020': 3.0.2(expo@48.0.19)(react-native@0.71.10)
+      '@digitalcredentials/ed25519-signature-2020': 3.0.2(expo@48.0.16)(react-native@0.71.7)
       '@digitalcredentials/ed25519-verification-key-2020': 4.0.0
-      '@digitalcredentials/jsonld': 5.2.1(expo@48.0.19)(react-native@0.71.10)
-      '@digitalcredentials/jsonld-signatures': 9.3.1(expo@48.0.19)(react-native@0.71.10)
-      '@digitalcredentials/vc': 5.0.0(expo@48.0.19)(react-native@0.71.10)
-      '@transmute/credentials-context': 0.7.0-unstable.80
-      '@transmute/ed25519-signature-2018': 0.7.0-unstable.80(expo@48.0.19)(react-native@0.71.10)
-      '@transmute/json-web-signature': 0.7.0-unstable.80(expo@48.0.19)(react-native@0.71.10)
-      '@veramo-community/lds-ecdsa-secp256k1-recovery2020': github.com/uport-project/EcdsaSecp256k1RecoverySignature2020/ab0db52de6f4e6663ef271a48009ba26e688ef9b(expo@48.0.19)(react-native@0.71.10)
+      '@digitalcredentials/jsonld': 5.2.1(expo@48.0.16)(react-native@0.71.7)
+      '@digitalcredentials/jsonld-signatures': 9.3.1(expo@48.0.16)(react-native@0.71.7)
+      '@digitalcredentials/vc': 5.0.0(expo@48.0.16)(react-native@0.71.7)
+      '@transmute/credentials-context': 0.7.0-unstable.79
+      '@transmute/ed25519-signature-2018': 0.7.0-unstable.80(expo@48.0.16)(react-native@0.71.7)
+      '@transmute/json-web-signature': 0.7.0-unstable.80(expo@48.0.16)(react-native@0.71.7)
+      '@veramo-community/lds-ecdsa-secp256k1-recovery2020': github.com/uport-project/EcdsaSecp256k1RecoverySignature2020/ab0db52de6f4e6663ef271a48009ba26e688ef9b(expo@48.0.16)(react-native@0.71.7)
       '@veramo/core-types': 5.1.2
       '@veramo/utils': 5.1.2
-      cross-fetch: 3.1.6
-      debug: 4.3.4(supports-color@6.1.0)
-      did-resolver: 4.1.0
-      uint8arrays: 3.0.0
+      cross-fetch: 3.1.5
+      debug: 4.3.4
+      did-resolver: 4.0.1
+      uint8arrays: 3.1.1
     transitivePeerDependencies:
       - domexception
       - encoding
@@ -11887,12 +11974,15 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@veramo/did-provider-key@5.1.2(expo@48.0.19)(react-native@0.71.10):
-    resolution: {integrity: sha512-BvrGCmZ5eyPPLcOWNO5sXSmWFpRWTagwhIzQI0lrBphcuDeJxvpW3S3jACYO3SbiC/ksM+rGICG+OAcbagUeDw==}
+  /@veramo/did-provider-key@5.1.2(expo@48.0.16)(react-native@0.71.7):
+    resolution:
+      {
+        integrity: sha512-BvrGCmZ5eyPPLcOWNO5sXSmWFpRWTagwhIzQI0lrBphcuDeJxvpW3S3jACYO3SbiC/ksM+rGICG+OAcbagUeDw==,
+      }
     dependencies:
-      '@transmute/did-key-ed25519': 0.3.0-unstable.10(expo@48.0.19)(react-native@0.71.10)
-      '@transmute/did-key-secp256k1': 0.3.0-unstable.10(expo@48.0.19)(react-native@0.71.10)
-      '@transmute/did-key-x25519': 0.3.0-unstable.10(expo@48.0.19)(react-native@0.71.10)
+      '@transmute/did-key-ed25519': 0.3.0-unstable.10(expo@48.0.16)(react-native@0.71.7)
+      '@transmute/did-key-secp256k1': 0.3.0-unstable.10(expo@48.0.16)(react-native@0.71.7)
+      '@transmute/did-key-x25519': 0.3.0-unstable.10(expo@48.0.16)(react-native@0.71.7)
       '@veramo/core-types': 5.1.2
       '@veramo/did-manager': 5.1.2
       debug: 4.3.4(supports-color@6.1.0)
@@ -13998,6 +14088,13 @@ packages:
   /big.js@5.2.2:
     resolution: {integrity: sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==}
 
+  /bignumber.js@9.1.1:
+    resolution:
+      {
+        integrity: sha512-pHm4LsMJ6lzgNGVfZHjMoO8sdoRhOzOH4MLmY65Jg70bpxCKu5iOHNJyfF6OyvYw7t8Fpf35RuzUyqnQsj8Vig==,
+      }
+    dev: true
+
   /bin-links@3.0.3:
     resolution: {integrity: sha512-zKdnMPWEdh4F5INR07/eBrodC7QrF5JKvqskjz/ZZRXg5YSAZIbn8zGhbhUrElzHBZ2fvEQdOU59RHcTG3GiwA==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
@@ -14128,6 +14225,23 @@ packages:
 
   /boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
+
+  /borc@3.0.0:
+    resolution:
+      {
+        integrity: sha512-ec4JmVC46kE0+layfnwM3l15O70MlFiEbmQHY/vpqIKiUtPVntv4BY4NVnz3N4vb21edV3mY97XVckFvYHWF9g==,
+      }
+    engines: { node: '>=4' }
+    hasBin: true
+    dependencies:
+      bignumber.js: 9.1.1
+      buffer: 6.0.3
+      commander: 2.20.3
+      ieee754: 1.2.1
+      iso-url: 1.2.1
+      json-text-sequence: 0.3.0
+      readable-stream: 3.6.2
+    dev: true
 
   /bottleneck@2.19.5:
     resolution: {integrity: sha512-VHiNCbI1lKdl44tGrhNfU3lup0Tj/ZBMJB5/2ZbNXRCPuRCO7ed2mgcK4r17y+KB2EfuYuRaVlwNbAeaWGSpbw==}
@@ -15188,7 +15302,11 @@ packages:
     dev: true
 
   /commander@2.20.3:
-    resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
+    resolution:
+      {
+        integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==,
+      }
+    dev: false
 
   /commander@4.1.1:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
@@ -16518,6 +16636,26 @@ packages:
     dependencies:
       did-jwt: 7.2.2
       did-resolver: 4.1.0
+
+  /did-jwt@6.11.0:
+    resolution:
+      {
+        integrity: sha512-/qyYzo8v/xjwyt5x3tbknjQ2L15J1JzB+0cQK5/2SgnoOoclOmtEgZoRaxG1B73VMOgyZQYLBytRT4COUVhcpw==,
+      }
+    dependencies:
+      '@stablelib/ed25519': 1.0.3
+      '@stablelib/random': 1.0.2
+      '@stablelib/sha256': 1.0.1
+      '@stablelib/x25519': 1.0.3
+      '@stablelib/xchacha20poly1305': 1.0.1
+      bech32: 2.0.0
+      canonicalize: 1.0.8
+      did-resolver: 4.0.1
+      elliptic: 6.5.4
+      js-sha3: 0.8.0
+      multiformats: 9.9.0
+      uint8arrays: 3.1.1
+    dev: false
 
   /did-jwt@6.11.6:
     resolution: {integrity: sha512-OfbWknRxJuUqH6Lk0x+H1FsuelGugLbBDEwsoJnicFOntIG/A4y19fn0a8RLxaQbWQ5gXg0yDq5E2huSBiiXzw==}
@@ -17889,8 +18027,8 @@ packages:
       '@ethersproject/strings': 5.7.0
       '@ethersproject/transactions': 5.7.0
       '@ethersproject/wallet': 5.7.0
-      did-jwt: 7.2.2
-      did-resolver: 4.1.0
+      did-jwt: 7.1.0
+      did-resolver: 4.0.1
       ethr-did-resolver: 8.0.0
     transitivePeerDependencies:
       - bufferutil
@@ -21266,6 +21404,14 @@ packages:
   /isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
+  /iso-url@1.2.1:
+    resolution:
+      {
+        integrity: sha512-9JPDgCN4B7QPkLtYAAOrEuAWvP9rWvR5offAr0/SeF046wIkglqH3VXgYYP6NcsKslH80UIVgmPqNe3j7tG2ng==,
+      }
+    engines: { node: '>=12' }
+    dev: true
+
   /isobject@2.1.0:
     resolution: {integrity: sha512-+OUdGJlgjOBZDfxnDjYYG6zp487z0JGNQq3cYQYg5f5hKR+syHMsaztzGeml/4kGG55CSpKSpWTY+jYGgsHLgA==}
     engines: {node: '>=0.10.0'}
@@ -23261,6 +23407,16 @@ packages:
     resolution: {integrity: sha512-ZClg6AaYvamvYEE82d3Iyd3vSSIjQ+odgjaTzRuO3s7toCdFKczob2i0zCh7JE8kWn17yvAWhUVxvqGwUalsRA==}
     dev: true
 
+  /json-text-sequence@0.3.0:
+    resolution:
+      {
+        integrity: sha512-7khKIYPKwXQem4lWXfpIN/FEnhztCeRPSxH4qm3fVlqulwujrRDD54xAwDDn/qVKpFtV550+QAkcWJcufzqQuA==,
+      }
+    engines: { node: '>=10.18.0' }
+    dependencies:
+      '@sovpro/delimited-stream': 1.1.0
+    dev: true
+
   /json2mq@0.2.0:
     resolution: {integrity: sha512-SzoRg7ux5DWTII9J2qkrZrqV1gt+rTaoufMxEzXbS26Uid0NwaJd123HcoB80TgubEppxxIGdNxCx50fEoEWQA==}
     dependencies:
@@ -23309,9 +23465,12 @@ packages:
     optionalDependencies:
       graceful-fs: 4.2.11
 
-  /jsonld-checker@0.1.8(expo@48.0.19)(react-native@0.71.10):
-    resolution: {integrity: sha512-jclmnPRrm5SEpaIV6IiSTJxplRAqIWHduQLsUfrYpZM41Ng48m1RN2/aUyHze/ynfO0D2UhlJBt8SdObsH5GBw==}
-    engines: {node: '>=10'}
+  /jsonld-checker@0.1.8(expo@48.0.16)(react-native@0.71.7):
+    resolution:
+      {
+        integrity: sha512-jclmnPRrm5SEpaIV6IiSTJxplRAqIWHduQLsUfrYpZM41Ng48m1RN2/aUyHze/ynfO0D2UhlJBt8SdObsH5GBw==,
+      }
+    engines: { node: '>=10' }
     dependencies:
       jsonld: /@digitalcredentials/jsonld@5.2.1(expo@48.0.19)(react-native@0.71.10)
       node-fetch: 2.6.11
