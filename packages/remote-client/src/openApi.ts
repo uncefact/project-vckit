@@ -1,276 +1,265 @@
-import { OpenAPIV3 } from 'openapi-types'
-import { IAgent, IAgentPluginSchema } from '@vckit/core-types'
-import { credentialsIssueExamples } from '@vckit/example-documents'
+import { OpenAPIV3 } from 'openapi-types';
+import { IAgent, IAgentPluginSchema } from '@vckit/core-types';
+import { credentialsIssueExamples } from '@vckit/example-documents';
 
 type XBadges = {
-  color: string,
-  label: string
-}
+  color: string;
+  label: string;
+};
 
-
-const getInteropApiPathItem = (method: string, agentSchema: IAgentPluginSchema): {path: string, pathItem: OpenAPIV3.PathItemObject} => {
-  switch(method) {
-    case "resolveDid":
+const getInteropApiPathItem = (
+  method: string,
+  agentSchema: IAgentPluginSchema
+): { path: string; pathItem: OpenAPIV3.PathItemObject } => {
+  switch (method) {
+    case 'resolveDid':
       return {
         path: 'identifiers/{did}',
         pathItem: {
           get: {
-                summary: "Resolve",
-                operationId: method,
+            summary: 'Resolve',
+            operationId: method,
+            description: agentSchema.components.methods[method].description,
+            tags: ['Identifiers'],
+            parameters: [
+              {
+                name: 'did',
+                in: 'path',
+                required: true,
+                description: 'A decentralized identifier',
+                schema: {
+                  type: 'string',
+                },
+                example: 'did:web:vckit-holder-demo.herokuapp.com',
+              },
+            ],
+            responses: {
+              200: {
+                // TODO returnType description
                 description: agentSchema.components.methods[method].description,
-                tags: [
-                  "Identifiers"
-                ],
-                parameters: [
-                  {
-                    name: "did",
-                    in: "path",
-                    required: true,
-                    description: "A decentralized identifier",
-                    schema: {
-                      type: "string"
-                    },
-                    example: "did:web:vckit-holder-demo.herokuapp.com"
-                  }
-                ],
-                responses: {
-                  200: {
-                    // TODO returnType description
-                    description: agentSchema.components.methods[method].description,
-                    content: {
-                      'application/json; charset=utf-8': {
-                        schema: agentSchema.components.methods[method].returnType,
-                      },
-                    },
-                  },
-                  400: {
-                    description: 'Validation error',
-                    content: {
-                      'application/json; charset=utf-8': {
-                        schema: agentSchema.components.schemas.ValidationError,
-                      },
-                    },
+                content: {
+                  'application/json; charset=utf-8': {
+                    schema: agentSchema.components.methods[method].returnType,
                   },
                 },
               },
-          
-        }
+              400: {
+                description: 'Validation error',
+                content: {
+                  'application/json; charset=utf-8': {
+                    schema: agentSchema.components.schemas.ValidationError,
+                  },
+                },
+              },
+            },
+          },
+        },
       };
-      case "dataStoreORMGetVerifiableCredentials":
+    case 'dataStoreORMGetVerifiableCredentials':
       return {
         path: 'credentials',
         pathItem: {
           get: {
-                summary: "List credentials",
-                operationId: method,
+            summary: 'List credentials',
+            operationId: method,
+            description: agentSchema.components.methods[method].description,
+            // security: [
+            //   {
+            //     "OAuth2": [
+            //       "resolve:dids"
+            //     ]
+            //   }
+            // ],
+            tags: ['Credentials'],
+            responses: {
+              200: {
+                // TODO returnType description
                 description: agentSchema.components.methods[method].description,
-                // security: [
-                //   {
-                //     "OAuth2": [
-                //       "resolve:dids"
-                //     ]
-                //   }
-                // ],
-                tags: [
-                  "Credentials"
-                ],
-                responses: {
-                  200: {
-                    // TODO returnType description
-                    description: agentSchema.components.methods[method].description,
-                    content: {
-                      'application/json; charset=utf-8': {
-                        schema: agentSchema.components.methods[method].returnType,
-                      },
-                    },
-                  },
-                  400: {
-                    description: 'Validation error',
-                    content: {
-                      'application/json; charset=utf-8': {
-                        schema: agentSchema.components.schemas.ValidationError,
-                      },
-                    },
+                content: {
+                  'application/json; charset=utf-8': {
+                    schema: agentSchema.components.methods[method].returnType,
                   },
                 },
               },
-        }
+              400: {
+                description: 'Validation error',
+                content: {
+                  'application/json; charset=utf-8': {
+                    schema: agentSchema.components.schemas.ValidationError,
+                  },
+                },
+              },
+            },
+          },
+        },
       };
-      case 'createVerifiableCredential':
+    case 'createVerifiableCredentialOA':
       return {
         path: 'credentials/issue',
         pathItem: {
           post: {
-                summary: "Create",
-                operationId: method,
-                description: agentSchema.components.methods[method].description,
-                tags: [
-                  "Credentials"
-                ],
-                // security: [
-                //   {
-                //     OAuth2: [
-                //       "issue:credentials"
-                //     ]
-                //   }
-                // ],
-                requestBody: {
-                  description: "Parameters for issuing the credential.",
-                  content: {
-                    "application/json": {
-                      examples: credentialsIssueExamples,
-                      schema: {
-                        type: "object",
+            summary: 'Create',
+            operationId: method,
+            description: agentSchema.components.methods[method].description,
+            tags: ['Credentials'],
+            // security: [
+            //   {
+            //     OAuth2: [
+            //       "issue:credentials"
+            //     ]
+            //   }
+            // ],
+            requestBody: {
+              description: 'Parameters for issuing the credential.',
+              content: {
+                'application/json': {
+                  examples: credentialsIssueExamples,
+                  schema: {
+                    type: 'object',
+                    required: ['credential', 'options'],
+                    properties: {
+                      credential: {
+                        type: 'object',
                         required: [
-                          "credential",
-                          "options"
+                          '@context',
+                          'type',
+                          'issuer',
+                          'issuanceDate',
+                          'credentialSubject',
                         ],
                         properties: {
-                          credential: {
-                            type: "object",
-                            required: [
-                              "@context",
-                              "type",
-                              "issuer",
-                              "issuanceDate",
-                              "credentialSubject"
-                            ],
-                            properties: {
-                              "@context": {
-                                description: "The JSON-LD Context defining all terms in the Credential. This array\nSHOULD contain \"https://w3id.org/traceability/v1\".\n",
-                                type: "array",
-                                items: {
-                                  type: "string"
-                                }
+                          '@context': {
+                            description:
+                              'The JSON-LD Context defining all terms in the Credential. This array\nSHOULD contain "https://w3id.org/traceability/v1".\n',
+                            type: 'array',
+                            items: {
+                              type: 'string',
+                            },
+                          },
+                          id: {
+                            description: 'The IRI identifying the Credential',
+                            type: 'string',
+                          },
+                          type: {
+                            description: 'The Type of the Credential',
+                            type: 'array',
+                            items: {
+                              type: 'string',
+                            },
+                            minItems: 1,
+                          },
+                          issuer: {
+                            description:
+                              'This value MUST match the assertionMethod used to create the Verifiable Credential.',
+                            oneOf: [
+                              {
+                                type: 'string',
                               },
-                              id: {
-                                description: "The IRI identifying the Credential",
-                                type: "string"
-                              },
-                              type: {
-                                description: "The Type of the Credential",
-                                type: "array",
-                                items: {
-                                  type: "string"
-                                },
-                                minItems: 1
-                              },
-                              issuer: {
-                                description: "This value MUST match the assertionMethod used to create the Verifiable Credential.",
-                                oneOf: [
-                                  {
-                                    type: "string"
-                                  },
-                                  {
-                                    type: "object",
-                                    required: [
-                                      "id"
-                                    ],
-                                    properties: {
-                                      id: {
-                                        description: "The IRI identifying the Issuer",
-                                        type: "string"
-                                      }
-                                    }
-                                  }
-                                ]
-                              },
-                              issuanceDate: {
-                                description: "This value MUST be an XML Date Time String",
-                                type: "string"
-                              },
-                              credentialSubject: {
-                                type: "object",
+                              {
+                                type: 'object',
+                                required: ['id'],
                                 properties: {
                                   id: {
-                                    description: "The IRI identifying the Subject",
-                                    type: "string"
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          options: {
-                            title: "Issue Credential Options",
-                            type: "object",
-                            description: "Options for issuing a verifiable credential",
-                            required: [
-                              "type"
+                                    description:
+                                      'The IRI identifying the Issuer',
+                                    type: 'string',
+                                  },
+                                },
+                              },
                             ],
+                          },
+                          issuanceDate: {
+                            description:
+                              'This value MUST be an XML Date Time String',
+                            type: 'string',
+                          },
+                          credentialSubject: {
+                            type: 'object',
+                            properties: {
+                              id: {
+                                description: 'The IRI identifying the Subject',
+                                type: 'string',
+                              },
+                            },
+                          },
+                        },
+                      },
+                      options: {
+                        title: 'Issue Credential Options',
+                        type: 'object',
+                        description:
+                          'Options for issuing a verifiable credential',
+                        required: ['type'],
+                        properties: {
+                          type: {
+                            type: 'string',
+                            description:
+                              'Linked Data Signature Suite or signal to use JWT.',
+                            enum: [
+                              'Ed25519Signature2018',
+                              // "JsonWebSignature2020",
+                              'jwt_vc',
+                              'OpenAttestationMerkleProofSignature2018',
+                            ],
+                          },
+                          created: {
+                            type: 'string',
+                            description:
+                              'Date the proof was created. This value MUST be an XML Date Time String.',
+                          },
+                          credentialStatus: {
+                            type: 'object',
+                            description: 'The method of credential status.',
+                            required: ['type'],
                             properties: {
                               type: {
-                                type: "string",
-                                description: "Linked Data Signature Suite or signal to use JWT.",
-                                enum: [
-                                  "Ed25519Signature2018",
-                                  // "JsonWebSignature2020",
-                                  "jwt_vc",
-                                  "OpenAttestationMerkleProofSignature2018"
-                                ]
+                                type: 'string',
+                                description: 'The type of credential status.',
+                                enum: ['RevocationList2020Status'],
                               },
-                              created: {
-                                type: "string",
-                                description: "Date the proof was created. This value MUST be an XML Date Time String."
-                              },
-                              credentialStatus: {
-                                type: "object",
-                                description: "The method of credential status.",
-                                required: [
-                                  "type"
-                                ],
-                                properties: {
-                                  type: {
-                                    type: "string",
-                                    description: "The type of credential status.",
-                                    enum: [
-                                      "RevocationList2020Status"
-                                    ]
-                                  }
-                                }
-                              }
                             },
-                            example: {
-                              type: "JsonWebSignature2020",
-                              created: "2020-04-02T18:28:08Z",
-                              credentialStatus: {
-                                type: "RevocationList2020Status"
-                              }
-                            }
-                          }
-                        }
-                      }
-                      // @ts-ignore
-                      
-                      }
-                    }
-                },
-                responses: {
-                  200: {
-                    // TODO returnType description
-                    description: agentSchema.components.methods[method].description,
-                    content: {
-                      'application/json; charset=utf-8': {
-                        schema: agentSchema.components.methods[method].returnType,
+                          },
+                        },
+                        example: {
+                          type: 'JsonWebSignature2020',
+                          created: '2020-04-02T18:28:08Z',
+                          credentialStatus: {
+                            type: 'RevocationList2020Status',
+                          },
+                        },
                       },
                     },
                   },
-                  400: {
-                    description: 'Validation error',
-                    content: {
-                      'application/json; charset=utf-8': {
-                        schema: agentSchema.components.schemas.ValidationError,
-                      },
-                    },
+                  // @ts-ignore
+                },
+              },
+            },
+            responses: {
+              200: {
+                // TODO returnType description
+                description: agentSchema.components.methods[method].description,
+                content: {
+                  'application/json; charset=utf-8': {
+                    schema: agentSchema.components.methods[method].returnType,
                   },
                 },
               },
-        }
-      }    
+              400: {
+                description: 'Validation error',
+                content: {
+                  'application/json; charset=utf-8': {
+                    schema: agentSchema.components.schemas.ValidationError,
+                  },
+                },
+              },
+            },
+          },
+        },
+      };
     default:
-      return {path:'', pathItem:{}}
+      return { path: '', pathItem: {} };
   }
-}
-
+};
 
 /**
  * This method can be used to generate an OpenAPIv3 schema to describe how the methods of a Veramo agent can be called
@@ -289,39 +278,39 @@ export const getOpenApiSchema = (
   basePath: string,
   exposedMethods: Array<string>,
   name?: string,
-  version?: string,
+  version?: string
 ): OpenAPIV3.Document => {
-  const agentSchema = agent.getSchema()
+  const agentSchema = agent.getSchema();
 
-  const paths: OpenAPIV3.PathsObject = {}
+  const paths: OpenAPIV3.PathsObject = {};
 
-  const schemas = {}
-  const xMethods: Record<string, any> = {}
-  
+  const schemas = {};
+  const xMethods: Record<string, any> = {};
+
   for (const method of exposedMethods) {
     let pathItemObject: OpenAPIV3.PathItemObject;
-      const resource = getInteropApiPathItem(method, agentSchema);
-      pathItemObject = resource.pathItem;
-      paths[basePath + '/' + resource.path] = pathItemObject
-      xMethods[method] = agentSchema.components.methods[method]
+    const resource = getInteropApiPathItem(method, agentSchema);
+    pathItemObject = resource.pathItem;
+    paths[basePath + '/' + resource.path] = pathItemObject;
+    xMethods[method] = agentSchema.components.methods[method];
   }
 
   // FIXME: include legacy veramo rest api methods for now
   // progressivly migrate to more RESTy strcuture
   for (const method of exposedMethods) {
-    const pathItemObject: OpenAPIV3.PathItemObject<{'x-badges': Array<XBadges>}> = {
+    const pathItemObject: OpenAPIV3.PathItemObject<{
+      'x-badges': Array<XBadges>;
+    }> = {
       post: {
         operationId: method,
         description: agentSchema.components.methods[method].description,
-        tags: [
-          "Veramo Default"
-        ],
+        tags: ['Veramo Default'],
         'x-badges': [
           {
-          color: 'red',
-          label: 'Legacy'
-        }
-      ],
+            color: 'red',
+            label: 'Legacy',
+          },
+        ],
         requestBody: {
           content: {
             'application/json': {
@@ -349,9 +338,9 @@ export const getOpenApiSchema = (
           },
         },
       },
-    }
-    paths[basePath + '/' + method] = pathItemObject
-    xMethods[method] = agentSchema.components.methods[method]
+    };
+    paths[basePath + '/' + method] = pathItemObject;
+    xMethods[method] = agentSchema.components.methods[method];
   }
 
   const openApi: OpenAPIV3.Document & { 'x-methods'?: Record<string, any> } = {
@@ -360,32 +349,32 @@ export const getOpenApiSchema = (
       title: name || 'DID Agent',
       version: version || '',
     },
-    security: [{ "auth": [] }],
+    security: [{ auth: [] }],
     components: {
       schemas: agent.getSchema().components.schemas,
-      securitySchemes: { auth: { type: "http", scheme: "bearer" } }
+      securitySchemes: { auth: { type: 'http', scheme: 'bearer' } },
     },
     tags: [
       {
-        name: "Discovery"
+        name: 'Discovery',
       },
       {
-        name: "Identifiers"
+        name: 'Identifiers',
       },
       {
-        name: "Credentials"
+        name: 'Credentials',
       },
       {
-        name: "Presentations"
+        name: 'Presentations',
       },
       {
-        name: "Veramo Default"
-      }
+        name: 'Veramo Default',
+      },
     ],
     paths,
-  }
+  };
 
-  openApi['x-methods'] = xMethods
+  openApi['x-methods'] = xMethods;
 
-  return openApi
-}
+  return openApi;
+};

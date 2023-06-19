@@ -24,6 +24,7 @@
       "ICredentialIssuer": "./src/types/ICredentialIssuer.ts",
       "ICredentialVerifier": "./src/types/ICredentialVerifier.ts",
       "ICredentialPlugin": "./src/types/ICredentialPlugin.ts",
+      "IOACredentialPlugin": "./src/types/IOACredentialPlugin.ts",
       "ICredentialStatus": "./src/types/ICredentialStatus.ts",
       "ICredentialStatusVerifier": "./src/types/ICredentialStatusVerifier.ts",
       "ICredentialStatusManager": "./src/types/ICredentialStatusManager.ts",

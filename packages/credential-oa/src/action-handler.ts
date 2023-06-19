@@ -26,6 +26,8 @@ import {
   processEntryToArray,
 } from '@veramo/utils';
 
+import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
+
 import { isValid, verify } from '@govtechsg/oa-verify';
 
 const OA_MANDATORY_CREDENTIAL_CONTEXT =
@@ -40,8 +42,18 @@ const OA_MANDATORY_CREDENTIAL_TYPES = [
  
  * @public
  */
-export class CredentialPlugin implements IAgentPlugin {
+export class CredentialIssuerOA implements IAgentPlugin {
   readonly methods: IOACredentialPlugin;
+  readonly schema = {
+    components: {
+      schemas: {
+        ...schema.IOACredentialPlugin.components.schemas,
+      },
+      methods: {
+        ...schema.IOACredentialPlugin.components.methods,
+      },
+    },
+  };
 
   constructor() {
     this.methods = {
