@@ -108,9 +108,10 @@ server:
 
     # API base path
     - - /agent
-      - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+      - $require: '@vckit/oauth-middleware?t=function#apiOAuth'
         $args:
-          - apiKey: test123
+          - issuerBaseURL: <your_issuer_base_url>
+            audience: <your_audience>
       - $require: '@vckit/remote-server?t=function#AgentRouter'
         $args:
           - exposedMethods:
