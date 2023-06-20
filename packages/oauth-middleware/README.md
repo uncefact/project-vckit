@@ -4,19 +4,20 @@ OAuth middleware is a package that provides OAuth2 JWT bearer token authenticati
 
 ## Usage
 
-1. Override the default configuration file to `agent.yml`.
-2. Inside the agent.yml file, set the following configuration options:
+1. Add the configuration for OAuth middleware to the agent.yml file in the root of your project.
 
    ```yaml
-   issuerBaseUrl: <your_issuer_base_url>
-   audience: <your_audience>
+   - $require: '@vckit/oauth-middleware?t=function#apiOAuth'
+        $args:
+          - issuerBaseURL: <your_issuer_base_url>
+            audience: <your_audience>
    ```
 
    Make sure to replace <your_issuer_base_url> with the base URL of your issuer, and <your_audience> with the audience.
 
    You can obtain these values from your OAuth provider, such as Auth0 (https://auth0.com/docs).
 
-3. To test the middleware:
+2. To test the middleware:
 
 - Start the server by running the command `pnpm vckit server`.
 - Obtain a JWT token from your OAuth provider, such as Auth0, you can read more about it here: https://auth0.com/docs/secure/tokens/access-tokens/get-access-tokens#example-post-to-token-url.
