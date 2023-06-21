@@ -1,5 +1,10 @@
-import { IAgent } from '@vckit/core-types';
+import { IAgent, VerifiableCredential } from '@vckit/core-types';
 import { Request, Response, NextFunction, Router, json } from 'express';
+import { validateCredentialPayload, validateUpdateStatusCredentialPayload } from './middlewares/index.js';
+import { IssueCredentialRequestPayload, UpdateCredentialStatusRequestPayload } from './types/index.js';
+import { mapCredentialPayload, mapCredentialResponse } from './utils/index.js';
+import { configuration } from './config/index.js';
+import { validationResult } from 'express-validator';
 
 interface RequestWithAgent extends Request {
   agent?: IAgent;
@@ -38,18 +43,28 @@ export const IssuerRouter = ({
 
   router.post(
     '/credentials/issue',
+    validateCredentialPayload(),
     async (req: RequestWithAgent, res: Response, next: NextFunction) => {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ description: errors.array() });
+      }
+      
       if (!req.agent) {
         throw Error('Agent not available');
       }
 
       try {
-        const validPayload = validateCredentialPayload(req.body);
-        if (!validPayload) {
-          return res.status(400).json({ error: 'Invalid credential payload' });
-        }
-        const result = await req.agent.execute(createCredential, req.body);
-        res.status(201).json(result);
+        const payload = mapCredentialPayload(
+          req.body as IssueCredentialRequestPayload,
+          configuration
+        );
+        const result = (await req.agent.execute(
+          createCredential,
+          payload
+        )) as VerifiableCredential;
+        res.status(201).json(mapCredentialResponse(result));
       } catch (e: any) {
         return res.status(400).json({ error: e.message });
       }
@@ -58,7 +73,14 @@ export const IssuerRouter = ({
 
   router.post(
     '/credentials/status',
+    validateUpdateStatusCredentialPayload(),
     async (req: RequestWithAgent, res: Response, next: NextFunction) => {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ description: errors.array() });
+      }
+
       if (!req.agent) {
         throw Error('Agent not available');
       }
@@ -66,87 +88,24 @@ export const IssuerRouter = ({
       try {
         const result = await req.agent.execute(
           updateCredentialStatus,
-          req.body
+          req.body as UpdateCredentialStatusRequestPayload
         );
-        return res.status(200).json(result);
-      } catch (e: any) {
-        if (e.name === 'ValidationError') {
-          return res.status(400).json({
-            name: 'ValidationError',
-            message: e.message,
-            method: e.method,
-            path: e.path,
-            code: e.code,
-            description: e.description,
-          });
+
+        if (!result) {
+          return res.status(500).json({ description: 'Internal Server Error' });
         }
-        return res.status(500).json({ error: e.message });
+
+        return res
+          .status(200)
+          .json({ description: 'Credential status successfully updated' });
+      } catch (e: any) {
+        if (e.name === 'NotFoundError') {
+          return res.status(400).json({ description: 'Credential not found' });
+        }
+        res.status(500).json({ description: 'Internal Server Error' });
       }
     }
   );
 
   return router;
-};
-
-const validateCredentialPayload = (requestBody: any): boolean => {
-  const credential = requestBody['credential'];
-  return (
-    credential &&
-    validateContext(credential) &&
-    validIssuer(credential) &&
-    validType(credential) &&
-    validCredentialSubject(credential)
-  );
-};
-
-const validateContext = (credential: Record<string, string>): boolean => {
-  if (!credential['@context']) {
-    return false;
-  }
-
-  if (
-    !Array.isArray(credential['@context']) ||
-    credential['@context'].length === 0
-  ) {
-    return false;
-  }
-
-  if (typeof credential['@context'] === 'string') {
-    return false;
-  }
-
-  return true;
-};
-
-const validIssuer = (credential: Record<string, string>): boolean => {
-  return (
-    Boolean(credential['issuer']) &&
-    (typeof credential['issuer'] === 'string' ||
-      typeof credential['issuer'] === 'object')
-  );
-};
-
-const validCredentialSubject = (
-  credential: Record<string, string>
-): boolean => {
-  return (
-    Boolean(credential['credentialSubject']) &&
-    typeof credential['credentialSubject'] === 'object'
-  );
-};
-
-const validType = (credential: Record<string, string>): boolean => {
-  if (!credential['type']) {
-    return false;
-  }
-
-  if (!Array.isArray(credential['type']) || credential['type'].length === 0) {
-    return false;
-  }
-
-  if (typeof credential['type'] === 'string') {
-    return false;
-  }
-
-  return true;
 };
