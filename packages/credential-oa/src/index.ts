@@ -1,1 +1,1 @@
-export { CredentialPlugin } from './action-handler.js';
+export { CredentialIssuerOA } from './action-handler.js';
