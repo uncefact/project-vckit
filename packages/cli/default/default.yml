@@ -62,8 +62,8 @@ constants:
     - createSelectiveDisclosureRequest
     - getVerifiableCredentialsForSdr
     - validatePresentationAgainstSdr
-    - renderCredential
-    - createVerifiableCredentialOA
+    # - renderCredential
+    # - createVerifiableCredentialOA
 
 # Data base
 dbConnection:
@@ -150,7 +150,7 @@ messageHandler:
         - $require: '@veramo/did-comm#DIDCommMessageHandler'
         - $require: '@veramo/did-comm#TrustPingMessageHandler'
         - $require: '@veramo/did-jwt#JwtMessageHandler'
-        - $require: '@vckit/credential-w3c#W3cMessageHandler'
+        - $require: '@veramo/credential-w3c#W3cMessageHandler'
         - $require: '@veramo/selective-disclosure#SdrMessageHandler'
 
 # DID resolvers
@@ -258,27 +258,27 @@ didDiscovery:
 
 # W3C credentialPlugin
 credentialIssuerLD:
-  $require: '@vckit/credential-ld#CredentialIssuerLD'
+  $require: '@veramo/credential-ld#CredentialIssuerLD'
   $args:
     - suites:
-        - $require: '@vckit/credential-ld#VeramoEd25519Signature2018'
-        - $require: '@vckit/credential-ld#VeramoEcdsaSecp256k1RecoverySignature2020'
+        - $require: '@veramo/credential-ld#VeramoEd25519Signature2018'
+        - $require: '@veramo/credential-ld#VeramoEcdsaSecp256k1RecoverySignature2020'
       contextMaps:
         # The LdDefaultContext is a "catch-all" for now.
-        - $require: '@vckit/credential-ld?t=object#LdDefaultContexts'
+        - $require: '@veramo/credential-ld?t=object#LdDefaultContexts'
         - $require: '@transmute/credentials-context?t=object#contexts'
         #  others should be included here
 
 # Renderer
-renderer:
-  $require: '@vckit/renderer#Renderer'
-  $args:
-    - defaultProvider: WebRenderingTemplate2022
-      providers:
-        WebRenderingTemplate2022:
-          $require: '@vckit/renderer#WebRenderingTemplate2022'
-        SvgRenderingHint2022:
-          $require: '@vckit/renderer#WebRenderingTemplate2022'
+# renderer:
+#   $require: '@vckit/renderer#Renderer'
+#   $args:
+#     - defaultProvider: WebRenderingTemplate2022
+#       providers:
+#         WebRenderingTemplate2022:
+#           $require: '@vckit/renderer#WebRenderingTemplate2022'
+#         SvgRenderingHint2022:
+#           $require: '@vckit/renderer#WebRenderingTemplate2022'
 
 # Agent
 agent:
@@ -292,8 +292,8 @@ agent:
         - $ref: /didDiscovery
         - $ref: /messageHandler
         - $require: '@veramo/did-comm#DIDComm'
-        - $require: '@vckit/credential-w3c#CredentialPlugin'
-        - $require: '@vckit/credential-oa#CredentialIssuerOA'
+        - $require: '@veramo/credential-w3c#CredentialPlugin'
+        # - $require: '@vckit/credential-oa#CredentialIssuerOA'
         - $ref: /credentialIssuerLD
         - $require: '@veramo/credential-eip712#CredentialIssuerEIP712'
         - $require: '@veramo/selective-disclosure#SelectiveDisclosure'
@@ -303,4 +303,4 @@ agent:
         - $require: '@veramo/data-store#DataStoreORM'
           $args:
             - $ref: /dbConnection
-        - $ref: /renderer
+        # - $ref: /renderer
