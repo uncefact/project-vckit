@@ -62,7 +62,7 @@ constants:
     - createSelectiveDisclosureRequest
     - getVerifiableCredentialsForSdr
     - validatePresentationAgainstSdr
-    # - renderCredential
+    - renderCredential
     # - createVerifiableCredentialOA
 
 # Data base
@@ -270,15 +270,15 @@ credentialIssuerLD:
         #  others should be included here
 
 # Renderer
-# renderer:
-#   $require: '@vckit/renderer#Renderer'
-#   $args:
-#     - defaultProvider: WebRenderingTemplate2022
-#       providers:
-#         WebRenderingTemplate2022:
-#           $require: '@vckit/renderer#WebRenderingTemplate2022'
-#         SvgRenderingHint2022:
-#           $require: '@vckit/renderer#WebRenderingTemplate2022'
+renderer:
+  $require: '@vckit/renderer#Renderer'
+  $args:
+    - defaultProvider: WebRenderingTemplate2022
+      providers:
+        WebRenderingTemplate2022:
+          $require: '@vckit/renderer#WebRenderingTemplate2022'
+        SvgRenderingHint2022:
+          $require: '@vckit/renderer#WebRenderingTemplate2022'
 
 # Agent
 agent:
@@ -303,4 +303,4 @@ agent:
         - $require: '@veramo/data-store#DataStoreORM'
           $args:
             - $ref: /dbConnection
-        # - $ref: /renderer
+        - $ref: /renderer
