@@ -1,9 +1,5 @@
 lockfileVersion: '6.1'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 overrides:
   '@types/eslint': ^8.4.6
   jsonld: npm:@digitalcredentials/jsonld@^5.2.1
@@ -192,6 +188,9 @@ importers:
       '@vckit/renderer':
         specifier: ^1.0.0-beta.5
         version: link:../renderer
+      '@vckit/vc-api':
+        specifier: ^1.0.0-beta.2
+        version: 1.0.0-beta.5(express@4.18.2)
       '@veramo/credential-eip712':
         specifier: ^5.1.2
         version: 5.1.2
@@ -11903,17 +11902,6 @@ packages:
       - sass-embedded
       - sockjs-client
       - supports-color
-      - ts-node
-      - type-fest
-      - typescript
-      - uglify-js
-      - utf-8-validate
-      - vue-template-compiler
-      - webpack
-      - webpack-cli
-      - webpack-hot-middleware
-      - webpack-plugin-serve
-      - worker-loader
     dev: false
 
   /@veramo/core-types@5.1.2:
@@ -29922,6 +29910,7 @@ packages:
       - webpack-cli
       - webpack-hot-middleware
       - webpack-plugin-serve
+    dev: true
 
   /react-select@3.2.0(react-dom@16.12.0)(react@16.12.0):
     resolution: {integrity: sha512-B/q3TnCZXEKItO0fFN/I0tWOX3WJvi/X2wtdffmwSQVRwg5BpValScTO1vdic9AxlUgmeSzib2hAZAwIUQUZGQ==}
@@ -35396,3 +35385,7 @@ packages:
       - react-native
       - web-streams-polyfill
     dev: false
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false

@@ -6,7 +6,7 @@ export type IssueCredentialRequestPayload = {
   options?: IssueCredentialOptions; // Options for specifying how the LinkedDataProof is created.
 };
 
-type IssueCredentialOptions = {
+export type IssueCredentialOptions = {
   created?: string; // The date and time of the proof. Default current system time.
   credentialStatus?: { type: string }; // The method of credential status to issue the credential including. If omitted credential status will be included.
   challenge?: string; // A challenge provided by the requesting party of the proof. For example 6e62f66e-67de-11eb-b490-ef3eeefa55f2
