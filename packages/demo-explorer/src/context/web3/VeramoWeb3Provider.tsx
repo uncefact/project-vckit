@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { VeramoProvider } from '@veramo-community/veramo-react'
-import { createAgent, IAgentPlugin, IResolver, TAgent } from '@veramo/core'
+import { createAgent, IAgentPlugin, IResolver, TAgent } from '@vckit/core'
 import { ConnectorInfo, createWeb3Agent } from './web3Agent'
 import { hooks as metamaskHooks, metaMask } from './metaMask'
-import { AgentRestClient } from '@veramo/remote-client'
+import { AgentRestClient } from '@vckit/remote-client'
 import { IdentifierProfilePlugin } from '../plugins/IdentifierProfile'
 
 export const VeramoWeb3Provider = ({

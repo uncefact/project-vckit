@@ -4,8 +4,8 @@ import {
   IDIDManager,
   IKeyManager,
   IResolver,
-} from '@veramo/core'
-import { CredentialPlugin, W3cMessageHandler } from '@veramo/credential-w3c'
+} from '@vckit/core'
+import { CredentialPlugin, W3cMessageHandler } from '@vckit/credential-w3c'
 import {
   CredentialIssuerEIP712,
   ICredentialIssuerEIP712,
@@ -34,7 +34,7 @@ import {
   PeerDIDProvider,
   getResolver as peerDidResolver,
 } from '@veramo/did-provider-peer'
-import { MinimalImportableKey } from '@veramo/core'
+import { MinimalImportableKey } from '@vckit/core'
 import {
   DIDComm,
   DIDCommHttpTransport,

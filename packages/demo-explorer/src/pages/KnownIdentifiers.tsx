@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { useVeramo } from '@veramo-community/veramo-react'
 import { PageContainer } from '@ant-design/pro-components'
-import { IIdentifier } from '@veramo/core'
+import { IIdentifier } from '@vckit/core'
 import { CopyOutlined } from '@ant-design/icons'
 import IdentifierProfile from '../components/IdentifierProfile'
 

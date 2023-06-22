@@ -8,8 +8,8 @@ import md5 from 'md5'
 import useSelectedCredentials from '../hooks/useSelectCredentials'
 import { signVerifiablePresentation } from '../utils/signing'
 import { v4 as uuidv4 } from 'uuid'
-import { ICredentialIssuer } from '@veramo/credential-w3c'
-import { IDIDManager, W3CVerifiableCredential } from '@veramo/core'
+import { ICredentialIssuer } from '@vckit/credential-w3c'
+import { IDIDManager, W3CVerifiableCredential } from '@vckit/core'
 import { ISelectiveDisclosure } from '@veramo/selective-disclosure'
 
 // Move

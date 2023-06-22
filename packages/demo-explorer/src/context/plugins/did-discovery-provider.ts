@@ -1,4 +1,4 @@
-import { IAgentContext, IDataStoreORM } from '@veramo/core-types'
+import { IAgentContext, IDataStoreORM } from '@vckit/core-types'
 import {
   AbstractDidDiscoveryProvider,
   IDIDDiscoverMatch,
@@ -9,7 +9,7 @@ import {
 /**
  * This implementation of {@link @veramo/did-discovery#AbstractDidDiscoveryProvider | AbstractDidDiscoveryProvider}
  * helps you discover DIDs based on data that is stored by a local plugin that implements
- * {@link @veramo/core-types#IDataStoreORM | IDataStoreORM}.
+ * {@link @vckit/core-types#IDataStoreORM | IDataStoreORM}.
  *
  * DIDs can be discovered by partial matches of `name` from `Profile` credentials, by partial matches of `alias` of
  * managed DIDs as well as partial matches of DIDs that are issuer or subject of credentials.

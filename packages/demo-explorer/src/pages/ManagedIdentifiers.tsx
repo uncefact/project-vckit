@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { useVeramo } from '@veramo-community/veramo-react'
 import { PageContainer } from '@ant-design/pro-components'
-import { IDIDManager } from '@veramo/core-types'
+import { IDIDManager } from '@vckit/core-types'
 import NewIdentifierModalForm, {
   NewIdentifierModalValues,
 } from '../components/NewIdentifierModalForm'
 import { shortId } from '../utils/did'
 import { createMediateRequestMessage } from '../utils/didcomm-mediation'
 import { DeleteOutlined, CopyOutlined } from '@ant-design/icons'
-import { IIdentifier } from '@veramo/core'
+import { IIdentifier } from '@vckit/core'
 import IdentifierProfile from '../components/IdentifierProfile'
 
 const ManagedIdentifiers = () => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal, Form, Select } from 'antd'
-import { TKeyType } from '@veramo/core'
+import { TKeyType } from '@vckit/core'
 
 const { Option } = Select
 

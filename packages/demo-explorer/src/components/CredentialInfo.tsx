@@ -1,6 +1,6 @@
 import React from 'react'
 import { Descriptions } from 'antd'
-import { VerifiableCredential } from '@veramo/core'
+import { VerifiableCredential } from '@vckit/core'
 import { format } from 'date-fns'
 
 interface CredentialInfoProps {

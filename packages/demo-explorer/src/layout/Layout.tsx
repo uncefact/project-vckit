@@ -87,16 +87,16 @@ const Layout = () => {
     })
   }
 
-  if (
-    availableMethods.includes('packDIDCommMessage') &&
-    availableMethods.includes('sendDIDCommMessage')
-  ) {
-    mainMenuItems.push({
-      path: '/chats/threads',
-      name: 'DID Chats',
-      icon: <MessageOutlined />,
-    })
-  }
+  // if (
+  //   availableMethods.includes('packDIDCommMessage') &&
+  //   availableMethods.includes('sendDIDCommMessage')
+  // ) {
+  //   mainMenuItems.push({
+  //     path: '/chats/threads',
+  //     name: 'DID Chats',
+  //     icon: <MessageOutlined />,
+  //   })
+  // }
 
   if (availableMethods.includes('dataStoreORMGetIdentifiers')) {
     mainMenuItems.push({
@@ -119,25 +119,25 @@ const Layout = () => {
   if (agent) {
     mainMenuItems.push({
       path: '/developer',
-      name: 'Developer tools',
+      name: 'Credential issuer',
       icon: <CodeOutlined />,
       routes: [
-        {
-          path: '/developer/data-generator',
-          name: 'Data generator',
-        },
+        // {
+        //   path: '/developer/data-generator',
+        //   name: 'Data generator',
+        // },
         {
           path: '/developer/credential-from-schema',
-          name: 'Issue credential from schema',
+          name: 'Issue credential from example',
         },
-        {
-          path: '/developer/issue-profile-credential',
-          name: 'Issue profile credential',
-        },
-        {
-          path: '/developer/issue-credential',
-          name: 'Issue credential',
-        },
+        // {
+        //   path: '/developer/issue-profile-credential',
+        //   name: 'Issue profile credential',
+        // },
+        // {
+        //   path: '/developer/issue-credential',
+        //   name: 'Issue credential',
+        // },
         {
           path: '/developer/create-presentation',
           name: 'Create presentation',
@@ -161,7 +161,7 @@ const Layout = () => {
       <ProLayout
         locale="en-US"
         contentWidth="Fixed"
-        title="Agent explorer"
+        title="vc-kit Demo Explorer"
         logo={false}
         menuItemRender={(menuItemProps, defaultDom) => {
           if (menuItemProps.isUrl || menuItemProps.children) {

@@ -1,12 +1,11 @@
-import { W3CVerifiableCredential } from '@veramo/core'
+import { W3CVerifiableCredential } from '@vckit/core'
 import { ICredentialsForSdr } from '@veramo/selective-disclosure'
 import { useState, useEffect, useCallback } from 'react'
 
 interface UniqueVerifiableCredential {
-  hash: string,
+  hash: string
   verifiableCredential: W3CVerifiableCredential
 }
-
 
 interface ValidationState {
   [index: string]: {
@@ -19,7 +18,10 @@ const useSelectedCredentials = (sdr?: ICredentialsForSdr[]) => {
   const [selected, setSelected] = useState<ValidationState>({})
   const [valid, setValid] = useState<boolean>(true)
 
-  const onSelect = (vc: UniqueVerifiableCredential | null, claimType: string) => {
+  const onSelect = (
+    vc: UniqueVerifiableCredential | null,
+    claimType: string,
+  ) => {
     const newState = {
       ...selected,
       [claimType]: { ...selected[claimType], vc },

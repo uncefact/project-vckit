@@ -1,5 +1,5 @@
 import { useVeramo } from '@veramo-community/veramo-react'
-import { IDIDManager } from '@veramo/core'
+import { IDIDManager } from '@vckit/core'
 import React, { createContext, useState, useContext, useEffect } from 'react'
 import { pickup } from '../utils/didcomm-mediation'
 

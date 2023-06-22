@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 import { useQuery } from 'react-query'
 import { useVeramo } from '@veramo-community/veramo-react'
 import md5 from 'md5'
-import { IMessage } from '@veramo/core'
+import { IMessage } from '@vckit/core'
 import { PageContainer } from '@ant-design/pro-components'
 import { shortId } from '../utils/did'
 
