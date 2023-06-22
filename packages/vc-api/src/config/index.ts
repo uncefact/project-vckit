@@ -3,7 +3,9 @@ import { ProofFormat } from '@vckit/core-types';
 export type IssuerConfiguration = {
   proofFormat: ProofFormat;
   removeOriginalFields: boolean;
-  save: boolean
+  save: boolean;
+
+  [x: string]: any;
 };
 
 export const configuration: IssuerConfiguration = {

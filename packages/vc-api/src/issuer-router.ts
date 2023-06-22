@@ -1,9 +1,18 @@
 import { IAgent, VerifiableCredential } from '@vckit/core-types';
 import { Request, Response, NextFunction, Router, json } from 'express';
-import { validateCredentialPayload, validateUpdateStatusCredentialPayload } from './middlewares/index.js';
-import { IssueCredentialRequestPayload, UpdateCredentialStatusRequestPayload } from './types/index.js';
-import { mapCredentialPayload, mapCredentialResponse } from './utils/index.js';
-import { configuration } from './config/index.js';
+import {
+  validateCredentialPayload,
+  validateUpdateStatusCredentialPayload,
+} from './middlewares/index.js';
+import {
+  IssueCredentialRequestPayload,
+  UpdateCredentialStatusRequestPayload,
+} from './types/index.js';
+import { mapCredentialPayload } from './utils/index.js';
+import {
+  IssuerConfiguration,
+  configuration as DEFAULT_CONFIG,
+} from './config/index.js';
 import { validationResult } from 'express-validator';
 
 interface RequestWithAgent extends Request {
@@ -15,7 +24,7 @@ interface RequestWithAgent extends Request {
  */
 export interface IssuerRouterOptions {
   /**
-   * Agaent method to create credential
+   * Agent method to create credential
    */
   createCredential: string;
 
@@ -23,6 +32,8 @@ export interface IssuerRouterOptions {
    * Agent method to update credential status (revocation)
    */
   updateCredentialStatus: string;
+
+  config?: IssuerConfiguration;
 }
 
 /**
@@ -37,6 +48,7 @@ export interface IssuerRouterOptions {
 export const IssuerRouter = ({
   createCredential,
   updateCredentialStatus,
+  config,
 }: IssuerRouterOptions): Router => {
   const router = Router();
   router.use(json({ limit: '10mb' }));
@@ -50,7 +62,7 @@ export const IssuerRouter = ({
       if (!errors.isEmpty()) {
         return res.status(400).json({ description: errors.array() });
       }
-      
+
       if (!req.agent) {
         throw Error('Agent not available');
       }
@@ -58,15 +70,15 @@ export const IssuerRouter = ({
       try {
         const payload = mapCredentialPayload(
           req.body as IssueCredentialRequestPayload,
-          configuration
+          { ...DEFAULT_CONFIG, ...config }
         );
-        const result = (await req.agent.execute(
+        const verifiableCredential = (await req.agent.execute(
           createCredential,
           payload
         )) as VerifiableCredential;
-        res.status(201).json(mapCredentialResponse(result));
+        res.status(201).json({ verifiableCredential });
       } catch (e: any) {
-        return res.status(400).json({ error: e.message });
+        return res.status(500).json({ error: e.message });
       }
     }
   );
