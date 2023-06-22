@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.5](https://github.com/uport-project/veramo/compare/v1.0.0-beta.2...v1.0.0-beta.5) (2023-06-22)
+
+### Features
+
+- adds traceability interop default context ([a5418e4](https://github.com/uport-project/veramo/commit/a5418e4ab74ab811079a72effe6036093d4c4403))
+
 # [1.0.0-beta.4](https://github.com/uport-project/veramo/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2023-06-04)
 
 ### Features

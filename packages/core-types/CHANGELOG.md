@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.5](https://github.com/uport-project/veramo/compare/v1.0.0-beta.2...v1.0.0-beta.5) (2023-06-22)
+
+### Bug Fixes
+
+- add missing plugin schema ([#97](https://github.com/uport-project/veramo/issues/97)) ([78cd8fa](https://github.com/uport-project/veramo/commit/78cd8faeeb959afc469b7fbfd7cdb09391f71033))
+
+### Features
+
+- implement credential oa plugin ([354e38d](https://github.com/uport-project/veramo/commit/354e38dd608a3dc0ce83d02334bec2616e8036a2))
+- implement renderer plugin ([d50fa4a](https://github.com/uport-project/veramo/commit/d50fa4a67912643c1e904b79206e703340f63ffc))
+- implement WebRenderingTemplate2022 renderer provider ([93d1399](https://github.com/uport-project/veramo/commit/93d139999139bd4aa9a52e202e1e9c32f3a79b69))
+
 # [1.0.0-beta.4](https://github.com/uport-project/veramo/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2023-06-04)
 
 **Note:** Version bump only for package @vckit/core-types
