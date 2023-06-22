@@ -132,6 +132,9 @@ server:
     - - /api-docs
       - $require: '@vckit/remote-server?t=function#ApiDocsRouter'
 
+    - - /webhooks
+      - $require: '@vckit/remote-server?t=function#XeroWebhookRouter'
+
   # Execute during server initialization
   init:
     - $require: '@vckit/remote-server?t=function#createDefaultDid'
