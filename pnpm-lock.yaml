@@ -175,7 +175,7 @@ importers:
         specifier: ^1.0.0-beta.4
         version: link:../core-types
       '@vckit/credential-oa':
-        specifier: workspace:1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../credential-oa
       '@vckit/example-documents':
         specifier: ^1.0.0-beta.4
@@ -187,7 +187,7 @@ importers:
         specifier: ^1.0.0-beta.4
         version: link:../remote-server
       '@vckit/renderer':
-        specifier: workspace:1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../renderer
       '@veramo/credential-eip712':
         specifier: ^5.1.2
@@ -482,7 +482,7 @@ importers:
         specifier: ^6.6.0
         version: 6.6.0
       '@vckit/core-types':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../core-types
       '@veramo/message-handler':
         specifier: ^5.1.2
@@ -550,13 +550,13 @@ importers:
   packages/e2e:
     dependencies:
       '@vckit/core':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../core
       '@vckit/core-types':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../core-types
       '@vckit/credential-w3c':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../credential-w3c
       '@veramo/data-store':
         specifier: ^5.2.0
@@ -779,7 +779,7 @@ importers:
         specifier: ^5.2.1
         version: 5.2.1(expo@48.0.19)(react-native@0.71.10)
       '@vckit/core-types':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../core-types
       handlebars:
         specifier: ^4.7.6
@@ -792,7 +792,7 @@ importers:
   packages/vc-api:
     dependencies:
       '@vckit/core-types':
-        specifier: ^1.0.0-beta.2
+        specifier: ^1.0.0-beta.4
         version: link:../core-types
       debug:
         specifier: ^4.3.3
