@@ -1,4 +1,4 @@
-import { W3CVerifiableCredential } from '@vckit/core'
+import { W3CVerifiableCredential } from '@veramo/core'
 import { ICredentialsForSdr } from '@veramo/selective-disclosure'
 import { useState, useEffect, useCallback } from 'react'
 

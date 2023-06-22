@@ -4,7 +4,7 @@ import { issueCredential, claimToObject } from '../../utils/signing'
 import { useVeramo } from '@veramo-community/veramo-react'
 import { useQuery } from 'react-query'
 import { v4 as uuidv4 } from 'uuid'
-import { IIdentifier } from '@vckit/core'
+import { IIdentifier } from '@veramo/core'
 import { PageContainer } from '@ant-design/pro-components'
 
 const { Option } = Select

@@ -1,4 +1,4 @@
-import { IAgentContext, IDIDManager } from '@vckit/core-types'
+import { IAgentContext, IDIDManager } from '@veramo/core-types'
 import {
   AbstractDidDiscoveryProvider,
   IDIDDiscoverMatch,

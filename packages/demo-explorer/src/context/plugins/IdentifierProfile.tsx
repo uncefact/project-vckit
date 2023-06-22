@@ -3,7 +3,7 @@ import {
   IPluginMethodMap,
   IAgentContext,
   IDIDManager,
-} from '@vckit/core'
+} from '@veramo/core'
 import { IDataStoreORM } from '@veramo/data-store'
 import parse from 'url-parse'
 import { shortId } from '../../utils/did'

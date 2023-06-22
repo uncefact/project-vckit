@@ -1,4 +1,4 @@
-import { VerifiableCredential } from '@vckit/core'
+import { VerifiableCredential } from '@veramo/core'
 
 export function shortId(id: string) {
   if (!id) return ''

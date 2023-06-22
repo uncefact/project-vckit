@@ -6,7 +6,7 @@ import { useVeramo } from '@veramo-community/veramo-react'
 import { IDIDDiscovery } from '@veramo/did-discovery'
 import { useQuery } from 'react-query'
 import { FormOutlined, QrcodeOutlined } from '@ant-design/icons'
-import { IIdentifier } from '@vckit/core'
+import { IIdentifier } from '@veramo/core'
 import IdentifierProfile from './IdentifierProfile'
 import {
   IIdentifierProfile,

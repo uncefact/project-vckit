@@ -2,7 +2,7 @@ import React from 'react'
 import { Col, Row, Statistic } from 'antd'
 
 import { useVeramo } from '@veramo-community/veramo-react'
-import { IDataStoreORM } from '@vckit/core'
+import { IDataStoreORM } from '@veramo/core'
 import { useQuery } from 'react-query'
 import { PageContainer } from '@ant-design/pro-components'
 

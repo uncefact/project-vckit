@@ -3,7 +3,7 @@ import React from 'react'
 import { useVeramo } from '@veramo-community/veramo-react'
 import { useNavigate } from 'react-router-dom'
 import { DownloadOutlined, InfoCircleOutlined } from '@ant-design/icons'
-import { IDataStore, VerifiableCredential } from '@vckit/core'
+import { IDataStore, VerifiableCredential } from '@veramo/core'
 import { getIssuerDID } from '../utils/did'
 
 const CredentialActionsDropdown: React.FC<{

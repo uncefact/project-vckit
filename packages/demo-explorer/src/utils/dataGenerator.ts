@@ -2,7 +2,7 @@ import {
   VerifiableCredential,
   IIdentifier,
   ICreateVerifiableCredentialArgs,
-} from '@vckit/core'
+} from '@veramo/core'
 import randomWords from 'random-words'
 
 export function getRandomDate(from: Date, to: Date) {

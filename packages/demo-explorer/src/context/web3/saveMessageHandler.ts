@@ -1,4 +1,4 @@
-import { IAgentContext, IDataStore } from '@vckit/core-types'
+import { IAgentContext, IDataStore } from '@veramo/core-types'
 import { AbstractMessageHandler, Message } from '@veramo/message-handler'
 // import Debug from 'debug'
 // const debug = Debug('veramo:did-comm:message-handler')

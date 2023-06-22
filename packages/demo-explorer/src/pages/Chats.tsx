@@ -6,7 +6,7 @@ import ChatHeader from '../components/ChatHeader'
 import { useQuery } from 'react-query'
 import { useVeramo } from '@veramo-community/veramo-react'
 import { useChat } from '../context/ChatProvider'
-import { IDataStoreORM, IMessage } from '@vckit/core'
+import { IDataStoreORM, IMessage } from '@veramo/core'
 import { useEffect } from 'react'
 import { Col, Row, theme } from 'antd'
 const { useToken } = theme

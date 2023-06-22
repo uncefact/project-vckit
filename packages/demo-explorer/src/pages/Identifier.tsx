@@ -12,7 +12,7 @@ import {
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { useVeramo } from '@veramo-community/veramo-react'
-import { IDIDManager, IResolver } from '@vckit/core'
+import { IDIDManager, IResolver } from '@veramo/core'
 import IdentifierKeys from '../components/IdentifierKeys'
 import IdentifierServices from '../components/IdentifierServices'
 import IdentifierQuickSetup from '../components/IdentifierQuickSetup'

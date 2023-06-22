@@ -16,8 +16,8 @@ import { useVeramo } from '@veramo-community/veramo-react'
 import { useQuery } from 'react-query'
 import { format } from 'date-fns'
 import { v4 as uuidv4 } from 'uuid'
-import { IDIDManager, ProofFormat } from '@vckit/core'
-import { ICredentialIssuer } from '@vckit/credential-w3c'
+import { IDIDManager, ProofFormat } from '@veramo/core'
+import { ICredentialIssuer } from '@veramo/credential-w3c'
 import { ISelectiveDisclosure } from '@veramo/selective-disclosure'
 import { PageContainer } from '@ant-design/pro-components'
 
@@ -97,6 +97,7 @@ const CreatePresentation: React.FC = () => {
       issuer,
       [subject],
       selectedCredentials,
+      //@ts-ignore
       proofFormat,
     )
 
