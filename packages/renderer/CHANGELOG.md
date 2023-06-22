@@ -7,4 +7,5 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- vc-api issuer interfaces ([#98](https://github.com/uncefact/project-vckit/issues/98)) ([eddb0c9](https://github.com/uncefact/project-vckit/commit/eddb0c931a55c69efeae8aa52d841127b7c15b3e)), closes [#92](https://github.com/uncefact/project-vckit/issues/92)
+- implement renderer plugin ([d50fa4a](https://github.com/uncefact/project-vckit/commit/d50fa4a67912643c1e904b79206e703340f63ffc))
+- implement WebRenderingTemplate2022 renderer provider ([93d1399](https://github.com/uncefact/project-vckit/commit/93d139999139bd4aa9a52e202e1e9c32f3a79b69))

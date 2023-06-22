@@ -1,6 +1,6 @@
 {
   "name": "@vckit/oauth-middleware",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.5",
   "description": "OAuth2 middleware for Express API",
   "author": "Nam Hoang <hoangxuannam160493@gmail.com>",
   "homepage": "https://github.com/uncefact/project-vckit#readme",
@@ -24,8 +24,8 @@
     "url": "https://github.com/uncefact/project-vckit/issues"
   },
   "dependencies": {
-    "express-oauth2-jwt-bearer": "^1.5.0",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "express-oauth2-jwt-bearer": "^1.5.0"
   },
   "devDependencies": {
     "@types/debug": "4.1.7",
