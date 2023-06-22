@@ -52,12 +52,14 @@ const CredentialActionsDropdown: React.FC<{
           {
             key: 'issuer',
             label: 'Issuer',
+            // @ts-ignore FIXME: why is ts complaining about this?
             icon: <InfoCircleOutlined />,
             onClick: () => navigate('/identifier/' + getIssuerDID(credential)),
           },
           {
             key: 'subject',
             label: 'Subject',
+            // @ts-ignore FIXME: why is ts complaining about this?
             icon: <InfoCircleOutlined />,
             onClick: () =>
               navigate(
@@ -68,6 +70,7 @@ const CredentialActionsDropdown: React.FC<{
           {
             key: 'download',
             label: 'Download',
+            // @ts-ignore FIXME: why is ts complaining about this?
             icon: <DownloadOutlined />,
             onClick: handleDownload,
           },

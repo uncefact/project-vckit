@@ -37,6 +37,7 @@ const IdentifierKey: React.FC<IdentifierModuleProps> = ({ item, i, did }) => {
       key={i}
       actions={[
         <Button
+        // @ts-ignore FIXME: why is ts complaining about this?
           icon={<DeleteOutlined />}
           disabled={false /* check if current agent controls this DID */}
           onClick={() => {
@@ -48,6 +49,7 @@ const IdentifierKey: React.FC<IdentifierModuleProps> = ({ item, i, did }) => {
       ]}
     >
       <List.Item.Meta
+      // @ts-ignore FIXME: why is ts complaining about this?
         avatar={<LockOutlined />}
         title={item.type}
         description={shortId(item.controller)}

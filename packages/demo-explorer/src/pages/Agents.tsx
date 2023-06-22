@@ -35,6 +35,7 @@ const Agents = () => {
             </Row>
             <Space>
               <Button
+              // @ts-ignore FIXME: why is ts complaining about this?
                 icon={<DeleteOutlined />}
                 danger
                 onClick={() =>
@@ -44,6 +45,7 @@ const Agents = () => {
                 Remove Agent
               </Button>
               <Button
+              // @ts-ignore FIXME: why is ts complaining about this?
                 icon={<PushpinOutlined />}
                 disabled={activeAgentId === agent.context.id}
                 onClick={() =>
@@ -54,6 +56,7 @@ const Agents = () => {
               </Button>
               <Button
                 onClick={() => navigate('/agent/' + agent.context.id)}
+                // @ts-ignore FIXME: why is ts complaining about this?
                 icon={<EditOutlined />}
               >
                 Manage

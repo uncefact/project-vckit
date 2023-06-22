@@ -117,6 +117,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
         <Button
           disabled={!message || !recipient}
           type="link"
+          // @ts-ignore FIXME: why is ts complaining about this?
           icon={<SendOutlined style={{ fontSize: 24 }} />}
           onClick={() => message && sendMessage(message)}
         />

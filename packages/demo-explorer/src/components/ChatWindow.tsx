@@ -87,6 +87,7 @@ const ChatWindow: React.FC<ChatWindowProps> = () => {
             onClick={() => navigate('/chats/threads')}
             size={'large'}
           >
+            {/* @ts-ignore FIXME: why is ts complaining about this? */}
             <LeftOutlined />
           </Button>
         </Col>
@@ -96,6 +97,7 @@ const ChatWindow: React.FC<ChatWindowProps> = () => {
         <Col xs={2}>
           <Button
             type="text"
+            // @ts-ignore FIXME: why is ts complaining about this?
             icon={<InfoCircleOutlined />}
             onClick={() => navigate('/identifier/' + counterParty.did)}
           />

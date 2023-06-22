@@ -61,6 +61,7 @@ const Credentials = () => {
                 )}
               </div>,
               <CredentialActionsDropdown credential={item.verifiableCredential}>
+                {/* @ts-ignore FIXME: why is ts complaining about this? */}
                 <EllipsisOutlined />
               </CredentialActionsDropdown>,
             ],

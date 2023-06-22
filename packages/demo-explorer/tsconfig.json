@@ -16,5 +16,9 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
+  "references": [
+    { "path": "../example-documents" },
+    { "path": "../remote-client" }
+  ],
   "include": ["src", "server"]
 }

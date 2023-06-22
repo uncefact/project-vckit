@@ -113,6 +113,7 @@ const NewChatThreadModal: React.FC<NewChatThreadModalProps> = ({
             />
           </AutoComplete>
           <Button onClick={() => setShowQrCodeScanner(true)} size="large">
+            {/* @ts-ignore FIXME: why is ts complaining about this? */}
             <QrcodeOutlined />
           </Button>
         </Row>

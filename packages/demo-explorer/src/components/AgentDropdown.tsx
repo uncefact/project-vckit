@@ -23,8 +23,7 @@ const AgentDropdown: React.FC<{ children: React.ReactNode }> = ({
                   style={{
                     fontSize: '17px',
                     opacity: _agent.context?.id === activeAgentId ? 1 : 0.1,
-                  }}
-                />
+                  }} rev={undefined}                />
               ),
               label: _agent.context?.name,
             }

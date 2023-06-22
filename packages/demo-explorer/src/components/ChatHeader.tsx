@@ -100,6 +100,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = () => {
                 {selectedDid && (
                   <IdentifierProfile did={selectedDid} showShortId={false} />
                 )}
+                {/* @ts-ignore FIXME: why is ts complaining about this? */}
                 <DownOutlined />
               </Space>
             </Button>
@@ -109,12 +110,14 @@ const ChatHeader: React.FC<ChatHeaderProps> = () => {
           <Button
             style={{ margin: token.margin }}
             onClick={() => setInviteModalVisible(true)}
+            // @ts-ignore FIXME: why is ts complaining about this?
             icon={<QrcodeOutlined style={{ fontSize: 20 }} />}
             type={'text'}
           />
           <Button
             style={{ margin: token.margin }}
             onClick={() => composeNewThread()}
+            // @ts-ignore FIXME: why is ts complaining about this?
             icon={<FormOutlined style={{ fontSize: 20 }} />}
             type={'text'}
           />

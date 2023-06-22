@@ -35,6 +35,7 @@ const CredentialTabs: React.FC<CredentialTabsProps> = ({ credential }) => {
                   </div>{' '}
                   <CredentialActionsDropdown credential={credential}>
                     <Button type="text">
+                      {/* @ts-ignore FIXME: why is ts complaining about this? */}
                       <EllipsisOutlined />
                     </Button>
                   </CredentialActionsDropdown>

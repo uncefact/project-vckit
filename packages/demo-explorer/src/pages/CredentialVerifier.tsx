@@ -77,6 +77,7 @@ const CredentialVerifier = () => {
                   >
                     <input {...getInputProps()} />
                     <Typography.Title>
+                      {/* @ts-ignore FIXME: why is ts complaining about this? */}
                       <InboxOutlined />
                     </Typography.Title>
                     {isDragActive ? (

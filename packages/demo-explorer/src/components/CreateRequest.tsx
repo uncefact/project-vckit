@@ -132,6 +132,7 @@ const CreateRequest: React.FC<CreateRequestProps> = () => {
           <Col>
             <Button
               size="small"
+              // @ts-ignore FIXME: why is ts complaining about this?
               icon={panelOpen ? <CaretDownOutlined /> : <CaretRightOutlined />}
               type="primary"
               onClick={() => setPanelOpen((s) => !s)}

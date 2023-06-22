@@ -37,6 +37,7 @@ const KnownIdentifiers = () => {
         <Button
           key={'copy'}
           type="text"
+          // @ts-ignore FIXME: why is ts complaining about this?
           icon={<CopyOutlined />}
           title="Copy DID to clipboard"
           onClick={() => {

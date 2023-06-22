@@ -35,6 +35,7 @@ const IdentifierServices: React.FC<IdentifierModuleProps> = ({
       key={i}
       actions={[
         <Button
+        // @ts-ignore FIXME: why is ts complaining about this?
           icon={<DeleteOutlined />}
           disabled={false /* check if current agent controls this DID */}
           onClick={() => {
@@ -47,6 +48,7 @@ const IdentifierServices: React.FC<IdentifierModuleProps> = ({
       ]}
     >
       <List.Item.Meta
+      // @ts-ignore FIXME: why is ts complaining about this?
         avatar={<CloudServerOutlined />}
         title={item.type}
         description={serviceEndpoint}

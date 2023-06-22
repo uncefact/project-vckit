@@ -55,6 +55,7 @@ const Layout = () => {
     mainMenuItems.push({
       path: '/statistics',
       name: 'Statistics',
+      // @ts-ignore FIXME: why is ts complaining about this?
       icon: <EyeOutlined />,
     })
   }
@@ -62,6 +63,7 @@ const Layout = () => {
     mainMenuItems.push({
       path: '/managed-identifiers',
       name: 'Managed identifiers',
+      // @ts-ignore FIXME: why is ts complaining about this?
       icon: <UserOutlined />,
     })
   }
@@ -70,6 +72,7 @@ const Layout = () => {
     mainMenuItems.push({
       path: '/credentials',
       name: 'Credentials',
+      // @ts-ignore FIXME: why is ts complaining about this?
       icon: <SafetyOutlined />,
     })
   }
@@ -78,11 +81,13 @@ const Layout = () => {
     mainMenuItems.push({
       path: '/activity',
       name: 'Activity',
+      // @ts-ignore FIXME: why is ts complaining about this?
       icon: <BarsOutlined />,
     })
     mainMenuItems.push({
       path: '/requests',
       name: 'Requests',
+      // @ts-ignore FIXME: why is ts complaining about this?
       icon: <InteractionOutlined />,
     })
   }
@@ -102,6 +107,7 @@ const Layout = () => {
     mainMenuItems.push({
       path: '/known-identifiers',
       name: 'Known identifiers',
+      // @ts-ignore FIXME: why is ts complaining about this?
       icon: <GlobalOutlined />,
     })
   }
@@ -110,6 +116,7 @@ const Layout = () => {
     mainMenuItems.push({
       path: '/credential-verifier',
       name: 'Credential verifier',
+      // @ts-ignore FIXME: why is ts complaining about this?
       icon: <FileProtectOutlined />,
     })
   }
@@ -120,6 +127,7 @@ const Layout = () => {
     mainMenuItems.push({
       path: '/developer',
       name: 'Credential issuer',
+      // @ts-ignore FIXME: why is ts complaining about this?
       icon: <CodeOutlined />,
       routes: [
         // {
@@ -149,6 +157,7 @@ const Layout = () => {
   mainMenuItems.push({
     path: '/settings',
     name: 'Settings',
+    // @ts-ignore FIXME: why is ts complaining about this?
     icon: <SettingOutlined />,
   })
 

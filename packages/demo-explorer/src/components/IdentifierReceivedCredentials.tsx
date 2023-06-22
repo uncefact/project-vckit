@@ -75,6 +75,7 @@ const IdentifierReceivedCredentials: React.FC<IdentifierCredentialsProps> = ({
             </div>,
             <CredentialActionsDropdown credential={item.verifiableCredential}>
               <Button type="text">
+                {/* @ts-ignore FIXME: why is ts complaining about this? */}
                 <EllipsisOutlined />
               </Button>
             </CredentialActionsDropdown>,

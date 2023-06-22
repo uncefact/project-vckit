@@ -35,6 +35,7 @@ const Agents = () => {
         title="Agent info"
         actions={[
           <Button
+          // @ts-ignore FIXME: why is ts complaining about this?
             icon={<PushpinOutlined />}
             disabled={activeAgentId === agent.context.id}
             onClick={() =>

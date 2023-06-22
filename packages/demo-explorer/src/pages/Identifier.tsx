@@ -67,6 +67,7 @@ const Identifier = () => {
       extra={[
         <Button
           key={'copy'}
+          // @ts-ignore FIXME: why is ts complaining about this?
           icon={<CopyOutlined />}
           type="text"
           title="Copy DID to clipboard"

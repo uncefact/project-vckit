@@ -62,6 +62,7 @@ const ManagedIdentifiers = () => {
           <Button
             key={'copy'}
             type="text"
+            // @ts-ignore FIXME: why is ts complaining about this?
             icon={<CopyOutlined />}
             title="Copy DID to clipboard"
             onClick={() => {
@@ -72,6 +73,7 @@ const ManagedIdentifiers = () => {
             }}
           />
           <Button
+          // @ts-ignore FIXME: why is ts complaining about this?
             icon={<DeleteOutlined />}
             danger
             type="text"
