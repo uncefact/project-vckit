@@ -42,6 +42,7 @@
     "@vckit/core": "^1.0.0-beta.4",
     "@vckit/core-types": "^1.0.0-beta.4",
     "@vckit/credential-oa": "workspace:1.0.0-beta.2",
+    "@vckit/demo-explorer": "workspace:^",
     "@vckit/example-documents": "^1.0.0-beta.4",
     "@vckit/remote-client": "^1.0.0-beta.4",
     "@vckit/remote-server": "^1.0.0-beta.4",

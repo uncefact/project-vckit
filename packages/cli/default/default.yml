@@ -132,6 +132,13 @@ server:
     - - /api-docs
       - $require: '@vckit/remote-server?t=function#ApiDocsRouter'
 
+        # Agent explorer
+    - - $require: demo-explorer?t=function#ExplorerRouter
+        $args:
+          - - schemaUrl: https://localhost:3332/open-api.json
+              name: Local Agent
+              apiKey: test123
+
   # Execute during server initialization
   init:
     - $require: '@vckit/remote-server?t=function#createDefaultDid'
