@@ -1,9 +1,10 @@
 {
   "name": "@vckit/e2e",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.4",
   "description": "This package is used to test project-vckit packages/plugins.",
   "author": "Nam Hoang <hoangxuannam160493@gmail.com>",
   "homepage": "https://github.com/uncefact/project-vckit",
+  "private": true,
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -16,9 +17,9 @@
     "url": "https://github.com/uncefact/project-vckit/issues"
   },
   "dependencies": {
-    "@vckit/core": "^1.0.0-beta.2",
-    "@vckit/core-types": "^1.0.0-beta.2",
-    "@vckit/credential-w3c": "^1.0.0-beta.2",
+    "@vckit/core": "^1.0.0-beta.4",
+    "@vckit/core-types": "^1.0.0-beta.4",
+    "@vckit/credential-w3c": "^1.0.0-beta.4",
     "@veramo/data-store": "^5.2.0",
     "@veramo/data-store-json": "^5.2.0",
     "@veramo/did-comm": "^5.2.0",
