@@ -1,10 +1,16 @@
 import { Router, json } from 'express';
 import {
   deleteCredential,
+  deletePresentation,
+  deriveCredential,
   getCredential,
   getCredentials,
+  getExchanges,
   getPresentation,
   getPresentations,
+  initiateExchange,
+  provePresentation,
+  receiveExchange,
 } from './controllers/holder-controller.js';
 
 /**
@@ -23,9 +29,21 @@ export const HolderRouter = (): Router => {
 
   router.delete('/credentials/:id', deleteCredential);
 
+  router.post('/credentials/derive', deriveCredential);
+
   router.get('/presentations/:id', getPresentation);
 
   router.get('/presentations', getPresentations);
+
+  router.post('/presentations/prove', provePresentation);
+
+  router.delete('/presentations/:id', deletePresentation);
+
+  router.get('/exchanges', getExchanges);
+
+  router.post('/exchanges/:exchangeId', initiateExchange);
+
+  router.post('/exchanges/:exchangeId/:transactionId', receiveExchange);
 
   return router;
 };

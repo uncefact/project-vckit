@@ -2,11 +2,14 @@ import {
   IAgent,
   UniqueVerifiableCredential,
   UniqueVerifiablePresentation,
+  UnsignedPresentation,
   VerifiableCredential,
+  VerifiablePresentation,
 } from '@vckit/core-types';
 import { Response } from 'express';
 import { errorHandler } from '../error-handler.js';
 import { RequestWithAgent } from '../types/request-type.js';
+import { configuration } from '../config/index.js';
 
 /**
  * Retrieves a specific verifiable credential based on its ID.
@@ -81,6 +84,19 @@ export const deleteCredential = async (
     res.status(error.code).json({ error: error.message });
   }
 };
+/**
+ * Derives a verifiable credential is not implemented.
+ * @param {RequestWithAgent} req - The request object.
+ * @param {Response} res - The response object.
+ * @throws {Error} If the agent is not available.
+ */
+export const deriveCredential = async (
+  req: RequestWithAgent,
+  res: Response
+) => {
+  if (!req.agent) throw Error('Agent not available');
+  res.status(501).json({ error: 'Not implemented' });
+};
 
 /**
  * Retrieves a specific verifiable presentation based on its ID.
@@ -130,6 +146,77 @@ export const getPresentations = async (
     const error = errorHandler(e);
     res.status(error.code).json({ error: error.message });
   }
+};
+
+/**
+ * Proves a verifiable presentation.
+ * @public
+ * @param {RequestWithAgent} req - The request object.
+ * @param {Response} res - The response object.
+ * @throws {Error} If the agent is not available.
+ */
+export const provePresentation = async (
+  req: RequestWithAgent,
+  res: Response
+) => {
+  if (!req.agent) throw Error('Agent not available');
+  try {
+    const result = await proveVerifiablefPresentation(req.agent, req.body);
+    res.status(201).json(result);
+  } catch (e) {
+    const error = errorHandler(e);
+    res.status(error.code).json({ error: error.message });
+  }
+};
+
+/**
+ * delete a verifiable presentation is not implemented.
+ * @param {RequestWithAgent} req - The request object.
+ * @param {Response} res - The response object.
+ * @throws {Error} If the agent is not available.
+ */
+export const deletePresentation = async (
+  req: RequestWithAgent,
+  res: Response
+) => {
+  if (!req.agent) throw Error('Agent not available');
+  res.status(501).json({ error: 'Not implemented' });
+};
+
+/**
+ * get exchanges is not implemented.
+ * @param {RequestWithAgent} req - The request object.
+ * @param {Response} res - The response object.
+ * @throws {Error} If the agent is not available.
+ */
+export const getExchanges = async (req: RequestWithAgent, res: Response) => {
+  if (!req.agent) throw Error('Agent not available');
+  res.status(501).json({ error: 'Not implemented' });
+};
+
+/**
+ * initiate an exchange is not implemented.
+ * @param {RequestWithAgent} req - The request object.
+ * @param {Response} res - The response object.
+ * @throws {Error} If the agent is not available.
+ */
+export const initiateExchange = async (
+  req: RequestWithAgent,
+  res: Response
+) => {
+  if (!req.agent) throw Error('Agent not available');
+  res.status(501).json({ error: 'Not implemented' });
+};
+
+/**
+ * receive the exchange is not implemented.
+ * @param {RequestWithAgent} req - The request object.
+ * @param {Response} res - The response object.
+ * @throws {Error} If the agent is not available.
+ */
+export const receiveExchange = async (req: RequestWithAgent, res: Response) => {
+  if (!req.agent) throw Error('Agent not available');
+  res.status(501).json({ error: 'Not implemented' });
 };
 
 const getUniqueVerifiableCredential = async (
@@ -196,4 +283,21 @@ const getVerifiablePresentations = async (agent: IAgent) => {
     (presentation: UniqueVerifiablePresentation) =>
       presentation.verifiablePresentation
   );
+};
+
+const proveVerifiablefPresentation = async (
+  agent: IAgent,
+  data: { presentation: UnsignedPresentation; options: any }
+): Promise<VerifiablePresentation> => {
+  const params = {
+    presentation: data.presentation,
+    ...configuration,
+    ...data.options,
+  };
+
+  const result: VerifiablePresentation = await agent.execute(
+    'createVerifiablePresentation',
+    params
+  );
+  return result;
 };

@@ -15,7 +15,7 @@ interface VCApiError {
 export const errorHandler = (error: Error): VCApiError => {
   let vcApiError: VCApiError;
   const errorType = error.message.split(':')[0];
-  const errorMessage = error.message.split(':')[1];
+  const errorMessage = error.message.split(':')[1]?.trim();
   switch (errorType) {
     case 'not_found':
       return (vcApiError = {
