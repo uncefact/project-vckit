@@ -139,6 +139,13 @@ server:
               name: Local Agent
               apiKey: test123
 
+        # Verifier only
+    # - - $require: demo-explorer?t=function#VerifierRouter
+    #     $args:
+    #       - - schemaUrl: https://localhost:3332/open-api.json
+    #           name: Local Agent
+    #           apiKey: test123
+
   # Execute during server initialization
   init:
     - $require: '@vckit/remote-server?t=function#createDefaultDid'

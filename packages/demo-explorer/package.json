@@ -19,7 +19,9 @@
   },
   "scripts": {
     "dev": "craco start",
-    "build": "craco build",
+    "build": "pnpm run build:explorer && pnpm run build:verifier",
+    "build:explorer": "craco build",
+    "build:verifier": "REACT_APP_MODE=verifier craco build",
     "test": "craco test --watchAll=false",
     "release": "semantic-release",
     "agent-explore": "./bin/bin.js",
