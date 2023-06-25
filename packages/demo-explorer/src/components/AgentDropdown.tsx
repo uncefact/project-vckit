@@ -3,13 +3,14 @@ import React from 'react'
 import { useVeramo } from '@veramo-community/veramo-react'
 import { useNavigate } from 'react-router-dom'
 import { CheckCircleOutlined } from '@ant-design/icons'
+import { useAuth0 } from "@auth0/auth0-react";
 
 const AgentDropdown: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { agents, setActiveAgentId, activeAgentId } = useVeramo()
   const navigate = useNavigate()
-
+  const { logout } = useAuth0();  
   return (
     <Dropdown
       menu={{
@@ -39,6 +40,15 @@ const AgentDropdown: React.FC<{ children: React.ReactNode }> = ({
               key: 'connect',
               label: 'Connect',
               onClick: () => navigate('/connect'),
+            },
+            {
+              key: 'logout',
+              label: 'Logout',
+              onClick: () => logout({
+                logoutParams: {
+                  returnTo: window.location.origin,
+                },
+              }) ,
             },
           ],
         ],

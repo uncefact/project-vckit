@@ -6,8 +6,7 @@ import { ThemeProvider } from '../context/ThemeProvider'
 import { QueryClientProvider, QueryClient } from 'react-query'
 import { ChatProvider } from '../context/ChatProvider'
 import { VeramoWeb3Provider } from '../context/web3/VeramoWeb3Provider'
-
-
+import { Auth0ProviderWithNavigate } from '../auth0-provider-with-navigate'
 declare global {
   interface Window {
     BASE_URL: string
@@ -17,7 +16,7 @@ declare global {
 const App = () => {
   const queryClient = new QueryClient()
   const mode = process.env.REACT_APP_MODE;
-
+  
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
@@ -25,7 +24,9 @@ const App = () => {
           <VeramoWeb3Provider>
             <ChatProvider>
               <BrowserRouter>
-                { mode === 'verifier' ? <VerifierLayout /> : <Layout /> }
+                <Auth0ProviderWithNavigate>
+                  { mode === 'verifier' ? <VerifierLayout /> : <Layout /> }
+                </Auth0ProviderWithNavigate>
               </BrowserRouter>
             </ChatProvider>
           </VeramoWeb3Provider>

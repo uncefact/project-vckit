@@ -10,6 +10,7 @@ import {
   CodeOutlined,
   GlobalOutlined,
   FileProtectOutlined,
+  LoginOutlined
 } from '@ant-design/icons'
 import { Routes, Route, useLocation, Link, Navigate } from 'react-router-dom'
 import Connect from '../pages/Connect'
@@ -35,13 +36,28 @@ import AgentDropdown from '../components/AgentDropdown'
 import KnownIdentifiers from '../pages/KnownIdentifiers'
 import ManagedIdentifiers from '../pages/ManagedIdentifiers'
 import CredentialVerifier from '../pages/CredentialVerifier'
+import Loading from '../components/Loading'
+import { useAuth0 } from "@auth0/auth0-react"
 
 const GRAVATAR_URI = 'https://www.gravatar.com/avatar/'
 
 const Layout = () => {
   const { agent } = useVeramo()
   const location = useLocation()
+  const { isLoading, error, isAuthenticated, loginWithPopup, loginWithRedirect } = useAuth0();
 
+  if (error) {
+    return <div>Oops... {error.message}</div>;
+  }
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (!isAuthenticated) {
+    loginWithRedirect({})
+  }
+  
   const availableMethods = agent?.availableMethods() || []
   const currentAgentName = agent?.context?.name || 'No Agent Connected'
 
@@ -167,11 +183,12 @@ const Layout = () => {
         height: '100vh',
       }}
     >
-      <ProLayout
+      {isAuthenticated && (<ProLayout
         locale="en-US"
         contentWidth="Fixed"
         title="vc-kit Demo Explorer"
         logo={false}
+        
         menuItemRender={(menuItemProps, defaultDom) => {
           if (menuItemProps.isUrl || menuItemProps.children) {
             return defaultDom
@@ -246,9 +263,11 @@ const Layout = () => {
             <Route path="/" element={<Navigate replace to="/connect" />} />
           )}
         </Routes>
-      </ProLayout>
+      </ProLayout>)}
     </div>
   )
 }
 
 export default Layout
+
+

@@ -64,13 +64,19 @@
     ]
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.1.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@jsonforms/material-renderers": "^3.1.0",
     "@jsonforms/react": "^3.1.0",
+    "@types/prop-types": "^15.7.5",
     "@vckit/example-documents": "workspace:^1.0.0-beta.4",
     "@vckit/remote-client": "workspace:^1.0.0-beta.4",
     "commander": "^10.0.1",
     "express": "^4.18.2",
-    "express-favicon": "^2.0.4"
+    "express-favicon": "^2.0.4",
+    "highlight.js": "^11.8.0",
+    "prop-types": "^15.8.1",
+    "reactstrap": "^9.2.0"
   },
   "release": {
     "branches": [
