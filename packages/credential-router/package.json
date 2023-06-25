@@ -1,0 +1,44 @@
+{
+  "name": "@vckit/credential-router",
+  "description": "vckit plugin for working with W3C Verifiable Credentials & Presentations.",
+  "version": "1.0.0-beta.5",
+  "main": "build/index.js",
+  "exports": {
+    ".": "./build/index.js",
+    "./build/plugin.schema.json": "./build/plugin.schema.json"
+  },
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -b --watch",
+    "extract-api": "node ../cli/bin/vckit.js dev extract-api"
+  },
+  "dependencies": {
+    "@vckit/core-types": "^1.0.0-beta.5",
+    "debug": "^4.3.3"
+  },
+  "devDependencies": {
+    "@types/debug": "4.1.7",
+    "@types/uuid": "9.0.0",
+    "typescript": "4.9.4"
+  },
+  "files": [
+    "build/**/*",
+    "src/**/*",
+    "plugin.schema.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "git@github.com:uncefact/project-vckit.git",
+  "author": "Richard Spellman <namlleps.drahcir@gmail.com>",
+  "license": "Apache-2.0",
+  "keywords": [],
+  "type": "module",
+  "moduleDirectories": [
+    "node_modules",
+    "src"
+  ]
+}
