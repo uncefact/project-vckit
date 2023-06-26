@@ -7,19 +7,20 @@
 - This plugin follow the `veramo` architecture , so you can configure it with `agent.yml` . For example:
 
 ```jsx
-
-    - - /vc-api
-      - $require: '@vckit/vc-api?t=function#IssuerRouter'
+# API base path
+    - - $require: '@vckit/vc-api?t=function#HolderRouter'
+    - - $require: '@vckit/vc-api?t=function#IssuerRouter'
         $args:
           - createCredential: createVerifiableCredential
             updateCredentialStatus: updateVerifiableCredentialStatus
-            config:
-							proofFormat: OpenAttestationMerkleProofSignature2018
-							save: false
-      - $require: '@vckit/vc-api?t=function#VerifierRouter'
+# VC API docs path
+    - - /vc-api.json
+      - $require: '@vckit/vc-api?t=function#VCApiSchemaRouter'
         $args:
-          - verifyCredential: verifyCredential
-            verifyPresentation: verifyPresentation
+          - basePath: :3332
+
+    - - /vc-api-docs
+      - $require: '@vckit/vc-api?t=function#VCApiDocsRouter'
 ```
 
 ## Test with test-suite
