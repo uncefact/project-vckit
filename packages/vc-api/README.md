@@ -8,11 +8,19 @@
 
 ```jsx
 # API base path
-    - - /issuer
-      - $require: '@vckit/vc-api-issuer?t=function#AgentRouter'
+    - - $require: '@vckit/vc-api?t=function#HolderRouter'
+    - - $require: '@vckit/vc-api?t=function#IssuerRouter'
         $args:
           - createCredential: createVerifiableCredential
             updateCredentialStatus: updateVerifiableCredentialStatus
+# VC API docs path
+    - - /vc-api.json
+      - $require: '@vckit/vc-api?t=function#VCApiSchemaRouter'
+        $args:
+          - basePath: :3332
+
+    - - /vc-api-docs
+      - $require: '@vckit/vc-api?t=function#VCApiDocsRouter'
 ```
 
 ## Test with test-suite
