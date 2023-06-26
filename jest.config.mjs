@@ -1,0 +1,32 @@
+export default {
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'jsonld'],
+  collectCoverage: false,
+  collectCoverageFrom: [
+    'packages/**/src/**/*.ts',
+    '!**/examples/**',
+    '!packages/cli/**',
+    '!**/types/**',
+    '!**/build/**',
+    '!**/node_modules/**',
+  ],
+  coverageReporters: ['text', 'lcov', 'json'],
+  coverageProvider: 'v8',
+  coverageDirectory: './coverage',
+  extensionsToTreatAsEsm: ['.ts'],
+  testMatch: ['**/__tests__/**/*.test.*'],
+  testEnvironment: 'node',
+  automock: false,
+  setupFiles: ['./setupJest.js'],
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
+  transform: {
+    '^.+\\.m?tsx?$': [
+      'ts-jest',
+      {
+        useESM: true,
+        tsconfig: './packages/tsconfig.settings.json',
+      },
+    ],
+  },
+};

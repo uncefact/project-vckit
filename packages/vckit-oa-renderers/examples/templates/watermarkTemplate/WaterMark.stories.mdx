@@ -1,0 +1,22 @@
+import { Meta, Preview, Props, Description, Story } from "@storybook/addon-docs/blocks";
+import { object } from "@storybook/addon-knobs";
+import { WatermarkTemplate } from "./watermarkTemplate";
+import { customTemplateCertificate } from "../samples";
+
+<Meta title="MDX|WatermarkTemplate" component={WatermarkTemplate} />
+
+# WatermarkTemplate component
+
+<Description of={WatermarkTemplate} />
+
+# Props
+
+<Props of={WatermarkTemplate} />
+
+# Usage
+
+<Preview>
+  <Story name="basic sample">
+    <WatermarkTemplate document={object("document", customTemplateCertificate)} />
+  </Story>
+</Preview>

@@ -62,6 +62,8 @@ constants:
     - createSelectiveDisclosureRequest
     - getVerifiableCredentialsForSdr
     - validatePresentationAgainstSdr
+    - renderCredential
+    - createVerifiableCredentialOA
 
 # Data base
 dbConnection:
@@ -128,7 +130,21 @@ server:
 
     # rapidoc docs
     - - /api-docs
-      - $require: '@vckit/remote-server?t=function#ApiSchemaRouter'
+      - $require: '@vckit/remote-server?t=function#ApiDocsRouter'
+
+        # Agent explorer
+    - - $require: demo-explorer?t=function#ExplorerRouter
+        $args:
+          - - schemaUrl: https://localhost:3332/open-api.json
+              name: Local Agent
+              apiKey: test123
+
+        # Verifier only
+    # - - $require: demo-explorer?t=function#VerifierRouter
+    #     $args:
+    #       - - schemaUrl: https://localhost:3332/open-api.json
+    #           name: Local Agent
+    #           apiKey: test123
 
   # Execute during server initialization
   init:
@@ -148,7 +164,7 @@ messageHandler:
         - $require: '@veramo/did-comm#DIDCommMessageHandler'
         - $require: '@veramo/did-comm#TrustPingMessageHandler'
         - $require: '@veramo/did-jwt#JwtMessageHandler'
-        - $require: '@vckit/credential-w3c#W3cMessageHandler'
+        - $require: '@veramo/credential-w3c#W3cMessageHandler'
         - $require: '@veramo/selective-disclosure#SdrMessageHandler'
 
 # DID resolvers
@@ -267,6 +283,17 @@ credentialIssuerLD:
         - $require: '@transmute/credentials-context?t=object#contexts'
         #  others should be included here
 
+# Renderer
+renderer:
+  $require: '@vckit/renderer#Renderer'
+  $args:
+    - defaultProvider: WebRenderingTemplate2022
+      providers:
+        WebRenderingTemplate2022:
+          $require: '@vckit/renderer#WebRenderingTemplate2022'
+        SvgRenderingHint2022:
+          $require: '@vckit/renderer#WebRenderingTemplate2022'
+
 # Agent
 agent:
   $require: '@vckit/core#Agent'
@@ -279,7 +306,8 @@ agent:
         - $ref: /didDiscovery
         - $ref: /messageHandler
         - $require: '@veramo/did-comm#DIDComm'
-        - $require: '@vckit/credential-w3c#CredentialPlugin'
+        - $require: '@veramo/credential-w3c#CredentialPlugin'
+        - $require: '@vckit/credential-oa#CredentialIssuerOA'
         - $ref: /credentialIssuerLD
         - $require: '@veramo/credential-eip712#CredentialIssuerEIP712'
         - $require: '@veramo/selective-disclosure#SelectiveDisclosure'
@@ -289,3 +317,4 @@ agent:
         - $require: '@veramo/data-store#DataStoreORM'
           $args:
             - $ref: /dbConnection
+        - $ref: /renderer

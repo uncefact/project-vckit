@@ -1,0 +1,50 @@
+{
+  "name": "@vckit/credential-oa",
+  "description": "vckit plugin for working with OpenAttestation Verifiable Credentials & Presentations.",
+  "version": "1.0.0-beta.2",
+  "main": "build/index.js",
+  "exports": {
+    ".": "./build/index.js",
+    "./build/plugin.schema.json": "./build/plugin.schema.json"
+  },
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -b --watch",
+    "extract-api": "node ../cli/bin/vckit.js dev extract-api"
+  },
+  "dependencies": {
+    "@govtechsg/oa-verify": "^8.0.0",
+    "@govtechsg/open-attestation": "^6.6.0",
+    "@vckit/core-types": "^1.0.0-beta.2",
+    "@veramo/message-handler": "^5.1.2",
+    "@veramo/utils": "^5.1.2"
+  },
+  "devDependencies": {
+    "@types/debug": "4.1.7",
+    "@types/uuid": "9.0.0",
+    "typescript": "4.9.4"
+  },
+  "files": [
+    "build/**/*",
+    "src/**/*",
+    "plugin.schema.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "git@github.com:uncefact/project-vckit.git",
+  "author": "Toan Ngo toan.ngo@gosource.com.au",
+  "contributors": [
+    "Nam Hoang <nam.hoang@gosource.com.au>"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [],
+  "type": "module",
+  "moduleDirectories": [
+    "node_modules",
+    "src"
+  ]
+}
