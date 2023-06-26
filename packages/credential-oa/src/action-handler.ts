@@ -21,7 +21,6 @@ import {
 } from '@govtechsg/open-attestation';
 
 import {
-  extractIssuer,
   MANDATORY_CREDENTIAL_CONTEXT,
   processEntryToArray,
 } from '@veramo/utils';
@@ -33,10 +32,7 @@ import { isValid, verify } from '@govtechsg/oa-verify';
 const OA_MANDATORY_CREDENTIAL_CONTEXT =
   'https://schemata.openattestation.com/com/openattestation/1.0/OpenAttestation.v3.json';
 
-const OA_MANDATORY_CREDENTIAL_TYPES = [
-  'VerifiableCredential',
-  'OpenAttestationCredential',
-];
+const OA_MANDATORY_CREDENTIAL_TYPES = 'VerifiableCredential';
 
 /**
  
@@ -75,15 +71,18 @@ export class CredentialIssuerOA implements IAgentPlugin {
       MANDATORY_CREDENTIAL_CONTEXT
     );
 
-    const credentialType = processEntryToArray(credentialInput.type);
+    const credentialType = processEntryToArray(
+      credentialInput.type,
+      OA_MANDATORY_CREDENTIAL_TYPES
+    );
 
     const credential = {
       ...credentialInput,
       '@context': [...credentialContext, OA_MANDATORY_CREDENTIAL_CONTEXT],
-      type: [...credentialType, ...OA_MANDATORY_CREDENTIAL_TYPES],
+      type: credentialType,
     };
 
-    let wrappedDocument;
+    let wrappedDocument: WrappedDocument<OpenAttestationDocument>;
     try {
       wrappedDocument =
         //@ts-ignore
@@ -94,7 +93,7 @@ export class CredentialIssuerOA implements IAgentPlugin {
       );
     }
 
-    const issuer = extractIssuer(credential);
+    const issuer = wrappedDocument.openAttestationMetadata.proof.value;
 
     let identifier: IIdentifier;
     try {
