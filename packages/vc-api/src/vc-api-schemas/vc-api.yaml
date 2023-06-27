@@ -358,19 +358,6 @@ paths:
                           index of the end of this list). Examples could be a
                           numerica value, a URL, or a value meaningful to the
                           server.
-              example:
-                count: 3
-                total: 8
-                exchanges:
-                  - id: credential-refresh
-                    type: CredentialRefresh2020
-                  - id: 34901-18388409-1939
-                    type: PresentationExchange1.0
-                  - id: salad
-                    type: https://example.com/oas/my-salad.yml
-                index:
-                  self: '0'
-                  next: '3'
         '400':
           description: invalid input
         '500':
@@ -631,14 +618,6 @@ components:
             credentialQuery:
               type: object
               description: Details of the client's available presentation
-      example:
-        query:
-          - type: RequestQueryByFrame
-            credentialQuery:
-              - type:
-                  - VerifiableCredential
-                  - CommercialInvoiceCertificate
-                reason: Wallet XYZ is ready to selectively disclose new credentials.
     NotifyPresentationAvailableResponse:
       type: object
       properties:
@@ -651,26 +630,6 @@ components:
         challenge:
           type: string
           description: See https://w3id.org/security#challenge
-      example:
-        query:
-          - type: QueryByFrame
-            credentialQuery:
-              frame:
-                '@context':
-                  - https://www.w3.org/2018/credentials/v1
-                  - https://w3id.org/traceability/v1
-                  - https://w3id.org/bbs/v1
-                type:
-                  - VerifiableCredential
-                  - CommercialInvoiceCertificate
-                credentialSubject:
-                  '@explicit': true
-                  type:
-                    - CommercialInvoice
-                  purchaseDate: {}
-                  destinationCountry: {}
-        domain: jobs.example.com
-        challenge: 3182bdea-63d9-11ea-b6de-3b7c1404d57f
     ErrorResponse:
       type: object
       description: A response that denotes that an error has occurred.
@@ -690,9 +649,6 @@ components:
       required:
         - id
         - message
-      example:
-        id: invalid-json
-        message: The provided JSON data was malformed.
     StorePresentationRequest:
       $ref: '#/components/schemas/VerifiablePresentation'
     VerifiablePresentationRequestBody:
@@ -715,11 +671,13 @@ components:
             id:
               type: string
               description: The issuer id.
-      example:
-        id: did:key:z6MkjRagNiMu91DduvCvgEsqLZDVzrJzFrwahc4tXLt9DoHd
     Credential:
       type: object
       description: A JSON-LD Verifiable Credential without a proof.
+      required:
+        - '@context'
+        - issuer
+        - credentialSubject
       properties:
         '@context':
           type: array
@@ -745,21 +703,6 @@ components:
         credentialSubject:
           type: object
           description: The subject
-      example:
-        '@context':
-          - https://www.w3.org/2018/credentials/v1
-          - https://www.w3.org/2018/credentials/examples/v1
-        id: http://example.gov/credentials/3732
-        type:
-          - VerifiableCredential
-          - UniversityDegreeCredential
-        issuer: did:example:123
-        issuanceDate: '2020-03-16T22:37:26.544Z'
-        credentialSubject:
-          id: did:example:123
-          degree:
-            type: BachelorDegree
-            name: Bachelor of Science and Arts
     LinkedDataProof:
       type: object
       description: A JSON-LD Linked Data proof.
@@ -795,13 +738,6 @@ components:
         proofValue:
           type: string
           description: Value of the Linked Data proof.
-      example:
-        type: Ed25519Signature2018
-        created: '2020-04-02T18:28:08Z'
-        verificationMethod: did:example:123#z6MksHh7qHWvybLg5QTPPdG2DgEjjduBDArV9EF9mRiRzMBN
-        proofPurpose: assertionMethod
-        jws: >-
-          eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..YtqjEYnFENT7fNW-COD0HAACxeuQxPKAmp4nIl8jYAu__6IH2FpSxv81w-l5PvE1og50tS9tH8WyXMlXyo45CA
     VerifiableCredential:
       type: object
       description: A JSON-LD Verifiable Credential with a proof.
@@ -811,28 +747,6 @@ components:
           properties:
             proof:
               $ref: '#/components/schemas/LinkedDataProof'
-      example:
-        '@context':
-          - https://www.w3.org/2018/credentials/v1
-          - https://www.w3.org/2018/credentials/examples/v1
-        id: http://example.gov/credentials/3732
-        type:
-          - VerifiableCredential
-          - UniversityDegreeCredential
-        issuer: did:example:123
-        issuanceDate: '2020-03-16T22:37:26.544Z'
-        credentialSubject:
-          id: did:example:123
-          degree:
-            type: BachelorDegree
-            name: Bachelor of Science and Arts
-        proof:
-          type: Ed25519Signature2018
-          created: '2020-04-02T18:28:08Z'
-          verificationMethod: did:example:123#z6MksHh7qHWvybLg5QTPPdG2DgEjjduBDArV9EF9mRiRzMBN
-          proofPurpose: assertionMethod
-          jws: >-
-            eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..YtqjEYnFENT7fNW-COD0HAACxeuQxPKAmp4nIl8jYAu__6IH2FpSxv81w-l5PvE1og50tS9tH8WyXMlXyo45CA
     DeriveCredentialOptions:
       type: object
       additionalProperties: false
@@ -843,8 +757,6 @@ components:
           description: >-
             An encoded nonce provided by the holder of the credential to be
             included into the LinkedDataProof.
-      example:
-        nonce: lEixQKDQvRecCifKl789TQj+Ii6YWDLSwn3AxR0VpPJ1QV5htod/0VCchVf1zVM0y2E=
     Presentation:
       type: object
       description: A JSON-LD Verifiable Presentation without a proof.
@@ -873,34 +785,6 @@ components:
           description: The Verifiable Credentials
           items:
             $ref: '#/components/schemas/VerifiableCredential'
-      example:
-        '@context':
-          - https://www.w3.org/2018/credentials/v1
-          - https://www.w3.org/2018/credentials/examples/v1
-        holder: did:example:123
-        type: VerifiablePresentation
-        verifiableCredential:
-          - '@context':
-              - https://www.w3.org/2018/credentials/v1
-              - https://www.w3.org/2018/credentials/examples/v1
-          - id: http://example.gov/credentials/3732
-          - type:
-              - VerifiableCredential
-              - UniversityDegreeCredential
-          - issuer: did:example:123
-          - issuanceDate: '2020-03-16T22:37:26.544Z'
-          - credentialSubject:
-              id: did:example:123
-              degree:
-                type: BachelorDegree
-                name: Bachelor of Science and Arts
-          - proof:
-              type: Ed25519Signature2018
-              created: '2020-04-02T18:28:08Z'
-              verificationMethod: did:example:123#z6MksHh7qHWvybLg5QTPPdG2DgEjjduBDArV9EF9mRiRzMBN
-              proofPurpose: assertionMethod
-              jws: >-
-                eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..YtqjEYnFENT7fNW-COD0HAACxeuQxPKAmp4nIl8jYAu__6IH2FpSxv81w-l5PvE1og50tS9tH8WyXMlXyo45CA
     VerifiablePresentation:
       type: object
       description: A JSON-LD Verifiable Presentation with a proof.
@@ -910,41 +794,6 @@ components:
           properties:
             proof:
               $ref: '#/components/schemas/LinkedDataProof'
-      example:
-        '@context':
-          - https://www.w3.org/2018/credentials/v1
-          - https://www.w3.org/2018/credentials/examples/v1
-        holder: did:example:123
-        type: VerifiablePresentation
-        verifiableCredential:
-          - '@context':
-              - https://www.w3.org/2018/credentials/v1
-              - https://www.w3.org/2018/credentials/examples/v1
-          - id: http://example.gov/credentials/3732
-          - type:
-              - VerifiableCredential
-              - UniversityDegreeCredential
-          - issuer: did:example:123
-          - issuanceDate: '2020-03-16T22:37:26.544Z'
-          - credentialSubject:
-              id: did:example:123
-              degree:
-                type: BachelorDegree
-                name: Bachelor of Science and Arts
-          - proof:
-              type: Ed25519Signature2018
-              created: '2020-04-02T18:28:08Z'
-              verificationMethod: did:example:123#z6MksHh7qHWvybLg5QTPPdG2DgEjjduBDArV9EF9mRiRzMBN
-              proofPurpose: assertionMethod
-              jws: >-
-                eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..YtqjEYnFENT7fNW-COD0HAACxeuQxPKAmp4nIl8jYAu__6IH2FpSxv81w-l5PvE1og50tS9tH8WyXMlXyo45CA
-        proof:
-          type: Ed25519Signature2018
-          created: '2020-04-02T18:28:08Z'
-          verificationMethod: did:example:123#z6MksHh7qHWvybLg5QTPPdG2DgEjjduBDArV9EF9mRiRzMBN
-          proofPurpose: assertionMethod
-          jws: >-
-            eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..YtqjEYnFENT7fNW-COD0HAACxeuQxPKAmp4nIl8jYAu__6IH2FpSxv81w-l5PvE1og50tS9tH8WyXMlXyo45CA
     PresentCredentialOptions:
       type: object
       additionalProperties: false
@@ -978,13 +827,6 @@ components:
           description: >-
             The intended domain of validity for the proof. For example
             website.example
-      example:
-        type: Ed25519Signature2018
-        verificationMethod: did:example:123#z6MksHh7qHWvybLg5QTPPdG2DgEjjduBDArV9EF9mRiRzMBN
-        proofPurpose: assertionMethod
-        created: '2020-04-02T18:48:36Z'
-        domain: example.com
-        challenge: d436f0c8-fbd9-4e48-bbb2-55fc5d0920a8
     VerifiablePresentationRequest:
       type: object
       description: A Verifiable Presentation Request.
@@ -1037,23 +879,6 @@ components:
                       A URL that can be utilized for interacting with the
                       service for the purposes of responding to the Verifiable
                       Presentation Request.
-      example:
-        query:
-          - type: DIDAuthentication
-          - type: QueryByExample
-            credentialQuery:
-              reason: We need to see your existing University Degree credential.
-              example:
-                '@context':
-                  - https://www.w3.org/2018/credentials/v1
-                  - https://www.w3.org/2018/credentials/examples/v1
-                type: UniversityDegreeCredential
-        challenge: 3182bdea-63d9-11ea-b6de-3b7c1404d57f
-        domain: edu.example
-        interact:
-          service:
-            - type: UnmediatedPresentationService2021
-              serviceEndpoint: https://edu.example/workflows/123456/presentations
     IssueCredentialRequest:
       type: object
       properties:
@@ -1081,11 +906,6 @@ components:
                 type: string
               status:
                 type: string
-      example:
-        credentialId: urn:uuid:45a44711-e457-4fa8-9b89-69fe0287c86a
-        credentialStatus:
-          - type: RevocationList2020Status
-            status: '0'
     IssueCredentialOptions:
       type: object
       additionalProperties: false
@@ -1115,10 +935,6 @@ components:
             type:
               type: string
               description: The type of credential status to issue the credential with
-      example:
-        created: '2020-04-02T18:48:36Z'
-        credentialStatus:
-          type: RevocationList2020Status
     VerifyCredentialRequest:
       type: object
       properties:
@@ -1157,12 +973,6 @@ components:
           description: >-
             The intended domain of validity for the proof. For example
             website.example
-      example:
-        verificationMethod: did:example:123#z6MksHh7qHWvybLg5QTPPdG2DgEjjduBDArV9EF9mRiRzMBN
-        proofPurpose: assertionMethod
-        created: '2020-04-02T18:48:36Z'
-        domain: example.com
-        challenge: d436f0c8-fbd9-4e48-bbb2-55fc5d0920a8
     VerificationResult:
       type: object
       additionalProperties: false
@@ -1183,11 +993,6 @@ components:
           description: Errors
           items:
             type: string
-      example:
-        checks:
-          - proof
-        warnings: []
-        errors: []
   parameters:
     ObjectId:
       in: path
@@ -1201,10 +1006,6 @@ components:
             pattern: z[1-9A-HJ-NP-Za-km-z]{21,22}
           - type: string
             pattern: u[a-zA-Z0-9_-]{22,23}
-      example:
-        - f37e5114-8b4a-11ec-b32e-fbd62b9502c1
-        - z4Z1T4HdLdfXCFAhdhzdCqm
-        - u7m8_ybOArX-EWeADqWCsIw
     ExchangeId:
       name: exchange-id
       description: A potentially human-readable identifier for an exchange.
@@ -1226,10 +1027,6 @@ components:
             pattern: z[1-9A-HJ-NP-Za-km-z]{21,22}
           - type: string
             pattern: u[a-zA-Z0-9_-]{22,23}
-      example:
-        - f37e5114-8b4a-11ec-b32e-fbd62b9502c1
-        - z4Z1T4HdLdfXCFAhdhzdCqm
-        - u7m8_ybOArX-EWeADqWCsIw
 x-tagGroups:
   - name: holder
     tags:

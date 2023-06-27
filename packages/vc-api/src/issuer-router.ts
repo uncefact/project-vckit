@@ -1,9 +1,7 @@
+import path from 'path';
+import * as OpenApiValidator from 'express-openapi-validator';
 import { IAgent, VerifiableCredential } from '@vckit/core-types';
 import { Request, Response, NextFunction, Router, json } from 'express';
-import {
-  validateCredentialPayload,
-  validateUpdateStatusCredentialPayload,
-} from './middlewares/index.js';
 import {
   IssueCredentialRequestPayload,
   UpdateCredentialStatusRequestPayload,
@@ -13,7 +11,6 @@ import {
   IssuerConfiguration,
   configuration as DEFAULT_CONFIG,
 } from './config/index.js';
-import { validationResult } from 'express-validator';
 
 interface RequestWithAgent extends Request {
   agent?: IAgent;
@@ -34,6 +31,8 @@ export interface IssuerRouterOptions {
   updateCredentialStatus: string;
 
   config?: IssuerConfiguration;
+
+  apiSpec: string;
 }
 
 /**
@@ -49,20 +48,22 @@ export const IssuerRouter = ({
   createCredential,
   updateCredentialStatus,
   config,
+  apiSpec,
 }: IssuerRouterOptions): Router => {
   const router = Router();
   router.use(json({ limit: '10mb' }));
 
+  router.use(
+    OpenApiValidator.middleware({
+      apiSpec: path.join(path.resolve(), apiSpec),
+      validateRequests: true,
+      validateResponses: true,
+    })
+  );
+
   router.post(
     '/credentials/issue',
-    validateCredentialPayload(),
     async (req: RequestWithAgent, res: Response, next: NextFunction) => {
-      const errors = validationResult(req);
-
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ description: errors.array() });
-      }
-
       if (!req.agent) {
         throw Error('Agent not available');
       }
@@ -85,14 +86,7 @@ export const IssuerRouter = ({
 
   router.post(
     '/credentials/status',
-    validateUpdateStatusCredentialPayload(),
     async (req: RequestWithAgent, res: Response, next: NextFunction) => {
-      const errors = validationResult(req);
-
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ description: errors.array() });
-      }
-
       if (!req.agent) {
         throw Error('Agent not available');
       }

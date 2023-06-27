@@ -1,9 +1,7 @@
+import path from 'path';
+import * as OpenApiValidator from 'express-openapi-validator';
 import { IAgent, IVerifyResult } from '@vckit/core-types';
 import { Request, Response, NextFunction, Router, json } from 'express';
-import {
-  validateVerifyCredentialRequest,
-  validateVerifyPresentationRequest,
-} from './middlewares/index.js';
 import {
   mapVerifiableCredentialPayload,
   mapVerifiablePresentationPayload,
@@ -31,6 +29,8 @@ export interface VerifierRouterOptions {
    * Agent method to verify presentation
    */
   verifyPresentation: string;
+
+  apiSpec: string;
 }
 
 /**
@@ -45,13 +45,21 @@ export interface VerifierRouterOptions {
 export const VerifierRouter = ({
   verifyCredential,
   verifyPresentation,
+  apiSpec
 }: VerifierRouterOptions): Router => {
   const router = Router();
   router.use(json({ limit: '10mb' }));
 
+  router.use(
+    OpenApiValidator.middleware({
+      apiSpec: path.join(path.resolve(), apiSpec),
+      validateRequests: true,
+      validateResponses: true,
+    })
+  );
+
   router.post(
     '/credentials/verify',
-    validateVerifyCredentialRequest(),
     async (req: RequestWithAgent, res: Response, next: NextFunction) => {
       const errors = validationResult(req);
 
@@ -81,7 +89,6 @@ export const VerifierRouter = ({
 
   router.post(
     '/presentations/verify',
-    validateVerifyPresentationRequest(),
     async (req: RequestWithAgent, res: Response, next: NextFunction) => {
       const errors = validationResult(req);
 
