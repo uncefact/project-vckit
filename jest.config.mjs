@@ -1,5 +1,8 @@
+import { defaults } from 'jest-config';
+
 export default {
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'jsonld'],
+  rootDir: './',
+  moduleFileExtensions: [...defaults.moduleFileExtensions, 'mts'],
   collectCoverage: false,
   collectCoverageFrom: [
     'packages/**/src/**/*.ts',
@@ -13,10 +16,14 @@ export default {
   coverageProvider: 'v8',
   coverageDirectory: './coverage',
   extensionsToTreatAsEsm: ['.ts'],
-  testMatch: ['**/__tests__/**/*.test.*'],
+  testMatch: ['**/__tests__/**/*.test.ts'],
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/packages/credential-ld/',
+    '<rootDir>/packages/vckit-oa-renderers/',
+  ],
   testEnvironment: 'node',
   automock: false,
-  setupFiles: ['./setupJest.js'],
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
