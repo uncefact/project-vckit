@@ -36,6 +36,12 @@ const customContext: Record<string, ContextDoc> = {
   },
 }
 
+// TODO: remove infura dependency in tests
+// 
+// not great having external dependency in test
+// these tests should be refactored to not rely on 
+// external service
+
 const infuraProjectId = '3586660d179141e3801c3895de1c2eba'
 
 describe('credential-LD full flow', () => {
