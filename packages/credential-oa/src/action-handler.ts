@@ -28,7 +28,16 @@ import {
 
 import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
 
-import { isValid, verify } from '@govtechsg/oa-verify';
+import {
+  isValid,
+  openAttestationDidIdentityProof,
+  openAttestationDidSignedDocumentStatus,
+  openAttestationDnsDidIdentityProof,
+  openAttestationDnsTxtIdentityProof,
+  openAttestationHash,
+  verificationBuilder,
+  utils as oaVerifyUtils,
+} from '@govtechsg/oa-verify';
 
 const OA_MANDATORY_CREDENTIAL_CONTEXT =
   'https://schemata.openattestation.com/com/openattestation/1.0/OpenAttestation.v3.json';
@@ -138,7 +147,22 @@ export class CredentialIssuerOA implements IAgentPlugin {
         );
       }
 
-      const fragments = await verify(credential);
+      const ethProvider = oaVerifyUtils.generateProvider({
+        network: 'goerli',
+      });
+
+      const oaVerifiersToRun = [
+        openAttestationHash,
+        openAttestationDidSignedDocumentStatus,
+        openAttestationDnsTxtIdentityProof,
+        openAttestationDnsDidIdentityProof,
+        openAttestationDidIdentityProof,
+      ];
+
+      const builtVerifier = verificationBuilder(oaVerifiersToRun, {
+        provider: ethProvider,
+      });
+      const fragments = await builtVerifier(credential);
 
       return {
         verified: isValid(fragments),
