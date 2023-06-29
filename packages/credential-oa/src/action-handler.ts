@@ -147,6 +147,7 @@ export class CredentialIssuerOA implements IAgentPlugin {
       }
 
       const ethProvider = oaVerifyUtils.generateProvider({
+        // TODO: remove hardcoded eth testnet config for OA verifier
         network: 'goerli',
       });
 
@@ -163,9 +164,14 @@ export class CredentialIssuerOA implements IAgentPlugin {
       });
       const fragments = await builtVerifier(credential);
 
-      return {
-        verified: isValid(fragments),
-      };
+      const verified = isValid(fragments)
+      const verificationResult = {
+        verified,
+        ...(verified && {verifiableCredential: credential})
+      }
+
+      return verificationResult;
+
     } catch (error) {
       return {
         verified: false,
