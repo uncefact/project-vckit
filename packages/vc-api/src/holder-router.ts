@@ -12,6 +12,7 @@ import {
   provePresentation,
   receiveExchange,
 } from './controllers/holder-controller.js';
+import { validatorMiddleware } from './validator-middleware.js';
 
 /**
  *
@@ -23,27 +24,39 @@ export const HolderRouter = (): Router => {
   const router = Router();
   router.use(json({ limit: '10mb' }));
 
-  router.get('/credentials/:id', getCredential);
+  router.get('/credentials/:id', validatorMiddleware(), getCredential);
 
-  router.get('/credentials', getCredentials);
+  router.get('/credentials', validatorMiddleware(), getCredentials);
 
-  router.delete('/credentials/:id', deleteCredential);
+  router.delete('/credentials/:id', validatorMiddleware(), deleteCredential);
 
-  router.post('/credentials/derive', deriveCredential);
+  router.post('/credentials/derive', validatorMiddleware(), deriveCredential);
 
-  router.get('/presentations/:id', getPresentation);
+  router.get('/presentations/:id', validatorMiddleware(), getPresentation);
 
-  router.get('/presentations', getPresentations);
+  router.get('/presentations', validatorMiddleware(), getPresentations);
 
-  router.post('/presentations/prove', provePresentation);
+  router.post('/presentations/prove', validatorMiddleware(), provePresentation);
 
-  router.delete('/presentations/:id', deletePresentation);
+  router.delete(
+    '/presentations/:id',
+    validatorMiddleware(),
+    deletePresentation
+  );
 
-  router.get('/exchanges', getExchanges);
+  router.get('/exchanges', validatorMiddleware(), getExchanges);
 
-  router.post('/exchanges/:exchangeId', initiateExchange);
+  router.post(
+    '/exchanges/:exchangeId',
+    validatorMiddleware(),
+    initiateExchange
+  );
 
-  router.post('/exchanges/:exchangeId/:transactionId', receiveExchange);
+  router.post(
+    '/exchanges/:exchangeId/:transactionId',
+    validatorMiddleware(),
+    receiveExchange
+  );
 
   return router;
 };

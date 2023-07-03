@@ -8,6 +8,7 @@ import {
   VerifierCredentialRequestPayload,
   VerifierPresentationRequestPayload,
 } from './types/verifier.js';
+import { validatorMiddleware } from './validator-middleware.js';
 
 interface RequestWithAgent extends Request {
   agent?: IAgent;
@@ -48,6 +49,7 @@ export const VerifierRouter = ({
 
   router.post(
     '/credentials/verify',
+    validatorMiddleware(),
     async (req: RequestWithAgent, res: Response, next: NextFunction) => {
       if (!req.agent) {
         throw Error('Agent not available');
@@ -71,6 +73,7 @@ export const VerifierRouter = ({
 
   router.post(
     '/presentations/verify',
+    validatorMiddleware(),
     async (req: RequestWithAgent, res: Response, next: NextFunction) => {
       if (!req.agent) {
         throw Error('Agent not available');
