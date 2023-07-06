@@ -1,12 +1,16 @@
 import {
   ICreateVerifiableCredentialArgs,
-  VerifiableCredential,
+  IVerifyCredentialArgs,
+  IVerifyPresentationArgs,
 } from '@vckit/core-types';
 import { IssuerConfiguration } from '../config';
 import {
-  IssueCredentialRequestPayload,
-  IssueCredentialResponsePayload,
+  IssueCredentialRequestPayload
 } from '../types';
+import {
+  VerifierCredentialRequestPayload,
+  VerifierPresentationRequestPayload,
+} from '../types/verifier';
 
 export const mapCredentialPayload = (
   payload: IssueCredentialRequestPayload,
@@ -17,14 +21,28 @@ export const mapCredentialPayload = (
   return {
     credential: payload.credential,
     ...configuration,
-    ...options
+    ...options,
   };
 };
 
-export const mapCredentialResponse = (
-  verifiableCredential: VerifiableCredential
-): IssueCredentialResponsePayload => {
+export const mapVerifiableCredentialPayload = (
+  payload: VerifierCredentialRequestPayload
+): IVerifyCredentialArgs => {
+  const options = payload.options || {};
+
   return {
-    verifiableCredential,
+    credential: payload.verifiableCredential,
+    ...options,
+  };
+};
+
+export const mapVerifiablePresentationPayload = (
+  payload: VerifierPresentationRequestPayload
+): IVerifyPresentationArgs => {
+  const options = payload.options || {};
+
+  return {
+    presentation: payload.verifiablePresentation,
+    ...options,
   };
 };
