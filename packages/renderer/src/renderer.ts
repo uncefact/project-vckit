@@ -1,5 +1,6 @@
 import jsonld from '@digitalcredentials/jsonld';
 import { JsonLdObj } from 'jsonld/jsonld-spec';
+import { Buffer } from 'buffer';
 
 import {
   VerifiableCredential,
@@ -68,7 +69,7 @@ export class Renderer implements IAgentPlugin {
    */
   async renderCredential(
     args: IRenderCredentialArgs,
-    context: IRendererContext
+    context?: IRendererContext
   ): Promise<IRenderResult> {
     try {
       const [expandedDocument] = await expandVerifiableCredential(
@@ -105,7 +106,8 @@ export class Renderer implements IAgentPlugin {
 function expandVerifiableCredential(
   credential: VerifiableCredential | UnsignedCredential
 ) {
-  return jsonld.expand(credential);
+  // base: null is used to prevent jsonld from resolving relative URLs.
+  return jsonld.expand(credential, { base: null });
 }
 
 /**

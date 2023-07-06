@@ -1,4 +1,5 @@
 import { Renderer } from '../src/Renderer';
+import { WebRenderingTemplate2022 } from '../src/providers/web-rendering-template-2022';
 import {
   IRendererProvider,
   IRenderCredentialArgs,
@@ -9,7 +10,7 @@ import universityDegreeCredential from '../fixtures/university-degree-credential
 
 describe('Renderer', () => {
   // Mock renderer provider
-  const WebRenderingTemplate2022: IRendererProvider = {
+  const MockWebRenderingTemplate2022: IRendererProvider = {
     async renderCredential(template: string, document: any): Promise<string> {
       // Mock implementation
       return 'Rendered credential successfully';
@@ -19,7 +20,15 @@ describe('Renderer', () => {
   // Create an instance of Renderer
   const renderer = new Renderer({
     providers: {
-      WebRenderingTemplate2022,
+      WebRenderingTemplate2022: new WebRenderingTemplate2022(),
+    },
+    defaultProvider: 'WebRenderingTemplate2022',
+  });
+
+  // Create an instance of Renderer with mock provider
+  const rendererMockProvider = new Renderer({
+    providers: {
+      WebRenderingTemplate2022: MockWebRenderingTemplate2022,
     },
     defaultProvider: 'WebRenderingTemplate2022',
   });
@@ -27,7 +36,7 @@ describe('Renderer', () => {
   // Create an instance of Renderer with no default provider
   const rendererNoDefault = new Renderer({
     providers: {
-      WebRenderingTemplate2022,
+      WebRenderingTemplate2022: MockWebRenderingTemplate2022,
     },
   });
 
@@ -46,7 +55,7 @@ describe('Renderer', () => {
 
     // Verify the result
     expect(result.documents).toEqual([
-      'UmVuZGVyZWQgY3JlZGVudGlhbCBzdWNjZXNzZnVsbHk=',
+      'PGRpdiBzdHlsZT0id2lkdGg6MzAwcHg7IGhlaWdodDoxMDBweDsgYm9yZGVyOiAycHggc29saWQgYmxhY2s7IHRleHQtYWxpZ246Y2VudGVyIj4KICA8ZGl2PgogICAgVGhpcyBCYWNoZWxvciBvZiBTY2llbmNlIGFuZCBBcnRzIGlzIGNvbmZlcnJlZCB0bwogIDwvZGl2PgogIDxzdHJvbmcgc3R5bGU9ImZvbnQtc2l6ZTogMTZweCI+CiAgICBKYW5lIFNtaXRoCiAgPC9zdHJvbmc+CiAgPGRpdj4KICAgIGJ5IEV4YW1wbGUgVW5pdmVyc2l0eS4KICA8L2Rpdj4KPC9kaXY+',
     ]);
   });
 
@@ -67,7 +76,7 @@ describe('Renderer', () => {
     const context = {};
 
     // Call the renderCredential method
-    const result: IRenderResult = await renderer.renderCredential(
+    const result: IRenderResult = await rendererMockProvider.renderCredential(
       args,
       context as IRendererContext
     );
@@ -102,7 +111,7 @@ describe('Renderer', () => {
 
     // Call the renderCredential method
     await expect(
-      renderer.renderCredential(args, context as IRendererContext)
+      rendererMockProvider.renderCredential(args, context as IRendererContext)
     ).rejects.toThrow('Render method not found in the verifiable credential');
   });
 
@@ -137,7 +146,7 @@ describe('Renderer', () => {
 
     // Call the renderCredential method
     await expect(
-      renderer.renderCredential(args, context as IRendererContext)
+      rendererMockProvider.renderCredential(args, context as IRendererContext)
     ).rejects.toThrow('Render method not found in the verifiable credential');
   });
 
@@ -165,7 +174,7 @@ describe('Renderer', () => {
     const context = {};
 
     // Call the renderCredential method
-    const result: IRenderResult = await renderer.renderCredential(
+    const result: IRenderResult = await rendererMockProvider.renderCredential(
       args,
       context as IRendererContext
     );
