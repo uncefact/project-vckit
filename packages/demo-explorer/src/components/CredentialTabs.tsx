@@ -10,6 +10,7 @@ import { EllipsisOutlined } from '@ant-design/icons'
 import { formatRelative } from 'date-fns'
 import { ProCard } from '@ant-design/pro-components'
 import CredentialActionsDropdown from './CredentialActionsDropdown'
+import CredentialRender from './CredentialRender'
 
 interface CredentialTabsProps {
   credential: Vcred
@@ -55,6 +56,11 @@ const CredentialTabs: React.FC<CredentialTabsProps> = ({ credential }) => {
           key: '2',
           label: 'Data',
           children: <JsonBlock title="Raw JSON" data={credential} />,
+        },
+        {
+          key: '3',
+          label: 'Rendered',
+          children: <CredentialRender credential={credential} />,
         },
       ]}
     />
