@@ -11,14 +11,17 @@
     "extract-api": "node ../cli/bin/vckit.js dev extract-api"
   },
   "dependencies": {
+    "@transmute/ed25519-key-pair": "0.7.0-unstable.81",
     "@vckit/app": "^1.0.0-beta.4",
     "@vckit/core-types": "^1.0.0-beta.5",
     "@vckit/remote-client": "^1.0.0-beta.5",
+    "@veramo/utils": "5.2.0",
     "debug": "^4.3.3",
     "did-resolver": "^4.0.1",
     "express": "^4.18.2",
     "passport": "^0.6.0",
     "passport-http-bearer": "^1.0.1",
+    "uint8arrays": "^4.0.3",
     "url-parse": "^1.5.4"
   },
   "devDependencies": {

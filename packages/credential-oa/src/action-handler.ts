@@ -21,22 +21,27 @@ import {
 } from '@govtechsg/open-attestation';
 
 import {
-  extractIssuer,
   MANDATORY_CREDENTIAL_CONTEXT,
   processEntryToArray,
 } from '@veramo/utils';
 
 import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
 
-import { isValid, verify } from '@govtechsg/oa-verify';
+import {
+  isValid,
+  openAttestationDidIdentityProof,
+  openAttestationDidSignedDocumentStatus,
+  openAttestationDnsDidIdentityProof,
+  openAttestationDnsTxtIdentityProof,
+  openAttestationHash,
+  verificationBuilder,
+  utils as oaVerifyUtils,
+} from '@govtechsg/oa-verify';
 
 const OA_MANDATORY_CREDENTIAL_CONTEXT =
   'https://schemata.openattestation.com/com/openattestation/1.0/OpenAttestation.v3.json';
 
-const OA_MANDATORY_CREDENTIAL_TYPES = [
-  'VerifiableCredential',
-  'OpenAttestationCredential',
-];
+const OA_MANDATORY_CREDENTIAL_TYPES = 'VerifiableCredential';
 
 /**
  
@@ -75,15 +80,18 @@ export class CredentialIssuerOA implements IAgentPlugin {
       MANDATORY_CREDENTIAL_CONTEXT
     );
 
-    const credentialType = processEntryToArray(credentialInput.type);
+    const credentialType = processEntryToArray(
+      credentialInput.type,
+      OA_MANDATORY_CREDENTIAL_TYPES
+    );
 
     const credential = {
       ...credentialInput,
       '@context': [...credentialContext, OA_MANDATORY_CREDENTIAL_CONTEXT],
-      type: [...credentialType, ...OA_MANDATORY_CREDENTIAL_TYPES],
+      type: credentialType,
     };
 
-    let wrappedDocument;
+    let wrappedDocument: WrappedDocument<OpenAttestationDocument>;
     try {
       wrappedDocument =
         //@ts-ignore
@@ -94,7 +102,7 @@ export class CredentialIssuerOA implements IAgentPlugin {
       );
     }
 
-    const issuer = extractIssuer(credential);
+    const issuer = wrappedDocument.openAttestationMetadata.proof.value;
 
     let identifier: IIdentifier;
     try {
@@ -138,11 +146,32 @@ export class CredentialIssuerOA implements IAgentPlugin {
         );
       }
 
-      const fragments = await verify(credential);
+      const ethProvider = oaVerifyUtils.generateProvider({
+        // TODO: remove hardcoded eth testnet config for OA verifier
+        network: 'goerli',
+      });
 
-      return {
-        verified: isValid(fragments),
-      };
+      const oaVerifiersToRun = [
+        openAttestationHash,
+        openAttestationDidSignedDocumentStatus,
+        openAttestationDnsTxtIdentityProof,
+        openAttestationDnsDidIdentityProof,
+        openAttestationDidIdentityProof,
+      ];
+
+      const builtVerifier = verificationBuilder(oaVerifiersToRun, {
+        provider: ethProvider,
+      });
+      const fragments = await builtVerifier(credential);
+
+      const verified = isValid(fragments)
+      const verificationResult = {
+        verified,
+        ...(verified && {verifiableCredential: credential})
+      }
+
+      return verificationResult;
+
     } catch (error) {
       return {
         verified: false,

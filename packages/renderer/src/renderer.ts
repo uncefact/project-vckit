@@ -1,5 +1,6 @@
 import jsonld from '@digitalcredentials/jsonld';
 import { JsonLdObj } from 'jsonld/jsonld-spec';
+import { Buffer } from 'buffer';
 
 import {
   VerifiableCredential,
@@ -68,7 +69,7 @@ export class Renderer implements IAgentPlugin {
    */
   async renderCredential(
     args: IRenderCredentialArgs,
-    context: IRendererContext
+    context?: IRendererContext
   ): Promise<IRenderResult> {
     try {
       const [expandedDocument] = await expandVerifiableCredential(
@@ -84,7 +85,7 @@ export class Renderer implements IAgentPlugin {
         renderMethods.map(async (renderMethod) => {
           const rendererProvider = this.getProvider(renderMethod['@type']);
           const document = await rendererProvider.renderCredential(
-            renderMethod['@id'],
+            renderMethod.template,
             args.credential
           );
           return convertToBase64(document);
@@ -105,7 +106,8 @@ export class Renderer implements IAgentPlugin {
 function expandVerifiableCredential(
   credential: VerifiableCredential | UnsignedCredential
 ) {
-  return jsonld.expand(credential);
+  // base: null is used to prevent jsonld from resolving relative URLs.
+  return jsonld.expand(credential, { base: null });
 }
 
 /**
@@ -118,7 +120,7 @@ function extractRenderMethods(
 ): RenderMethodPayload[] | [] {
   const renders = ((expandedDocument[RENDER_METHOD] as JsonLdObj[]) || [])
     .filter((render) => {
-      return render['@id'] && render['@type'];
+      return render[`${RENDER_METHOD}#template`] && render['@type'];
     })
     .map((render) => {
       // TODO: Handle @type as an array of strings with more than one element.
@@ -126,7 +128,12 @@ function extractRenderMethods(
         ? render['@type'][0]
         : render['@type'];
 
-      return { ...render, '@type': type } as RenderMethodPayload;
+      const template = (
+        render[`${RENDER_METHOD}#template`] as {
+          '@value': string;
+        }[]
+      )[0]['@value'];
+      return { template, '@type': type } as RenderMethodPayload;
     });
 
   return renders;

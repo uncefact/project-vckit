@@ -1,0 +1,188 @@
+{
+  "name": "@vckit/demo-explorer",
+  "version": "1.15.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "license": "Apache-2.0",
+  "files": [
+    "build",
+    "bin",
+    "lib"
+  ],
+  "main": "lib/express-router.js",
+  "bin": {
+    "agent-explore": "./bin/bin.js"
+  },
+  "scripts": {
+    "dev": "craco start",
+    "build": "pnpm run build:explorer && pnpm run build:verifier",
+    "build:explorer": "craco build",
+    "build:verifier": "REACT_APP_MODE=verifier craco build",
+    "test": "craco test --watchAll=false",
+    "release": "semantic-release",
+    "agent-explore": "./bin/bin.js",
+    "upgrade-veramo": "yarn add -D @veramo/core @veramo/did-discovery @veramo/credential-w3c @veramo/data-store @veramo/did-comm @veramo/did-jwt @veramo/did-resolver @veramo/message-handler @veramo/remote-client @veramo/selective-disclosure @veramo/credential-eip712 @veramo/data-store-json @veramo/did-manager @veramo/kms-web3 @veramo/key-manager @veramo/did-provider-ethr @veramo/utils @veramo/did-provider-peer @veramo/kms-local",
+    "upgrade-veramo:next": "yarn add -D @veramo/core@next @veramo/did-discovery@next @veramo/credential-w3c@next @veramo/data-store@next @veramo/did-comm@next @veramo/did-jwt@next @veramo/did-resolver@next @veramo/message-handler@next @veramo/remote-client@next @veramo/selective-disclosure@next @veramo/credential-eip712@next @veramo/data-store-json@next @veramo/did-manager@next @veramo/kms-web3@next @veramo/key-manager@next @veramo/did-provider-ethr@next @veramo/utils@next @veramo/did-provider-peer@next @veramo/kms-local@next"
+  },
+  "homepage": "https://explore.veramo.dev",
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "prettier": {
+    "jsxBracketSameLine": false,
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "printWidth": 80,
+    "singleQuote": true,
+    "semi": false
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "browserslist": {
+    "production": [
+      "chrome >= 67",
+      "edge >= 79",
+      "firefox >= 68",
+      "opera >= 54",
+      "safari >= 14"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@jsonforms/material-renderers": "^3.1.0",
+    "@jsonforms/react": "^3.1.0",
+    "@vckit/example-documents": "workspace:^1.0.0-beta.4",
+    "@vckit/remote-client": "workspace:^1.0.0-beta.4",
+    "@vckit/renderer": "workspace:^*",
+    "commander": "^10.0.1",
+    "express": "^4.18.2",
+    "express-favicon": "^2.0.4"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "ci": true,
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json"
+          ],
+          "message": "chore(release): :rocket: New version ${nextRelease.version} [skip ci] \n\n${nextRelease.notes}"
+        }
+      ],
+      "@semantic-release/github"
+    ]
+  },
+  "devDependencies": {
+    "@ant-design/icons": "^5.1.4",
+    "@ant-design/pro-components": "^2.5.3",
+    "@babel/plugin-syntax-import-assertions": "^7.20.0",
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
+    "@craco/craco": "^7.1.0",
+    "@ethersproject/providers": "^5.7.2",
+    "@rjsf/antd": "^5.7.3",
+    "@rjsf/core": "^5.7.3",
+    "@rjsf/utils": "^5.7.3",
+    "@rjsf/validator-ajv8": "^5.7.3",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^10.0.3",
+    "@semantic-release/release-notes-generator": "^11.0.2",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/chart.js": "^2.9.37",
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.1",
+    "@types/json-schema": "^7.0.12",
+    "@types/md5": "^2.3.2",
+    "@types/random-words": "^1.1.2",
+    "@types/react": "^18.2.7",
+    "@types/react-dom": "^18.2.4",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/url-parse": "^1.4.8",
+    "@types/uuid": "^9.0.1",
+    "@veramo-community/react-components": "^1.4.0",
+    "@veramo-community/veramo-react": "^1.0.82",
+    "@veramo/core": "5.2.1-next.5",
+    "@veramo/core-types": "5.2.1-next.5",
+    "@veramo/credential-eip712": "5.2.1-next.5",
+    "@veramo/credential-w3c": "5.2.1-next.5",
+    "@veramo/data-store": "5.2.1-next.5",
+    "@veramo/data-store-json": "5.2.1-next.5",
+    "@veramo/did-comm": "5.2.1-next.5",
+    "@veramo/did-discovery": "5.2.1-next.5",
+    "@veramo/did-jwt": "5.2.1-next.5",
+    "@veramo/did-manager": "5.2.1-next.5",
+    "@veramo/did-provider-ethr": "5.2.1-next.5",
+    "@veramo/did-provider-peer": "5.2.1-next.5",
+    "@veramo/did-resolver": "5.2.1-next.5",
+    "@veramo/key-manager": "5.2.1-next.5",
+    "@veramo/kms-local": "5.2.1-next.5",
+    "@veramo/kms-web3": "5.2.1-next.5",
+    "@veramo/message-handler": "5.2.1-next.5",
+    "@veramo/remote-client": "5.2.1-next.5",
+    "@veramo/selective-disclosure": "5.2.1-next.5",
+    "@veramo/utils": "5.2.1-next.5",
+    "@web3-react/core": "^8.2.0",
+    "@web3-react/metamask": "^8.2.1",
+    "@web3-react/types": "^8.2.0",
+    "@web3-react/walletconnect": "^8.2.0",
+    "@yudiel/react-qr-scanner": "^1.1.8",
+    "antd": "~5.5.2",
+    "assert": "npm:assert-browserify@^2.0.0",
+    "browserify-zlib": "^0.2.0",
+    "buffer": "^6.0.3",
+    "crypto": "npm:crypto-browserify@^3.12.0",
+    "date-fns": "^2.30.0",
+    "did-resolver": "^4.1.0",
+    "ethr-did-resolver": "^8.0.0",
+    "https-browserify": "^1.0.0",
+    "husky": "^8.0.3",
+    "md5": "^2.3.0",
+    "prettier": "^2.8.8",
+    "pretty-quick": "^3.1.3",
+    "random-words": "^1.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-error-overlay": "^6.0.11",
+    "react-query": "^3.39.3",
+    "react-router": "^6.11.2",
+    "react-router-dom": "^6.11.2",
+    "react-scripts": "^5.0.1",
+    "semantic-release": "^21.0.2",
+    "stream": "npm:stream-browserify@^3.0.0",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "typescript": "^4.9.5",
+    "url": "^0.11.0",
+    "url-parse": "^1.5.10",
+    "util": "^0.12.5",
+    "uuid": "^9.0.0",
+    "web-did-resolver": "^2.0.24",
+    "web-vitals": "^3.3.2"
+  }
+}

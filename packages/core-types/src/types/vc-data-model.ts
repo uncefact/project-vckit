@@ -212,7 +212,7 @@ export enum RenderingType {
  * @beta This API may change without prior notice.
  */
 export interface RenderMethodPayload {
-  '@id': string;
+  '@id'?: string;
   '@type': RenderingType;
 
   [x: string]: any; // Additional properties can be added dynamically

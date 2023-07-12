@@ -3,11 +3,13 @@ import { ProofFormat } from '@vckit/core-types';
 export type IssuerConfiguration = {
   proofFormat: ProofFormat;
   removeOriginalFields: boolean;
-  save: boolean
+  save: boolean;
+
+  [x: string]: any;
 };
 
 export const configuration: IssuerConfiguration = {
-  proofFormat: 'OpenAttestationMerkleProofSignature2018', // The proof format required by the schema. Default to OpenAttestationMerkleProofSignature2018.
+  proofFormat: 'lds', // The proof format only supports 'lds' at the moment.
 
   removeOriginalFields: false, // Remove payload members during JWT-JSON transformation. Defaults to `true`.
 
