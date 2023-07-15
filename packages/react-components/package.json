@@ -1,0 +1,59 @@
+{
+  "name": "@vckit/react-components",
+  "version": "1.0.0-beta.5",
+  "dependencies": {
+    "qrcode": "^1.5.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "plugin:storybook/recommended"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.1.0-rc.2",
+    "@storybook/addon-interactions": "^7.1.0-rc.2",
+    "@storybook/addon-links": "^7.1.0-rc.2",
+    "@storybook/addon-onboarding": "^1.0.7",
+    "@storybook/blocks": "^7.1.0-rc.2",
+    "@storybook/preset-create-react-app": "^7.1.0-rc.2",
+    "@storybook/react": "^7.1.0-rc.2",
+    "@storybook/react-webpack5": "^7.1.0-rc.2",
+    "@storybook/testing-library": "^0.2.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/qrcode": "^1.5.1",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "babel-plugin-named-exports-order": "^0.0.2",
+    "eslint-plugin-storybook": "^0.6.12",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "storybook": "^7.1.0-rc.2",
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.88.1"
+  }
+}
