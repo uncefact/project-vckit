@@ -188,54 +188,6 @@
             },
             "ethereumAddress": {
               "type": "string"
-            },
-            "conditionOr": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "conditionAnd": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "threshold": {
-              "type": "number"
-            },
-            "conditionThreshold": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "conditionWeightedThreshold": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ConditionWeightedThreshold"
-              }
-            },
-            "conditionDelegated": {
-              "type": "string"
-            },
-            "relationshipParent": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "relationshipChild": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "relationshipSibling": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
             }
           },
           "required": [
@@ -289,21 +241,6 @@
             "kty"
           ],
           "description": "Encapsulates a JSON web key type that includes only the public properties that can be used in DID documents.\n\nThe private properties are intentionally omitted to discourage the use (and accidental disclosure) of private keys in DID documents."
-        },
-        "ConditionWeightedThreshold": {
-          "type": "object",
-          "properties": {
-            "condition": {
-              "$ref": "#/components/schemas/VerificationMethod"
-            },
-            "weight": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "condition",
-            "weight"
-          ]
         },
         "Service": {
           "type": "object",
@@ -1750,54 +1687,6 @@
             },
             "ethereumAddress": {
               "type": "string"
-            },
-            "conditionOr": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "conditionAnd": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "threshold": {
-              "type": "number"
-            },
-            "conditionThreshold": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "conditionWeightedThreshold": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ConditionWeightedThreshold"
-              }
-            },
-            "conditionDelegated": {
-              "type": "string"
-            },
-            "relationshipParent": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "relationshipChild": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "relationshipSibling": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
             }
           },
           "required": [
@@ -1851,21 +1740,6 @@
             "kty"
           ],
           "description": "Encapsulates a JSON web key type that includes only the public properties that can be used in DID documents.\n\nThe private properties are intentionally omitted to discourage the use (and accidental disclosure) of private keys in DID documents."
-        },
-        "ConditionWeightedThreshold": {
-          "type": "object",
-          "properties": {
-            "condition": {
-              "$ref": "#/components/schemas/VerificationMethod"
-            },
-            "weight": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "condition",
-            "weight"
-          ]
         },
         "Service": {
           "type": "object",
@@ -5598,54 +5472,6 @@
             },
             "ethereumAddress": {
               "type": "string"
-            },
-            "conditionOr": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "conditionAnd": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "threshold": {
-              "type": "number"
-            },
-            "conditionThreshold": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "conditionWeightedThreshold": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ConditionWeightedThreshold"
-              }
-            },
-            "conditionDelegated": {
-              "type": "string"
-            },
-            "relationshipParent": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "relationshipChild": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "relationshipSibling": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
             }
           },
           "required": [
@@ -5699,21 +5525,6 @@
             "kty"
           ],
           "description": "Encapsulates a JSON web key type that includes only the public properties that can be used in DID documents.\n\nThe private properties are intentionally omitted to discourage the use (and accidental disclosure) of private keys in DID documents."
-        },
-        "ConditionWeightedThreshold": {
-          "type": "object",
-          "properties": {
-            "condition": {
-              "$ref": "#/components/schemas/VerificationMethod"
-            },
-            "weight": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "condition",
-            "weight"
-          ]
         },
         "Service": {
           "type": "object",
