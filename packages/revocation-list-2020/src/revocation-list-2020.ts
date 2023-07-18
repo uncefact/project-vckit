@@ -19,7 +19,6 @@ import {
  */
 export class RevocationStatus2020 implements IAgentPlugin {
   readonly methods: IRevocationStore;
-  readonly schema = schema.IRevocationList2020;
   private dbConnection: OrPromise<DataSource>;
   private store: RevocationDataStore;
 
