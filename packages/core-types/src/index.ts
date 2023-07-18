@@ -30,3 +30,4 @@ export * from './types/IQRCodeEndpoint.js';
 export * from './types/IRender.js';
 export * from './types/IRendererProvider.js';
 export * from './types/IEncryptedStorage.js';
+export * from './types/IRevocationList2020.js';
