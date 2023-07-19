@@ -1,6 +1,9 @@
 import { IPluginMethodMap, IAgent } from './IAgent';
 import { Request } from 'express';
 
+/**
+ * @public
+ */
 export interface IRevocationListDataArgs {
   revocationListPath: string;
   bitStringLength: string;
@@ -8,10 +11,16 @@ export interface IRevocationListDataArgs {
   revocationVCIssuer: string;
 }
 
+/**
+ * @public
+ */
 export interface RequestWithAgent extends Request {
   agent?: IAgent;
 }
 
+/**
+ * @public
+ */
 export interface IRevocationStore extends IPluginMethodMap {
   getRevocationData(
     args: IRevocationListDataArgs,

@@ -29,8 +29,7 @@
       "ICredentialStatusVerifier": "./src/types/ICredentialStatusVerifier.ts",
       "ICredentialStatusManager": "./src/types/ICredentialStatusManager.ts",
       "IRenderer": "./src/types/IRender.ts",
-      "IEncryptedStorage": "./src/types/IEncryptedStorage.ts",
-      "IRevocationList2020": "./src/types/IRevocationList2020.ts"
+      "IEncryptedStorage": "./src/types/IEncryptedStorage.ts"
     }
   },
   "dependencies": {
