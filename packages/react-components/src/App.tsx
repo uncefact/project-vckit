@@ -1,5 +1,5 @@
 import './App.css';
-import { QrCodeDocumentWrapper } from './components/qrCodeDocumentWrapper';
+import { QrCodeDocumentWrapper } from './components/QrCodeDocumentWrapper';
 
 /**
  * The App component is the entry point of the application. It is responsible for render the components as the demo page.
