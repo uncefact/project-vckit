@@ -1,4 +1,4 @@
-import { QrCodeDocumentWrapper } from '../components/qrCodeDocumentWrapper';
+import { QrCodeDocumentWrapper } from '../src/components/QrCodeDocumentWrapper';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

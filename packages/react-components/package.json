@@ -1,11 +1,13 @@
 {
   "name": "@vckit/react-components",
   "version": "1.0.0-beta.5",
-  "dependencies": {
-    "qrcode": "^1.5.3"
-  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "type": "module",
   "scripts": {
     "start": "react-scripts start",
+    "build": "tsc",
+    "build:watch": "tsc -b --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -28,7 +30,15 @@
       "last 1 safari version"
     ]
   },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.3"
+  },
   "devDependencies": {
+    "@babel/preset-react": "^7.7.0",
+    "@babel/preset-typescript": "^7.22.5",
     "@storybook/addon-essentials": "^7.1.0-rc.2",
     "@storybook/addon-interactions": "^7.1.0-rc.2",
     "@storybook/addon-links": "^7.1.0-rc.2",
@@ -53,6 +63,8 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "storybook": "^7.1.0-rc.2",
+    "tslib": "^2.6.0",
+    "typescript": "^5.1.6",
     "web-vitals": "^2.1.4",
     "webpack": "^5.88.1"
   }

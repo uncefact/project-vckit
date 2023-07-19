@@ -3,7 +3,7 @@ import { DndProvider } from 'react-dnd';
 import {
   QrCodeDocumentContainer,
   QrCodeDocumentContainerProps,
-} from './qrCodeDocumentContainer';
+} from './QrCodeDocumentContainer.js';
 
 export function QrCodeDocumentWrapper({
   qrCodeValue,

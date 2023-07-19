@@ -1,7 +1,7 @@
 import { CSSProperties, useCallback, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import type { XYCoord } from 'react-dnd';
-import { QRCode } from '../qrCode';
+import { QRCode } from '../QrCode/QrCode.js';
 
 const styles: { [key: string]: CSSProperties } = {
   renderContainer: {
