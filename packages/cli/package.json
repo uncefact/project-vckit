@@ -47,6 +47,7 @@
     "@vckit/remote-server": "^1.0.0-beta.5",
     "@vckit/renderer": "^1.0.0-beta.5",
     "@vckit/vc-api": "workspace:1.0.0-beta.5",
+    "@vckit/encrypted-storage": "workspace:*",
     "@veramo/credential-eip712": "^5.2.0",
     "@veramo/credential-ld": "^5.2.0",
     "@veramo/credential-w3c": "^5.2.0",

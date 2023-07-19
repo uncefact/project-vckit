@@ -6203,5 +6203,102 @@
         }
       }
     }
+  },
+  "IEncryptedStorage": {
+    "components": {
+      "schemas": {
+        "IEncryptAndStoreDataArgs": {
+          "type": "object",
+          "properties": {
+            "data": {}
+          },
+          "required": [
+            "data"
+          ]
+        },
+        "IEncrypteAndStoreDataResult": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "key"
+          ]
+        },
+        "IFetchEncryptedDataArgs": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          }
+        },
+        "IFetchEncryptedDataByCredentialHashArgs": {
+          "type": "object",
+          "properties": {
+            "credentialHash": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "credentialHash"
+          ]
+        },
+        "IFetchEncryptedDataByCredentialHashResult": {
+          "type": "object",
+          "properties": {
+            "encryptedData": {
+              "type": "string"
+            },
+            "encryptedDataId": {
+              "type": "string"
+            },
+            "decryptedKey": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "encryptedData",
+            "encryptedDataId",
+            "decryptedKey"
+          ]
+        }
+      },
+      "methods": {
+        "encryptAndStoreData": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IEncryptAndStoreDataArgs"
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/IEncrypteAndStoreDataResult"
+          }
+        },
+        "fetchEncryptedData": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IFetchEncryptedDataArgs"
+          },
+          "returnType": {
+            "type": "string"
+          }
+        },
+        "fetchEncryptedDataByCredentialHash": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IFetchEncryptedDataByCredentialHashArgs"
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/IFetchEncryptedDataByCredentialHashResult"
+          }
+        }
+      }
+    }
   }
 }
