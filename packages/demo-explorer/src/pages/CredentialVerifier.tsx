@@ -134,6 +134,7 @@ const CredentialVerifier = () => {
           verificationResult?.verifiableCredential && (
             <CredentialTabs
               credential={verificationResult?.verifiableCredential}
+              hash=""
             />
           )}
       </Space>
