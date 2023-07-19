@@ -36,6 +36,11 @@ export function revocationList2020(args: {
         throw Error('Agent not available');
       }
 
+      if (!req.body || !args.apiRoutes.includes(req.path)) {
+        next();
+        return;
+      }
+
       try {
         const revocationData = await req.agent.execute('getRevocationData', {
           revocationListPath: args.revocationListPath,
