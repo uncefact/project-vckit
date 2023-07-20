@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useDropzone } from 'react-dropzone'
 import { useVeramo } from '@veramo-community/veramo-react'
 import '@veramo-community/react-components/dist/cjs/index.css'
@@ -7,10 +8,13 @@ import CredentialTabs from '../components/CredentialTabs'
 import { ICredentialPlugin, IVerifyResult } from '@veramo/core'
 import { Alert, Button, Input, Space, Tabs, Typography, theme } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
+import { decryptString } from '@govtechsg/oa-encryption'
+import { computeEntryHash } from '@veramo/utils'
 
 const { TextArea } = Input
 
 const CredentialVerifier = () => {
+  const location = useLocation()
   const { token } = theme.useToken()
   const { agent } = useVeramo<ICredentialPlugin>()
   const [verificationResult, setVerificationResult] = useState<
@@ -18,6 +22,48 @@ const CredentialVerifier = () => {
   >(undefined)
   const [text, setText] = useState<string>('')
   const [isVerifying, setIsVerifying] = useState<boolean>(false)
+  const [hash, setHash] = useState<string>('')
+
+  const fetchEncryptedVC = useCallback(async () => {
+    const queryParams = new URLSearchParams(location.search)
+    const query = queryParams.get('q')
+    if (!query) return
+
+    const payload = JSON.parse(decodeURIComponent(query))
+    const { uri, decryptedKey } = payload.payload
+    const encryptedCredential = await fetch(uri).then((res) => res.json())
+    const stringifyVC = decryptString({
+      ...encryptedCredential.document,
+      key: decryptedKey,
+    })
+    const vc = JSON.parse(stringifyVC)
+
+    setHash(computeEntryHash(stringifyVC))
+
+    try {
+      const result = await agent?.verifyCredential({
+        credential: vc,
+        fetchRemoteContexts: true,
+      })
+
+      setVerificationResult(result)
+      if (result?.verified) {
+        setVerificationResult((result) => {
+          if (!result) return result
+          return { ...result, verifiableCredential: vc }
+        })
+      }
+    } catch (e: any) {
+      setVerificationResult({
+        verified: false,
+        error: { message: e.message },
+      })
+    }
+  }, [location.search, agent])
+
+  useEffect(() => {
+    fetchEncryptedVC()
+  }, [fetchEncryptedVC])
 
   const verify = useCallback(
     async (text: string) => {
@@ -26,6 +72,7 @@ const CredentialVerifier = () => {
       try {
         const result = await agent?.verifyCredential({
           credential: JSON.parse(text),
+          fetchRemoteContexts: true,
         })
         setVerificationResult(result)
       } catch (e: any) {
@@ -134,7 +181,7 @@ const CredentialVerifier = () => {
           verificationResult?.verifiableCredential && (
             <CredentialTabs
               credential={verificationResult?.verifiableCredential}
-              hash=""
+              hash={hash}
             />
           )}
       </Space>
