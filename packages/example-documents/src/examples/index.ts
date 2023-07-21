@@ -65,17 +65,6 @@ import UniversityDegreeCredential from './UniversityDegreeCredential.json' asser
 import TradeTrustInvoice from './TradeTrustInvoice.json' assert { type: 'json' };
 
 export const credentialsIssueExamples = {
-  BankAccountCredential: {
-    description: 'BankAccountCredential',
-    value: JSON.stringify(
-      {
-        credential: BankAccountCredential,
-        proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      },
-      null,
-      2
-    ),
-  },
   BillOfLadingCredential: {
     description: 'BillOfLadingCredential',
     value: JSON.stringify(

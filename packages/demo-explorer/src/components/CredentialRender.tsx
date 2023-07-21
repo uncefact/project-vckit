@@ -1,13 +1,15 @@
 import { ProCard } from '@ant-design/pro-components'
-import { VerifiableCredential } from '@veramo/core'
-import IdentifierProfile from './IdentifierProfile'
-import { getIssuerDID } from '../utils/did'
-import { useCallback, useEffect, useState } from 'react'
-import { convertBase64ToString } from '../utils/helpers'
-import { Renderer, WebRenderingTemplate2022 } from '@vckit/renderer'
 import { QrCodeDocumentWrapper } from '@vckit/react-components'
-import { useQuery } from 'react-query'
+import { Renderer, WebRenderingTemplate2022 } from '@vckit/renderer'
 import { useVeramo } from '@veramo-community/veramo-react'
+import { VerifiableCredential } from '@veramo/core'
+import { Button } from 'antd'
+import html2canvas from 'html2canvas'
+import { useCallback, useEffect, useState } from 'react'
+import { useQuery } from 'react-query'
+import { getIssuerDID } from '../utils/did'
+import { convertBase64ToString } from '../utils/helpers'
+import IdentifierProfile from './IdentifierProfile'
 
 interface CredentialRenderProps {
   credential: VerifiableCredential
@@ -76,13 +78,33 @@ const CredentialRender: React.FC<CredentialRenderProps> = ({
     inititalQrCodeValue,
   ])
 
+  function printdiv() {
+    var printWindow = window.open('', '')
+
+    html2canvas(document.getElementById('qrCodeContainer')!)
+      .then((canvas: any) => {
+        var canvasObj =
+          '<img src="' + canvas.toDataURL() + '" style="width:785px"/>'
+
+        printWindow!.document.write('<html>')
+        printWindow!.document.write('<body>')
+        printWindow!.document.write(canvasObj)
+        printWindow!.document.write('</body></html>')
+        printWindow!.document.close()
+      })
+      .then((result) => printWindow?.print())
+  }
+
   return (
     <ProCard title={<IdentifierProfile did={getIssuerDID(credential)} />}>
-      <QrCodeDocumentWrapper qrCodeValue={qrCodeValue}>
-        {documents.map((doc, i) => (
-          <div key={i} dangerouslySetInnerHTML={{ __html: doc }}></div>
-        ))}
-      </QrCodeDocumentWrapper>
+      <div id="render">
+        <QrCodeDocumentWrapper qrCodeValue={qrCodeValue}>
+          {documents.map((doc, i) => (
+            <div key={i} dangerouslySetInnerHTML={{ __html: doc }}></div>
+          ))}
+        </QrCodeDocumentWrapper>
+      </div>
+      <Button onClick={printdiv}>Print</Button>
     </ProCard>
   )
 }

@@ -145,10 +145,8 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
         validationMode={'ValidateAndShow'}
         onChange={onChange}
       />
-
       <br />
       <br />
-
       <Button
         type="primary"
         onClick={() => {

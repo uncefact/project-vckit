@@ -183,9 +183,17 @@ export function convertToSchema(data: any, schema?: any) {
 
   Object.keys(data).forEach((key) => {
     if (typeof data[key] === 'object') {
-      schema.properties[key] = {
-        type: 'object',
-        properties: {},
+      // Is an array
+      if (data[key].length >= 0) {
+        schema.properties[key] = {
+          type: 'array',
+          properties: {},
+        }
+      } else {
+        schema.properties[key] = {
+          type: 'object',
+          properties: {},
+        }
       }
       convertToSchema(data[key], schema.properties[key])
     } else {
