@@ -9,7 +9,6 @@ import { ICredentialPlugin, IVerifyResult } from '@veramo/core'
 import { Alert, Button, Input, Space, Tabs, Typography, theme } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
 import { decryptString } from '@govtechsg/oa-encryption'
-import { computeEntryHash } from '@veramo/utils'
 
 const { TextArea } = Input
 
@@ -22,7 +21,6 @@ const CredentialVerifier = () => {
   >(undefined)
   const [text, setText] = useState<string>('')
   const [isVerifying, setIsVerifying] = useState<boolean>(false)
-  const [hash, setHash] = useState<string>('')
 
   const fetchEncryptedVC = useCallback(async () => {
     const queryParams = new URLSearchParams(location.search)
@@ -37,8 +35,6 @@ const CredentialVerifier = () => {
       key: decryptedKey,
     })
     const vc = JSON.parse(stringifyVC)
-
-    setHash(computeEntryHash(stringifyVC))
 
     try {
       const result = await agent?.verifyCredential({
@@ -75,6 +71,12 @@ const CredentialVerifier = () => {
           fetchRemoteContexts: true,
         })
         setVerificationResult(result)
+        if (result?.verified) {
+          setVerificationResult((result) => {
+            if (!result) return result
+            return { ...result, verifiableCredential: JSON.parse(text) }
+          })
+        }
       } catch (e: any) {
         setVerificationResult({
           verified: false,
@@ -181,7 +183,7 @@ const CredentialVerifier = () => {
           verificationResult?.verifiableCredential && (
             <CredentialTabs
               credential={verificationResult?.verifiableCredential}
-              hash={hash}
+              hash=""
             />
           )}
       </Space>
