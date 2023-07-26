@@ -5,7 +5,7 @@ import { useVeramo } from '@veramo-community/veramo-react'
 import { VerifiableCredential } from '@veramo/core'
 import { Button, Spin } from 'antd'
 import html2canvas from 'html2canvas'
-import { useCallback, useEffect, useState } from 'react'
+import { CSSProperties, useCallback, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { getIssuerDID } from '../utils/did'
 import { convertBase64ToString } from '../utils/helpers'
@@ -15,6 +15,13 @@ const proCardStyle = {
   minWidth: '100%',
   width: 'fit-content',
 }
+const jsonStyle: CSSProperties = {
+  backgroundColor: 'rgb(247, 248, 252)',
+  padding: '0.75rem 1.25rem',
+  whiteSpace: 'pre-wrap',
+  overflowWrap: 'break-word',
+}
+
 interface CredentialRenderProps {
   credential: VerifiableCredential
   hash: string
@@ -48,20 +55,22 @@ const CredentialRender: React.FC<CredentialRenderProps> = ({
 
   const renderCredential = useCallback(async () => {
     setIsLoading(true)
-    const renderer = new Renderer({
-      providers: {
-        WebRenderingTemplate2022: new WebRenderingTemplate2022(),
-      },
-      defaultProvider: 'WebRenderingTemplate2022',
-    })
-
-    let { documents }: { documents: string[] } =
-      await renderer.renderCredential({
-        credential,
+    try {
+      const renderer = new Renderer({
+        providers: {
+          WebRenderingTemplate2022: new WebRenderingTemplate2022(),
+        },
+        defaultProvider: 'WebRenderingTemplate2022',
       })
-    documents = documents.map((doc) => convertBase64ToString(doc))
+
+      let { documents }: { documents: string[] } =
+        await renderer.renderCredential({
+          credential,
+        })
+      documents = documents.map((doc) => convertBase64ToString(doc))
+      setDocuments(documents)
+    } catch (e) {}
     setIsLoading(false)
-    setDocuments(documents)
   }, [credential])
 
   useEffect(() => {
@@ -109,9 +118,19 @@ const CredentialRender: React.FC<CredentialRenderProps> = ({
       >
         <div id="render">
           <QrCodeDocumentWrapper qrCodeValue={qrCodeValue}>
-            {documents.map((doc, i) => (
-              <div key={i} dangerouslySetInnerHTML={{ __html: doc }}></div>
-            ))}
+            {!isLoading && !credentialLoading ? (
+              documents.length !== 0 ? (
+                documents.map((doc, i) => (
+                  <div key={i} dangerouslySetInnerHTML={{ __html: doc }}></div>
+                ))
+              ) : (
+                <pre style={jsonStyle}>
+                  {JSON.stringify(credential, null, 2)}
+                </pre>
+              )
+            ) : (
+              <></>
+            )}
           </QrCodeDocumentWrapper>
         </div>
         <Button onClick={printdiv}>Print</Button>
