@@ -27,6 +27,7 @@ const CredentialVerifier = () => {
     const queryParams = new URLSearchParams(location.search)
     const query = queryParams.get('q')
     if (!query) return
+    setIsVerifying(true)
 
     const payload = JSON.parse(decodeURIComponent(query))
     const { uri, decryptedKey } = payload.payload
@@ -56,6 +57,7 @@ const CredentialVerifier = () => {
         error: { message: e.message },
       })
     }
+    setIsVerifying(false)
   }, [location.search, agent])
 
   useEffect(() => {

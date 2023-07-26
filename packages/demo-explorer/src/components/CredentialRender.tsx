@@ -3,7 +3,7 @@ import { QrCodeDocumentWrapper } from '@vckit/react-components'
 import { Renderer, WebRenderingTemplate2022 } from '@vckit/renderer'
 import { useVeramo } from '@veramo-community/veramo-react'
 import { VerifiableCredential } from '@veramo/core'
-import { Button } from 'antd'
+import { Button, Spin } from 'antd'
 import html2canvas from 'html2canvas'
 import { useCallback, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
@@ -27,6 +27,7 @@ const CredentialRender: React.FC<CredentialRenderProps> = ({
   const { agent } = useVeramo()
   const [documents, setDocuments] = useState<string[]>([])
   const [qrCodeValue, setQrCodeValue] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const encryptedEndpoint = process.env.REACT_APP_ENCRYPTED_ENDPOINT
   const qrCodeVerifyEndpoint = process.env.REACT_APP_QRCODE_VERIFY_ENDPOINT
 
@@ -46,6 +47,7 @@ const CredentialRender: React.FC<CredentialRenderProps> = ({
   }, [encryptedCredentialData, encryptedEndpoint, qrCodeVerifyEndpoint])
 
   const renderCredential = useCallback(async () => {
+    setIsLoading(true)
     const renderer = new Renderer({
       providers: {
         WebRenderingTemplate2022: new WebRenderingTemplate2022(),
@@ -58,7 +60,7 @@ const CredentialRender: React.FC<CredentialRenderProps> = ({
         credential,
       })
     documents = documents.map((doc) => convertBase64ToString(doc))
-
+    setIsLoading(false)
     setDocuments(documents)
   }, [credential])
 
@@ -100,19 +102,21 @@ const CredentialRender: React.FC<CredentialRenderProps> = ({
   }
 
   return (
-    <ProCard
-      style={proCardStyle}
-      title={<IdentifierProfile did={getIssuerDID(credential)} />}
-    >
-      <div id="render">
-        <QrCodeDocumentWrapper qrCodeValue={qrCodeValue}>
-          {documents.map((doc, i) => (
-            <div key={i} dangerouslySetInnerHTML={{ __html: doc }}></div>
-          ))}
-        </QrCodeDocumentWrapper>
-      </div>
-      <Button onClick={printdiv}>Print</Button>
-    </ProCard>
+    <Spin tip="Loading..." spinning={isLoading || credentialLoading}>
+      <ProCard
+        style={proCardStyle}
+        title={<IdentifierProfile did={getIssuerDID(credential)} />}
+      >
+        <div id="render">
+          <QrCodeDocumentWrapper qrCodeValue={qrCodeValue}>
+            {documents.map((doc, i) => (
+              <div key={i} dangerouslySetInnerHTML={{ __html: doc }}></div>
+            ))}
+          </QrCodeDocumentWrapper>
+        </div>
+        <Button onClick={printdiv}>Print</Button>
+      </ProCard>
+    </Spin>
   )
 }
 
