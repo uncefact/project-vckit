@@ -14,6 +14,7 @@ const AgentDropdown: React.FC<{ children: React.ReactNode }> = ({
 
   const schemaUrl = process.env.REACT_APP_SCHEMA_URL
   const apiKey = process.env.REACT_APP_REMOTE_AGENT_API_KEY
+  const defaultAgentId = process.env.REACT_APP_DEFAULT_AGENT_ID || ''
   const [agentUrl, setAgentUrl] = useState<string>('')
 
   const { data: schema } = useQuery(
@@ -38,12 +39,12 @@ const AgentDropdown: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     if (agents) {
       const existingAgent = agents.find(
-        (_agent: any) => _agent.context?.id === 'agentApi',
+        (_agent: any) => _agent.context?.id === defaultAgentId,
       )
       if (!existingAgent) {
         if (schema && agentUrl && apiKey && schemaUrl) {
           addAgentConfig({
-            context: { id: 'agentApi', name: 'Agent', schema: schemaUrl },
+            context: { id: defaultAgentId, name: 'Agent', schema: schemaUrl },
             remoteAgents: [
               {
                 url: agentUrl,

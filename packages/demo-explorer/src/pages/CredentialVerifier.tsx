@@ -13,9 +13,10 @@ import { decryptString } from '@govtechsg/oa-encryption'
 const { TextArea } = Input
 
 const CredentialVerifier = () => {
+  const defaultAgentId = process.env.REACT_APP_DEFAULT_AGENT_ID || ''
   const location = useLocation()
   const { token } = theme.useToken()
-  const { agent } = useVeramo<ICredentialPlugin>()
+  const { agent, activeAgentId } = useVeramo<ICredentialPlugin>()
   const [verificationResult, setVerificationResult] = useState<
     IVerifyResult | undefined
   >(undefined)
@@ -58,8 +59,10 @@ const CredentialVerifier = () => {
   }, [location.search, agent])
 
   useEffect(() => {
-    fetchEncryptedVC()
-  }, [fetchEncryptedVC])
+    if (agent && activeAgentId && activeAgentId === defaultAgentId) {
+      fetchEncryptedVC()
+    }
+  }, [agent, activeAgentId, defaultAgentId, fetchEncryptedVC])
 
   const verify = useCallback(
     async (text: string) => {
