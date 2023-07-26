@@ -11,6 +11,10 @@ import { getIssuerDID } from '../utils/did'
 import { convertBase64ToString } from '../utils/helpers'
 import IdentifierProfile from './IdentifierProfile'
 
+const proCardStyle = {
+  minWidth: '100%',
+  width: 'fit-content',
+}
 interface CredentialRenderProps {
   credential: VerifiableCredential
   hash: string
@@ -96,7 +100,10 @@ const CredentialRender: React.FC<CredentialRenderProps> = ({
   }
 
   return (
-    <ProCard title={<IdentifierProfile did={getIssuerDID(credential)} />}>
+    <ProCard
+      style={proCardStyle}
+      title={<IdentifierProfile did={getIssuerDID(credential)} />}
+    >
       <div id="render">
         <QrCodeDocumentWrapper qrCodeValue={qrCodeValue}>
           {documents.map((doc, i) => (
