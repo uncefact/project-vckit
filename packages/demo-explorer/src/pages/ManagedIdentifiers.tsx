@@ -108,7 +108,12 @@ const ManagedIdentifiers = () => {
           description: 'a DIDComm endpoint',
         },
       }
+    } else if (provider === 'did:web') {
+      options = {
+        keyType: 'Ed25519',
+      }
     }
+
     const identifier = await agent?.didManagerCreate({
       alias,
       provider,

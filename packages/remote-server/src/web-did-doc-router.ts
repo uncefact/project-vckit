@@ -216,7 +216,7 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
               ':' +
               req.params[0].replace(/\//g, ':'),
           });
-          const didDoc = didDocForIdentifier(identifier);
+          const didDoc = await didDocForIdentifier(identifier);
           res.json(didDoc);
         } catch (e) {
           res.status(404).send(e);
