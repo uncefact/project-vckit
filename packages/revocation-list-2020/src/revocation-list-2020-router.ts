@@ -13,13 +13,15 @@ export function revocationList2020Router(): Router {
   const router = Router();
 
   // credentials/status/revocation-list-2020
-  router.get('/:id', async (req: RequestWithAgent, res: Response) => {
-    const { id } = req.params;
+  router.get('/:issuer/:id', async (req: RequestWithAgent, res: Response) => {
+    const { id, issuer } = req.params;
     const agent = req.agent;
     if (!agent) throw Error('Agent not available');
 
     try {
-      const revocationListFullUrlPath = req.originalUrl;
+      const revocationListFullUrlPath = req.originalUrl.substring(
+        req.originalUrl.indexOf(issuer) + issuer.length
+      );
 
       const result = await agent.execute(
         'getRevocationListVC',

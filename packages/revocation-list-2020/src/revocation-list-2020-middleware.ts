@@ -1,5 +1,5 @@
 import { RequestWithAgent } from '@vckit/core-types';
-import { asArray, processEntryToArray } from '@veramo/utils';
+import { asArray, extractIssuer, processEntryToArray } from '@veramo/utils';
 import {
   NextFunction,
   Request,
@@ -37,10 +37,12 @@ export function revocationList2020(args: {
       }
 
       try {
+        const revocationVCIssuer = extractIssuer(req.body.credential);
+
         const revocationData = await req.agent.execute('getRevocationData', {
           revocationListPath: args.revocationListPath,
           bitStringLength: args.bitStringLength,
-          revocationVCIssuer: args.revocationVCIssuer,
+          revocationVCIssuer,
           req,
         });
 
@@ -60,10 +62,10 @@ export function revocationList2020(args: {
         }
 
         req.body.credential.credentialStatus = {
-          id: `${args.revocationListPath}${revocationData.revocationListFullUrlPath}`,
+          id: revocationData.revocationListFullUrl,
           type: 'RevocationList2020Status',
           revocationListIndex: revocationData.indexCounter,
-          revocationListCredential: `${args.revocationListPath}${revocationData.revocationListFullUrlPath}`,
+          revocationListCredential: revocationData.revocationListFullUrl,
         };
 
         next();

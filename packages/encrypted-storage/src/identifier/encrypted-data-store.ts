@@ -26,7 +26,6 @@ export class EncryptedDataStore {
     credentialEncryptedData.credentialHash = credentialHash;
     credentialEncryptedData.encryptedDataId = result.id;
     credentialEncryptedData.decryptedKey = decryptedKey;
-    console.log('credentialEncryptedData', credentialEncryptedData);
 
     await db
       .getRepository(CredentialEncryptedData)

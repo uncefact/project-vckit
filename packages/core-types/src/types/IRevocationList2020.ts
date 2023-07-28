@@ -25,6 +25,6 @@ export interface IRevocationStore extends IPluginMethodMap {
   getRevocationData(
     args: IRevocationListDataArgs,
     req: RequestWithAgent
-  ): Promise<{ revocationListFullUrlPath: string; indexCounter: number }>;
+  ): Promise<{ revocationListFullUrl: string; indexCounter: number }>;
   getRevocationListVC(revocationListFullUrlPath: string): Promise<any>;
 }

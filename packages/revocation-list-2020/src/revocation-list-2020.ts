@@ -33,7 +33,7 @@ export class RevocationStatus2020 implements IAgentPlugin {
 
   async getRevocationData(
     args: IRevocationListDataArgs
-  ): Promise<{ revocationListFullUrlPath: string; indexCounter: number }> {
+  ): Promise<{ revocationListFullUrl: string; indexCounter: number }> {
     const data = await this.store.getRevocationData(args);
 
     return data;
