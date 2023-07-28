@@ -1,5 +1,5 @@
 import { createCredential, createList } from '@transmute/vc-status-rl-2020';
-import { IRevocationListDataArgs } from '@vckit/core-types';
+import { IIdentifier, IRevocationListDataArgs } from '@vckit/core-types';
 import { OrPromise } from '@veramo/utils';
 import { DataSource } from 'typeorm';
 import {
@@ -43,6 +43,7 @@ export class RevocationDataStore {
         {
           credential: credentialList,
           ...rest,
+          proofFormat: 'lds',
         }
       );
 
@@ -54,7 +55,7 @@ export class RevocationDataStore {
 
   async getRevocationData(
     args: IRevocationListDataArgs
-  ): Promise<{ revocationListFullUrlPath: string; indexCounter: number }> {
+  ): Promise<{ revocationListFullUrl: string; indexCounter: number }> {
     try {
       const {
         revocationListPath: revocationListUrlPath,
@@ -62,20 +63,38 @@ export class RevocationDataStore {
         bitStringLength,
         req,
       } = args;
+
+      let revocationVCIdentifier: IIdentifier;
+      try {
+        revocationVCIdentifier = (await req.agent?.execute('didManagerGet', {
+          did: revocationVCIssuer,
+        })) as IIdentifier;
+      } catch (e) {
+        throw new Error(
+          `invalid_argument: credential.issuer must be a DID managed by this agent. ${e}`
+        );
+      }
+      const revocationVCIssuerDid = revocationVCIdentifier.did.replaceAll(
+        ':',
+        '_'
+      );
+
+      const revocationListUrlPathByIssuer = `${revocationListUrlPath}/${revocationVCIssuerDid}`;
+
       const db = await getConnectedDb(this.dbConnection);
 
-      let revocationData = await db
-        .getRepository(RevocationData)
-        .findOne({ where: { revocationListUrlPath } });
+      let revocationData = await db.getRepository(RevocationData).findOne({
+        where: { revocationListUrlPath: revocationListUrlPathByIssuer },
+      });
 
       if (!revocationData) {
         revocationData = await db.getRepository(RevocationData).save({
-          revocationListUrlPath,
+          revocationListUrlPath: revocationListUrlPathByIssuer,
           bitStringLength: Number(bitStringLength),
         });
       }
 
-      const revocationListFullUrlPath = `/credentials/status/revocation-list-2020/${revocationData.listCounter}`;
+      const revocationListFullUrlPath = `/credentials/status/revocation-list-2020/${revocationVCIssuerDid}/${revocationData.listCounter}`;
 
       let revocationList = await db.getRepository(RevocationList).findOne({
         where: {
@@ -86,7 +105,7 @@ export class RevocationDataStore {
       // Not available - create one
       if (!revocationList) {
         revocationList = await this.createRevocationListVC(
-          `${revocationListUrlPath}${revocationListFullUrlPath}`,
+          `${revocationListUrlPathByIssuer}${revocationListFullUrlPath}`,
           Number(bitStringLength),
           revocationVCIssuer,
           req
@@ -100,11 +119,12 @@ export class RevocationDataStore {
 
       await this.updateRevocationData({
         revocationData,
+        revocationVCIssuerDid,
         args,
       });
 
       return {
-        revocationListFullUrlPath,
+        revocationListFullUrl: `${revocationListUrlPathByIssuer}${revocationListFullUrlPath}`,
         indexCounter: revocationData.indexCounter,
       };
     } catch (err) {
@@ -114,9 +134,11 @@ export class RevocationDataStore {
 
   async updateRevocationData({
     revocationData,
+    revocationVCIssuerDid,
     args,
   }: {
     revocationData: RevocationData;
+    revocationVCIssuerDid: string;
     args: IRevocationListDataArgs;
   }): Promise<void> {
     try {
@@ -138,10 +160,11 @@ export class RevocationDataStore {
           nextBitStringLength = Number(args.bitStringLength);
         }
 
-        const revocationListFullUrlPath = `/credentials/status/revocation-list-2020/${nextList}`;
+        const revocationListFullUrlPath = `/credentials/status/revocation-list-2020/${revocationVCIssuerDid}/${nextList}`;
+        const revocationListUrlPathByIssuer = `${args.revocationListPath}/${revocationVCIssuerDid}`;
 
         const revocationList = await this.createRevocationListVC(
-          `${args.revocationListPath}${revocationListFullUrlPath}`,
+          `${revocationListUrlPathByIssuer}${revocationListFullUrlPath}`,
           Number(args.bitStringLength),
           args.revocationVCIssuer,
           args.req

@@ -40,7 +40,6 @@ export class EncryptedStorage implements IAgentPlugin {
     args: IEncryptAndStoreDataArgs
   ): Promise<IEncrypteAndStoreDataResult> {
     const { data } = args;
-    console.log('encryptAndStoreData', JSON.stringify(data, null, 2));
     const credentialHash = computeEntryHash(data);
     const key = generateEncryptionKey();
 
