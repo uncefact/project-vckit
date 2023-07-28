@@ -20,6 +20,7 @@ const jsonStyle: CSSProperties = {
   padding: '0.75rem 1.25rem',
   whiteSpace: 'pre-wrap',
   overflowWrap: 'break-word',
+  wordBreak: 'break-all',
 }
 
 interface CredentialRenderProps {
