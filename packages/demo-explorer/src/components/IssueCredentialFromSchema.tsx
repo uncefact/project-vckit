@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Card, Alert } from 'antd'
+import { Button, Card, Alert, Spin } from 'antd'
 import { issueCredential } from '../utils/signing'
 import { useVeramo } from '@veramo-community/veramo-react'
 import { useQuery } from 'react-query'
@@ -29,7 +29,7 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
 }) => {
   const { agent } = useVeramo()
   const [errorMessage, setErrorMessage] = useState<null | string>()
-  const [sending] = useState(false)
+  const [sending, setSending] = useState(false)
   const [formData, setFormData] = useState<any>({})
   const [errors, setErrors] = useState<any>([])
   const [schemaData, setSchemaData] = useState<any>({})
@@ -60,14 +60,14 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
               const: 'lds',
               title: 'lds',
             },
-            {
-              const: 'EthereumEip712Signature2021',
-              title: 'EthereumEip712Signature2021',
-            },
-            {
-              const: 'OpenAttestationMerkleProofSignature2018',
-              title: 'OpenAttestationMerkleProofSignature2018',
-            },
+            // {
+            //   const: 'EthereumEip712Signature2021',
+            //   title: 'EthereumEip712Signature2021',
+            // },
+            // {
+            //   const: 'OpenAttestationMerkleProofSignature2018',
+            //   title: 'OpenAttestationMerkleProofSignature2018',
+            // },
           ],
         },
         issuer: {
@@ -104,6 +104,7 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
     // @ts-ignore
     console.log(schema['@context'])
     try {
+      setSending(true)
       await issueCredential(
         agent,
         formData.issuer,
@@ -131,6 +132,7 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
         'Unable to Issue Credential. Check console log for more info.',
       )
     }
+    setSending(false)
   }
 
   return (
@@ -147,24 +149,26 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
       />
       <br />
       <br />
-      <Button
-        type="primary"
-        onClick={() => {
-          setErrorMessage('')
-          const fields: Field[] = []
-          for (let key in formData.credentialSubject as any) {
-            fields.push({
-              type: key,
-              value: (formData.credentialSubject as any)[key],
-            })
-          }
-          signVc(fields)
-        }}
-        style={{ marginRight: 5 }}
-        disabled={sending || errors.length !== 0}
-      >
-        Issue
-      </Button>
+      <Spin spinning={sending}>
+        <Button
+          type="primary"
+          onClick={() => {
+            setErrorMessage('')
+            const fields: Field[] = []
+            for (let key in formData.credentialSubject as any) {
+              fields.push({
+                type: key,
+                value: (formData.credentialSubject as any)[key],
+              })
+            }
+            signVc(fields)
+          }}
+          style={{ marginRight: 5 }}
+          disabled={sending || errors.length !== 0}
+        >
+          Issue
+        </Button>
+      </Spin>
       {errorMessage && (
         <>
           <br />
