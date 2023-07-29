@@ -1,0 +1,68 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches:
+      - demo # Change this to your main branch name
+
+jobs:
+  install_and_build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
+
+  deploy_to_s3:
+    needs: install_and_build
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get -q install -y python3-pip
+          pip3 install awscli --upgrade --user
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          role-to-assume: arn:aws:iam::017206355635:role/GithubActions/gs-gs_project-vckit
+          aws-region: ap-southeast-2
+
+      - name: Deploy to S3
+        run: aws s3 sync packages/demo-explorer/build/ s3://${{ vars.AWS_S3_BUCKET_NAME }} --acl public-read --delete
+
+      - name: Invalidate CloudFront
+        run: |
+          DISTRIBUTION_ID=${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
+          INVALIDATION_PATH="/*" 
+
+          # Create a new CloudFront invalidation
+          aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths $INVALIDATION_PATH
