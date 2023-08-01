@@ -5,12 +5,19 @@ import {
   Column,
   Entity,
   PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity('revocation-data')
 export class RevocationData extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
+
+  @Column()
   revocationListUrlPath!: string;
+
+  @Column()
+  revocationVCIssuer!: string;
 
   @Column({ default: 0 })
   listCounter!: number;
@@ -24,8 +31,14 @@ export class RevocationData extends BaseEntity {
 
 @Entity('revocation-list')
 export class RevocationList extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
+
+  @Column()
   revocationListFullUrlPath!: string;
+
+  @Column()
+  revocationVCIssuer!: string;
 
   @Column()
   verifiableCredential!: string;

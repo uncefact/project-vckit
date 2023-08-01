@@ -40,8 +40,6 @@ export function revocationList2020(args: {
         const revocationVCIssuer = extractIssuer(req.body.credential);
 
         const revocationData = await req.agent.execute('getRevocationData', {
-          revocationListPath: args.revocationListPath,
-          bitStringLength: args.bitStringLength,
           revocationVCIssuer,
           req,
         });
@@ -70,7 +68,7 @@ export function revocationList2020(args: {
 
         next();
       } catch (err) {
-        throw err;
+        res.status(500).json({ error: err.message });
       }
     }
   );

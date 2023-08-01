@@ -19,13 +19,9 @@ export function revocationList2020Router(): Router {
     if (!agent) throw Error('Agent not available');
 
     try {
-      const revocationListFullUrlPath = req.originalUrl.substring(
-        req.originalUrl.indexOf(issuer) + issuer.length
-      );
-
       const result = await agent.execute(
         'getRevocationListVC',
-        revocationListFullUrlPath
+        req.originalUrl
       );
 
       res.status(200).json({ ...result });

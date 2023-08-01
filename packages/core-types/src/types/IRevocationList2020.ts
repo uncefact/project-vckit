@@ -1,15 +1,6 @@
-import { IPluginMethodMap, IAgent } from './IAgent';
+import { IPluginMethodMap, IAgent } from './IAgent.js';
 import { Request } from 'express';
-
-/**
- * @public
- */
-export interface IRevocationListDataArgs {
-  revocationListPath: string;
-  bitStringLength: string;
-  req: RequestWithAgent;
-  revocationVCIssuer: string;
-}
+import { CredentialStatus, VerifiableCredential } from './vc-data-model.js';
 
 /**
  * @public
@@ -21,10 +12,37 @@ export interface RequestWithAgent extends Request {
 /**
  * @public
  */
-export interface IRevocationStore extends IPluginMethodMap {
-  getRevocationData(
-    args: IRevocationListDataArgs,
-    req: RequestWithAgent
-  ): Promise<{ revocationListFullUrl: string; indexCounter: number }>;
+export interface IRevocationListDataArgs {
+  revocationListPath?: string;
+  bitStringLength?: string;
+  revocationVCIssuer: string;
+
+  [x: string]: any;
+}
+
+/**
+ * @public
+ */
+export interface IHashCredentialArgs {
+  hash: string;
+}
+
+/**
+ * @public
+ */
+export interface IRevocationList2020 extends IPluginMethodMap {
+  getRevocationData(args: IRevocationListDataArgs): Promise<any>;
   getRevocationListVC(revocationListFullUrlPath: string): Promise<any>;
+  checkStatus(
+    args: IHashCredentialArgs,
+    context: { agent?: IAgent }
+  ): Promise<CredentialStatus>;
+  revokeCredential(
+    args: IHashCredentialArgs,
+    context: { agent?: IAgent }
+  ): Promise<CredentialStatus>;
+  activateCredential(
+    args: IHashCredentialArgs,
+    context: { agent?: IAgent }
+  ): Promise<CredentialStatus>;
 }

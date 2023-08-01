@@ -42,7 +42,7 @@ const AgentDropdown: React.FC<{ children: React.ReactNode }> = ({
         (_agent: any) => _agent.context?.id === defaultAgentId,
       )
       if (!existingAgent) {
-        if (schema && agentUrl && apiKey && schemaUrl) {
+        if (schema && agentUrl && schemaUrl) {
           addAgentConfig({
             context: { id: defaultAgentId, name: 'Agent', schema: schemaUrl },
             remoteAgents: [
@@ -53,7 +53,7 @@ const AgentDropdown: React.FC<{ children: React.ReactNode }> = ({
               },
             ],
           })
-          setActiveAgentId('agentApi')
+          setActiveAgentId(defaultAgentId)
         }
       }
     }

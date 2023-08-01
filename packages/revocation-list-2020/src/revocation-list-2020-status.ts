@@ -1,4 +1,4 @@
-import { CredentialJwtOrJSON, CredentialStatus } from 'credential-status';
+import { CredentialJwtOrJSON } from 'credential-status';
 import { checkStatus as transmuteCheckStatus } from '@transmute/vc-status-rl-2020';
 import { Ed25519Signature2018 } from '@transmute/ed25519-signature-2018';
 import { JsonWebSignature } from '@transmute/json-web-signature';
@@ -6,6 +6,7 @@ import { contexts } from '@transmute/did-context/index.js';
 import { DocumentLoader } from '@transmute/vc-status-rl-2020/dist/types';
 import * as didKey from '@transmute/did-key.js';
 import * as didWeb from '@transmute/did-web';
+import { CredentialStatus } from '@vckit/core-types';
 
 const resolve = async (did: string) => {
   if (did.startsWith('did:key')) {
@@ -41,6 +42,10 @@ const documentLoader: DocumentLoader = async (iri: string) => {
   throw new Error(message);
 };
 
+/**
+ * @public
+ *
+ */
 export async function checkStatus(credential: CredentialJwtOrJSON) {
   const result = await transmuteCheckStatus({
     credential,

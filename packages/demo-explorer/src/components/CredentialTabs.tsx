@@ -54,7 +54,7 @@ const CredentialTabs: React.FC<CredentialTabsProps> = ({
         {
           key: '1',
           label: 'Info',
-          children: <CredentialInfo credential={credential} />,
+          children: <CredentialInfo credential={credential} hash={hash} />,
         },
         {
           key: '2',
