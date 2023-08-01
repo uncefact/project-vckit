@@ -202,64 +202,64 @@ importers:
         specifier: workspace:1.0.0-beta.5
         version: link:../vc-api
       '@veramo/credential-eip712':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
       '@veramo/credential-ld':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0(expo@48.0.16)(react-native@0.71.7)
       '@veramo/credential-status':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
       '@veramo/credential-w3c':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0(expo@48.0.16)(react-native@0.71.7)
       '@veramo/data-store':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0(pg@8.7.1)(sqlite3@5.0.8)(ts-node@10.9.1)
       '@veramo/did-comm':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
       '@veramo/did-discovery':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/did-jwt':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
       '@veramo/did-manager':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/did-provider-ethr':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/did-provider-key':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0(expo@48.0.16)(react-native@0.71.7)
       '@veramo/did-provider-pkh':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/did-provider-web':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/did-resolver':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/key-manager':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/kms-local':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/message-handler':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/selective-disclosure':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/url-handler':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/utils':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
       blessed:
         specifier: ^0.1.81
@@ -463,7 +463,7 @@ importers:
         specifier: uport-project/EcdsaSecp256k1RecoverySignature2020
         version: github.com/uport-project/EcdsaSecp256k1RecoverySignature2020/ab0db52de6f4e6663ef271a48009ba26e688ef9b(expo@48.0.16)(react-native@0.71.7)
       '@veramo/utils':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
       cross-fetch:
         specifier: ^3.1.5
@@ -500,10 +500,10 @@ importers:
         specifier: ^1.0.0-beta.5
         version: link:../core-types
       '@veramo/message-handler':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/utils':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
     devDependencies:
       '@types/debug':
@@ -525,10 +525,10 @@ importers:
         specifier: ^1.0.0-beta.5
         version: link:../core-types
       '@veramo/message-handler':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/utils':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
       canonicalize:
         specifier: ^1.0.8
@@ -585,6 +585,9 @@ importers:
       '@vckit/renderer':
         specifier: workspace:^*
         version: link:../renderer
+      '@vckit/revocationlist':
+        specifier: workspace:^*
+        version: link:../revocation-list-2020
       commander:
         specifier: ^10.0.1
         version: 10.0.1
@@ -878,52 +881,52 @@ importers:
         specifier: ^1.0.0-beta.5
         version: link:../credential-w3c
       '@veramo/data-store':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0(pg@8.7.1)(sqlite3@5.0.8)(ts-node@10.9.1)
       '@veramo/data-store-json':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
       '@veramo/did-comm':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
       '@veramo/did-jwt':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
       '@veramo/did-manager':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/did-provider-ethr':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/did-provider-jwk':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
       '@veramo/did-provider-key':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0(expo@48.0.16)(react-native@0.71.7)
       '@veramo/did-provider-pkh':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/did-provider-web':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/did-resolver':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
       '@veramo/key-manager':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/kms-local':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/kms-web3':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/message-handler':
-        specifier: ^5.1.2
+        specifier: 5.1.2
         version: 5.1.2
       '@veramo/utils':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
       did-resolver:
         specifier: ^4.0.1
@@ -999,10 +1002,10 @@ importers:
         specifier: workspace:*
         version: link:../core-types
       '@veramo/data-store':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0(pg@8.7.1)(sqlite3@5.0.8)(ts-node@10.9.1)
       '@veramo/utils':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
       express-interceptor:
         specifier: ^1.2.0
@@ -1268,10 +1271,10 @@ importers:
         specifier: workspace:*
         version: link:../core-types
       '@veramo/data-store':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0(pg@8.7.1)(sqlite3@5.0.8)(ts-node@10.9.1)
       '@veramo/utils':
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0
       credential-status:
         specifier: ^2.0.5
@@ -16412,8 +16415,8 @@ packages:
       - supports-color
     dev: true
 
-  /@veramo/core-types@5.2.1-unstable.22:
-    resolution: {integrity: sha512-2XqxKZrVl/Qy1Ll2av/41DBQVm7qSKa64xCIUrSN4HcWcGUjGzIh1Eg7kREKCw6BvbE4U+HTZnGffl9ou5/+Cw==}
+  /@veramo/core-types@5.3.0:
+    resolution: {integrity: sha512-abOTO/h+LKgUuYmoWdjm2ltrKaNREsC+8t8u99ColjJNk70FRomwVjhUkNPOtbpufYvZ5rcFVgeDJ9M2FiPVCQ==}
     dependencies:
       credential-status: 2.0.5
       debug: 4.3.4(supports-color@6.1.0)
@@ -16488,8 +16491,8 @@ packages:
       - web-streams-polyfill
     dev: false
 
-  /@veramo/credential-ld@5.2.1-unstable.22(expo@48.0.16)(react-native@0.71.7):
-    resolution: {integrity: sha512-tyzpkdzdj+p5dWxV6zJ/m2WKvGRgrbBhRD+rkwSLT15K9t3E+40DnVkDYYx3LeWuKqbhuUx+ZHTtQacrSDMifw==}
+  /@veramo/credential-ld@5.3.0(expo@48.0.16)(react-native@0.71.7):
+    resolution: {integrity: sha512-KoNEO6PeOdeiD3uxkx+9NkaHsFLUI4nEPHTNbFbPNcg+TFs504nUv3FRDR6QBcjv05Q7HV732zsCjqyUELboGw==}
     requiresBuild: true
     dependencies:
       '@digitalcredentials/ed25519-signature-2020': 3.0.2(expo@48.0.16)(react-native@0.71.7)
@@ -16501,11 +16504,12 @@ packages:
       '@transmute/ed25519-signature-2018': 0.7.0-unstable.81(expo@48.0.16)(react-native@0.71.7)
       '@transmute/json-web-signature': 0.7.0-unstable.81(expo@48.0.16)(react-native@0.71.7)
       '@veramo-community/lds-ecdsa-secp256k1-recovery2020': github.com/uport-project/EcdsaSecp256k1RecoverySignature2020/ab0db52de6f4e6663ef271a48009ba26e688ef9b(expo@48.0.16)(react-native@0.71.7)
-      '@veramo/core-types': 5.2.1-unstable.22
-      '@veramo/utils': 5.2.1-unstable.22
+      '@veramo/core-types': 5.3.0
+      '@veramo/utils': 5.3.0
       cross-fetch: 3.1.8
       debug: 4.3.4(supports-color@6.1.0)
       did-resolver: 4.1.0
+      uint8arrays: 4.0.3
     transitivePeerDependencies:
       - domexception
       - encoding
@@ -16567,7 +16571,7 @@ packages:
       uint8arrays: 3.1.1
       uuid: 9.0.0
     optionalDependencies:
-      '@veramo/credential-ld': 5.2.1-unstable.22(expo@48.0.16)(react-native@0.71.7)
+      '@veramo/credential-ld': 5.3.0(expo@48.0.16)(react-native@0.71.7)
     transitivePeerDependencies:
       - domexception
       - encoding
@@ -17169,22 +17173,23 @@ packages:
       - supports-color
     dev: true
 
-  /@veramo/utils@5.2.1-unstable.22:
-    resolution: {integrity: sha512-4o4F9CcLmjeuxAiAtjiZJev44YQX/sw+lmazLknN8ndeJWpV70gxYEXW+mzuVxwHzMg30HHsSaR2DS93JQKhsw==}
+  /@veramo/utils@5.3.0:
+    resolution: {integrity: sha512-/JMy4GFlwvJ+DAjCTthwpaifmfSrZFSZYn6j1fQcHYDQWzmUrt4uEXTDuPz9Z4OhNYgQLzNR9PnC6wg7XOCFGg==}
     dependencies:
       '@ethersproject/signing-key': 5.7.0
       '@ethersproject/transactions': 5.7.0
-      '@noble/curves': 1.1.0
-      '@noble/hashes': 1.3.1
-      '@veramo/core-types': 5.2.1-unstable.22
+      '@stablelib/ed25519': 1.0.3
+      '@veramo/core-types': 5.3.0
+      blakejs: 1.2.1
       credential-status: 2.0.5
       cross-fetch: 3.1.8
       debug: 4.3.4(supports-color@6.1.0)
-      did-jwt: 7.2.4
+      did-jwt: 6.11.6
       did-jwt-vc: 3.2.4
       did-resolver: 4.1.0
-      multiformats: 11.0.2
-      uint8arrays: 4.0.4
+      elliptic: 6.5.4
+      multiformats: 12.0.1
+      uint8arrays: 4.0.3
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -40791,13 +40796,6 @@ packages:
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
       multiformats: 11.0.2
-
-  /uint8arrays@4.0.4:
-    resolution: {integrity: sha512-AOoA66e/A7zoXm1mgzQjGmkWDTvCrS3ttWXLHFtlVAwMobLcaOA7G7WRNNAcyfjjYdFDtkEK6njRDX7hZLIO9Q==}
-    dependencies:
-      multiformats: 11.0.2
-    dev: true
-    optional: true
 
   /unbox-primitive@1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
