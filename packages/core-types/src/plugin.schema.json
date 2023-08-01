@@ -6111,5 +6111,98 @@
         }
       }
     }
+  },
+  "IRevocationList2020": {
+    "components": {
+      "schemas": {
+        "IHashCredentialArgs": {
+          "type": "object",
+          "properties": {
+            "hash": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "hash"
+          ]
+        },
+        "CredentialStatus": {
+          "type": "object",
+          "properties": {
+            "revoked": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "revoked"
+          ],
+          "description": "Represents the result of a status check.\n\nImplementations MUST populate the `revoked` boolean property, but they can return additional metadata that is method specific."
+        },
+        "IRevocationListDataArgs": {
+          "type": "object",
+          "properties": {
+            "revocationListPath": {
+              "type": "string"
+            },
+            "bitStringLength": {
+              "type": "string"
+            },
+            "revocationVCIssuer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "revocationVCIssuer"
+          ]
+        }
+      },
+      "methods": {
+        "activateCredential": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IHashCredentialArgs"
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/CredentialStatus"
+          }
+        },
+        "checkStatus": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IHashCredentialArgs"
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/CredentialStatus"
+          }
+        },
+        "getRevocationData": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IRevocationListDataArgs"
+          },
+          "returnType": {
+            "type": "object"
+          }
+        },
+        "getRevocationListVC": {
+          "description": "",
+          "arguments": {
+            "type": "string"
+          },
+          "returnType": {
+            "type": "object"
+          }
+        },
+        "revokeCredential": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IHashCredentialArgs"
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/CredentialStatus"
+          }
+        }
+      }
+    }
   }
 }
