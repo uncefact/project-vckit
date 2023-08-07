@@ -5,9 +5,11 @@
     "outDir": "build"
   },
   "references": [
-    { "path": "../core" },
-    { "path": "../core-types" },
-    { "path": "../remote-server" },
-    { "path": "../remote-client" }
+    {
+      "path": "../core-types"
+    },
+    {
+      "path": "../remote-server"
+    },
   ]
 }

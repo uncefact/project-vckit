@@ -16,10 +16,11 @@
     "src/**/*.ts[x]?"
   ],
   "references": [
-    { "path": "../core-types" },
-    { "path": "../core" },
-    { "path": "../credential-w3c" },
-    { "path": "../remote-client" },
-    { "path": "../remote-server" },
+    {
+      "path": "../core-types"
+    },
+    {
+      "path": "../remote-server"
+    },
   ]
 }

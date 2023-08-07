@@ -67,7 +67,7 @@
     "@jsonforms/material-renderers": "^3.1.0",
     "@jsonforms/react": "^3.1.0",
     "@vckit/example-documents": "workspace:^1.0.0-beta.4",
-    "@vckit/remote-client": "workspace:^1.0.0-beta.4",
+    "@veramo/remote-client": "5.2.1-next.5",
     "commander": "^10.0.1",
     "express": "^4.18.2",
     "express-favicon": "^2.0.4"

@@ -11,9 +11,8 @@
     "extract-api": "node ../cli/bin/vckit.js dev extract-api"
   },
   "dependencies": {
-    "@vckit/app": "^1.0.0-beta.4",
     "@vckit/core-types": "^1.0.0-beta.5",
-    "@vckit/remote-client": "^1.0.0-beta.5",
+    "@veramo/remote-client": "5.2.1-next.5",
     "@veramo/utils": "5.2.0",
     "debug": "^4.3.3",
     "did-resolver": "^4.0.1",

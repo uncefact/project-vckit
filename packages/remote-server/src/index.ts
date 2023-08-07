@@ -1,5 +1,5 @@
 /**
- * {@link https://expressjs.com | Express} router for exposing `@vckit/remote-client` OpenAPI schema
+ * {@link https://expressjs.com | Express} router for exposing `@veramo/remote-client` OpenAPI schema
  *
  * @example
  * ```typescript
@@ -37,12 +37,15 @@
  * @packageDocumentation
  */
 
-export { AgentRouter, AgentRouterOptions } from './agent-router.js'
-export { ApiSchemaRouter, ApiSchemaRouterOptions } from './api-schema-router.js'
-export { WebDidDocRouter, didDocEndpoint } from './web-did-doc-router.js'
-export { apiKeyAuth } from './api-key-auth.js'
-export { RequestWithAgentRouter } from './request-agent-router.js'
-export { MessagingRouter } from './messaging-router.js'
-export { ApiDocsRouter } from './api-docs-router.js'
-export { createDefaultDid } from './default-did.js'
+export { AgentRouter, AgentRouterOptions } from './agent-router.js';
+export {
+  ApiSchemaRouter,
+  ApiSchemaRouterOptions,
+} from './api-schema-router.js';
+export { WebDidDocRouter, didDocEndpoint } from './web-did-doc-router.js';
+export { apiKeyAuth } from './api-key-auth.js';
+export { RequestWithAgentRouter } from './request-agent-router.js';
+export { MessagingRouter } from './messaging-router.js';
+export { ApiDocsRouter } from './api-docs-router.js';
+export { createDefaultDid } from './default-did.js';
 export { QRCodeRouter } from './qr-code-router.js';
