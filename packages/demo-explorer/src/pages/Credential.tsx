@@ -18,7 +18,9 @@ const Credential = () => {
 
   return (
     <PageContainer title="Verifiable Credential">
-      {!credentialLoading && <CredentialTabs credential={credential} />}
+      {!credentialLoading && id && (
+        <CredentialTabs credential={credential} hash={id} />
+      )}
     </PageContainer>
   )
 }

@@ -13,22 +13,39 @@ const issueCredential = async (
   sub: string | undefined,
   claims: any[],
   proofFormat: string,
-  customContext?: string,
-  type?: string,
+  customContext?: string | string[],
+  type?: string | string[],
   credentialSchemaId?: string,
+  additionalProperties?: { [key: string]: any },
 ) => {
+  let context = ['https://www.w3.org/2018/credentials/v1']
+  if (typeof customContext === 'string') {
+    context = [...context, customContext]
+  }
+  if (Array.isArray(customContext)) {
+    context = [...context, ...customContext]
+  }
+
+  let typeArr = ['VerifiableCredential']
+  if (typeof type === 'string') {
+    typeArr = [...typeArr, type]
+  }
+  if (Array.isArray(type)) {
+    typeArr = [...typeArr, ...type]
+  }
+
   let credentialObj: any = {
     credential: {
       issuer: { id: iss },
       issuanceDate: new Date().toISOString(),
-      '@context': customContext
-        ? ['https://www.w3.org/2018/credentials/v1', customContext]
-        : ['https://www.w3.org/2018/credentials/v1'],
-      type: type ? ['VerifiableCredential', type] : ['VerifiableCredential'],
-      credentialSubject: { id: sub, ...claimToObject(claims) },
+      '@context': context,
+      type: typeArr,
+      credentialSubject: { ...claimToObject(claims) },
+      ...additionalProperties,
     },
     proofFormat,
     save: true,
+    fetchRemoteContexts: true,
   }
 
   // adding undefined field was breaking EIP-712 Issuance, so just don't add field at all if undefined

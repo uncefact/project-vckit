@@ -1,7 +1,8 @@
 {
   "files": [],
   "references": [
-    { "path": "remote-client" },
-    { "path": "remote-server" }
+    {
+      "path": "remote-server"
+    }
   ]
 }

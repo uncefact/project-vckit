@@ -11,4 +11,6 @@ export interface VCJSONSchema {
   id: string
   name: string
   schema: JSONSchema7
+
+  [key: string]: any
 }

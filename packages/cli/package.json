@@ -48,6 +48,7 @@
     "@vckit/revocationlist": "workspace:*",
     "@vckit/encrypted-storage": "workspace:*",
     "@veramo/core": "5.2.0",
+    "@veramo/credential-status": "5.2.0",
     "@veramo/credential-eip712": "5.2.0",
     "@veramo/credential-ld": "5.2.0",
     "@veramo/credential-w3c": "5.2.0",

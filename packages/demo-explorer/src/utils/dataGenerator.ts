@@ -172,3 +172,36 @@ export async function createP2PCredentials(
     }),
   )
 }
+
+export function convertToSchema(data: any, schema?: any) {
+  if (!schema) {
+    schema = {
+      type: 'object',
+      properties: {},
+    }
+  }
+
+  Object.keys(data).forEach((key) => {
+    if (typeof data[key] === 'object') {
+      // Is an array
+      if (data[key].length >= 0) {
+        schema.properties[key] = {
+          type: 'array',
+          properties: {},
+        }
+      } else {
+        schema.properties[key] = {
+          type: 'object',
+          properties: {},
+        }
+      }
+      convertToSchema(data[key], schema.properties[key])
+    } else {
+      schema.properties[key] = {
+        type: typeof data[key],
+      }
+    }
+  })
+
+  return schema
+}
