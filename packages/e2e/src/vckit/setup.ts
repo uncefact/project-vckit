@@ -12,8 +12,8 @@ import {
   TAgent,
 } from '@vckit/core-types';
 
-import { createAgent, IAgentOptions } from '@vckit/core';
-import { CredentialPlugin } from '@vckit/credential-w3c';
+import { createAgent, IAgentOptions } from '@veramo/core';
+import { CredentialPlugin } from '@veramo/credential-w3c';
 
 import { DIDResolverPlugin } from '@veramo/did-resolver';
 import { KeyManager } from '@veramo/key-manager';
@@ -39,7 +39,7 @@ import express from 'express';
 import { Server } from 'http';
 
 import { Entities, migrations } from '@veramo/data-store';
-import { AgentRestClient } from '../../../remote-client/src/index.js';
+import { AgentRestClient } from '@veramo/remote-client';
 import {
   AgentRouter,
   RequestWithAgentRouter,

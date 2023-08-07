@@ -12,7 +12,7 @@
 ///... other declarations
 # Agent
 agent:
-  $require: '@vckit/core#Agent'
+  $require: '@veramo/core#Agent'
   $args:
     - schemaValidation: false
       plugins:
@@ -22,7 +22,7 @@ agent:
 
 - **Signing**
   - To streamline the signing process across signing process between w3c, OpenAttestation and other frameworks in mind , the plugin use private key that managed by Veramo’s keyManager to sign and associate with did document.
-  > **NOTE**: OpenAttestation document currently support 2 types of DID which is **did ethereum** and **did web**
+    > **NOTE**: OpenAttestation document currently support 2 types of DID which is **did ethereum** and **did web**
 - **Using uncefact/project-vckit CLI to create an OpenAttestation verifiable credential**
   - **Prerequisites:** create a new did document if you haven’t create one \*\*\*\*
     - `pnpm run vckit did create`

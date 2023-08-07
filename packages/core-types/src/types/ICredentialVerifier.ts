@@ -1,8 +1,11 @@
-import { IAgentContext, IPluginMethodMap } from './IAgent.js'
-import { IVerifyResult } from './IVerifyResult.js'
-import { W3CVerifiableCredential, W3CVerifiablePresentation } from './vc-data-model.js'
-import { IResolver } from './IResolver.js'
-import { IDIDManager } from './IDIDManager.js'
+import { IAgentContext, IPluginMethodMap } from './IAgent.js';
+import { IVerifyResult } from './IVerifyResult.js';
+import {
+  W3CVerifiableCredential,
+  W3CVerifiablePresentation,
+} from './vc-data-model.js';
+import { IResolver } from './IResolver.js';
+import { IDIDManager } from './IDIDManager.js';
 
 /**
  * Encapsulates the parameters required to verify a
@@ -19,7 +22,7 @@ export interface IVerifyCredentialArgs {
    * of the `credential` or the `iss` property of the JWT payload respectively
    *
    */
-  credential: W3CVerifiableCredential
+  credential: W3CVerifiableCredential;
 
   /**
    * When dealing with JSON-LD you also MUST provide the proper contexts.
@@ -28,18 +31,18 @@ export interface IVerifyCredentialArgs {
    *
    * Defaults to `false`
    */
-  fetchRemoteContexts?: boolean
+  fetchRemoteContexts?: boolean;
 
   /**
    * Overrides specific aspects of credential verification, where possible.
    */
-  policies?: VerificationPolicies
+  policies?: VerificationPolicies;
 
   /**
    * Other options can be specified for verification.
    * They will be forwarded to the lower level modules. that perform the checks
    */
-  [x: string]: any
+  [x: string]: any;
 }
 
 /**
@@ -57,17 +60,17 @@ export interface IVerifyPresentationArgs {
    * of the `presentation` or the `iss` property of the JWT payload respectively
    *
    */
-  presentation: W3CVerifiablePresentation
+  presentation: W3CVerifiablePresentation;
 
   /**
    * Optional (only for JWT) string challenge parameter to verify the verifiable presentation against
    */
-  challenge?: string
+  challenge?: string;
 
   /**
    * Optional (only for JWT) string domain parameter to verify the verifiable presentation against
    */
-  domain?: string
+  domain?: string;
 
   /**
    * When dealing with JSON-LD you also MUST provide the proper contexts.
@@ -76,18 +79,18 @@ export interface IVerifyPresentationArgs {
    *
    * Defaults to `false`
    */
-  fetchRemoteContexts?: boolean
+  fetchRemoteContexts?: boolean;
 
   /**
    * Overrides specific aspects of credential verification, where possible.
    */
-  policies?: VerificationPolicies
+  policies?: VerificationPolicies;
 
   /**
    * Other options can be specified for verification.
    * They will be forwarded to the lower level modules. that perform the checks
    */
-  [x: string]: any
+  [x: string]: any;
 }
 
 /**
@@ -100,33 +103,33 @@ export interface VerificationPolicies {
   /**
    * policy to over the now (current time) during the verification check (UNIX time in seconds)
    */
-  now?: number
+  now?: number;
 
   /**
    * policy to skip the issuanceDate (nbf) timestamp check when set to `false`
    */
-  issuanceDate?: boolean
+  issuanceDate?: boolean;
 
   /**
    * policy to skip the expirationDate (exp) timestamp check when set to `false`
    */
-  expirationDate?: boolean
+  expirationDate?: boolean;
 
   /**
    * policy to skip the audience check when set to `false`
    */
-  audience?: boolean
+  audience?: boolean;
 
   /**
    * policy to skip the revocation check (credentialStatus) when set to `false`
    */
-  credentialStatus?: boolean
+  credentialStatus?: boolean;
 
   /**
    * Other options can be specified for verification.
    * They will be forwarded to the lower level modules that perform the checks
    */
-  [x: string]: any
+  [x: string]: any;
 }
 
 /**
@@ -139,7 +142,7 @@ export interface VerificationPolicies {
 /**
  * The interface definition for a plugin that can generate Verifiable Credentials and Presentations
  *
- * @see {@link @vckit/credential-w3c#CredentialPlugin} for an implementation.
+ * @see {@link @veramo/credential-w3c#CredentialPlugin} for an implementation.
  * @remarks Please see {@link https://www.w3.org/TR/vc-data-model | W3C Verifiable Credentials data model}
  *
  * @public
@@ -156,7 +159,10 @@ export interface ICredentialVerifier extends IPluginMethodMap {
    *
    * @remarks Please see {@link https://www.w3.org/TR/vc-data-model/#credentials | Verifiable Credential data model}
    */
-  verifyCredential(args: IVerifyCredentialArgs, context: VerifierAgentContext): Promise<IVerifyResult>
+  verifyCredential(
+    args: IVerifyCredentialArgs,
+    context: VerifierAgentContext
+  ): Promise<IVerifyResult>;
 
   /**
    * Verifies a Verifiable Presentation JWT or LDS Format.
@@ -169,7 +175,10 @@ export interface ICredentialVerifier extends IPluginMethodMap {
    *
    * @remarks Please see {@link https://www.w3.org/TR/vc-data-model/#presentations | Verifiable Credential data model}
    */
-  verifyPresentation(args: IVerifyPresentationArgs, context: VerifierAgentContext): Promise<IVerifyResult>
+  verifyPresentation(
+    args: IVerifyPresentationArgs,
+    context: VerifierAgentContext
+  ): Promise<IVerifyResult>;
 }
 
 /**
@@ -182,4 +191,4 @@ export interface ICredentialVerifier extends IPluginMethodMap {
  */
 export type VerifierAgentContext = IAgentContext<
   IResolver & Pick<IDIDManager, 'didManagerGet' | 'didManagerFind'>
->
+>;
