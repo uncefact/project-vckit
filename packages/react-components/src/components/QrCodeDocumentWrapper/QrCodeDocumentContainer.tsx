@@ -6,12 +6,11 @@ import { QRCode } from '../QrCode/QrCode.js';
 const styles: { [key: string]: CSSProperties } = {
   renderContainer: {
     margin: 'auto',
-    border: '1px solid black',
     position: 'relative',
   },
   qrCode: {
     position: 'absolute',
-    padding: '0.5rem 1rem',
+    padding: '0',
     cursor: 'move',
   },
 };
@@ -38,9 +37,6 @@ export function QrCodeDocumentContainer({
   height,
   children,
 }: QrCodeDocumentContainerProps) {
-  width = width || '595px';
-  height = height || '842px';
-
   const [qrcode, setQrcode] = useState<{
     top: number;
     left: number;
@@ -94,7 +90,11 @@ export function QrCodeDocumentContainer({
   };
 
   return (
-    <div style={{ ...styles.renderContainer, width, height }} ref={drop}>
+    <div
+      style={{ ...styles.renderContainer, width, height }}
+      ref={drop}
+      id="qrCodeContainer"
+    >
       {drapableQRCode()}
 
       {children}

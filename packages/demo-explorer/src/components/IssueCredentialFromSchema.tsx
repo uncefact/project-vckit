@@ -1,20 +1,14 @@
-import React, { useState } from 'react'
-import { Button, Select, Card, Alert } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Button, Card, Alert, Spin } from 'antd'
 import { issueCredential } from '../utils/signing'
 import { useVeramo } from '@veramo-community/veramo-react'
 import { useQuery } from 'react-query'
 import { IIdentifier } from '@veramo/core'
 import { JsonForms } from '@jsonforms/react'
 import { materialCells, materialRenderers } from '@jsonforms/material-renderers'
-import { withTheme } from '@rjsf/core'
-import { Theme as AntDTheme } from '@rjsf/antd'
-import validator from '@rjsf/validator-ajv8'
 import { VCJSONSchema } from '../types'
-import DIDDiscoveryBar from './DIDDiscoveryBar'
-
-// const JsonSchemaForm = withTheme(AntDTheme)
-
-const { Option } = Select
+import { convertToSchema } from '../utils/dataGenerator'
+import { dropFields } from '../utils/helpers'
 
 const renderers = [
   ...materialRenderers,
@@ -35,132 +29,146 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
 }) => {
   const { agent } = useVeramo()
   const [errorMessage, setErrorMessage] = useState<null | string>()
-  const [sending] = useState(false)
-  const [issuer, setIssuer] = useState<string>('')
-  const [subject, setSubject] = useState<string>()
+  const [sending, setSending] = useState(false)
   const [formData, setFormData] = useState<any>({})
-  const [proofFormat, setProofFormat] = useState('jwt')
+  const [errors, setErrors] = useState<any>([])
+  const [schemaData, setSchemaData] = useState<any>({})
 
   const { data: identifiers, isLoading: identifiersLoading } = useQuery(
     ['identifiers', { agentId: agent?.context.id }],
     () => agent?.didManagerFind(),
   )
 
+  useEffect(() => {
+    if (schema && identifiers) {
+      const identitierOptions = identifiers.map((id: IIdentifier) => {
+        return {
+          const: id.did,
+          title: id.alias,
+        }
+      })
+
+      const additionalProperties = {
+        proofFormat: {
+          type: 'string',
+          oneOf: [
+            {
+              const: 'jwt',
+              title: 'jwt',
+            },
+            {
+              const: 'lds',
+              title: 'lds',
+            },
+            // {
+            //   const: 'EthereumEip712Signature2021',
+            //   title: 'EthereumEip712Signature2021',
+            // },
+            // {
+            //   const: 'OpenAttestationMerkleProofSignature2018',
+            //   title: 'OpenAttestationMerkleProofSignature2018',
+            // },
+          ],
+        },
+        issuer: {
+          type: 'string',
+          oneOf: identitierOptions,
+        },
+      }
+
+      const required = ['issuer', 'proofFormat']
+
+      const convertedSchema: any = convertToSchema({
+        credentialSubject: schema.credentialSubject,
+      })
+
+      convertedSchema.properties = {
+        ...convertedSchema.properties,
+        ...additionalProperties,
+      }
+      convertedSchema.required = required
+
+      setSchemaData(convertedSchema)
+      setFormData({
+        credentialSubject: schema.credentialSubject,
+      })
+    }
+  }, [schema, identifiers])
+
+  const onChange = ({ errors, data }: { errors: any[]; data: any }) => {
+    setFormData(data)
+    setErrors([...errors])
+  }
+
   const signVc = async (fields: Field[]) => {
     // @ts-ignore
     console.log(schema['@context'])
     try {
+      setSending(true)
       await issueCredential(
         agent,
-        issuer,
-        subject,
+        formData.issuer,
+        '',
         fields,
-        proofFormat,
+        formData.proofFormat,
         // @ts-ignore
         schema['@context'],
         // @ts-ignore
         schema.type,
         '', // id
         // @ts-ignore
-        schema.openAttestationMetadata,
+        dropFields(schema, [
+          '@context',
+          'type',
+          'credentialSubject',
+          'id',
+          'issuer',
+          'issuanceDate',
+        ]),
       )
-      setIssuer('')
-      setSubject('')
       setFormData({})
     } catch (err) {
-      console.error('signVC Error: ', err)
       setErrorMessage(
         'Unable to Issue Credential. Check console log for more info.',
       )
     }
+    setSending(false)
   }
 
   return (
     <Card style={{ maxWidth: '800px' }}>
       <JsonForms
         // @ts-ignore
-        // schema={schema}
+        schema={schemaData}
         // uischema={uischema}
-        data={schema.credentialSubject}
+        data={formData}
         renderers={renderers}
         cells={materialCells}
-        onChange={({ errors, data }) => setFormData(data)}
+        validationMode={'ValidateAndShow'}
+        onChange={onChange}
       />
-
-      {/* <JsonSchemaForm
-        schema={schema.schema}
-        validator={validator}
-        formData={formData}
-        onChange={(e) => {
-          setFormData(e.formData)
-        }}
-        onError={() => {}}
-      > */}
-      <DIDDiscoveryBar
-        handleSelect={(e: any) => {
-          setSubject(e)
-        }}
-        placeholder="Subject DID"
-      />
-      <Select
-        style={{ width: '60%' }}
-        loading={identifiersLoading}
-        onChange={(e) => setIssuer(e as string)}
-        placeholder="issuer DID"
-        defaultActiveFirstOption={true}
-      >
-        {identifiers &&
-          identifiers.map((id: IIdentifier) => (
-            <Option key={id.did} value={id.did as string}>
-              {id.did}
-            </Option>
-          ))}
-      </Select>
       <br />
-      <Select
-        onChange={(e) => setProofFormat(e as string)}
-        placeholder="Proof type"
-        defaultActiveFirstOption={true}
-        style={{ minWidth: '240px' }}
-      >
-        <Option key="jwt" value="jwt">
-          jwt
-        </Option>
-        <Option key="lds" value="lds">
-          lds
-        </Option>
-        <Option
-          key="EthereumEip712Signature2021lds"
-          value="EthereumEip712Signature2021"
+      <br />
+      <Spin spinning={sending}>
+        <Button
+          type="primary"
+          onClick={() => {
+            setErrorMessage('')
+            const fields: Field[] = []
+            for (let key in formData.credentialSubject as any) {
+              fields.push({
+                type: key,
+                value: (formData.credentialSubject as any)[key],
+              })
+            }
+            signVc(fields)
+          }}
+          style={{ marginRight: 5 }}
+          disabled={sending || errors.length !== 0}
         >
-          EthereumEip712Signature2021
-        </Option>
-        <Option
-          key="OpenAttestationMerkleProofSignature2018"
-          value="OpenAttestationMerkleProofSignature2018"
-        >
-          OpenAttestationMerkleProofSignature2018
-        </Option>
-      </Select>
-
-      <br />
-      <br />
-
-      <Button
-        type="primary"
-        onClick={() => {
-          setErrorMessage('')
-          const fields: Field[] = []
-          for (let key in formData as any) {
-            fields.push({ type: key, value: (formData as any)[key] })
-          }
-          signVc(fields)
-        }}
-        style={{ marginRight: 5 }}
-        disabled={sending || !subject || !issuer || !proofFormat}
-      >
-        Issue
-      </Button>
+          Issue
+        </Button>
+      </Spin>
       {errorMessage && (
         <>
           <br />
@@ -168,7 +176,6 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
           <Alert message={errorMessage} type="error" />
         </>
       )}
-      {/* </JsonSchemaForm> */}
     </Card>
   )
 }

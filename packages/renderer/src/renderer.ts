@@ -85,7 +85,7 @@ export class Renderer implements IAgentPlugin {
         renderMethods.map(async (renderMethod) => {
           const rendererProvider = this.getProvider(renderMethod['@type']);
           const document = await rendererProvider.renderCredential(
-            renderMethod['@id'],
+            renderMethod.template,
             args.credential
           );
           return convertToBase64(document);
@@ -120,7 +120,7 @@ function extractRenderMethods(
 ): RenderMethodPayload[] | [] {
   const renders = ((expandedDocument[RENDER_METHOD] as JsonLdObj[]) || [])
     .filter((render) => {
-      return render['@id'] && render['@type'];
+      return render[`${RENDER_METHOD}#template`] && render['@type'];
     })
     .map((render) => {
       // TODO: Handle @type as an array of strings with more than one element.
@@ -128,7 +128,12 @@ function extractRenderMethods(
         ? render['@type'][0]
         : render['@type'];
 
-      return { ...render, '@type': type } as RenderMethodPayload;
+      const template = (
+        render[`${RENDER_METHOD}#template`] as {
+          '@value': string;
+        }[]
+      )[0]['@value'];
+      return { template, '@type': type } as RenderMethodPayload;
     });
 
   return renders;

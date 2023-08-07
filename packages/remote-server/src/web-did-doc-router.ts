@@ -1,7 +1,14 @@
-import { IIdentifier, IDIDManager, TAgent, TKeyType } from '@vckit/core-types';
+import {
+  IIdentifier,
+  IDIDManager,
+  TAgent,
+  TKeyType,
+  IKey,
+} from '@vckit/core-types';
+import { bytesToBase58, bytesToMultibase, hexToBytes } from '@veramo/utils';
 import { Request, Router } from 'express';
-import { ServiceEndpoint } from 'did-resolver';
-import * as u8a from 'uint8arrays';
+import { ServiceEndpoint, VerificationMethod } from 'did-resolver';
+import { Ed25519KeyPair, JsonWebKey2020 } from '@transmute/ed25519-key-pair';
 
 interface RequestWithAgentDIDManager extends Request {
   agent?: TAgent<IDIDManager>;
@@ -17,8 +24,8 @@ export const didDocEndpoint = '/.well-known/did.json';
 const keyMapping: Record<TKeyType, string> = {
   Secp256k1: 'EcdsaSecp256k1VerificationKey2019',
   Secp256r1: 'EcdsaSecp256r1VerificationKey2019',
-  Ed25519: 'Ed25519VerificationKey2020',
-  X25519: 'X25519KeyAgreementKey2020',
+  Ed25519: 'Ed25519VerificationKey2018',
+  X25519: 'X25519KeyAgreementKey2019',
   Bls12381G1: 'Bls12381G1Key2020',
   Bls12381G2: 'Bls12381G2Key2020',
 };
@@ -41,27 +48,133 @@ export interface WebDidDocRouterOptions {
 export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
   const router = Router();
 
-  const didDocForIdentifier = (identifier: IIdentifier) => {
-    const allKeys = identifier.keys.map((key) => ({
-      id: identifier.did + '#' + key.kid,
-      type: keyMapping[key.type],
-      controller: identifier.did,
-      publicKeyMultibase: hexToMultibase(key.publicKeyHex),
-    }));
+  const webKeysForIdentifier = async (identifier: IIdentifier) => {
+    const key = identifier.keys.find((k) => k.type === 'Ed25519');
+    if (!key) {
+      throw new Error('JsonWebKey2020 requires Ed25519 key');
+    }
+
+    const publicKeyBytes = hexToBytes(key.publicKeyHex);
+    const publicKeyMultibase = bytesToMultibase(
+      hexToBytes(key.publicKeyHex),
+      'Ed25519'
+    );
+
+    const controller = `did:key:${publicKeyMultibase}`;
+    const id = `${controller}#${publicKeyMultibase}`;
+
+    const ed25519KeyPair = new Ed25519KeyPair({
+      id: id,
+      type: 'JsonWebKey2020',
+      controller: controller,
+      publicKey: publicKeyBytes,
+    });
+
+    const keys = await Promise.all(
+      [
+        ...((await ed25519KeyPair.getDerivedKeyPairs()) as Ed25519KeyPair[]),
+      ].map(async (k: Ed25519KeyPair, i: number) => {
+        const wk = await k.export({
+          type: 'JsonWebKey2020',
+          privateKey: false,
+        });
+        wk.id = `${identifier.did}#${key.kid}-key-${i}`;
+        wk.controller = identifier.did;
+        return wk;
+      })
+    );
+    return keys as JsonWebKey2020[];
+  };
+
+  const didDocForIdentifier = async (identifier: IIdentifier) => {
+    const contexts = new Set<string>();
+    const allKeys: VerificationMethod[] = identifier.keys
+      .filter((k) => k.type !== 'Ed25519' || identifier.provider !== 'did:web')
+      .map((key: IKey) => {
+        const vm: VerificationMethod = {
+          id: identifier.did + '#' + key.kid,
+          type: keyMapping[key.type],
+          controller: identifier.did,
+          publicKeyHex: key.publicKeyHex,
+        };
+
+        switch (vm.type) {
+          case 'EcdsaSecp256k1VerificationKey2019':
+          case 'EcdsaSecp256k1RecoveryMethod2020':
+            contexts.add('https://w3id.org/security/v2');
+            contexts.add(
+              'https://w3id.org/security/suites/secp256k1recovery-2020/v2'
+            );
+            break;
+          case 'Ed25519VerificationKey2018':
+            contexts.add('https://w3id.org/security/suites/ed25519-2018/v1');
+            vm.publicKeyBase58 = bytesToBase58(hexToBytes(key.publicKeyHex));
+            delete vm.publicKeyHex;
+            break;
+          case 'X25519KeyAgreementKey2019':
+            contexts.add('https://w3id.org/security/suites/x25519-2019/v1');
+            vm.publicKeyBase58 = bytesToBase58(hexToBytes(key.publicKeyHex));
+            delete vm.publicKeyHex;
+            break;
+          case 'Ed25519VerificationKey2020':
+            contexts.add('https://w3id.org/security/suites/ed25519-2020/v1');
+            vm.publicKeyMultibase = bytesToMultibase(
+              hexToBytes(key.publicKeyHex),
+              'Ed25519'
+            );
+            delete vm.publicKeyHex;
+            break;
+          case 'X25519KeyAgreementKey2020':
+            contexts.add('https://w3id.org/security/suites/x25519-2020/v1');
+            vm.publicKeyMultibase = bytesToMultibase(
+              hexToBytes(key.publicKeyHex),
+              'Ed25519'
+            );
+            delete vm.publicKeyHex;
+            break;
+          case 'EcdsaSecp256r1VerificationKey2019':
+            contexts.add('https://w3id.org/security/v2');
+            break;
+          case 'Bls12381G1Key2020':
+          case 'Bls12381G2Key2020':
+            contexts.add('https://w3id.org/security/bbs/v1');
+            break;
+
+          default:
+            break;
+        }
+        return vm;
+      });
+
+    const webKeys = (await webKeysForIdentifier(identifier)).map((k) => {
+      return {
+        id: k.id,
+        type: k.type,
+        controller: k.controller,
+        publicKeyJwk: k.publicKeyJwk,
+      } as VerificationMethod;
+    });
+
+    if (webKeys.length > 0) {
+      contexts.add('https://w3id.org/security/suites/jws-2020/v1');
+    }
+
+    allKeys.push(...webKeys);
+
     // ed25519 keys can also be converted to x25519 for key agreement
     const keyAgreementKeyIds = allKeys
       .filter((key) =>
-        ['Ed25519VerificationKey2020', 'X25519KeyAgreementKey2020'].includes(
+        ['Ed25519VerificationKey2018', 'X25519KeyAgreementKey2019'].includes(
           key.type
         )
       )
       .map((key) => key.id);
     const signingKeyIds = allKeys
-      .filter((key) => key.type !== 'X25519KeyAgreementKey2020')
+      .filter((key) => key.type !== 'X25519KeyAgreementKey2019')
       .map((key) => key.id);
 
     const didDoc = {
-      '@context': 'https://w3id.org/did/v1',
+      '@context': ['https://www.w3.org/ns/did/v1', ...contexts],
       id: identifier.did,
       verificationMethod: allKeys,
       authentication: signingKeyIds,
@@ -83,7 +196,7 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
         const serverIdentifier = await req.agent.didManagerGet({
           did: 'did:web:' + getAliasForRequest(req),
         });
-        const didDoc = didDocForIdentifier(serverIdentifier);
+        const didDoc = await didDocForIdentifier(serverIdentifier);
         res.json(didDoc);
       } catch (e) {
         res.status(404).send(e);
@@ -103,7 +216,7 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
               ':' +
               req.params[0].replace(/\//g, ':'),
           });
-          const didDoc = didDocForIdentifier(identifier);
+          const didDoc = await didDocForIdentifier(identifier);
           res.json(didDoc);
         } catch (e) {
           res.status(404).send(e);
@@ -114,20 +227,3 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
 
   return router;
 };
-
-/**
- * Converts a hex string to a multibase encoded string
- * The sourcecode is copied from https://github.com/uport-project/veramo/pull/1082/files#
- */
-
-const MULTIBASE_BASE58BTC_PREFIX = 'z';
-const MULTICODEC_PREFIX = [0xed, 0x01];
-
-function hexToMultibase(hexString: string): string {
-  const hexBytes = u8a.fromString(hexString, 'hex');
-  const modifiedKey = u8a.concat([MULTICODEC_PREFIX, hexBytes]);
-  return `${MULTIBASE_BASE58BTC_PREFIX}${u8a.toString(
-    modifiedKey,
-    'base58btc'
-  )}`;
-}

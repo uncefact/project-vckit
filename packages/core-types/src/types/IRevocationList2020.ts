@@ -2,6 +2,9 @@ import { IPluginMethodMap, IAgent } from './IAgent.js';
 import { Request } from 'express';
 import { CredentialStatus, VerifiableCredential } from './vc-data-model.js';
 
+/**
+ * @public
+ */
 export interface RequestWithAgent extends Request {
   agent?: IAgent;
 }
