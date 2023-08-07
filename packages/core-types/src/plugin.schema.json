@@ -188,54 +188,6 @@
             },
             "ethereumAddress": {
               "type": "string"
-            },
-            "conditionOr": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "conditionAnd": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "threshold": {
-              "type": "number"
-            },
-            "conditionThreshold": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "conditionWeightedThreshold": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ConditionWeightedThreshold"
-              }
-            },
-            "conditionDelegated": {
-              "type": "string"
-            },
-            "relationshipParent": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "relationshipChild": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "relationshipSibling": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
             }
           },
           "required": [
@@ -289,21 +241,6 @@
             "kty"
           ],
           "description": "Encapsulates a JSON web key type that includes only the public properties that can be used in DID documents.\n\nThe private properties are intentionally omitted to discourage the use (and accidental disclosure) of private keys in DID documents."
-        },
-        "ConditionWeightedThreshold": {
-          "type": "object",
-          "properties": {
-            "condition": {
-              "$ref": "#/components/schemas/VerificationMethod"
-            },
-            "weight": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "condition",
-            "weight"
-          ]
         },
         "Service": {
           "type": "object",
@@ -1750,54 +1687,6 @@
             },
             "ethereumAddress": {
               "type": "string"
-            },
-            "conditionOr": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "conditionAnd": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "threshold": {
-              "type": "number"
-            },
-            "conditionThreshold": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "conditionWeightedThreshold": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ConditionWeightedThreshold"
-              }
-            },
-            "conditionDelegated": {
-              "type": "string"
-            },
-            "relationshipParent": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "relationshipChild": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "relationshipSibling": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
             }
           },
           "required": [
@@ -1851,21 +1740,6 @@
             "kty"
           ],
           "description": "Encapsulates a JSON web key type that includes only the public properties that can be used in DID documents.\n\nThe private properties are intentionally omitted to discourage the use (and accidental disclosure) of private keys in DID documents."
-        },
-        "ConditionWeightedThreshold": {
-          "type": "object",
-          "properties": {
-            "condition": {
-              "$ref": "#/components/schemas/VerificationMethod"
-            },
-            "weight": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "condition",
-            "weight"
-          ]
         },
         "Service": {
           "type": "object",
@@ -5598,54 +5472,6 @@
             },
             "ethereumAddress": {
               "type": "string"
-            },
-            "conditionOr": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "conditionAnd": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "threshold": {
-              "type": "number"
-            },
-            "conditionThreshold": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/VerificationMethod"
-              }
-            },
-            "conditionWeightedThreshold": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ConditionWeightedThreshold"
-              }
-            },
-            "conditionDelegated": {
-              "type": "string"
-            },
-            "relationshipParent": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "relationshipChild": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "relationshipSibling": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
             }
           },
           "required": [
@@ -5699,21 +5525,6 @@
             "kty"
           ],
           "description": "Encapsulates a JSON web key type that includes only the public properties that can be used in DID documents.\n\nThe private properties are intentionally omitted to discourage the use (and accidental disclosure) of private keys in DID documents."
-        },
-        "ConditionWeightedThreshold": {
-          "type": "object",
-          "properties": {
-            "condition": {
-              "$ref": "#/components/schemas/VerificationMethod"
-            },
-            "weight": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "condition",
-            "weight"
-          ]
         },
         "Service": {
           "type": "object",
@@ -6296,6 +6107,99 @@
           },
           "returnType": {
             "$ref": "#/components/schemas/IFetchEncryptedDataByCredentialHashResult"
+          }
+        }
+      }
+    }
+  },
+  "IRevocationList2020": {
+    "components": {
+      "schemas": {
+        "IHashCredentialArgs": {
+          "type": "object",
+          "properties": {
+            "hash": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "hash"
+          ]
+        },
+        "CredentialStatus": {
+          "type": "object",
+          "properties": {
+            "revoked": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "revoked"
+          ],
+          "description": "Represents the result of a status check.\n\nImplementations MUST populate the `revoked` boolean property, but they can return additional metadata that is method specific."
+        },
+        "IRevocationListDataArgs": {
+          "type": "object",
+          "properties": {
+            "revocationListPath": {
+              "type": "string"
+            },
+            "bitStringLength": {
+              "type": "string"
+            },
+            "revocationVCIssuer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "revocationVCIssuer"
+          ]
+        }
+      },
+      "methods": {
+        "activateCredential": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IHashCredentialArgs"
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/CredentialStatus"
+          }
+        },
+        "checkStatus": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IHashCredentialArgs"
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/CredentialStatus"
+          }
+        },
+        "getRevocationData": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IRevocationListDataArgs"
+          },
+          "returnType": {
+            "type": "object"
+          }
+        },
+        "getRevocationListVC": {
+          "description": "",
+          "arguments": {
+            "type": "string"
+          },
+          "returnType": {
+            "type": "object"
+          }
+        },
+        "revokeCredential": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IHashCredentialArgs"
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/CredentialStatus"
           }
         }
       }

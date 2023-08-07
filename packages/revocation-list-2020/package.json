@@ -1,0 +1,56 @@
+{
+  "name": "@vckit/revocationlist",
+  "version": "1.0.0-beta.5",
+  "description": "To encrypt the data and store to the database.",
+  "author": "Nam Hoang <hoangxuannam160493@gmail.com>",
+  "homepage": "https://github.com/uncefact/project-vckit#readme",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "exports": {
+    ".": "./build/index.js",
+    "./build/plugin.schema.json": "./build/plugin.schema.json"
+  },
+  "scripts": {
+    "build": "tsc",
+    "extract-api": "node ../cli/bin/vckit.js dev extract-api"
+  },
+  "license": "Apache-2.0",
+  "keywords": [],
+  "type": "module",
+  "moduleDirectories": [
+    "node_modules",
+    "src"
+  ],
+  "files": [
+    "build/**/*",
+    "src/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uncefact/project-vckit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/uncefact/project-vckit/issues"
+  },
+  "dependencies": {
+    "@digitalbazaar/vc": "^6.0.1",
+    "@govtechsg/oa-encryption": "^1.3.5",
+    "@transmute/did-context": "0.7.0-unstable.75",
+    "@transmute/did-key.js": "0.3.0-unstable.10",
+    "@transmute/did-web": "0.7.0-unstable.81",
+    "@transmute/ed25519-signature-2018": "^0.7.0-unstable.79",
+    "@transmute/json-web-signature": "^0.7.0-unstable.79",
+    "@transmute/vc-status-rl-2020": "0.7.0-unstable.81",
+    "@vckit/core-types": "workspace:*",
+    "@veramo/data-store": "^5.2.0",
+    "@veramo/utils": "^5.2.0",
+    "credential-status": "^2.0.5",
+    "express-interceptor": "^1.2.0",
+    "jsonld-signatures": "^11.2.1",
+    "typeorm": "^0.3.10",
+    "uuid": "^9.0.0",
+    "vc-revocation-list-context": "^1.0.0"
+  }
+}
