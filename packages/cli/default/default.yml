@@ -58,12 +58,22 @@ constants:
     - createVerifiableCredential
     - createVerifiablePresentation
     - verifyCredential
+    - verifyCredentialLD
     - verifyPresentation
     - createSelectiveDisclosureRequest
     - getVerifiableCredentialsForSdr
     - validatePresentationAgainstSdr
     - renderCredential
     - createVerifiableCredentialOA
+    - verifyCredentialOA
+    - encryptAndStoreData
+    - fetchEncryptedData
+    - fetchEncryptedDataByCredentialHash
+    - revokeCredential
+    - activateCredential
+    - checkStatus
+    - routeCreationVerifiableCredential
+    - routeVerificationCredential
 
 # Data base
 dbConnection:
@@ -79,6 +89,42 @@ dbConnection:
       logging: false
       entities:
         $require: '@veramo/data-store?t=object#Entities'
+
+dbConnectionEncrypted:
+  $require: typeorm#DataSource
+  $args:
+    - type: sqlite
+      database:
+        $ref: /constants/databaseFile
+      synchronize: true
+      migrationsRun: true
+      migrations:
+        $require: '@vckit/encrypted-storage?t=object#migrations'
+      logging: false
+      entities:
+        $require: '@vckit/encrypted-storage?t=object#Entities'
+
+dbConnectionRevocationList:
+  $require: typeorm#DataSource
+  $args:
+    - type: sqlite
+      database:
+        $ref: /constants/databaseFile
+      synchronize: false
+      migrationsRun: true
+      migrations:
+        $require: '@vckit/revocationlist?t=object#migrations'
+      logging: false
+      entities:
+        $require: '@vckit/revocationlist?t=object#Entities'
+
+revocationList:
+  $require: '@vckit/revocationlist#RevocationStatus2020'
+  $args:
+    - revocationListPath: http://localhost:3332
+      bitStringLength: 8
+      dbConnection:
+        $ref: /dbConnectionRevocationList
 
 # Server configuration
 server:
@@ -99,6 +145,25 @@ server:
     # DID Documents
     - - $require: '@vckit/remote-server?t=function#WebDidDocRouter'
 
+    - - $require: '@vckit/vc-api?t=function#HolderRouter'
+    - - $require: '@vckit/vc-api?t=function#IssuerRouter'
+        $args:
+          - createCredential: createVerifiableCredential
+            updateCredentialStatus: updateVerifiableCredentialStatus
+    - - $require: '@vckit/vc-api?t=function#VerifierRouter'
+        $args:
+          - verifyCredential: verifyCredential
+            verifyPresentation: verifyPresentation
+
+    # VC API docs path
+    - - /vc-api.json
+      - $require: '@vckit/vc-api?t=function#VCApiSchemaRouter'
+        $args:
+          - basePath: :3332
+
+    - - /vc-api-docs
+      - $require: '@vckit/vc-api?t=function#VCApiDocsRouter'
+
     # API base path
     - - /messaging
       - $require: '@vckit/remote-server?t=function#MessagingRouter'
@@ -107,11 +172,33 @@ server:
               type: DIDComm
               value: https
 
+    # Encrypted storage API
+    - - /encrypted-storage
+      - $require: '@vckit/encrypted-storage?t=function#encryptedStoreRouter'
+
+    # Revocation List
+    - - /credentials/status/revocation-list-2020
+      - $require: '@vckit/revocationlist?t=function#revocationList2020Router'
+
     # API base path
     - - /agent
-      - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+      # - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+      #   $args:
+      #     - apiKey: test123
+
+      - $require: '@vckit/revocationlist?t=function#revocationList2020Middleware'
         $args:
-          - apiKey: test123
+          - apiRoutes:
+              - /routeCreationVerifiableCredential
+            supportedProofFormats:
+              - jwt
+              - lds
+
+      - $require: '@vckit/encrypted-storage?t=function#encryptedStoreMiddleware'
+        $args:
+          - apiRoutes:
+              - /routeCreationVerifiableCredential
+
       - $require: '@vckit/remote-server?t=function#AgentRouter'
         $args:
           - exposedMethods:
@@ -133,14 +220,14 @@ server:
       - $require: '@vckit/remote-server?t=function#ApiDocsRouter'
 
   # Execute during server initialization
-  init:
-    - $require: '@vckit/remote-server?t=function#createDefaultDid'
-      $args:
-        - agent:
-            $ref: /agent
-          baseUrl:
-            $ref: /constants/baseUrl
-          messagingServiceEndpoint: /messaging
+  # init:
+  #   - $require: '@vckit/remote-server?t=function#createDefaultDid'
+  #     $args:
+  #       - agent:
+  #           $ref: /agent
+  #         baseUrl:
+  #           $ref: /constants/baseUrl
+  #         messagingServiceEndpoint: /messaging
 
 # Message handler plugin
 messageHandler:
@@ -219,6 +306,13 @@ keyManager:
                   $args:
                     - $ref: /constants/dbEncryptionKey
 
+# Encrypted Storage Plugin
+encryptedStorage:
+  $require: '@vckit/encrypted-storage#EncryptedStorage'
+  $args:
+    - dbConnection:
+        $ref: /dbConnectionEncrypted
+
 # DID Manager
 didManager:
   $require: '@veramo/did-manager#DIDManager'
@@ -253,11 +347,11 @@ didManager:
           $require: '@veramo/did-provider-key#KeyDIDProvider'
           $args:
             - defaultKms: local
-        did:pkh:
-          $require: '@veramo/did-provider-pkh#PkhDIDProvider'
-          $args:
-            - defaultKms: local
-              chainId: 1
+        # did:pkh:
+        #   $require: '@veramo/did-provider-pkh#PkhDIDProvider'
+        #   $args:
+        #     - defaultKms: local
+        #       chainId: 1
 
 didDiscovery:
   $require: '@veramo/did-discovery#DIDDiscovery'
@@ -272,11 +366,13 @@ credentialIssuerLD:
   $args:
     - suites:
         - $require: '@veramo/credential-ld#VeramoEd25519Signature2018'
+        - $require: '@veramo/credential-ld#VeramoJsonWebSignature2020'
         - $require: '@veramo/credential-ld#VeramoEcdsaSecp256k1RecoverySignature2020'
       contextMaps:
         # The LdDefaultContext is a "catch-all" for now.
         - $require: '@veramo/credential-ld?t=object#LdDefaultContexts'
         - $require: '@transmute/credentials-context?t=object#contexts'
+        - $require: '@transmute/did-context?t=object#contexts'
         #  others should be included here
 
 # Renderer
@@ -302,8 +398,9 @@ agent:
         - $ref: /didDiscovery
         - $ref: /messageHandler
         - $require: '@veramo/did-comm#DIDComm'
+        - $require: '@vckit/credential-router#CredentialRouter'
         - $require: '@veramo/credential-w3c#CredentialPlugin'
-        - $require: '@vckit/credential-oa#CredentialIssuerOA'
+        - $require: '@vckit/credential-oa#CredentialOA'
         - $ref: /credentialIssuerLD
         - $require: '@veramo/credential-eip712#CredentialIssuerEIP712'
         - $require: '@veramo/selective-disclosure#SelectiveDisclosure'
@@ -314,3 +411,9 @@ agent:
           $args:
             - $ref: /dbConnection
         - $ref: /renderer
+        - $ref: /encryptedStorage
+        - $ref: /revocationList
+        - $require: '@veramo/credential-status#CredentialStatusPlugin'
+          $args:
+            - RevocationList2020Status:
+                $require: '@vckit/revocationlist?t=object#checkStatus'
