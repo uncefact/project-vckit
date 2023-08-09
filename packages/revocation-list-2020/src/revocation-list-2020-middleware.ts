@@ -14,11 +14,9 @@ const VC_REVOCATION_LIST_2020 = 'https://w3id.org/vc-revocation-list-2020/v1';
  *
  * @public
  */
-export function revocationList2020(args: {
+export function revocationList2020Middleware(args: {
   apiRoutes: string[];
-  revocationListPath: string;
-  bitStringLength: string;
-  revocationVCIssuer: string;
+  supportedProofFormats: string[];
 }): Router {
   const router = Router();
 
@@ -31,7 +29,11 @@ export function revocationList2020(args: {
         throw Error('Agent not available');
       }
 
-      if (!req.body || !args.apiRoutes.includes(req.path)) {
+      if (
+        !req.body ||
+        !args.apiRoutes.includes(req.path) ||
+        !args.supportedProofFormats.includes(req.body.proof.format)
+      ) {
         next();
         return;
       }

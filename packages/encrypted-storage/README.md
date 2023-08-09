@@ -1,6 +1,6 @@
 # Encrypted Storage
 
-The encrypted storage plugin provides a secure storage for the agent. It is used to store the verifiable credentials that issued when call the `createVerifiableCredential` method.
+The encrypted storage plugin provides a secure storage for the agent. It is used to store the verifiable credentials that issued when call the `routeCreationVerifiableCredential` method.
 
 ## Usage
 
@@ -62,7 +62,7 @@ After that, you need to configure the middleware to use the encrypted storage pl
   - $require: '@vckit/encrypted-storage?t=function#encryptedStoreMiddleware'
     $args:
       - apiRoutes:
-          - /createVerifiableCredential
+          - /routeCreationVerifiableCredential
 
   - $require: '@vckit/remote-server?t=function#AgentRouter'
     $args:
@@ -80,7 +80,7 @@ Finally, you need to expose the endpoint that can be used to fetch the encrypted
 
 ### To use the encrypted storage plugin
 
-- To use the encrypted storage plugin, you need to call the `createVerifiableCredential` method with the parameter `save` to store the verifiable credential, then it will trigger the middleware to store the verifiable credential to the encrypted storage.
+- To use the encrypted storage plugin, you need to call the `routeCreationVerifiableCredential` method with the parameter `save` to store the verifiable credential, then it will trigger the middleware to store the verifiable credential to the encrypted storage.
 
 - After that, it will response the decrypted key, id of encrypted verifiable credential, and the verifiable credential.
 
