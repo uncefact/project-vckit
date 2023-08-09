@@ -29,7 +29,10 @@ jobs:
           node-version: '18'
 
       - name: Install pnpm
-        run: npm install -g pnpm@8.6.0
+        run: npm install -g pnpm@8.6.2
+
+      - name: pnpm version
+        run: pnpm --version
 
       - name: Install dependencies
         run: pnpm install
@@ -47,6 +50,12 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: explorer
+          path: packages/demo-explorer/build/explorer
+
   deploy_to_s3:
     needs: install_and_build
     runs-on: ubuntu-latest
@@ -57,6 +66,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: explorer
+          path: packages/demo-explorer/build/explorer
 
       - name: Install AWS CLI
         run: |
@@ -69,14 +84,8 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_GITHUB_ACTION_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
       - name: Deploy to S3
-        run: aws s3 sync packages/demo-explorer/build/explorer/ s3://${{ vars.AWS_S3_BUCKET_NAME }} --acl public-read --delete
+        run: aws s3 sync packages/demo-explorer/build/explorer/ s3://${{ vars.AWS_S3_BUCKET_NAME }} --delete
 
       - name: Invalidate CloudFront
         run: |
