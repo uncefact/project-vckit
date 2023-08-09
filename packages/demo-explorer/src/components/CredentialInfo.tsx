@@ -3,6 +3,7 @@ import { Alert, Button, Descriptions, Spin } from 'antd'
 import { VerifiableCredential } from '@veramo/core'
 import { format } from 'date-fns'
 import { useVeramo } from '@veramo-community/veramo-react'
+import { DocumentFormat, detectDocumentType } from '../utils/helpers'
 
 interface CredentialInfoProps {
   credential: VerifiableCredential
@@ -24,6 +25,7 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
   const [loading, setLoading] = useState(false)
   const [revoked, setRevoked] = useState(false)
   const [errorMessage, setErrorMessage] = useState<null | string>()
+  const [proofFormat, setProofFormat] = useState<DocumentFormat | null>(null)
 
   const fetchVCStatus = useCallback(async () => {
     setLoading(true)
@@ -39,7 +41,14 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
       value = typeof value === 'string' ? value : JSON.stringify(value)
       setData((d) => [...d, { key, value }])
     }
-    fetchVCStatus()
+    const documentType = detectDocumentType(credentialData)
+    setProofFormat(documentType)
+    if (
+      documentType === DocumentFormat.JWT ||
+      documentType === DocumentFormat.JSONLD
+    ) {
+      fetchVCStatus()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [credentialData])
 
@@ -111,34 +120,39 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
               {i.value}
             </Descriptions.Item>
           ))}
-          <Descriptions.Item label="Status">
-            {revoked ? 'Revoked' : 'Active'}
-          </Descriptions.Item>
+          {proofFormat === DocumentFormat.JWT ||
+          proofFormat === DocumentFormat.JSONLD ? (
+            <Descriptions.Item label="Status">
+              {revoked ? 'Revoked' : 'Active'}
+            </Descriptions.Item>
+          ) : null}
         </Descriptions>
         <br />
-
-        {revoked ? (
-          <Button
-            type="primary"
-            onClick={() => {
-              activate()
-            }}
-            disabled={loading}
-          >
-            Active
-          </Button>
-        ) : (
-          <Button
-            danger
-            type="primary"
-            onClick={() => {
-              revoke()
-            }}
-            disabled={loading}
-          >
-            Revoke
-          </Button>
-        )}
+        {proofFormat === DocumentFormat.JWT ||
+        proofFormat === DocumentFormat.JSONLD ? (
+          revoked ? (
+            <Button
+              type="primary"
+              onClick={() => {
+                activate()
+              }}
+              disabled={loading}
+            >
+              Active
+            </Button>
+          ) : (
+            <Button
+              danger
+              type="primary"
+              onClick={() => {
+                revoke()
+              }}
+              disabled={loading}
+            >
+              Revoke
+            </Button>
+          )
+        ) : null}
         {errorMessage && (
           <>
             <br />

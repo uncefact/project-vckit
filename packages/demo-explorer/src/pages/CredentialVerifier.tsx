@@ -39,7 +39,7 @@ const CredentialVerifier = () => {
     const vc = JSON.parse(stringifyVC)
 
     try {
-      const result = await agent?.verifyCredential({
+      const result = await agent?.routeVerificationCredential({
         credential: vc,
         fetchRemoteContexts: true,
       })
@@ -71,7 +71,7 @@ const CredentialVerifier = () => {
       setIsVerifying(true)
       setVerificationResult(undefined)
       try {
-        const result = await agent?.verifyCredential({
+        const result = await agent?.routeVerificationCredential({
           credential: JSON.parse(text),
           fetchRemoteContexts: true,
         })

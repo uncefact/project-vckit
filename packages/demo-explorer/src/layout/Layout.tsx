@@ -27,8 +27,6 @@ import CreateResponse from '../components/CreateResponse'
 import Statistics from '../pages/Statistics'
 import DataGenerator from '../pages/DevTools/DataGenerator'
 import SelectSchemaAndIssue from '../pages/DevTools/SelectSchemaAndIssue'
-import CreateProfileCredential from '../pages/DevTools/CreateProfileCredential'
-import IssueCredential from '../pages/DevTools/IssueCredential'
 import CreatePresentation from '../pages/DevTools/CreatePresentation'
 import md5 from 'md5'
 import AgentDropdown from '../components/AgentDropdown'
@@ -228,14 +226,6 @@ const Layout = () => {
           <Route
             path="/developer/credential-from-schema"
             element={<SelectSchemaAndIssue />}
-          />
-          <Route
-            path="/developer/issue-profile-credential"
-            element={<CreateProfileCredential />}
-          />
-          <Route
-            path="/developer/issue-credential"
-            element={<IssueCredential />}
           />
           <Route
             path="/developer/create-presentation"
