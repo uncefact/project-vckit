@@ -30,6 +30,8 @@ revocationList:
   $args:
     - dbConnection:
         $ref: /dbConnectionRevocationList
+      revocationListPath: http://localhost:3332
+      bitStringLength: 8
 ```
 
 Second, add the plugin and credential status plugin to the agent plugins list:
@@ -54,11 +56,10 @@ Then, set the revocation list middleware to inject the credential status to the 
 - $require: '@vckit/revocationlist?t=function#revocationList2020'
   $args:
     - apiRoutes:
-        - /createVerifiableCredential
-      revocationListPath: http://localhost:3332
-      bitStringLength: 8
-      # The issuer DID here is temporary, it will be changed.
-      revocationVCIssuer: did:web:vc.example.com
+        - /routeCreationVerifiableCredential
+      supportedProofFormats:
+        - jwt
+        - lds
 ```
 
-Every time the credential is issued by API `/createVerifiableCredential`, the middleware will inject the credential status to the credential.
+Every time the credential is issued by API `/routeCreationVerifiableCredential`, the middleware will inject the credential status to the credential.

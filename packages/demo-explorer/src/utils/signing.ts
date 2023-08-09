@@ -1,4 +1,16 @@
 import { W3CVerifiableCredential, ProofFormat } from '@veramo/core'
+import { dropFields } from './helpers'
+import { is } from 'date-fns/locale'
+
+interface ICreateCredentialArgs {
+  agent: any
+  issuer: string
+  credentialSubject: any
+  proofFormat: string
+  customContext: string | string[]
+  type: string | string[]
+  [key: string]: any
+}
 
 const claimToObject = (arr: any[]) => {
   return arr.reduce(
@@ -7,17 +19,16 @@ const claimToObject = (arr: any[]) => {
   )
 }
 
-const issueCredential = async (
-  agent: any,
-  iss: string | undefined,
-  sub: string | undefined,
-  claims: any[],
-  proofFormat: string,
-  customContext?: string | string[],
-  type?: string | string[],
-  credentialSchemaId?: string,
-  additionalProperties?: { [key: string]: any },
-) => {
+const issueCredential = async (args: ICreateCredentialArgs) => {
+  const {
+    agent,
+    issuer,
+    credentialSubject,
+    proofFormat,
+    customContext,
+    type,
+    ...additionalProperties
+  } = args
   let context = ['https://www.w3.org/2018/credentials/v1']
   if (typeof customContext === 'string') {
     context = [...context, customContext]
@@ -33,32 +44,26 @@ const issueCredential = async (
   if (Array.isArray(type)) {
     typeArr = [...typeArr, ...type]
   }
-
-  let credentialObj: any = {
-    credential: {
-      issuer: { id: iss },
+  const credential = buildCredential(
+    {
       issuanceDate: new Date().toISOString(),
       '@context': context,
       type: typeArr,
-      credentialSubject: { ...claimToObject(claims) },
-      ...additionalProperties,
+      credentialSubject,
     },
+    proofFormat,
+    issuer,
+    additionalProperties,
+  )
+
+  let credentialObj: any = {
+    credential,
     proofFormat,
     save: true,
     fetchRemoteContexts: true,
   }
 
-  // adding undefined field was breaking EIP-712 Issuance, so just don't add field at all if undefined
-  if (credentialSchemaId) {
-    credentialObj = {
-      ...credentialObj,
-      credentialSchema: {
-        id: credentialSchemaId,
-        type: 'JsonSchemaValidator2018',
-      },
-    }
-  }
-  return await agent?.createVerifiableCredential(credentialObj)
+  return await agent?.routeCreationVerifiableCredential(credentialObj)
 }
 
 const signVerifiablePresentation = async (
@@ -78,6 +83,61 @@ const signVerifiablePresentation = async (
     proofFormat,
     save: true,
   })
+}
+
+function buildCredential(
+  credential: any,
+  proofFormat: string,
+  issuerDid: string,
+  additionalProperties: { [key: string]: any },
+): any {
+  const _credential = { ...credential }
+
+  let issuer = { id: issuerDid }
+
+  if (proofFormat === 'OpenAttestationMerkleProofSignature2018') {
+    let {
+      openAttestationMetadata,
+      issuerProfile,
+      version,
+      identityProofType,
+      identityProofIdentifier,
+    } = additionalProperties
+    issuer = { ...issuer, ...issuerProfile }
+
+    openAttestationMetadata = {
+      ...openAttestationMetadata,
+      proof: {
+        type: 'OpenAttestationProofMethod',
+        method: 'DID',
+        value: issuerDid,
+        revocation: {
+          type: 'NONE',
+        },
+      },
+    }
+
+    if (identityProofType === 'DID') {
+      openAttestationMetadata.identityProof = {
+        type: identityProofType,
+        identifier: issuerDid,
+      }
+    } else {
+      openAttestationMetadata.identityProof = {
+        type: identityProofType,
+        identifier: identityProofIdentifier,
+      }
+    }
+
+    return {
+      ..._credential,
+      version,
+      issuer,
+      openAttestationMetadata,
+    }
+  } else {
+    return { ..._credential, issuer }
+  }
 }
 
 export { claimToObject, issueCredential, signVerifiablePresentation }

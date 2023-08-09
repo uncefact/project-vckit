@@ -9,6 +9,8 @@ import { materialCells, materialRenderers } from '@jsonforms/material-renderers'
 import { VCJSONSchema } from '../types'
 import { convertToSchema } from '../utils/dataGenerator'
 import { dropFields } from '../utils/helpers'
+import { Generate } from '@jsonforms/core'
+import { ErrorObject } from 'ajv'
 
 const renderers = [
   ...materialRenderers,
@@ -33,6 +35,8 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
   const [formData, setFormData] = useState<any>({})
   const [errors, setErrors] = useState<any>([])
   const [schemaData, setSchemaData] = useState<any>({})
+  const [uischema, setUiSchema] = useState<any>({})
+  const [additionalErrors, setAdditionalErrors] = useState<ErrorObject[]>([])
 
   const { data: identifiers, isLoading: identifiersLoading } = useQuery(
     ['identifiers', { agentId: agent?.context.id }],
@@ -54,21 +58,41 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
           oneOf: [
             {
               const: 'jwt',
-              title: 'jwt',
+              title: 'JWT',
             },
             {
               const: 'lds',
-              title: 'lds',
+              title: 'JSON-LD Signature',
             },
             // {
             //   const: 'EthereumEip712Signature2021',
             //   title: 'EthereumEip712Signature2021',
             // },
-            // {
-            //   const: 'OpenAttestationMerkleProofSignature2018',
-            //   title: 'OpenAttestationMerkleProofSignature2018',
-            // },
+            {
+              const: 'OpenAttestationMerkleProofSignature2018',
+              title: 'OpenAttestationMerkleProofSignature2018',
+            },
           ],
+        },
+        identityProofType: {
+          type: 'string',
+          oneOf: [
+            {
+              const: 'DID',
+              title: 'DID',
+            },
+            {
+              const: 'DNS-DID',
+              title: 'DNS-DID',
+            },
+            {
+              const: 'DNS-TXT',
+              title: 'DNS-TXT',
+            },
+          ],
+        },
+        identityProofIdentifier: {
+          type: 'string',
         },
         issuer: {
           type: 'string',
@@ -88,6 +112,30 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
       }
       convertedSchema.required = required
 
+      const uiSchema = Generate.uiSchema(convertedSchema) as any
+      const proofTypeUiSchema = uiSchema.elements.find(
+        (e: any) => e.scope === '#/properties/identityProofType',
+      )
+      proofTypeUiSchema.rule = {
+        effect: 'SHOW',
+        condition: {
+          scope: '#/properties/proofFormat',
+          schema: { const: 'OpenAttestationMerkleProofSignature2018' },
+        },
+      }
+
+      const identityProofIdentifierUiSchema = uiSchema.elements.find(
+        (e: any) => e.scope === '#/properties/identityProofIdentifier',
+      )
+      identityProofIdentifierUiSchema.rule = {
+        effect: 'SHOW',
+        condition: {
+          scope: '#/properties/identityProofType',
+          schema: { enum: ['DNS-DID', 'DNS-TXT'] },
+        },
+      }
+
+      setUiSchema(uiSchema)
       setSchemaData(convertedSchema)
       setFormData({
         credentialSubject: schema.credentialSubject,
@@ -98,6 +146,59 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
   const onChange = ({ errors, data }: { errors: any[]; data: any }) => {
     setFormData(data)
     setErrors([...errors])
+
+    if (data.proofFormat !== 'OpenAttestationMerkleProofSignature2018') {
+      setFormData((d: any) =>
+        dropFields(d, ['identityProofType', 'identityProofIdentifier']),
+      )
+    }
+
+    if (data.proofFormat === 'OpenAttestationMerkleProofSignature2018') {
+      if (data.identityProofType) {
+        const newErrors = errors.filter(
+          (e) => e.instancePath !== '/identityProofType',
+        )
+        setAdditionalErrors(newErrors)
+        setErrors(newErrors)
+      } else {
+        const newError: ErrorObject = {
+          // AJV style path to the property in the schema
+          instancePath: '/identityProofType',
+          // message to display
+          message: 'is a required property',
+          schemaPath: '',
+          keyword: '',
+          params: {},
+        }
+        setAdditionalErrors((errors) => [...errors, newError])
+        setErrors([...errors, newError])
+      }
+
+      if (
+        data.identityProofType === 'DNS-DID' ||
+        data.identityProofType === 'DNS-TXT'
+      ) {
+        if (data.identityProofIdentifier) {
+          const newErrors = errors.filter(
+            (e) => e.instancePath !== '/identityProofIdentifier',
+          )
+          setAdditionalErrors(newErrors)
+          setErrors(newErrors)
+        } else {
+          const newError: ErrorObject = {
+            // AJV style path to the property in the schema
+            instancePath: '/identityProofIdentifier',
+            // message to display
+            message: 'is a required property',
+            schemaPath: '',
+            keyword: '',
+            params: {},
+          }
+          setAdditionalErrors((errors) => [...errors, newError])
+          setErrors([...errors, newError])
+        }
+      }
+    }
   }
 
   const signVc = async (fields: Field[]) => {
@@ -105,27 +206,23 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
     console.log(schema['@context'])
     try {
       setSending(true)
-      await issueCredential(
+
+      await issueCredential({
         agent,
-        formData.issuer,
-        '',
-        fields,
-        formData.proofFormat,
-        // @ts-ignore
-        schema['@context'],
-        // @ts-ignore
-        schema.type,
-        '', // id
-        // @ts-ignore
-        dropFields(schema, [
-          '@context',
-          'type',
-          'credentialSubject',
-          'id',
-          'issuer',
-          'issuanceDate',
-        ]),
-      )
+        issuer: formData.issuer,
+        credentialSubject: formData.credentialSubject,
+        proofFormat: formData.proofFormat,
+        customContext: schema['@context'],
+        type: schema.type,
+        identityProofType: formData.identityProofType,
+        identityProofIdentifier: formData.identityProofIdentifier,
+        openAttestationMetadata: schema.openAttestationMetadata,
+        version: schema.version,
+        issuerProfile: {
+          name: schema.issuer.name,
+          type: schema.issuer.type,
+        },
+      })
       setFormData({})
     } catch (err) {
       setErrorMessage(
@@ -140,11 +237,12 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
       <JsonForms
         // @ts-ignore
         schema={schemaData}
-        // uischema={uischema}
+        uischema={uischema}
         data={formData}
         renderers={renderers}
         cells={materialCells}
         validationMode={'ValidateAndShow'}
+        additionalErrors={additionalErrors}
         onChange={onChange}
       />
       <br />
