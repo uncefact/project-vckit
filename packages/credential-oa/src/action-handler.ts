@@ -47,7 +47,7 @@ const OA_MANDATORY_CREDENTIAL_TYPES = 'VerifiableCredential';
  
  * @public
  */
-export class CredentialIssuerOA implements IAgentPlugin {
+export class CredentialOA implements IAgentPlugin {
   readonly methods: IOACredentialPlugin;
   readonly schema = {
     components: {
@@ -73,7 +73,7 @@ export class CredentialIssuerOA implements IAgentPlugin {
     args: ICreateVerifiableCredentialArgs,
     context: IssuerAgentContext
   ): Promise<VerifiableCredential> {
-    const { credential: credentialInput } = args;
+    const { credential: credentialInput, save } = args;
 
     const credentialContext = processEntryToArray(
       credentialInput['@context'],
@@ -87,7 +87,9 @@ export class CredentialIssuerOA implements IAgentPlugin {
 
     const credential = {
       ...credentialInput,
-      '@context': [...credentialContext, OA_MANDATORY_CREDENTIAL_CONTEXT],
+      '@context': [
+        ...new Set([...credentialContext, OA_MANDATORY_CREDENTIAL_CONTEXT]),
+      ],
       type: credentialType,
     };
 
@@ -129,6 +131,12 @@ export class CredentialIssuerOA implements IAgentPlugin {
       },
     };
 
+    if (save) {
+      await context.agent.dataStoreSaveVerifiableCredential({
+        verifiableCredential,
+      });
+    }
+
     return verifiableCredential;
   }
 
@@ -164,14 +172,13 @@ export class CredentialIssuerOA implements IAgentPlugin {
       });
       const fragments = await builtVerifier(credential);
 
-      const verified = isValid(fragments)
+      const verified = isValid(fragments);
       const verificationResult = {
         verified,
-        ...(verified && {verifiableCredential: credential})
-      }
+        ...(verified && { verifiableCredential: credential }),
+      };
 
       return verificationResult;
-
     } catch (error) {
       return {
         verified: false,
