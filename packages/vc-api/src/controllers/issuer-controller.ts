@@ -1,0 +1,42 @@
+import { RequestWithAgent } from '../types/request-type.js';
+import { Response } from 'express';
+import { configuration as DEFAULT_CONFIG } from '../config/index.js';
+import { errorHandler } from '../error-handler.js';
+
+export const issueCredential = async (req: RequestWithAgent, res: Response) => {
+  try {
+    if (!req.agent) {
+      throw Error('Agent not available');
+    }
+
+    const payload = {
+      credential: req.body.credential,
+      ...DEFAULT_CONFIG,
+    };
+
+    const verifiableCredential = await req.agent.execute(
+      'routeCreationVerifiableCredential',
+      payload
+    );
+    res.status(201).json(verifiableCredential);
+  } catch (e) {
+    const error = errorHandler(e);
+    res.status(error.code).json({ error: error.message });
+  }
+};
+
+export const updateCredentialStatus = async (
+  req: RequestWithAgent,
+  res: Response
+) => {
+  try {
+    if (!req.agent) {
+      throw Error('Agent not available');
+    }
+
+    res.status(501).json({ error: 'Not implemented' });
+  } catch (e) {
+    const error = errorHandler(e);
+    res.status(error.code).json({ error: error.message });
+  }
+};
