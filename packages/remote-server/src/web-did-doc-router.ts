@@ -24,7 +24,7 @@ export const didDocEndpoint = '/.well-known/did.json';
 const keyMapping: Record<TKeyType, string> = {
   Secp256k1: 'EcdsaSecp256k1VerificationKey2019',
   Secp256r1: 'EcdsaSecp256r1VerificationKey2019',
-  Ed25519: 'Ed25519VerificationKey2018',
+  Ed25519: 'Ed25519VerificationKey2020',
   X25519: 'X25519KeyAgreementKey2019',
   Bls12381G1: 'Bls12381G1Key2020',
   Bls12381G2: 'Bls12381G2Key2020',
@@ -35,6 +35,7 @@ const keyMapping: Record<TKeyType, string> = {
  */
 export interface WebDidDocRouterOptions {
   services?: ServiceEndpoint[];
+  keyMapping?: Record<TKeyType, string>;
 }
 
 /**
@@ -87,96 +88,105 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
   };
 
   const didDocForIdentifier = async (identifier: IIdentifier) => {
+    const km = options.keyMapping
+      ? { ...keyMapping, ...options.keyMapping }
+      : keyMapping;
     const contexts = new Set<string>();
-    const allKeys: VerificationMethod[] = identifier.keys
-      .filter((k) => k.type !== 'Ed25519' || identifier.provider !== 'did:web')
-      .map((key: IKey) => {
-        const vm: VerificationMethod = {
-          id: identifier.did + '#' + key.kid,
-          type: keyMapping[key.type],
-          controller: identifier.did,
-          publicKeyHex: key.publicKeyHex,
-        };
 
-        switch (vm.type) {
-          case 'EcdsaSecp256k1VerificationKey2019':
-          case 'EcdsaSecp256k1RecoveryMethod2020':
-            contexts.add('https://w3id.org/security/v2');
-            contexts.add(
-              'https://w3id.org/security/suites/secp256k1recovery-2020/v2'
-            );
-            break;
-          case 'Ed25519VerificationKey2018':
-            contexts.add('https://w3id.org/security/suites/ed25519-2018/v1');
-            vm.publicKeyBase58 = bytesToBase58(hexToBytes(key.publicKeyHex));
-            delete vm.publicKeyHex;
-            break;
-          case 'X25519KeyAgreementKey2019':
-            contexts.add('https://w3id.org/security/suites/x25519-2019/v1');
-            vm.publicKeyBase58 = bytesToBase58(hexToBytes(key.publicKeyHex));
-            delete vm.publicKeyHex;
-            break;
-          case 'Ed25519VerificationKey2020':
-            contexts.add('https://w3id.org/security/suites/ed25519-2020/v1');
-            vm.publicKeyMultibase = bytesToMultibase(
-              hexToBytes(key.publicKeyHex),
-              'Ed25519'
-            );
-            delete vm.publicKeyHex;
-            break;
-          case 'X25519KeyAgreementKey2020':
-            contexts.add('https://w3id.org/security/suites/x25519-2020/v1');
-            vm.publicKeyMultibase = bytesToMultibase(
-              hexToBytes(key.publicKeyHex),
-              'Ed25519'
-            );
-            delete vm.publicKeyHex;
-            break;
-          case 'EcdsaSecp256r1VerificationKey2019':
-            contexts.add('https://w3id.org/security/v2');
-            break;
-          case 'Bls12381G1Key2020':
-          case 'Bls12381G2Key2020':
-            contexts.add('https://w3id.org/security/bbs/v1');
-            break;
+    const allKeys: (VerificationMethod | VerificationMethod[])[] =
+      await Promise.all(
+        identifier.keys.map(async (key: IKey) => {
+          const vm: VerificationMethod = {
+            id: identifier.did + '#' + key.kid,
+            type: km[key.type],
+            controller: identifier.did,
+            publicKeyHex: key.publicKeyHex,
+          };
 
-          default:
-            break;
-        }
-        return vm;
-      });
+          switch (vm.type) {
+            case 'EcdsaSecp256k1VerificationKey2019':
+            case 'EcdsaSecp256k1RecoveryMethod2020':
+              contexts.add('https://w3id.org/security/v2');
+              contexts.add(
+                'https://w3id.org/security/suites/secp256k1recovery-2020/v2'
+              );
+              return vm;
 
-    const webKeys = (await webKeysForIdentifier(identifier)).map((k) => {
-      return {
-        id: k.id,
-        type: k.type,
-        controller: k.controller,
-        publicKeyJwk: k.publicKeyJwk,
-      } as VerificationMethod;
-    });
+            case 'Ed25519VerificationKey2018':
+              contexts.add('https://w3id.org/security/suites/ed25519-2018/v1');
+              vm.publicKeyBase58 = bytesToBase58(hexToBytes(key.publicKeyHex));
+              delete vm.publicKeyHex;
+              return vm;
+            case 'X25519KeyAgreementKey2019':
+              contexts.add('https://w3id.org/security/suites/x25519-2019/v1');
+              vm.publicKeyBase58 = bytesToBase58(hexToBytes(key.publicKeyHex));
+              delete vm.publicKeyHex;
+              return vm;
+            case 'Ed25519VerificationKey2020':
+              contexts.add('https://w3id.org/security/suites/ed25519-2020/v1');
+              vm.publicKeyMultibase = bytesToMultibase(
+                hexToBytes(key.publicKeyHex),
+                'Ed25519'
+              );
+              delete vm.publicKeyHex;
+              return vm;
+            case 'X25519KeyAgreementKey2020':
+              contexts.add('https://w3id.org/security/suites/x25519-2020/v1');
+              vm.publicKeyMultibase = bytesToMultibase(
+                hexToBytes(key.publicKeyHex),
+                'Ed25519'
+              );
+              delete vm.publicKeyHex;
+              return vm;
+            case 'EcdsaSecp256r1VerificationKey2019':
+              contexts.add('https://w3id.org/security/v2');
+              return vm;
+            case 'Bls12381G1Key2020':
+            case 'Bls12381G2Key2020':
+              contexts.add('https://w3id.org/security/bbs/v1');
+              return vm;
 
-    if (webKeys.length > 0) {
-      contexts.add('https://w3id.org/security/suites/jws-2020/v1');
-    }
+            case 'JsonWebKey2020':
+              const webKeys = (await webKeysForIdentifier(identifier)).map(
+                (k) => {
+                  return {
+                    id: k.id,
+                    type: k.type,
+                    controller: k.controller,
+                    publicKeyJwk: k.publicKeyJwk,
+                  } as VerificationMethod;
+                }
+              );
 
-    allKeys.push(...webKeys);
+              if (webKeys.length > 0) {
+                contexts.add('https://w3id.org/security/suites/jws-2020/v1');
+              }
+              return webKeys;
+
+            default:
+              return vm;
+          }
+        })
+      );
+
+    const flattenAllKeys: VerificationMethod[] = allKeys.flat();
 
     // ed25519 keys can also be converted to x25519 for key agreement
-    const keyAgreementKeyIds = allKeys
+    const keyAgreementKeyIds = flattenAllKeys
       .filter((key) =>
         ['Ed25519VerificationKey2018', 'X25519KeyAgreementKey2019'].includes(
           key.type
         )
       )
       .map((key) => key.id);
-    const signingKeyIds = allKeys
+    const signingKeyIds = flattenAllKeys
       .filter((key) => key.type !== 'X25519KeyAgreementKey2019')
       .map((key) => key.id);
 
     const didDoc = {
       '@context': ['https://www.w3.org/ns/did/v1', ...contexts],
       id: identifier.did,
-      verificationMethod: allKeys,
+      verificationMethod: flattenAllKeys,
       authentication: signingKeyIds,
       assertionMethod: signingKeyIds,
       keyAgreement: keyAgreementKeyIds,

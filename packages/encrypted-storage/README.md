@@ -8,7 +8,7 @@ The encrypted storage plugin provides a secure storage for the agent. It is used
 
 To use the encrypted storage plugin, you need to add the following configuration to the agent.yml.
 
-Fist, add the `dbConnectionEncrypted` to define the database connection for the encrypted storage.
+- First, add the `dbConnectionEncrypted` to define the database connection for the encrypted storage.
 
 ```yaml
 dbConnectionEncrypted:
@@ -17,7 +17,7 @@ dbConnectionEncrypted:
     - type: sqlite
       database:
         $ref: /constants/databaseFile
-      synchronize: true
+      synchronize: false
       migrationsRun: true
       migrations:
         $require: '@vckit/encrypted-storage?t=object#migrations'
@@ -48,6 +48,14 @@ agent:
       plugins:
         # Plugins
         - $ref: /encryptedStorage
+```
+
+Then, you need to expose the functions of the plugin.
+
+```yaml
+- encryptAndStoreData
+- fetchEncryptedData
+- fetchEncryptedDataByCredentialHash
 ```
 
 After that, you need to configure the middleware to use the encrypted storage plugin to store the verifiable credentials when issue the verifiable credentials. You can configure the middleware in the `apiRoutes` section of the agent.yml.

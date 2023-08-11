@@ -8,15 +8,7 @@ The router follows the `veramo` architecture, allowing you to configure it using
 
 ```yaml
 # API base path
-- - $require: '@vckit/vc-api?t=function#HolderRouter'
-- - $require: '@vckit/vc-api?t=function#IssuerRouter'
-    $args:
-      - createCredential: createVerifiableCredential
-        updateCredentialStatus: updateVerifiableCredentialStatus
-- - $require: '@vckit/vc-api?t=function#VerifierRouter'
-    $args:
-      - verifyCredential: verifyCredential
-        verifyPresentation: verifyPresentation
+- - $require: '@vckit/vc-api?t=function#VCRouter'
 
 # VC API docs path
 - - /vc-api.json
@@ -59,6 +51,8 @@ To test the agent router, you can use the vc-api test suite. Follow the steps be
 }
 ```
 
+At the moment, Only did:web is supported to configure the verification method to adapt to the test suite. So we will configure the did document to use the `Ed25519VerificationKey2020` verification method. That will be explained in the next steps.
+
 3. Modify the W3C credentialPlugin in `agent.yml` to use the appropriate signature suite. For example, if the test suite is using `Ed25519Signature2020`, replace `VeramoEd25519Signature2018` with `VeramoEd25519Signature2020`:
 
 ```yaml
@@ -76,7 +70,17 @@ credentialIssuerLD:
         #  others should be included here
 ```
 
-4. Create a `did:web` by using the API, as shown in the following example using `curl`:
+4. Modify the keyMapping for key type `Ed25519` to `Ed25519VerificationKey2020` in `agent.yml` because the test suites of vc-api use `Ed25519Signature2020`, so the generating did document need to use the verification method of `Ed25519VerificationKey2020`:
+
+```yaml
+# DID Documents
+- - $require: '@vckit/remote-server?t=function#WebDidDocRouter'
+    $args:
+      - keyMapping:
+          Ed25519: Ed25519VerificationKey2020 # Ed25519VerificationKey2020 | JsonWebKey2020
+```
+
+5. Create a `did:web` by using the API, as shown in the following example using `curl`:
 
 ```bash
 curl -X POST "http://localhost:3332/agent/didManagerCreate" \
@@ -89,6 +93,6 @@ curl -X POST "http://localhost:3332/agent/didManagerCreate" \
 
 Replace `ngrok_host` with the host of your ngrok tunnel on port 3332.
 
-5. Update the implementation file with your newly created `did:web`.
+6. Update the implementation file with your newly created `did:web`.
 
-6. Run the test command: `npm run test`.
+7. Run the test command: `npm run test`.

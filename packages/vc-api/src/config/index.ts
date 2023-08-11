@@ -14,4 +14,6 @@ export const configuration: IssuerConfiguration = {
   removeOriginalFields: false, // Remove payload members during JWT-JSON transformation. Defaults to `true`.
 
   save: true, // If this parameter is true, the resulting VerifiableCredential is sent to the storage plugin to be saved.
+
+  fetchRemoteContexts: true,
 };
