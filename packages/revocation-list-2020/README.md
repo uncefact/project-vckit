@@ -8,7 +8,7 @@ The revocation list 2020 plugin is used to revoke and verify the verify credenti
 
 To use the plugin you need to add the following configuration to the agent.yml
 
-First, define the revocation list plugin:
+- First, define the revocation list plugin:
 
 ```yaml
 dbConnectionRevocationList:
@@ -34,7 +34,7 @@ revocationList:
       bitStringLength: 8
 ```
 
-Second, add the plugin and credential status plugin to the agent plugins list:
+- Second, add the plugin and credential status plugin to the agent plugins list:
 
 ```yaml
 agent:
@@ -50,7 +50,7 @@ agent:
                 $require: '@vckit/revocationlist?t=object#checkStatus'
 ```
 
-Then, set the revocation list middleware to inject the credential status to the credential when it is issued:
+- Then, set the revocation list middleware to inject the credential status to the credential when it is issued:
 
 ```yaml
 - $require: '@vckit/revocationlist?t=function#revocationList2020'
@@ -60,6 +60,14 @@ Then, set the revocation list middleware to inject the credential status to the 
       supportedProofFormats:
         - jwt
         - lds
+```
+
+- After that, you need to expose the plugin functions:
+
+```yaml
+- revokeCredential
+- activateCredential
+- checkStatus
 ```
 
 Every time the credential is issued by API `/routeCreationVerifiableCredential`, the middleware will inject the credential status to the credential.
