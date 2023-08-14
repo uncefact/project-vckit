@@ -18,8 +18,8 @@ The vckit is built on top of the [Veramo](https://veramo.io/) agent framework. V
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/en/) version 16.x
-- [pnpm](https://pnpm.io/) version 8.x
+- [Node.js](https://nodejs.org/en/) version 18.x
+- [pnpm](https://pnpm.io/) version 8.6.0
 
 ## Installation and Setup
 
