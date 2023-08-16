@@ -65,7 +65,7 @@
     "@veramo/did-resolver": "5.1.2",
     "@veramo/key-manager": "5.1.2",
     "@veramo/kms-local": "5.1.2",
-    "@veramo/remote-client": "5.2.1-next.5",
+    "@veramo/remote-client": "5.1.2",
     "@veramo/message-handler": "5.1.2",
     "@veramo/selective-disclosure": "5.1.2",
     "@veramo/url-handler": "5.1.2",

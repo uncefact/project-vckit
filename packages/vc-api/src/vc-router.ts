@@ -13,17 +13,26 @@ import {
   receiveExchange,
 } from './controllers/holder-controller.js';
 import { validatorMiddleware } from './validator-middleware.js';
+import {
+  issueCredential,
+  updateCredentialStatus,
+} from './controllers/issuer-controller.js';
+import {
+  verifyCredential,
+  verifyPresentation,
+} from './controllers/verifier-controller.js';
 
 /**
  *
- * Creates a router for handling holder-related routes.
+ * Creates a router for handling vc-related routes.
  * @public
- * @returns {Router} The Express router configured for holder routes.
+ * @returns {Router} The Express router configured for VC routes.
  */
-export const HolderRouter = (): Router => {
+export const VCRouter = (): Router => {
   const router = Router();
   router.use(json({ limit: '10mb' }));
 
+  // Holder routes
   router.get('/credentials/:id', validatorMiddleware(), getCredential);
 
   router.get('/credentials', validatorMiddleware(), getCredentials);
@@ -56,6 +65,24 @@ export const HolderRouter = (): Router => {
     '/exchanges/:exchangeId/:transactionId',
     validatorMiddleware(),
     receiveExchange
+  );
+
+  // Issuer routes
+  router.post('/credentials/issue', validatorMiddleware(), issueCredential);
+
+  router.post(
+    '/credentials/status',
+    validatorMiddleware(),
+    updateCredentialStatus
+  );
+
+  // Verifier routes
+  router.post('/credentials/verify', validatorMiddleware(), verifyCredential);
+
+  router.post(
+    '/presentations/verify',
+    validatorMiddleware(),
+    verifyPresentation
   );
 
   return router;

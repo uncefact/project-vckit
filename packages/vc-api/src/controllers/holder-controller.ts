@@ -19,8 +19,8 @@ import { configuration } from '../config/index.js';
  * @throws {Error} If the agent is not available.
  */
 export const getCredential = async (req: RequestWithAgent, res: Response) => {
-  if (!req.agent) throw Error('Agent not available');
   try {
+    if (!req.agent) throw Error('Agent not available');
     const result = await getUniqueVerifiableCredential(
       req.agent,
       req.params.id
@@ -44,8 +44,8 @@ export const getCredential = async (req: RequestWithAgent, res: Response) => {
  * @throws {Error} If the agent is not available.
  */
 export const getCredentials = async (req: RequestWithAgent, res: Response) => {
-  if (!req.agent) throw Error('Agent not available');
   try {
+    if (!req.agent) throw Error('Agent not available');
     const result: Array<VerifiableCredential> = await getVerifiableCredentials(
       req.agent
     );
@@ -71,8 +71,8 @@ export const deleteCredential = async (
   req: RequestWithAgent,
   res: Response
 ) => {
-  if (!req.agent) throw Error('Agent not available');
   try {
+    if (!req.agent) throw Error('Agent not available');
     const result = await deleteVerifiableCredential(req.agent, req.params.id);
     if (!result) {
       res.status(404).json({ error: 'Credential not found' });
@@ -106,8 +106,8 @@ export const deriveCredential = async (
  * @throws {Error} If the agent is not available.
  */
 export const getPresentation = async (req: RequestWithAgent, res: Response) => {
-  if (!req.agent) throw Error('Agent not available');
   try {
+    if (!req.agent) throw Error('Agent not available');
     const result = await getUniqueVerifiablePresentation(
       req.agent,
       req.params.id
@@ -134,8 +134,8 @@ export const getPresentations = async (
   req: RequestWithAgent,
   res: Response
 ) => {
-  if (!req.agent) throw Error('Agent not available');
   try {
+    if (!req.agent) throw Error('Agent not available');
     const result = await getVerifiablePresentations(req.agent);
     if (result.length === 0) {
       res.status(410).json({ error: 'Gone! There is no data here' });
@@ -159,8 +159,8 @@ export const provePresentation = async (
   req: RequestWithAgent,
   res: Response
 ) => {
-  if (!req.agent) throw Error('Agent not available');
   try {
+    if (!req.agent) throw Error('Agent not available');
     const result = await proveVerifiablefPresentation(req.agent, req.body);
     res.status(201).json(result);
   } catch (e) {

@@ -13,7 +13,7 @@
   "dependencies": {
     "@transmute/ed25519-key-pair": "0.7.0-unstable.81",
     "@vckit/core-types": "^1.0.0-beta.5",
-    "@veramo/remote-client": "5.2.1-next.5",
+    "@veramo/remote-client": "5.1.2",
     "@veramo/utils": "5.2.0",
     "debug": "^4.3.3",
     "did-resolver": "^4.0.1",

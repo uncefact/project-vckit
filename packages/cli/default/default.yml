@@ -144,17 +144,12 @@ server:
 
     # DID Documents
     - - $require: '@vckit/remote-server?t=function#WebDidDocRouter'
-
-    - - $require: '@vckit/vc-api?t=function#HolderRouter'
-    - - $require: '@vckit/vc-api?t=function#IssuerRouter'
         $args:
-          - createCredential: createVerifiableCredential
-            updateCredentialStatus: updateVerifiableCredentialStatus
-    - - $require: '@vckit/vc-api?t=function#VerifierRouter'
-        $args:
-          - verifyCredential: verifyCredential
-            verifyPresentation: verifyPresentation
+          - keyMapping:
+              Ed25519: JsonWebKey2020 # Ed25519VerificationKey2020 | JsonWebKey2020
 
+    # VC API
+    - - $require: '@vckit/vc-api?t=function#VCRouter'
     # VC API docs path
     - - /vc-api.json
       - $require: '@vckit/vc-api?t=function#VCApiSchemaRouter'
@@ -366,6 +361,7 @@ credentialIssuerLD:
   $args:
     - suites:
         - $require: '@veramo/credential-ld#VeramoEd25519Signature2018'
+        # - $require: '@veramo/credential-ld#VeramoEd25519Signature2020'
         - $require: '@veramo/credential-ld#VeramoJsonWebSignature2020'
         - $require: '@veramo/credential-ld#VeramoEcdsaSecp256k1RecoverySignature2020'
       contextMaps:
