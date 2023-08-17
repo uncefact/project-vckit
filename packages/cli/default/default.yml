@@ -96,7 +96,7 @@ dbConnectionEncrypted:
     - type: sqlite
       database:
         $ref: /constants/databaseFile
-      synchronize: true
+      synchronize: false
       migrationsRun: true
       migrations:
         $require: '@vckit/encrypted-storage?t=object#migrations'

@@ -91,7 +91,10 @@ function buildCredential(
   issuerDid: string,
   additionalProperties: { [key: string]: any },
 ): any {
-  const _credential = { ...credential }
+  const _credential = {
+    ...credential,
+    ...additionalProperties.additionalFieldsFromSchema,
+  }
 
   let issuer = { id: issuerDid }
 
