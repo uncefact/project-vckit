@@ -21,32 +21,25 @@ export function encryptedStoreMiddleware(args: {
         return true;
       },
       intercept: async function (body: string, send: (body: string) => void) {
-        if (!req.agent) throw Error('Agent not available');
-        let updatedBody: string = body;
+        try {
+          if (!req.agent) throw Error('Agent not available');
+          let updatedBody: string = body;
 
-        if (
-          res.statusCode === 200 &&
-          body &&
-          args.apiRoutes.includes(req.path)
-        ) {
-          try {
-            switch (req.path) {
-              case '/createVerifiableCredential':
-                updatedBody = await processCreateVerifiableCredentialRequest(
-                  req.agent,
-                  JSON.parse(body)
-                );
-
-                break;
-              default:
-                break;
-            }
-          } catch (e: any) {
-            throw Error(e.message);
+          if (
+            res.statusCode === 200 &&
+            body &&
+            args.apiRoutes.includes(req.path)
+          ) {
+            updatedBody = await encryptAndStoreData(
+              req.agent,
+              JSON.parse(body)
+            );
           }
-        }
 
-        send(updatedBody);
+          send(updatedBody);
+        } catch (e: any) {
+          throw Error(e.message);
+        }
       },
     };
   });
@@ -56,10 +49,7 @@ export function encryptedStoreMiddleware(args: {
   return router;
 }
 
-async function processCreateVerifiableCredentialRequest(
-  agent: IAgent,
-  payload: object
-) {
+async function encryptAndStoreData(agent: IAgent, payload: object) {
   const { id, key }: IEncrypteAndStoreDataResult = await agent.execute(
     'encryptAndStoreData',
     {

@@ -222,6 +222,17 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
           name: schema.issuer.name,
           type: schema.issuer.type,
         },
+        additionalFieldsFromSchema: {
+          ...dropFields(schema, [
+            '@context',
+            'type',
+            'credentialSubject',
+            'id',
+            'issuer',
+            'issuanceDate',
+            'openAttestationMetadata',
+          ]),
+        },
       })
       setFormData({})
     } catch (err) {
