@@ -56,6 +56,7 @@ import SeaCargoManifestCredential from './SeaCargoManifestCredential.json' asser
 import SellerRegistrationCredential from './SellerRegistrationCredential.json' assert { type: 'json' };
 import ShippingInstructionsCredential from './ShippingInstructionsCredential.json' assert { type: 'json' };
 import SoftwareBillofMaterialsCredential from './SoftwareBillofMaterialsCredential.json' assert { type: 'json' };
+import StudentVisaGrant from './StudentVisaGrant.json' assert { type: 'json' };
 import USMCACertificationOfOrigin from './USMCACertificationOfOrigin.json' assert { type: 'json' };
 import VerifiableBusinessCard from './VerifiableBusinessCard.json' assert { type: 'json' };
 import VerifiablePostmanCollection from './VerifiablePostmanCollection.json' assert { type: 'json' };
@@ -686,6 +687,17 @@ export const credentialsIssueExamples = {
     value: JSON.stringify(
       {
         credential: SoftwareBillofMaterialsCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
+  },
+  StudentVisaGrant: {
+    description: 'StudentVisaGrant',
+    value: JSON.stringify(
+      {
+        credential: StudentVisaGrant,
         proofFormat: 'OpenAttestationMerkleProofSignature2018',
       },
       null,
