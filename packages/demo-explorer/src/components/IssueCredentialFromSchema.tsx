@@ -68,10 +68,10 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
             //   const: 'EthereumEip712Signature2021',
             //   title: 'EthereumEip712Signature2021',
             // },
-            {
-              const: 'OpenAttestationMerkleProofSignature2018',
-              title: 'OpenAttestationMerkleProofSignature2018',
-            },
+            // {
+            //   const: 'OpenAttestationMerkleProofSignature2018',
+            //   title: 'OpenAttestationMerkleProofSignature2018',
+            // },
           ],
         },
         identityProofType: {
