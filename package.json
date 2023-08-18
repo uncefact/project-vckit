@@ -12,6 +12,8 @@
     "test:packages-watch": "pnpm test:packages --watch --verbose",
     "test:oa-renderer": "cd packages/vckit-oa-renderers && pnpm test",
     "test:oa-renderer-ci": "pnpm test:oa-renderer -- --coverage=true",
+    "migrate:db": "pnpm -r --stream typeorm migration:run",
+    "rollback:db": "pnpm -r --stream typeorm migration:revert",
     "watch": "pnpm -r exec --if-present 'pnpm run watch'",
     "vckit": "cross-env NODE_NO_WARNINGS=1 ./packages/cli/bin/vckit.js",
     "prettier": "prettier --write \"{packages,docs,__tests__,!build}/**/*.{ts,js,json,md,yml}\"",

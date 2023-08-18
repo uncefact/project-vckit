@@ -51,8 +51,15 @@ export class RevocationStatus2020 implements IAgentPlugin {
     try {
       args.revocationListPath = this.revocationListPath;
       args.bitStringLength = this.bitStringLength;
-
-      const data = await this.store.getRevocationData(args);
+      let data: any;
+      await this.store.runTransactionWithExponentialBackoff(
+        async (transactionalEntityManager) => {
+          data = await this.store.issueRevocationData(
+            transactionalEntityManager,
+            args
+          );
+        }
+      );
 
       return data;
     } catch (err) {
@@ -98,37 +105,46 @@ export class RevocationStatus2020 implements IAgentPlugin {
       agent?: IAgent;
     }
   ): Promise<CredentialStatus> {
-    const credential = await context.agent?.execute(
-      'dataStoreGetVerifiableCredential',
-      { hash: args.hash }
+    await this.store.runTransactionWithExponentialBackoff(
+      async (transactionalEntityManager) => {
+        const credential = await context.agent?.execute(
+          'dataStoreGetVerifiableCredential',
+          { hash: args.hash }
+        );
+
+        if (!credential) {
+          throw new Error('Credential not found');
+        }
+
+        const credentialStatus = await _checkStatus(credential);
+        if (credentialStatus.revoked === true) {
+          throw new Error('Credential already revoked.');
+        }
+
+        const revocationListFullUrlPath = (
+          credential.credentialStatus?.id as string
+        ).split(this.revocationListPath)[1];
+        if (!revocationListFullUrlPath) {
+          throw new Error('Revocation list not found');
+        }
+
+        await this.store.lockRevocationList(transactionalEntityManager, {
+          revocationListFullUrlPath,
+        });
+
+        const revocationList = await this.store.getRevocationList(
+          transactionalEntityManager,
+          revocationListFullUrlPath
+        );
+
+        await this.store.updateRevocationListVC(transactionalEntityManager, {
+          context: context,
+          revocationList,
+          index: credential.credentialStatus?.revocationListIndex,
+          revoked: true,
+        });
+      }
     );
-
-    if (!credential) {
-      throw new Error('Credential not found');
-    }
-
-    const credentialStatus = await _checkStatus(credential);
-    if (credentialStatus.revoked === true) {
-      throw new Error('Credential already revoked.');
-    }
-
-    const revocationListFullUrlPath = (
-      credential.credentialStatus?.id as string
-    ).split(this.revocationListPath)[1];
-    if (!revocationListFullUrlPath) {
-      throw new Error('Revocation list not found');
-    }
-
-    const revocationList = await this.store.getRevocationList(
-      revocationListFullUrlPath
-    );
-
-    await this.store.updateRevocationListVC({
-      context: context,
-      revocationList,
-      index: credential.credentialStatus?.revocationListIndex,
-      revoked: true,
-    });
 
     const status: CredentialStatus = {
       revoked: true,
@@ -143,37 +159,46 @@ export class RevocationStatus2020 implements IAgentPlugin {
       agent?: IAgent;
     }
   ): Promise<CredentialStatus> {
-    const credential = await context.agent?.execute(
-      'dataStoreGetVerifiableCredential',
-      { hash: args.hash }
+    await this.store.runTransactionWithExponentialBackoff(
+      async (transactionalEntityManager) => {
+        const credential = await context.agent?.execute(
+          'dataStoreGetVerifiableCredential',
+          { hash: args.hash }
+        );
+
+        if (!credential) {
+          throw new Error('Credential not found');
+        }
+
+        const credentialStatus = await _checkStatus(credential);
+        if (credentialStatus.revoked === false) {
+          throw new Error('Credential already active.');
+        }
+
+        const revocationListFullUrlPath = (
+          credential.credentialStatus?.id as string
+        ).split(this.revocationListPath)[1];
+        if (!revocationListFullUrlPath) {
+          throw new Error('Revocation list not found');
+        }
+
+        await this.store.lockRevocationList(transactionalEntityManager, {
+          revocationListFullUrlPath,
+        });
+
+        const revocationList = await this.store.getRevocationList(
+          transactionalEntityManager,
+          revocationListFullUrlPath
+        );
+
+        await this.store.updateRevocationListVC(transactionalEntityManager, {
+          context: context,
+          revocationList,
+          index: credential.credentialStatus?.revocationListIndex,
+          revoked: false,
+        });
+      }
     );
-
-    if (!credential) {
-      throw new Error('Credential not found');
-    }
-
-    const credentialStatus = await _checkStatus(credential);
-    if (credentialStatus.revoked === false) {
-      throw new Error('Credential already active.');
-    }
-
-    const revocationListFullUrlPath = (
-      credential.credentialStatus?.id as string
-    ).split(this.revocationListPath)[1];
-    if (!revocationListFullUrlPath) {
-      throw new Error('Revocation list not found');
-    }
-
-    const revocationList = await this.store.getRevocationList(
-      revocationListFullUrlPath
-    );
-
-    await this.store.updateRevocationListVC({
-      context: context,
-      revocationList,
-      index: credential.credentialStatus?.revocationListIndex,
-      revoked: false,
-    });
 
     const status: CredentialStatus = {
       revoked: false,
