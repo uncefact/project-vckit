@@ -1,4 +1,4 @@
-import { CreateDatabase1688974564000 } from './1.createDatabase.js';
+import { CreateDatabase1688974564002 } from './1.createDatabase.js';
 
 /**
  * Allow others to use shared migration functions if they extend Veramo
@@ -15,4 +15,4 @@ export * from './migration-functions.js';
  * @public
  */
 
-export const migrations = [CreateDatabase1688974564000];
+export const migrations = [CreateDatabase1688974564002];
