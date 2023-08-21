@@ -70,7 +70,8 @@ export class CreateDatabase1688974564002 implements MigrationInterface {
             ),
           },
         ],
-      })
+      }),
+      true
     );
   }
 
