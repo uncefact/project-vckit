@@ -199,8 +199,8 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
         data={formData}
         renderers={renderers}
         cells={materialCells}
-        // validationMode={'ValidateAndShow'}
-        // additionalErrors={additionalErrors}
+        validationMode={'ValidateAndShow'}
+        additionalErrors={additionalErrors}
         onChange={onChange}
       />
       <br />
