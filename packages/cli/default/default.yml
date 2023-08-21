@@ -318,22 +318,22 @@ didManager:
           - $ref: /dbConnection
       defaultProvider: did:ethr:goerli
       providers:
-        did:ethr:
-          $require: '@veramo/did-provider-ethr#EthrDIDProvider'
-          $args:
-            - defaultKms: local
-              network: mainnet
-              rpcUrl: https://mainnet.infura.io/v3/3586660d179141e3801c3895de1c2eba
-              gas: 1000001
-              ttl: 31104001
-        did:ethr:goerli:
-          $require: '@veramo/did-provider-ethr#EthrDIDProvider'
-          $args:
-            - defaultKms: local
-              network: goerli
-              rpcUrl: https://goerli.infura.io/v3/3586660d179141e3801c3895de1c2eba
-              gas: 1000001
-              ttl: 31104001
+        # did:ethr:
+        #   $require: '@veramo/did-provider-ethr#EthrDIDProvider'
+        #   $args:
+        #     - defaultKms: local
+        #       network: mainnet
+        #       rpcUrl: https://mainnet.infura.io/v3/3586660d179141e3801c3895de1c2eba
+        #       gas: 1000001
+        #       ttl: 31104001
+        # did:ethr:goerli:
+        #   $require: '@veramo/did-provider-ethr#EthrDIDProvider'
+        #   $args:
+        #     - defaultKms: local
+        #       network: goerli
+        #       rpcUrl: https://goerli.infura.io/v3/3586660d179141e3801c3895de1c2eba
+        #       gas: 1000001
+        #       ttl: 31104001
         did:web:
           $require: '@veramo/did-provider-web#WebDIDProvider'
           $args:
