@@ -29,7 +29,7 @@ jobs:
           node-version: '18'
 
       - name: Install pnpm
-        run: npm install -g pnpm@8.6.2
+        run: npm install -g pnpm@8.6.0
 
       - name: pnpm version
         run: pnpm --version
@@ -47,8 +47,14 @@ jobs:
           echo REACT_APP_DEFAULT_AGENT_ID=${{ vars.REACT_APP_DEFAULT_AGENT_ID }} >> .env
           cat .env
 
-      - name: Build
-        run: pnpm build
+      - name: Build example documents
+        run: cd packages/example-documents && pnpm build
+
+      - name: Build renderer
+        run: cd packages/renderer && pnpm build
+
+      - name: Build explorer
+        run: cd packages/demo-explorer && pnpm build
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v3

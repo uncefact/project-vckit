@@ -1,0 +1,70 @@
+name: Build and Deploy Agent
+
+on:
+  push:
+    branches:
+      - demo
+
+jobs:
+  install_and_build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+
+    env:
+      CI: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get -q install -y python3-pip
+          pip3 install awscli --upgrade --user
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_GITHUB_ACTION_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Remove Explorer
+        run: rm -rf packages/demo-explorer packages/react-components packages/vckit-oa-renderers
+      
+      - name: Compress Agent Server
+        run: tar -czf agent-server.tar.gz *
+
+      - name: Upload Artifact to S3
+        run: aws s3 cp agent-server.tar.gz s3://${{ vars.AGENT_SERVER_AWS_S3_BUCKET_NAME }}/agent-server.tar.gz
+
+
+  deploy:
+    needs: install_and_build
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get -q install -y python3-pip
+          pip3 install awscli --upgrade --user
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_GITHUB_ACTION_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to EC2
+        run: aws deploy create-deployment --application-name ${{ vars.AWS_DEPLOY_APP_NAME }} --deployment-group-name ${{ vars.AWS_DEPLOY_GROUP_NAME }} --s3-location bucket=${{ vars.AGENT_SERVER_AWS_S3_BUCKET_NAME }},key=agent-server.tar.gz,bundleType=tgz --ignore-application-stop-failures
+
+
+
+      
