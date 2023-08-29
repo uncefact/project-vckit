@@ -141,6 +141,8 @@ server:
         $args:
           - agent:
               $ref: /agent
+              
+    - - $require: '@vckit/utils?t=function#loggerMiddleware'
 
     # DID Documents
     - - $require: '@vckit/remote-server?t=function#WebDidDocRouter'
