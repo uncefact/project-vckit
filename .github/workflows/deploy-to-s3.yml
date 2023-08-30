@@ -3,7 +3,7 @@ name: Deploy to S3
 on:
   push:
     branches:
-      - demo
+      - next
 
 jobs:
   install_and_build:
@@ -47,14 +47,8 @@ jobs:
           echo REACT_APP_DEFAULT_AGENT_ID=${{ vars.REACT_APP_DEFAULT_AGENT_ID }} >> .env
           cat .env
 
-      - name: Build example documents
-        run: cd packages/example-documents && pnpm build
-
-      - name: Build renderer
-        run: cd packages/renderer && pnpm build
-
       - name: Build explorer
-        run: cd packages/demo-explorer && pnpm build
+        run: pnpm build:js
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
