@@ -3,7 +3,9 @@ name: Deploy to S3
 on:
   push:
     branches:
-      - next
+      - dev
+    tags:        
+      - '*' 
 
 jobs:
   install_and_build:
@@ -12,13 +14,15 @@ jobs:
     env:
       CI: false
 
+    environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Cache dependencies
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -63,6 +67,8 @@ jobs:
     permissions:
       id-token: write
 
+    environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -79,7 +85,7 @@ jobs:
           pip3 install awscli --upgrade --user
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v3
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_GITHUB_ACTION_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
