@@ -25,20 +25,20 @@ export function revocationList2020Middleware(args: {
 
   router.use(
     async (req: RequestWithAgent, res: Response, next: NextFunction) => {
-      if (!req.agent) {
-        throw Error('Agent not available');
-      }
-
-      if (
-        !req.body ||
-        !args.apiRoutes.includes(req.path) ||
-        !args.supportedProofFormats.includes(req.body.proof.format)
-      ) {
-        next();
-        return;
-      }
-
       try {
+        if (!req.agent) {
+          throw Error('Agent not available');
+        }
+
+        if (
+          !req.body ||
+          !args.apiRoutes.includes(req.path) ||
+          !args.supportedProofFormats.includes(req.body.proofFormat)
+        ) {
+          next();
+          return;
+        }
+
         const revocationVCIssuer = extractIssuer(req.body.credential);
 
         const revocationData = await req.agent.execute('getRevocationData', {

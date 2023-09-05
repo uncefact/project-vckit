@@ -68,10 +68,10 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
             //   const: 'EthereumEip712Signature2021',
             //   title: 'EthereumEip712Signature2021',
             // },
-            {
-              const: 'OpenAttestationMerkleProofSignature2018',
-              title: 'OpenAttestationMerkleProofSignature2018',
-            },
+            // {
+            //   const: 'OpenAttestationMerkleProofSignature2018',
+            //   title: 'OpenAttestationMerkleProofSignature2018',
+            // },
           ],
         },
         identityProofType: {
@@ -146,59 +146,6 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
   const onChange = ({ errors, data }: { errors: any[]; data: any }) => {
     setFormData(data)
     setErrors([...errors])
-
-    if (data.proofFormat !== 'OpenAttestationMerkleProofSignature2018') {
-      setFormData((d: any) =>
-        dropFields(d, ['identityProofType', 'identityProofIdentifier']),
-      )
-    }
-
-    if (data.proofFormat === 'OpenAttestationMerkleProofSignature2018') {
-      if (data.identityProofType) {
-        const newErrors = errors.filter(
-          (e) => e.instancePath !== '/identityProofType',
-        )
-        setAdditionalErrors(newErrors)
-        setErrors(newErrors)
-      } else {
-        const newError: ErrorObject = {
-          // AJV style path to the property in the schema
-          instancePath: '/identityProofType',
-          // message to display
-          message: 'is a required property',
-          schemaPath: '',
-          keyword: '',
-          params: {},
-        }
-        setAdditionalErrors((errors) => [...errors, newError])
-        setErrors([...errors, newError])
-      }
-
-      if (
-        data.identityProofType === 'DNS-DID' ||
-        data.identityProofType === 'DNS-TXT'
-      ) {
-        if (data.identityProofIdentifier) {
-          const newErrors = errors.filter(
-            (e) => e.instancePath !== '/identityProofIdentifier',
-          )
-          setAdditionalErrors(newErrors)
-          setErrors(newErrors)
-        } else {
-          const newError: ErrorObject = {
-            // AJV style path to the property in the schema
-            instancePath: '/identityProofIdentifier',
-            // message to display
-            message: 'is a required property',
-            schemaPath: '',
-            keyword: '',
-            params: {},
-          }
-          setAdditionalErrors((errors) => [...errors, newError])
-          setErrors([...errors, newError])
-        }
-      }
-    }
   }
 
   const signVc = async (fields: Field[]) => {
@@ -221,6 +168,17 @@ const IssueCredentialFromSchema: React.FC<IssueCredentialFromSchemaProps> = ({
         issuerProfile: {
           name: schema.issuer.name,
           type: schema.issuer.type,
+        },
+        additionalFieldsFromSchema: {
+          ...dropFields(schema, [
+            '@context',
+            'type',
+            'credentialSubject',
+            'id',
+            'issuer',
+            'issuanceDate',
+            'openAttestationMetadata',
+          ]),
         },
       })
       setFormData({})

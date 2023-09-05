@@ -17,12 +17,46 @@ export class CreateDatabase1688974564001 implements MigrationInterface {
       new Table({
         name: migrationGetTableName(queryRunner, 'revocation-data'),
         columns: [
-          { name: 'id', type: 'varchar', isPrimary: true },
+          {
+            name: 'id',
+            type: 'varchar',
+            isPrimary: true,
+            default: 'uuid_generate_v4()',
+          },
           { name: 'revocationListUrlPath', type: 'varchar', isNullable: false },
           { name: 'revocationVCIssuer', type: 'varchar', isNullable: false },
-          { name: 'indexCounter', type: 'UNSIGNED INT', isNullable: false },
-          { name: 'listCounter', type: 'UNSIGNED INT', isNullable: false },
-          { name: 'bitStringLength', type: 'UNSIGNED INT', isNullable: false },
+          {
+            name: 'indexCounter',
+            type: 'integer',
+            isNullable: false,
+            default: 0,
+          },
+          {
+            name: 'listCounter',
+            type: 'integer',
+            isNullable: false,
+            default: 0,
+          },
+          {
+            name: 'bitStringLength',
+            type: 'integer',
+            isNullable: false,
+            default: 8,
+          },
+        ],
+        checks: [
+          {
+            name: 'check_positive_indexCounter',
+            expression: `"indexCounter" >= 0`,
+          },
+          {
+            name: 'check_positive_listCounter',
+            expression: `"listCounter" >= 0`,
+          },
+          {
+            name: 'check_positive_bitStringLength',
+            expression: `"bitStringLength" >= 0`,
+          },
         ],
         indices: [
           {
@@ -44,7 +78,12 @@ export class CreateDatabase1688974564001 implements MigrationInterface {
       new Table({
         name: migrationGetTableName(queryRunner, 'revocation-list'),
         columns: [
-          { name: 'id', type: 'varchar', isPrimary: true },
+          {
+            name: 'id',
+            type: 'varchar',
+            isPrimary: true,
+            default: 'uuid_generate_v4()',
+          },
           {
             name: 'revocationListFullUrlPath',
             type: 'varchar',

@@ -11,8 +11,8 @@ import { migrationGetTableName } from './migration-functions.js';
  *
  * @public
  */
-export class CreateDatabase1688974564000 implements MigrationInterface {
-  name = 'CreateDatabase1688974564000'; // Used in case this class gets minified, which would change the classname
+export class CreateDatabase1688974564002 implements MigrationInterface {
+  name = 'CreateDatabase1688974564002'; // Used in case this class gets minified, which would change the classname
 
   async up(queryRunner: QueryRunner): Promise<void> {
     const dateTimeType: string = queryRunner.connection.driver.mappedDataTypes

@@ -89,3 +89,6 @@ data
 local-database*.json
 
 /scratch
+
+# logs
+/logs

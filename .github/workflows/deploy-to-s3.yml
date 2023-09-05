@@ -3,7 +3,12 @@ name: Deploy to S3
 on:
   push:
     branches:
-      - demo
+      - dev
+    tags:        
+      - '*' 
+
+env: 
+  environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
 
 jobs:
   install_and_build:
@@ -12,13 +17,15 @@ jobs:
     env:
       CI: false
 
+    environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Cache dependencies
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -30,6 +37,9 @@ jobs:
 
       - name: Install pnpm
         run: npm install -g pnpm@8.6.0
+
+      - name: pnpm version
+        run: pnpm --version
 
       - name: Install dependencies
         run: pnpm install
@@ -44,8 +54,14 @@ jobs:
           echo REACT_APP_DEFAULT_AGENT_ID=${{ vars.REACT_APP_DEFAULT_AGENT_ID }} >> .env
           cat .env
 
-      - name: Build
-        run: pnpm build
+      - name: Build explorer
+        run: pnpm build:js
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: explorer
+          path: packages/demo-explorer/build/explorer
 
   deploy_to_s3:
     needs: install_and_build
@@ -54,9 +70,17 @@ jobs:
     permissions:
       id-token: write
 
+    environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: explorer
+          path: packages/demo-explorer/build/explorer
 
       - name: Install AWS CLI
         run: |
@@ -64,24 +88,27 @@ jobs:
           pip3 install awscli --upgrade --user
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        if: ${{ env.environment == 'dev' }}
+        uses: aws-actions/configure-aws-credentials@v3
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_GITHUB_ACTION_ARN }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
+          aws-region: ${{ vars.AWS_REGION }}
+      
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        if: ${{ env.environment == 'UN' }}
+        uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
 
       - name: Deploy to S3
-        run: aws s3 sync packages/demo-explorer/build/explorer/ s3://${{ vars.AWS_S3_BUCKET_NAME }} --acl public-read --delete
+        run: aws s3 sync packages/demo-explorer/build/explorer/ s3://${{ vars.AWS_S3_BUCKET_NAME }}/vckit/explorer/ --delete
 
       - name: Invalidate CloudFront
         run: |
           DISTRIBUTION_ID=${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
-          INVALIDATION_PATH="/*" 
+          INVALIDATION_PATH="/vckit/explorer/*"
 
           # Create a new CloudFront invalidation
           aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths $INVALIDATION_PATH
