@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - dev
-      - next
     tags:        
       - '*' 
 
@@ -44,6 +43,16 @@ jobs:
       - name: Overwrite configuration
         if: ${{ env.environment == 'dev' }}
         run: cp -f packages/cli/default/default-dev.yml packages/cli/default/default.yml
+      
+      - name: Create env file
+        if: ${{ env.environment == 'dev' }}
+        run: |
+          touch packages/encrypted-storage/.env
+          echo DATABASE_URL=${{ secrets.DATABASE_URL}} >> packages/encrypted-storage/.env
+          echo DATABASE_TYPE=postgres >> packages/encrypted-storage/.env
+          echo DATABASE_DATABASE=${{ secrets.DATABASE_DATABASE}} >> packages/encrypted-storage/.env
+          cat packages/encrypted-storage/.env
+          cp packages/encrypted-storage/.env packages/revocation-list-2020/.env
       
       - name: Compress Agent Server
         run: tar -czf agent-server.tar.gz *
