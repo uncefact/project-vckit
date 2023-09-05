@@ -179,9 +179,9 @@ server:
 
     # API base path
     - - /agent
-      - $require: '@vckit/remote-server?t=function#apiKeyAuth'
-        $args:
-          - apiKey: kh14g04piduv
+      # - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+      #   $args:
+      #     - apiKey: test123
 
       - $require: '@vckit/revocationlist?t=function#revocationList2020Middleware'
         $args:
