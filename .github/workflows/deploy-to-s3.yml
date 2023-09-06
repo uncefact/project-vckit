@@ -4,10 +4,11 @@ on:
   push:
     branches:
       - dev
-    tags:        
-      - '*' 
+      - 'cd_*'
+    tags:
+      - '*'
 
-env: 
+env:
   environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
 
 jobs:
@@ -93,11 +94,12 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_GITHUB_ACTION_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
-      
+
       - name: Configure AWS Credentials
         if: ${{ env.environment == 'UN' }}
         uses: aws-actions/configure-aws-credentials@v3
         with:
+          role-to-assume: ${{ secrets.AWS_ROLE_GITHUB_ACTION_ARN }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ vars.AWS_REGION }}
