@@ -71,7 +71,7 @@ jobs:
     permissions:
       id-token: write
 
-    environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
+    environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (startsWith(github.ref, 'refs/tags/v') && 'UN') || (startsWith(github.ref, 'refs/heads/cd_') && 'UN') }}
 
     steps:
       - name: Checkout repository
