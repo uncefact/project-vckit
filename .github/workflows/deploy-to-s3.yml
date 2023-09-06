@@ -15,7 +15,7 @@ jobs:
   install_and_build:
     runs-on: ubuntu-latest
     environment:
-      name: ${{ env.environment }}
+      name: ${{ env.environment == 'UN' && 'UN' || 'dev' }}
       url: ${{ env.environment == 'UN' && 'https://test.uncefact.org/vckit/explorer/' || 'https://explorer.vckit.showthething.com/' }}
 
     env:
@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ env.environment }}
-      url: ${{ env.environment == 'UN' && https://test.uncefact.org/vckit/explorer/ || 'https://explorer.vckit.showthething.com/' }}
+      url: ${{ env.environment == 'UN' && 'https://test.uncefact.org/vckit/explorer/' || 'https://explorer.vckit.showthething.com/' }}
     permissions:
       id-token: write
     steps:
