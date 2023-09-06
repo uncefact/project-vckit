@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ env.environment }}
-      url: ${{ env.environment == 'UN' && https://test.uncefact.org/vckit/explorer/ || 'https://explorer.vckit.showthething.com/' }}
+      url: ${{ env.environment == 'UN' && 'https://test.uncefact.org/vckit/explorer/' || 'https://explorer.vckit.showthething.com/' }}
 
     env:
       CI: false
