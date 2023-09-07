@@ -82,11 +82,6 @@ jobs:
           name: explorer
           path: packages/demo-explorer/build/explorer
 
-      - name: Install AWS CLI
-        run: |
-          sudo apt-get -q install -y python3-pip
-          pip3 install awscli --upgrade --user
-
       - name: Configure AWS Credentials
         if: ${{ env.environment == 'dev' }}
         uses: aws-actions/configure-aws-credentials@v3
