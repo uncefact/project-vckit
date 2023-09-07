@@ -4,21 +4,22 @@ on:
   push:
     branches:
       - dev
-    tags:        
-      - '*' 
+      - 'cd_*'
+    tags:
+      - '*'
 
-env: 
-  environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
+env:
+  environment: ${{ (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/heads/cd_')) && 'UN' || 'dev' }}
 
 jobs:
   install_and_build:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/heads/cd_')) && 'UN' || 'dev' }}
+      url: ${{ env.environment == 'UN' && 'https://test.uncefact.org/vckit/explorer/' || 'https://explorer.vckit.showthething.com/' }}
 
     env:
       CI: false
-
-    environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -67,12 +68,11 @@ jobs:
   deploy_to_s3:
     needs: install_and_build
     runs-on: ubuntu-latest
-
+    environment:
+      name: ${{ (startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/heads/cd_')) && 'UN' || 'dev' }}
+      url: ${{ env.environment == 'UN' && 'https://test.uncefact.org/vckit/explorer/' || 'https://explorer.vckit.showthething.com/' }}
     permissions:
       id-token: write
-
-    environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -83,22 +83,18 @@ jobs:
           name: explorer
           path: packages/demo-explorer/build/explorer
 
-      - name: Install AWS CLI
-        run: |
-          sudo apt-get -q install -y python3-pip
-          pip3 install awscli --upgrade --user
-
       - name: Configure AWS Credentials
         if: ${{ env.environment == 'dev' }}
         uses: aws-actions/configure-aws-credentials@v3
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_GITHUB_ACTION_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
-      
+
       - name: Configure AWS Credentials
         if: ${{ env.environment == 'UN' }}
         uses: aws-actions/configure-aws-credentials@v3
         with:
+          role-to-assume: ${{ secrets.AWS_ROLE_GITHUB_ACTION_ARN }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ vars.AWS_REGION }}
