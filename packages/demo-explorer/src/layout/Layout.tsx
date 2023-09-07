@@ -53,7 +53,7 @@ const Layout = () => {
 
   if (availableMethods.includes('dataStoreORMGetVerifiableCredentials')) {
     mainMenuItems.push({
-      path: publicUrl + 'statistics',
+      path: publicUrl + '/statistics',
       name: 'Statistics',
       // @ts-ignore FIXME: why is ts complaining about this?
       icon: <EyeOutlined />,
@@ -61,7 +61,7 @@ const Layout = () => {
   }
   if (availableMethods.includes('didManagerFind')) {
     mainMenuItems.push({
-      path: publicUrl + 'managed-identifiers',
+      path: publicUrl + '/managed-identifiers',
       name: 'Managed identifiers',
       // @ts-ignore FIXME: why is ts complaining about this?
       icon: <UserOutlined />,
@@ -70,7 +70,7 @@ const Layout = () => {
 
   if (availableMethods.includes('dataStoreORMGetVerifiableCredentials')) {
     mainMenuItems.push({
-      path: publicUrl + 'credentials',
+      path: publicUrl + '/credentials',
       name: 'Credentials',
       // @ts-ignore FIXME: why is ts complaining about this?
       icon: <SafetyOutlined />,
@@ -79,13 +79,13 @@ const Layout = () => {
 
   if (availableMethods.includes('dataStoreORMGetMessages')) {
     mainMenuItems.push({
-      path: publicUrl + 'activity',
+      path: publicUrl + '/activity',
       name: 'Activity',
       // @ts-ignore FIXME: why is ts complaining about this?
       icon: <BarsOutlined />,
     })
     mainMenuItems.push({
-      path: publicUrl + 'requests',
+      path: publicUrl + '/requests',
       name: 'Requests',
       // @ts-ignore FIXME: why is ts complaining about this?
       icon: <InteractionOutlined />,
@@ -97,7 +97,7 @@ const Layout = () => {
   //   availableMethods.includes('sendDIDCommMessage')
   // ) {
   //   mainMenuItems.push({
-  //     path: publicUrl + 'chats/threads',
+  //     path: publicUrl + '/chats/threads',
   //     name: 'DID Chats',
   //     icon: <MessageOutlined />,
   //   })
@@ -105,7 +105,7 @@ const Layout = () => {
 
   if (availableMethods.includes('dataStoreORMGetIdentifiers')) {
     mainMenuItems.push({
-      path: publicUrl + 'known-identifiers',
+      path: publicUrl + '/known-identifiers',
       name: 'Known identifiers',
       // @ts-ignore FIXME: why is ts complaining about this?
       icon: <GlobalOutlined />,
@@ -114,7 +114,7 @@ const Layout = () => {
 
   if (availableMethods.includes('verifyCredential')) {
     mainMenuItems.push({
-      path: publicUrl + 'credential-verifier',
+      path: publicUrl + '/credential-verifier',
       name: 'Credential verifier',
       // @ts-ignore FIXME: why is ts complaining about this?
       icon: <FileProtectOutlined />,
@@ -125,29 +125,29 @@ const Layout = () => {
 
   if (agent) {
     mainMenuItems.push({
-      path: publicUrl + 'developer',
+      path: publicUrl + '/developer',
       name: 'Credential issuer',
       // @ts-ignore FIXME: why is ts complaining about this?
       icon: <CodeOutlined />,
       routes: [
         // {
-        //   path: publicUrl + 'developer/data-generator',
+        //   path: publicUrl + '/developer/data-generator',
         //   name: 'Data generator',
         // },
         {
-          path: publicUrl + 'developer/credential-from-schema',
+          path: publicUrl + '/developer/credential-from-schema',
           name: 'Issue credential from example',
         },
         // {
-        //   path: publicUrl + 'developer/issue-profile-credential',
+        //   path: publicUrl + '/developer/issue-profile-credential',
         //   name: 'Issue profile credential',
         // },
         // {
-        //   path: publicUrl + 'developer/issue-credential',
+        //   path: publicUrl + '/developer/issue-credential',
         //   name: 'Issue credential',
         // },
         {
-          path: publicUrl + 'developer/create-presentation',
+          path: publicUrl + '/developer/create-presentation',
           name: 'Create presentation',
         },
       ],
@@ -155,7 +155,7 @@ const Layout = () => {
   }
 
   mainMenuItems.push({
-    path: publicUrl + 'settings',
+    path: publicUrl + '/settings',
     name: 'Settings',
     // @ts-ignore FIXME: why is ts complaining about this?
     icon: <SettingOutlined />,
