@@ -56,7 +56,7 @@ jobs:
           cat packages/demo-explorer/.env
 
       - name: Build explorer
-        run: pnpm build:js
+        run: PUBLIC_URL=${{ env.environment == 'UN' && '/vckit/explorer/' || '/' }} pnpm build:js
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
