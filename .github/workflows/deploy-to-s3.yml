@@ -103,12 +103,14 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
 
       - name: Deploy to S3
-        run: aws s3 sync packages/demo-explorer/build/explorer/ s3://${{ vars.AWS_S3_BUCKET_NAME }}/vckit/explorer/ --delete
+        run: |
+          S3_PATH=${{ env.environment == 'UN' && '/vckit/explorer/' || '/'}}
+          aws s3 sync packages/demo-explorer/build/explorer/ s3://${{ vars.AWS_S3_BUCKET_NAME }}$S3_PATH --delete
 
       - name: Invalidate CloudFront
         run: |
           DISTRIBUTION_ID=${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
-          INVALIDATION_PATH="/vckit/explorer/*"
+          INVALIDATION_PATH=${{ env.environment == 'UN' && '/vckit/explorer/*' || '/*'}}
 
           # Create a new CloudFront invalidation
           aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths $INVALIDATION_PATH
