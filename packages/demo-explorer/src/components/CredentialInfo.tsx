@@ -138,7 +138,7 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
               }}
               disabled={loading}
             >
-              Active
+              Unrevoke
             </Button>
           ) : (
             <Button
