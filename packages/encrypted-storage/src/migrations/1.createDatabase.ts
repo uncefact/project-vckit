@@ -22,7 +22,12 @@ export class CreateDatabase1688974564002 implements MigrationInterface {
       new Table({
         name: migrationGetTableName(queryRunner, 'encrypted-data'),
         columns: [
-          { name: 'id', type: 'varchar', isPrimary: true },
+          {
+            name: 'id',
+            type: 'varchar',
+            isPrimary: true,
+            default: 'uuid_generate_v4()',
+          },
           { name: 'data', type: 'varchar', isNullable: false },
           { name: 'saveDate', type: dateTimeType },
           { name: 'updateDate', type: dateTimeType },
@@ -70,7 +75,8 @@ export class CreateDatabase1688974564002 implements MigrationInterface {
             ),
           },
         ],
-      })
+      }),
+      true
     );
   }
 

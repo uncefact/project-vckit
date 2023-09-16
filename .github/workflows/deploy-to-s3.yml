@@ -46,16 +46,17 @@ jobs:
 
       - name: 'Create env file'
         run: |
-          touch .env
-          echo REACT_APP_ENCRYPTED_ENDPOINT=${{ vars.REACT_APP_ENCRYPTED_ENDPOINT}} >> .env
-          echo REACT_APP_QRCODE_VERIFY_ENDPOINT=${{ vars.REACT_APP_QRCODE_VERIFY_ENDPOINT }} >> .env
-          echo REACT_APP_SCHEMA_URL=${{ vars.REACT_APP_SCHEMA_URL }} >> .env
-          echo REACT_APP_REMOTE_AGENT_API_KEY=${{ vars.REACT_APP_REMOTE_AGENT_API_KEY }} >> .env
-          echo REACT_APP_DEFAULT_AGENT_ID=${{ vars.REACT_APP_DEFAULT_AGENT_ID }} >> .env
-          cat .env
+          touch packages/demo-explorer/.env
+          echo REACT_APP_WALLET_ENDPOINT=${{ vars.REACT_APP_WALLET_ENDPOINT }} >> packages/demo-explorer/.env
+          echo REACT_APP_ENCRYPTED_ENDPOINT=${{ vars.REACT_APP_ENCRYPTED_ENDPOINT}} >> packages/demo-explorer/.env
+          echo REACT_APP_QRCODE_VERIFY_ENDPOINT=${{ vars.REACT_APP_QRCODE_VERIFY_ENDPOINT }} >> packages/demo-explorer/.env
+          echo REACT_APP_SCHEMA_URL=${{ vars.REACT_APP_SCHEMA_URL }} >> packages/demo-explorer/.env
+          echo REACT_APP_REMOTE_AGENT_API_KEY=${{ vars.REACT_APP_REMOTE_AGENT_API_KEY }} >> packages/demo-explorer/.env
+          echo REACT_APP_DEFAULT_AGENT_ID=${{ vars.REACT_APP_DEFAULT_AGENT_ID }} >> packages/demo-explorer/.env
+          cat packages/demo-explorer/.env
 
       - name: Build explorer
-        run: pnpm build:js
+        run: PUBLIC_URL=${{ env.environment == 'UN' && '/vckit/explorer/' || '/' }} pnpm build:js
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
@@ -103,12 +104,14 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
 
       - name: Deploy to S3
-        run: aws s3 sync packages/demo-explorer/build/explorer/ s3://${{ vars.AWS_S3_BUCKET_NAME }}/vckit/explorer/ --delete
+        run: |
+          S3_PATH=${{ env.environment == 'UN' && '/vckit/explorer/' || '/'}}
+          aws s3 sync packages/demo-explorer/build/explorer/ s3://${{ vars.AWS_S3_BUCKET_NAME }}$S3_PATH --delete
 
       - name: Invalidate CloudFront
         run: |
           DISTRIBUTION_ID=${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
-          INVALIDATION_PATH="/vckit/explorer/*"
+          INVALIDATION_PATH=${{ env.environment == 'UN' && '/vckit/explorer/*' || '/*'}}
 
           # Create a new CloudFront invalidation
           aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths $INVALIDATION_PATH
