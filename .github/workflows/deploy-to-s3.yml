@@ -4,11 +4,12 @@ on:
   push:
     branches:
       - dev
+      - deploy-un
     tags:        
       - '*' 
 
 env: 
-  environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
+  environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (github.ref == 'refs/heads/deploy-un' && 'UN') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
 
 jobs:
   install_and_build:
@@ -17,7 +18,7 @@ jobs:
     env:
       CI: false
 
-    environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
+    environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (github.ref == 'refs/heads/deploy-un' && 'UN') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
 
     steps:
       - name: Checkout repository
@@ -71,7 +72,7 @@ jobs:
     permissions:
       id-token: write
 
-    environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
+    environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (github.ref == 'refs/heads/deploy-un' && 'UN') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
 
     steps:
       - name: Checkout repository
