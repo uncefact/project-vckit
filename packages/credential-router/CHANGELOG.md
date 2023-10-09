@@ -5,12 +5,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [1.0.0-beta.6](https://github.com/uncefact/project-vckit/compare/v1.0.0-beta.2...v1.0.0-beta.6) (2023-10-09)
 
-**Note:** Version bump only for package @vckit/e2e
 
+### Features
 
-
-
-
-# [1.0.0-beta.5](https://github.com/uncefact/project-vckit/compare/v1.0.0-beta.2...v1.0.0-beta.5) (2023-06-22)
-
-**Note:** Version bump only for package @vckit/e2e
+* credential router ([#139](https://github.com/uncefact/project-vckit/issues/139)) ([c5e9f1c](https://github.com/uncefact/project-vckit/commit/c5e9f1c3a44480c8734ef2b61e232d179ef78889)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
