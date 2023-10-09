@@ -1,7 +1,7 @@
 {
   "name": "@vckit/remote-server",
   "description": "Express.js module that can expose some agent methods and messaging endpoints",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-beta.6",
   "main": "build/index.js",
   "exports": "./build/index.js",
   "types": "build/index.d.ts",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@transmute/ed25519-key-pair": "0.7.0-unstable.81",
-    "@vckit/core-types": "^1.0.0-beta.5",
+    "@vckit/core-types": "^1.0.0-beta.6",
     "@veramo/remote-client": "5.1.2",
     "@veramo/utils": "5.2.0",
     "debug": "^4.3.3",
