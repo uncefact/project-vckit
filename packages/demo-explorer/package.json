@@ -1,12 +1,10 @@
 {
   "name": "@vckit/demo-explorer",
-  "version": "1.15.0",
-  "publishConfig": {
-    "access": "public"
-  },
+  "version": "1.0.0-beta.5",
   "engines": {
     "node": "18.x"
   },
+  "private": true,
   "license": "Apache-2.0",
   "files": [
     "build",
@@ -68,9 +66,9 @@
     "@jsonforms/core": "^3.1.0",
     "@jsonforms/material-renderers": "^3.1.0",
     "@jsonforms/react": "^3.1.0",
-    "@vckit/example-documents": "workspace:^1.0.0-beta.4",
-    "@vckit/react-components": "workspace:^1.0.0-beta.6",
-    "@vckit/renderer": "workspace:^1.0.0-beta.6",
+    "@vckit/example-documents": "workspace:^1.0.0-beta.5",
+    "@vckit/react-components": "workspace:^1.0.0-beta.5",
+    "@vckit/renderer": "workspace:^1.0.0-beta.5",
     "@veramo/remote-client": "5.1.2",
     "ajv": "^8.12.0",
     "commander": "^10.0.1",
