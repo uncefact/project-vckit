@@ -11,7 +11,7 @@
     "extract-api": "node ../cli/bin/vckit.js dev extract-api"
   },
   "dependencies": {
-    "@vckit/core-types": "^1.0.0-beta.6",
+    "@vckit/core-types": "workspace:^",
     "debug": "^4.3.3",
     "did-resolver": "^4.0.1",
     "express": "^4.18.2",

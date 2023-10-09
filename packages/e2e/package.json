@@ -17,7 +17,7 @@
     "url": "https://github.com/uncefact/project-vckit/issues"
   },
   "dependencies": {
-    "@vckit/core-types": "^1.0.0-beta.6",
+    "@vckit/core-types": "workspace:^",
     "@veramo/core": "5.2.0",
     "@veramo/remote-client": "5.1.2",
     "@veramo/credential-w3c": "5.2.0",

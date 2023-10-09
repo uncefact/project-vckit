@@ -39,7 +39,7 @@
     "@transmute/did-context": "0.7.0-unstable.75",
     "@types/blessed": "^0.1.19",
     "@types/swagger-ui-express": "^4.1.3",
-    "@vckit/core-types": "^1.0.0-beta.6",
+    "@vckit/core-types": "workspace:^",
     "@vckit/credential-oa": "^1.0.0-beta.6",
     "@vckit/example-documents": "^1.0.0-beta.6",
     "@vckit/remote-server": "^1.0.0-beta.6",
