@@ -38,5 +38,8 @@
     "@vckit/core-types": "workspace:^",
     "@vckit/credential-oa": "workspace:^",
     "@veramo/credential-w3c": "5.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

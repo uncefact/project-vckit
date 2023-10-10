@@ -54,5 +54,8 @@
     "typeorm": "^0.3.10",
     "uuid": "^9.0.0",
     "vc-revocation-list-context": "^1.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
