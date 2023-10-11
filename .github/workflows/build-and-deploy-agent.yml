@@ -9,7 +9,7 @@ on:
       - '*' 
 
 env: 
-  environment: ${{ (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/deploy-un') && 'UN' || 'dev' }}
+  environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (github.ref == 'refs/heads/deploy-un' && 'UN') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
 
 jobs:
   install_and_build:
@@ -21,9 +21,7 @@ jobs:
     env:
       CI: false
 
-    environment:
-      name: ${{ (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/deploy-un') && 'UN' || 'dev' }}
-      url: ${{ env.environment == 'UN' && 'https://test.uncefact.org/vckit/explorer/' || 'https://explorer.vckit.showthething.com/' }}
+    environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (github.ref == 'refs/heads/deploy-un' && 'UN') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
 
     steps:
       - name: Checkout repository
@@ -75,9 +73,7 @@ jobs:
     permissions:
       id-token: write
 
-    environment:
-      name: ${{ (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/deploy-un') && 'UN' || 'dev' }}
-      url: ${{ env.environment == 'UN' && 'https://test.uncefact.org/vckit/explorer/' || 'https://explorer.vckit.showthething.com/' }}
+    environment: ${{ (github.ref == 'refs/heads/dev' && 'dev') || (github.ref == 'refs/heads/deploy-un' && 'UN') || (startsWith(github.ref, 'refs/tags/v') && 'UN') }}
 
     steps:
       - name: Checkout repository
