@@ -7,7 +7,6 @@ import { QueryClientProvider, QueryClient } from 'react-query'
 import { ChatProvider } from '../context/ChatProvider'
 import { VeramoWeb3Provider } from '../context/web3/VeramoWeb3Provider'
 
-
 declare global {
   interface Window {
     BASE_URL: string
@@ -16,7 +15,8 @@ declare global {
 
 const App = () => {
   const queryClient = new QueryClient()
-  const mode = process.env.REACT_APP_MODE;
+  const mode = process.env.REACT_APP_MODE
+  const publicUrl = process.env.PUBLIC_URL
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -24,8 +24,8 @@ const App = () => {
         {
           <VeramoWeb3Provider>
             <ChatProvider>
-              <BrowserRouter>
-                { mode === 'verifier' ? <VerifierLayout /> : <Layout /> }
+              <BrowserRouter basename={publicUrl}>
+                {mode === 'verifier' ? <VerifierLayout /> : <Layout />}
               </BrowserRouter>
             </ChatProvider>
           </VeramoWeb3Provider>

@@ -1,15 +1,14 @@
 {
-  "name": "@vckit/renderer",
+  "name": "@vckit/utils",
   "version": "1.0.0-beta.6",
-  "description": "To render the verifiable credentials.",
+  "description": "A package of utilities for working with VC-Kit",
   "keywords": [],
   "author": "Nam Hoang <hoangxuannam160493@gmail.com>",
   "homepage": "https://github.com/uncefact/project-vckit#readme",
   "license": "Apache-2.0",
   "main": "build/index.js",
   "exports": {
-    ".": "./build/index.js",
-    "./build/plugin.schema.json": "./build/plugin.schema.json"
+    ".": "./build/index.js"
   },
   "types": "build/index.d.ts",
   "files": [
@@ -25,23 +24,16 @@
   "repository": "git@github.com:uncefact/project-vckit.git",
   "scripts": {
     "build": "tsc",
-    "watch": "tsc -b --watch",
-    "extract-api": "node ../cli/bin/vckit.js dev extract-api"
-  },
-  "resolutions": {
-    "jsonld": "npm:@digitalcredentials/jsonld@^5.2.1"
+    "watch": "tsc -b --watch"
   },
   "dependencies": {
-    "@digitalcredentials/jsonld": "^5.2.1",
-    "@vckit/core-types": "workspace:^",
-    "handlebars": "^4.7.6"
+    "express": "^4.18.2",
+    "winston": "^3.10.0",
+    "winston-daily-rotate-file": "^4.7.1"
   },
   "type": "module",
   "moduleDirectories": [
     "node_modules",
     "src"
-  ],
-  "devDependencies": {
-    "@types/jsonld": "^1.5.8"
-  }
+  ]
 }

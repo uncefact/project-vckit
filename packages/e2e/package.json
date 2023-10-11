@@ -1,6 +1,6 @@
 {
   "name": "@vckit/e2e",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-beta.6",
   "description": "This package is used to test project-vckit packages/plugins.",
   "author": "Nam Hoang <hoangxuannam160493@gmail.com>",
   "homepage": "https://github.com/uncefact/project-vckit",
@@ -17,9 +17,8 @@
     "url": "https://github.com/uncefact/project-vckit/issues"
   },
   "dependencies": {
-    "@vckit/core-types": "^1.0.0-beta.5",
+    "@vckit/core-types": "workspace:^",
     "@veramo/core": "5.2.0",
-    "@veramo/remote-client": "5.1.2",
     "@veramo/credential-w3c": "5.2.0",
     "@veramo/data-store": "5.2.0",
     "@veramo/data-store-json": "5.2.0",
@@ -36,6 +35,7 @@
     "@veramo/kms-local": "5.1.2",
     "@veramo/kms-web3": "5.1.2",
     "@veramo/message-handler": "5.1.2",
+    "@veramo/remote-client": "5.1.2",
     "@veramo/utils": "5.2.0",
     "did-resolver": "^4.0.1",
     "ethr-did-resolver": "^8.0.0",
