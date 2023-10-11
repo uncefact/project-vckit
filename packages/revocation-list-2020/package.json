@@ -47,6 +47,7 @@
     "@vckit/core-types": "workspace:^",
     "@veramo/data-store": "5.2.0",
     "@veramo/utils": "5.2.0",
+    "@veramo/credential-ld": "5.2.0",
     "credential-status": "^2.0.5",
     "dotenv": "^16.0.0",
     "express-interceptor": "^1.2.0",
