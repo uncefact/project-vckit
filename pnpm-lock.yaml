@@ -175,7 +175,7 @@ importers:
         specifier: workspace:^
         version: link:../core-types
       '@vckit/credential-oa':
-        specifier: ^1.0.0-beta.6
+        specifier: ^1.0.0-beta.7
         version: 1.0.0-next.54
       '@vckit/credential-router':
         specifier: workspace:^
@@ -184,13 +184,13 @@ importers:
         specifier: workspace:^
         version: link:../encrypted-storage
       '@vckit/example-documents':
-        specifier: ^1.0.0-beta.6
+        specifier: ^1.0.0-beta.7
         version: 1.0.0-next.54
       '@vckit/remote-server':
-        specifier: ^1.0.0-beta.6
+        specifier: ^1.0.0-beta.7
         version: 1.0.0-next.54(@ant-design/icons@5.0.1)(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(@babel/preset-env@7.22.20)(@mui/system@5.14.12)(@tanstack/react-query@4.36.1)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(date-fns@2.30.0)(dayjs@1.11.10)(eslint@8.51.0)(express@4.18.2)(react-native@0.72.5)(ts-node@10.9.1)(typescript@4.9.4)(webpack@5.88.1)
       '@vckit/renderer':
-        specifier: ^1.0.0-beta.6
+        specifier: ^1.0.0-beta.7
         version: 1.0.0-next.54(expo@49.0.13)(react-native@0.72.5)
       '@vckit/revocationlist':
         specifier: workspace:^
@@ -199,7 +199,7 @@ importers:
         specifier: workspace:^
         version: link:../utils
       '@vckit/vc-api':
-        specifier: workspace:1.0.0-beta.6
+        specifier: workspace:1.0.0-beta.7
         version: link:../vc-api
       '@veramo/core':
         specifier: 5.2.0
@@ -466,13 +466,13 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(@jsonforms/core@3.1.0)(react@18.2.0)
       '@vckit/example-documents':
-        specifier: workspace:^1.0.0-beta.6
+        specifier: workspace:^1.0.0-beta.7
         version: link:../example-documents
       '@vckit/react-components':
-        specifier: workspace:^1.0.0-beta.6
+        specifier: workspace:^1.0.0-beta.7
         version: link:../react-components
       '@vckit/renderer':
-        specifier: workspace:^1.0.0-beta.6
+        specifier: workspace:^1.0.0-beta.7
         version: link:../renderer
       '@veramo/remote-client':
         specifier: 5.1.2
@@ -1134,6 +1134,9 @@ importers:
       '@vckit/core-types':
         specifier: workspace:^
         version: link:../core-types
+      '@veramo/credential-ld':
+        specifier: 5.2.0
+        version: 5.2.0(expo@49.0.13)(react-native@0.72.5)
       '@veramo/data-store':
         specifier: 5.2.0
         version: 5.2.0(pg@8.7.1)(sqlite3@5.1.1)(ts-node@10.9.1)
@@ -1808,7 +1811,7 @@ packages:
       '@babel/traverse': 7.23.0
       '@babel/types': 7.23.0
       convert-source-map: 1.9.0
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       gensync: 1.0.0-beta.2
       json5: 2.2.0
       lodash: 4.17.21
@@ -1875,7 +1878,7 @@ packages:
       '@babel/traverse': 7.23.0
       '@babel/types': 7.23.0
       convert-source-map: 1.9.0
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       gensync: 1.0.0-beta.2
       json5: 2.2.0
       lodash: 4.17.21
@@ -2026,7 +2029,7 @@ packages:
       '@babel/core': 7.23.0
       '@babel/helper-compilation-targets': 7.22.15
       '@babel/helper-plugin-utils': 7.22.5
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       lodash.debounce: 4.0.8
       resolve: 1.22.6
     transitivePeerDependencies:
@@ -5062,7 +5065,7 @@ packages:
       '@babel/helper-split-export-declaration': 7.22.6
       '@babel/parser': 7.23.0
       '@babel/types': 7.23.0
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -6172,7 +6175,7 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
       ajv: 6.12.6
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       espree: 9.6.1
       globals: 13.23.0
       ignore: 5.2.4
@@ -6526,7 +6529,7 @@ packages:
       cacache: 15.3.0
       chalk: 4.1.2
       ci-info: 3.9.0
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       env-editor: 0.4.2
       form-data: 3.0.1
       freeport-async: 2.0.0
@@ -6588,7 +6591,7 @@ packages:
       '@expo/sdk-runtime-versions': 1.0.0
       '@react-native/normalize-color': 2.1.0
       chalk: 4.1.2
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       find-up: 5.0.0
       getenv: 1.0.0
       glob: 7.1.6
@@ -6670,7 +6673,7 @@ packages:
     resolution: {integrity: sha512-UXuKAqyXfhMQC3gP0OyjXmFX08Z1fkVWiGBN7bYzfoX8LHatjeHrDtI6w5nDvd8XPxPvmqaZoEDw1lW3+dz3oQ==}
     dependencies:
       chalk: 4.1.2
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       dotenv: 16.0.3
       dotenv-expand: 10.0.0
       getenv: 1.0.0
@@ -6711,7 +6714,7 @@ packages:
       '@expo/env': 0.0.5
       '@expo/json-file': 8.2.37
       chalk: 4.1.2
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       find-yarn-workspace-root: 2.0.0
       getenv: 1.0.0
       jsc-safe-url: 0.2.4
@@ -6765,7 +6768,7 @@ packages:
       '@expo/config-types': 49.0.0
       '@expo/image-utils': 0.3.22
       '@expo/json-file': 8.2.37
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       expo-modules-autolinking: 1.5.1
       fs-extra: 9.1.0
       resolve-from: 5.0.0
@@ -6971,8 +6974,8 @@ packages:
   /@govtechsg/dnsprove@2.6.1:
     resolution: {integrity: sha512-ALLe3EC9ix6ZsMIHgRRLdVYMC35yRShG8sRXb73D4bvw60Yz/pT/Y3e9w40KqG8HMMChvJaEMV6uQi6GR7Jwmw==}
     dependencies:
-      axios: 0.21.4(debug@4.3.3)
-      debug: 4.3.3(supports-color@6.1.0)
+      axios: 0.21.4(debug@4.3.4)
+      debug: 4.3.4(supports-color@6.1.0)
       runtypes: 6.7.0
     transitivePeerDependencies:
       - supports-color
@@ -6987,15 +6990,17 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       canonicalize: 1.0.8
-      cross-fetch: 3.1.4
+      cross-fetch: 3.1.8
       lru-cache: 6.0.0
       rdf-canonize: 3.4.0
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /@govtechsg/oa-encryption@1.3.5:
     resolution: {integrity: sha512-wBraQPBBpvfwrJ2ujhrihHndIixjgFGK/AyNG6KjHaWMwN9TrOh0MD+JroL23+z8ku4uM2gZgszG18ui6Ikx3A==}
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       node-forge: 1.3.1
     transitivePeerDependencies:
       - supports-color
@@ -7031,7 +7036,7 @@ packages:
       ajv: 8.12.0
       ajv-formats: 2.1.1(ajv@8.12.0)
       cross-fetch: 3.1.8
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       ethers: 5.7.2
       flatley: 5.2.0
       js-base64: 3.7.5
@@ -7101,7 +7106,7 @@ packages:
     engines: {node: '>=10.10.0'}
     dependencies:
       '@humanwhocodes/object-schema': 1.2.1
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       minimatch: 3.1.2
     transitivePeerDependencies:
       - supports-color
@@ -9839,10 +9844,10 @@ packages:
       '@octokit/openapi-types': 18.1.1
     dev: true
 
-  /@ory/client@1.2.11(debug@4.3.3):
+  /@ory/client@1.2.11(debug@4.3.4):
     resolution: {integrity: sha512-eqsVhlKlbSa2DB81NEqGZ0+HywpCumhubyQOXRJ3gIb8uRyDcWYzlIMYc7FFtcZa37alFjIGxR8lgRWsxBBbtQ==}
     dependencies:
-      axios: 0.21.4(debug@4.3.3)
+      axios: 0.21.4(debug@4.3.4)
     transitivePeerDependencies:
       - debug
     dev: false
@@ -9927,7 +9932,7 @@ packages:
       schema-utils: 3.3.0
       source-map: 0.7.4
       webpack: 5.88.1(@swc/core@1.3.92)(esbuild@0.18.20)
-      webpack-dev-server: 4.15.1(debug@4.3.3)(webpack@5.88.1)
+      webpack-dev-server: 4.15.1(debug@4.3.4)(webpack@5.88.1)
 
   /@pnpm/config.env-replace@1.1.0:
     resolution: {integrity: sha512-htyl8TWnKL7K/ESFa1oW2UB5lVDxuF5DpM7tBi6Hu2LNL3mWkIzNLG6N4zoCUP1lCKNxWy/3iu8mS8MvToGd6w==}
@@ -10368,11 +10373,11 @@ packages:
       - encoding
     dev: false
 
-  /@refinedev/cli@2.16.4(@babel/preset-env@7.22.20)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(debug@4.3.3)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0):
+  /@refinedev/cli@2.16.4(@babel/preset-env@7.22.20)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(debug@4.3.4)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0):
     resolution: {integrity: sha512-h9qGJ2mkloFvvxZ97mPs2gceNKIUAHKCjLS6wgAqdPqbu6DokK3YXcvm4I29tht8cFbqznm6Tgtn8Grz9XyvHA==}
     hasBin: true
     dependencies:
-      '@refinedev/devtools-server': 1.1.9(@babel/preset-env@7.22.20)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(debug@4.3.3)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0)
+      '@refinedev/devtools-server': 1.1.9(@babel/preset-env@7.22.20)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(debug@4.3.4)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0)
       boxen: 5.1.2
       cardinal: 2.1.1
       chalk: 4.1.2
@@ -10388,7 +10393,7 @@ packages:
       globby: 11.1.0
       gray-matter: 4.0.3
       handlebars: 4.7.8
-      http-proxy-middleware: 2.0.6(@types/express@4.17.15)(debug@4.3.3)
+      http-proxy-middleware: 2.0.6(@types/express@4.17.15)(debug@4.3.4)
       ink: 3.2.0(@types/react@18.2.15)(react@18.2.0)
       ink-markdown: 1.0.4(ink@3.2.0)(react@18.2.0)
       ink-table: 3.0.0(ink@3.2.0)(react@18.2.0)
@@ -10467,7 +10472,7 @@ packages:
       - react-native
     dev: false
 
-  /@refinedev/devtools-server@1.1.9(@babel/preset-env@7.22.20)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(debug@4.3.3)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0):
+  /@refinedev/devtools-server@1.1.9(@babel/preset-env@7.22.20)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(debug@4.3.4)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0):
     resolution: {integrity: sha512-6A3yS7jDS5ZXtNd7tEh5zPXQAe5wPf24PDlzKQZPiN3xqSPoamQZdQsYIbtBbQRhBoHf9SfeEedRiuWiKMUhyg==}
     engines: {node: '>=10'}
     hasBin: true
@@ -10478,7 +10483,7 @@ packages:
       react-dom: ^17.0.0 || ^18.0.0
     dependencies:
       '@refinedev/devtools-shared': 1.1.2(@types/react-dom@18.2.7)(@types/react@18.2.15)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0)
-      '@refinedev/devtools-ui': 1.1.6(@types/react-dom@18.2.7)(@types/react@18.2.15)(debug@4.3.3)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0)
+      '@refinedev/devtools-ui': 1.1.6(@types/react-dom@18.2.7)(@types/react@18.2.15)(debug@4.3.4)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0)
       '@types/react': 18.2.15
       '@types/react-dom': 18.2.7
       body-parser: 1.20.2
@@ -10491,7 +10496,7 @@ packages:
       fs-extra: 10.1.0
       globby: 11.1.0
       gray-matter: 4.0.3
-      http-proxy-middleware: 2.0.6(@types/express@4.17.15)(debug@4.3.3)
+      http-proxy-middleware: 2.0.6(@types/express@4.17.15)(debug@4.3.4)
       jscodeshift: 0.13.1(@babel/preset-env@7.22.20)
       lodash: 4.17.21
       marked: 4.3.0
@@ -10530,7 +10535,7 @@ packages:
       - react-native
     dev: false
 
-  /@refinedev/devtools-ui@1.1.6(@types/react-dom@18.2.7)(@types/react@18.2.15)(debug@4.3.3)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0):
+  /@refinedev/devtools-ui@1.1.6(@types/react-dom@18.2.7)(@types/react@18.2.15)(debug@4.3.4)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0):
     resolution: {integrity: sha512-orW59H3J+ZjZQiN/vyqd0bdOGNL2LVMzRl+8OaUDaLRS/Obd5atMJYHZiaJwEWkiy0OSgqGsmJPmN0Sfca8hHw==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -10541,7 +10546,7 @@ packages:
     dependencies:
       '@fireworks-js/react': 2.10.7(@types/react@18.2.15)(react@18.2.0)
       '@headlessui/react': 1.7.17(react-dom@18.2.0)(react@18.2.0)
-      '@ory/client': 1.2.11(debug@4.3.3)
+      '@ory/client': 1.2.11(debug@4.3.4)
       '@refinedev/devtools-shared': 1.1.2(@types/react-dom@18.2.7)(@types/react@18.2.15)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0)
       '@tanstack/react-table': 8.10.6(react-dom@18.2.0)(react@18.2.0)
       '@types/react': 18.2.15
@@ -11048,7 +11053,7 @@ packages:
       '@octokit/plugin-throttling': 5.2.3(@octokit/core@4.2.4)
       '@semantic-release/error': 3.0.0
       aggregate-error: 3.1.0
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       dir-glob: 3.0.1
       fs-extra: 11.1.1
       globby: 11.1.0
@@ -12630,7 +12635,7 @@ packages:
       typescript: '>= 4.x'
       webpack: '>= 4'
     dependencies:
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       endent: 2.1.0
       find-cache-dir: 3.3.2
       flat-cache: 3.1.1
@@ -14795,7 +14800,7 @@ packages:
       '@typescript-eslint/scope-manager': 5.62.0
       '@typescript-eslint/type-utils': 5.62.0(eslint@8.51.0)(typescript@4.9.4)
       '@typescript-eslint/utils': 5.62.0(eslint@8.51.0)(typescript@4.9.4)
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       eslint: 8.51.0
       graphemer: 1.4.0
       ignore: 5.2.4
@@ -14823,7 +14828,7 @@ packages:
       '@typescript-eslint/scope-manager': 5.62.0
       '@typescript-eslint/type-utils': 5.62.0(eslint@8.51.0)(typescript@5.1.6)
       '@typescript-eslint/utils': 5.62.0(eslint@8.51.0)(typescript@5.1.6)
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       eslint: 8.51.0
       graphemer: 1.4.0
       ignore: 5.2.4
@@ -14939,7 +14944,7 @@ packages:
       '@typescript-eslint/scope-manager': 5.62.0
       '@typescript-eslint/types': 5.62.0
       '@typescript-eslint/typescript-estree': 5.62.0(typescript@4.9.4)
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       eslint: 8.51.0
       typescript: 4.9.4
     transitivePeerDependencies:
@@ -14959,7 +14964,7 @@ packages:
       '@typescript-eslint/scope-manager': 5.62.0
       '@typescript-eslint/types': 5.62.0
       '@typescript-eslint/typescript-estree': 5.62.0(typescript@4.9.5)
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       eslint: 8.51.0
       typescript: 4.9.5
     transitivePeerDependencies:
@@ -14978,7 +14983,7 @@ packages:
       '@typescript-eslint/scope-manager': 5.62.0
       '@typescript-eslint/types': 5.62.0
       '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.1.6)
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       eslint: 8.51.0
       typescript: 5.1.6
     transitivePeerDependencies:
@@ -15012,7 +15017,7 @@ packages:
     dependencies:
       '@typescript-eslint/typescript-estree': 5.62.0(typescript@4.9.4)
       '@typescript-eslint/utils': 5.62.0(eslint@8.51.0)(typescript@4.9.4)
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       eslint: 8.51.0
       tsutils: 3.21.0(typescript@4.9.4)
       typescript: 4.9.4
@@ -15032,7 +15037,7 @@ packages:
     dependencies:
       '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.1.6)
       '@typescript-eslint/utils': 5.62.0(eslint@8.51.0)(typescript@5.1.6)
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       eslint: 8.51.0
       tsutils: 3.21.0(typescript@5.1.6)
       typescript: 5.1.6
@@ -15058,7 +15063,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       eslint-visitor-keys: 1.3.0
       glob: 7.2.3
       is-glob: 4.0.3
@@ -15079,7 +15084,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       eslint-visitor-keys: 1.3.0
       glob: 7.2.3
       is-glob: 4.0.3
@@ -15102,7 +15107,7 @@ packages:
     dependencies:
       '@typescript-eslint/types': 4.33.0
       '@typescript-eslint/visitor-keys': 4.33.0
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.5.4
@@ -15123,7 +15128,7 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.62.0
       '@typescript-eslint/visitor-keys': 5.62.0
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.5.4
@@ -15144,7 +15149,7 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.62.0
       '@typescript-eslint/visitor-keys': 5.62.0
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.5.4
@@ -15164,7 +15169,7 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.62.0
       '@typescript-eslint/visitor-keys': 5.62.0
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.5.4
@@ -15281,7 +15286,7 @@ packages:
       wonka: 4.0.15
     optional: true
 
-  /@vckit/app@1.0.0-beta.4(@ant-design/icons@5.0.1)(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(@babel/preset-env@7.22.20)(@mui/system@5.14.12)(@tanstack/react-query@4.36.1)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(date-fns@2.30.0)(dayjs@1.11.10)(debug@4.3.3)(eslint@8.51.0)(react-native@0.72.5)(ts-node@10.9.1)(typescript@4.9.4)(webpack@5.88.1):
+  /@vckit/app@1.0.0-beta.4(@ant-design/icons@5.0.1)(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(@babel/preset-env@7.22.20)(@mui/system@5.14.12)(@tanstack/react-query@4.36.1)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(date-fns@2.30.0)(dayjs@1.11.10)(debug@4.3.4)(eslint@8.51.0)(react-native@0.72.5)(ts-node@10.9.1)(typescript@4.9.4)(webpack@5.88.1):
     resolution: {integrity: sha512-KwxsSbxHRfzmy74lxMQE8D/9uLQ/b16JqGLWtvHca086btOnnDhRxg6FETwfPy9upWfgBdmcVz4XMLf48rGDRQ==}
     dependencies:
       '@emotion/react': 11.11.1(@types/react@18.2.15)(react@18.2.0)
@@ -15299,7 +15304,7 @@ packages:
       '@mui/x-data-grid': 5.17.26(@mui/material@5.14.12)(@mui/system@5.14.12)(@types/react@18.2.15)(react-dom@18.2.0)(react@18.2.0)
       '@mui/x-date-pickers': 6.16.1(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@mui/material@5.14.12)(@mui/system@5.14.12)(@types/react@18.2.15)(date-fns@2.30.0)(dayjs@1.11.10)(react-dom@18.2.0)(react@18.2.0)
       '@refinedev/appwrite': 6.4.4(@refinedev/core@4.44.3)
-      '@refinedev/cli': 2.16.4(@babel/preset-env@7.22.20)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(debug@4.3.3)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0)
+      '@refinedev/cli': 2.16.4(@babel/preset-env@7.22.20)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(debug@4.3.4)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0)
       '@refinedev/core': 4.44.3(@tanstack/react-query@4.36.1)(@types/react-dom@18.2.7)(@types/react@18.2.15)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0)
       '@refinedev/inferencer': 3.5.8(@ant-design/icons@5.0.1)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@mui/lab@5.0.0-alpha.147)(@mui/material@5.14.12)(@mui/x-data-grid@5.17.26)(@refinedev/core@4.44.3)(@refinedev/mui@4.18.2)(@refinedev/react-hook-form@4.8.10)(@types/react-dom@18.2.7)(@types/react@18.2.15)(antd@5.5.2)(dayjs@1.11.10)(react-dom@18.2.0)(react-hook-form@7.47.0)(react@18.2.0)
       '@refinedev/kbar': 1.3.4(@refinedev/core@4.44.3)(@types/react-dom@18.2.7)(@types/react@18.2.15)(react-dom@18.2.0)(react@18.2.0)
@@ -15308,7 +15313,7 @@ packages:
       '@refinedev/react-router-v6': 4.5.4(@refinedev/core@4.44.3)(@types/react-dom@18.2.7)(@types/react@18.2.15)(react-dom@18.2.0)(react-router-dom@6.11.2)(react@18.2.0)
       antd: 5.5.2(date-fns@2.30.0)(react-dom@18.2.0)(react@18.2.0)
       apexcharts: 3.43.0
-      axios: 1.5.1(debug@4.3.3)
+      axios: 1.5.1(debug@4.3.4)
       express: 4.18.2(supports-color@6.1.0)
       i18next: 20.6.1
       i18next-browser-languagedetector: 6.1.8
@@ -15321,7 +15326,7 @@ packages:
       react-hook-form: 7.47.0(react@18.2.0)
       react-i18next: 11.18.6(i18next@20.6.1)(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0)
       react-router-dom: 6.11.2(react-dom@18.2.0)(react@18.2.0)
-      react-scripts: 5.0.1(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(debug@4.3.3)(eslint@8.51.0)(react@18.2.0)(ts-node@10.9.1)(typescript@4.9.4)
+      react-scripts: 5.0.1(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(debug@4.3.4)(eslint@8.51.0)(react@18.2.0)(ts-node@10.9.1)(typescript@4.9.4)
       react-shepherd: 4.2.0(react-dom@18.2.0)(react@18.2.0)
     transitivePeerDependencies:
       - '@ant-design/icons'
@@ -15391,7 +15396,7 @@ packages:
     resolution: {integrity: sha512-WJXeVelOqBREVSKf+rJ3skEmG2r/WyAqCjUCy8P29ibM9cE8J8lSfFdDoiAmbnauERYGHtFv5zOf7hvs94bSSw==}
     dependencies:
       credential-status: 2.0.5
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       did-jwt-vc: 3.1.4
       did-resolver: 4.1.0
     transitivePeerDependencies:
@@ -15424,11 +15429,11 @@ packages:
   /@vckit/remote-client@1.0.0-next.60(@ant-design/icons@5.0.1)(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(@babel/preset-env@7.22.20)(@mui/system@5.14.12)(@tanstack/react-query@4.36.1)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(date-fns@2.30.0)(dayjs@1.11.10)(eslint@8.51.0)(react-native@0.72.5)(ts-node@10.9.1)(typescript@4.9.4)(webpack@5.88.1):
     resolution: {integrity: sha512-1GWLf7kNqj9Q+jWRu2LoWyrI9dMLeE757gzDRLvI5JlQ873Ma0/lqkJk26tSg+m0Q3dZSEScThuNdPfWHJqPng==}
     dependencies:
-      '@vckit/app': 1.0.0-beta.4(@ant-design/icons@5.0.1)(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(@babel/preset-env@7.22.20)(@mui/system@5.14.12)(@tanstack/react-query@4.36.1)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(date-fns@2.30.0)(dayjs@1.11.10)(debug@4.3.3)(eslint@8.51.0)(react-native@0.72.5)(ts-node@10.9.1)(typescript@4.9.4)(webpack@5.88.1)
+      '@vckit/app': 1.0.0-beta.4(@ant-design/icons@5.0.1)(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(@babel/preset-env@7.22.20)(@mui/system@5.14.12)(@tanstack/react-query@4.36.1)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(date-fns@2.30.0)(dayjs@1.11.10)(debug@4.3.4)(eslint@8.51.0)(react-native@0.72.5)(ts-node@10.9.1)(typescript@4.9.4)(webpack@5.88.1)
       '@vckit/core-types': 1.0.0-next.60
       '@vckit/example-documents': 1.0.0-next.60
-      cross-fetch: 3.1.4
-      debug: 4.3.3(supports-color@6.1.0)
+      cross-fetch: 3.1.8
+      debug: 4.3.4(supports-color@6.1.0)
       openapi-types: 12.1.0
     transitivePeerDependencies:
       - '@ant-design/icons'
@@ -15498,10 +15503,10 @@ packages:
     peerDependencies:
       express: ^4.18.2
     dependencies:
-      '@vckit/app': 1.0.0-beta.4(@ant-design/icons@5.0.1)(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(@babel/preset-env@7.22.20)(@mui/system@5.14.12)(@tanstack/react-query@4.36.1)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(date-fns@2.30.0)(dayjs@1.11.10)(debug@4.3.3)(eslint@8.51.0)(react-native@0.72.5)(ts-node@10.9.1)(typescript@4.9.4)(webpack@5.88.1)
+      '@vckit/app': 1.0.0-beta.4(@ant-design/icons@5.0.1)(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(@babel/preset-env@7.22.20)(@mui/system@5.14.12)(@tanstack/react-query@4.36.1)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(date-fns@2.30.0)(dayjs@1.11.10)(debug@4.3.4)(eslint@8.51.0)(react-native@0.72.5)(ts-node@10.9.1)(typescript@4.9.4)(webpack@5.88.1)
       '@vckit/core-types': 1.0.0-next.60
       '@vckit/remote-client': 1.0.0-next.60(@ant-design/icons@5.0.1)(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(@babel/preset-env@7.22.20)(@mui/system@5.14.12)(@tanstack/react-query@4.36.1)(@types/express@4.17.15)(@types/react-dom@18.2.7)(@types/react@18.2.15)(date-fns@2.30.0)(dayjs@1.11.10)(eslint@8.51.0)(react-native@0.72.5)(ts-node@10.9.1)(typescript@4.9.4)(webpack@5.88.1)
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       did-resolver: 4.1.0
       express: 4.18.2(supports-color@6.1.0)
       passport: 0.6.0
@@ -15575,7 +15580,7 @@ packages:
     dependencies:
       '@digitalcredentials/jsonld': 5.2.1(expo@49.0.13)(react-native@0.72.5)
       '@vckit/core-types': 1.0.0-next.60
-      handlebars: 4.7.6
+      handlebars: 4.7.8
     transitivePeerDependencies:
       - domexception
       - expo
@@ -15620,7 +15625,7 @@ packages:
     resolution: {integrity: sha512-DWmGZC2XNS/lCpfZ7AHYJloQk7zrQBFpZQ/AEmqgUu00xJj50V3PpQmcCjtZ+TgSj4Kv4Fj1QVf9V8kQlfNR0A==}
     dependencies:
       '@veramo/core-types': 5.1.2
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       events: 3.3.0
       z-schema: 6.0.1
     transitivePeerDependencies:
@@ -15931,7 +15936,7 @@ packages:
       '@ethersproject/transactions': 5.7.0
       '@stablelib/ed25519': 1.0.3
       '@veramo/core-types': 5.1.2
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       did-jwt: 6.11.6
       uint8arrays: 3.1.1
       uuid: 9.0.0
@@ -15980,7 +15985,7 @@ packages:
     resolution: {integrity: sha512-fov1wFOe5f4YoNpmjlo8pRyG2GJI0qlSW0Zvo3umhbfMc/yohcx8zAi4ZaR3uqxPGfsdsbCO2zU8+VSfUqcH0Q==}
     dependencies:
       '@veramo/core-types': 5.1.2
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -16129,6 +16134,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - debug
+      - encoding
       - utf-8-validate
     dev: true
 
@@ -16145,8 +16151,10 @@ packages:
     dependencies:
       '@walletconnect/jsonrpc-utils': 1.0.8
       '@walletconnect/safe-json': 1.0.2
-      cross-fetch: 3.1.4
+      cross-fetch: 3.1.8
       tslib: 1.14.1
+    transitivePeerDependencies:
+      - encoding
     dev: true
 
   /@walletconnect/jsonrpc-provider@1.0.13:
@@ -16331,6 +16339,7 @@ packages:
       - '@types/react'
       - bufferutil
       - debug
+      - encoding
       - immer
       - react
       - utf-8-validate
@@ -16819,7 +16828,7 @@ packages:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
     engines: {node: '>= 6.0.0'}
     dependencies:
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -16827,7 +16836,7 @@ packages:
     resolution: {integrity: sha512-o/zjMZRhJxny7OyEF+Op8X+efiELC7k7yOjMzgfzVqOzXqkBkWI79YoTdOtsuWd5BWhAGAuOY/Xa6xpiaWXiNg==}
     engines: {node: '>= 14'}
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -17635,6 +17644,14 @@ packages:
     transitivePeerDependencies:
       - debug
 
+  /axios@0.21.4(debug@4.3.4):
+    resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
+    dependencies:
+      follow-redirects: 1.15.3(debug@4.3.4)
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /axios@0.26.1:
     resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
     dependencies:
@@ -17643,10 +17660,10 @@ packages:
       - debug
     dev: false
 
-  /axios@1.5.1(debug@4.3.3):
+  /axios@1.5.1(debug@4.3.4):
     resolution: {integrity: sha512-Q28iYCWzNHjAm+yEAot5QaAMxhMghWLFVf7rRdwhUI+c2jix2DUXjAHXVi+s1ibs3mjPO/cCgbA++3BjD0vP/A==}
     dependencies:
-      follow-redirects: 1.15.3(debug@4.3.3)
+      follow-redirects: 1.15.3(debug@4.3.4)
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -19947,7 +19964,7 @@ packages:
       json-schema-typed: 7.0.3
       onetime: 5.1.2
       pkg-up: 3.1.0
-      semver: 7.3.8
+      semver: 7.5.4
     dev: false
 
   /config-chain@1.1.13:
@@ -20887,7 +20904,7 @@ packages:
       ms: 2.1.2
       supports-color: 6.1.0
 
-  /debug@4.3.4:
+  /debug@4.3.4(supports-color@6.1.0):
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
     engines: {node: '>=6.0'}
     peerDependencies:
@@ -20897,6 +20914,7 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
+      supports-color: 6.1.0
 
   /debuglog@1.0.1:
     resolution: {integrity: sha512-syBZ+rnAK3EgMsH2aYEOLUW7mZSY9Gb+0wUMCFsZvcmiz+HigA0LOcq/HoQqVuGG+EKykunc7QG2bzrponfaSw==}
@@ -21247,7 +21265,7 @@ packages:
     hasBin: true
     dependencies:
       address: 1.2.2
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -22022,7 +22040,7 @@ packages:
     peerDependencies:
       esbuild: '>=0.12 <1'
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       esbuild: 0.18.20
     transitivePeerDependencies:
       - supports-color
@@ -22649,7 +22667,7 @@ packages:
       ajv: 6.12.6
       chalk: 4.1.2
       cross-spawn: 7.0.3
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       doctrine: 3.0.0
       escape-string-regexp: 4.0.0
       eslint-scope: 7.2.2
@@ -23895,6 +23913,17 @@ packages:
         optional: true
     dependencies:
       debug: 4.3.3(supports-color@6.1.0)
+
+  /follow-redirects@1.15.3(debug@4.3.4):
+    resolution: {integrity: sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dependencies:
+      debug: 4.3.4(supports-color@6.1.0)
 
   /fontfaceobserver@2.3.0:
     resolution: {integrity: sha512-6FPvD/IVyT4ZlNe7Wcn5Fb/4ChigpucKYSvD6a+0iMoLn2inpo711eyIcKjmDtE5XNcgAkSH9uN/nfAeZzHEfg==}
@@ -25366,7 +25395,7 @@ packages:
     dependencies:
       '@tootallnate/once': 1.1.2
       agent-base: 6.0.2
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -25376,7 +25405,7 @@ packages:
     dependencies:
       '@tootallnate/once': 2.0.0
       agent-base: 6.0.2
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -25386,7 +25415,7 @@ packages:
     engines: {node: '>= 14'}
     dependencies:
       agent-base: 7.1.0
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -25404,7 +25433,7 @@ packages:
       - supports-color
     dev: true
 
-  /http-proxy-middleware@2.0.6(@types/express@4.17.15)(debug@4.3.3):
+  /http-proxy-middleware@2.0.6(@types/express@4.17.15)(debug@4.3.4):
     resolution: {integrity: sha512-ya/UeJ6HVBYxrgYotAZo1KvPWlgB48kUJLDePFeneHsVujFaW5WNj2NgWCAE//B1Dl02BIfYlpNgBy8Kf8Rjmw==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -25415,7 +25444,7 @@ packages:
     dependencies:
       '@types/express': 4.17.15
       '@types/http-proxy': 1.17.12
-      http-proxy: 1.18.1(debug@4.3.3)
+      http-proxy: 1.18.1(debug@4.3.4)
       is-glob: 4.0.3
       is-plain-obj: 3.0.0
       micromatch: 4.0.5
@@ -25423,7 +25452,7 @@ packages:
       - debug
     dev: false
 
-  /http-proxy-middleware@2.0.6(@types/express@4.17.17)(debug@4.3.3):
+  /http-proxy-middleware@2.0.6(@types/express@4.17.17)(debug@4.3.4):
     resolution: {integrity: sha512-ya/UeJ6HVBYxrgYotAZo1KvPWlgB48kUJLDePFeneHsVujFaW5WNj2NgWCAE//B1Dl02BIfYlpNgBy8Kf8Rjmw==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -25434,7 +25463,7 @@ packages:
     dependencies:
       '@types/express': 4.17.17
       '@types/http-proxy': 1.17.12
-      http-proxy: 1.18.1(debug@4.3.3)
+      http-proxy: 1.18.1(debug@4.3.4)
       is-glob: 4.0.3
       is-plain-obj: 3.0.0
       micromatch: 4.0.5
@@ -25447,6 +25476,17 @@ packages:
     dependencies:
       eventemitter3: 4.0.7
       follow-redirects: 1.15.3(debug@4.3.3)
+      requires-port: 1.0.0
+    transitivePeerDependencies:
+      - debug
+    dev: true
+
+  /http-proxy@1.18.1(debug@4.3.4):
+    resolution: {integrity: sha512-7mz/721AbnJwIVbnaSv1Cz3Am0ZLT/UBwkC92VlxhXv/k/BBQfM2fXElQNC27BVGr0uwUpplYPQM9LnaBMR5NQ==}
+    engines: {node: '>=8.0.0'}
+    dependencies:
+      eventemitter3: 4.0.7
+      follow-redirects: 1.15.3(debug@4.3.4)
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
@@ -25471,7 +25511,7 @@ packages:
     engines: {node: '>= 6.0.0'}
     dependencies:
       agent-base: 5.1.1
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -25481,7 +25521,7 @@ packages:
     engines: {node: '>= 6'}
     dependencies:
       agent-base: 6.0.2
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -25490,7 +25530,7 @@ packages:
     engines: {node: '>= 14'}
     dependencies:
       agent-base: 7.1.0
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -26732,7 +26772,7 @@ packages:
     resolution: {integrity: sha512-R47KzMtDJH6X4/YW9XTx+jrLnZnscW4VpNN+1PViSYTejLVPWv7oov+Duf8YQSPyVRUvueQqz1TcsC6mooZTXw==}
     engines: {node: '>=6'}
     dependencies:
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       istanbul-lib-coverage: 2.0.5
       make-dir: 2.1.0
       rimraf: 2.7.1
@@ -26745,7 +26785,7 @@ packages:
     resolution: {integrity: sha512-n3s8EwkdFIJCG3BPKBYvskgXGoy88ARzvegkitk60NxRdwltLOTaH7CUiMRXvwYorl0Q712iEjcWB+fK/MrWVw==}
     engines: {node: '>=10'}
     dependencies:
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       istanbul-lib-coverage: 3.2.0
       source-map: 0.6.1
     transitivePeerDependencies:
@@ -30558,7 +30598,7 @@ packages:
   /micromark@2.11.4:
     resolution: {integrity: sha512-+WoovN/ppKolQOFIAajxi7Lu9kInbPxFuTBVEavFcL8eAfVstoc5MocPmqBeAdBOJV00uaVjegzH4+MA0DN/uA==}
     dependencies:
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       parse-entities: 2.0.0
     transitivePeerDependencies:
       - supports-color
@@ -31135,7 +31175,7 @@ packages:
       command-line-commands: 3.0.2
       command-line-usage: 6.1.3
       git-config: 0.0.7
-      handlebars: 4.7.6
+      handlebars: 4.7.8
       inquirer: 7.3.3
       make-promises-safe: 5.1.0
       rimraf: 3.0.2
@@ -31871,7 +31911,7 @@ packages:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.0-rc.46
       '@zkochan/js-yaml': 0.0.6
-      axios: 1.5.1(debug@4.3.3)
+      axios: 1.5.1(debug@4.3.4)
       chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
@@ -34185,7 +34225,7 @@ packages:
     engines: {node: '>=8.16.0'}
     dependencies:
       '@types/mime-types': 2.1.2
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       extract-zip: 1.7.0
       https-proxy-agent: 4.0.0
       mime: 2.6.0
@@ -35794,7 +35834,7 @@ packages:
       terser-webpack-plugin: 5.3.9(@swc/core@1.3.92)(esbuild@0.18.20)(webpack@5.88.1)
       typescript: 5.1.6
       webpack: 5.88.1(@swc/core@1.3.92)(esbuild@0.18.20)
-      webpack-dev-server: 4.15.1(debug@4.3.3)(webpack@5.88.1)
+      webpack-dev-server: 4.15.1(debug@4.3.4)(webpack@5.88.1)
       webpack-manifest-plugin: 4.1.1(webpack@5.88.1)
       workbox-webpack-plugin: 6.6.0(webpack@5.88.1)
     optionalDependencies:
@@ -35833,7 +35873,7 @@ packages:
       - webpack-plugin-serve
     dev: true
 
-  /react-scripts@5.0.1(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(debug@4.3.3)(eslint@8.51.0)(react@18.2.0)(ts-node@10.9.1)(typescript@4.9.4):
+  /react-scripts@5.0.1(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(debug@4.3.4)(eslint@8.51.0)(react@18.2.0)(ts-node@10.9.1)(typescript@4.9.4):
     resolution: {integrity: sha512-8VAmEm/ZAwQzJ+GOMLbBsTdDKOpuZh7RPs0UymvBR2vRk4iZWCskjbFnxqjrzoIvlNNRZ3QJFx6/qDSi6zSnaQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
@@ -35891,7 +35931,7 @@ packages:
       terser-webpack-plugin: 5.3.9(@swc/core@1.3.92)(esbuild@0.18.20)(webpack@5.88.1)
       typescript: 4.9.4
       webpack: 5.88.1(@swc/core@1.3.92)(esbuild@0.18.20)
-      webpack-dev-server: 4.15.1(debug@4.3.3)(webpack@5.88.1)
+      webpack-dev-server: 4.15.1(debug@4.3.4)(webpack@5.88.1)
       webpack-manifest-plugin: 4.1.1(webpack@5.88.1)
       workbox-webpack-plugin: 6.6.0(webpack@5.88.1)
     optionalDependencies:
@@ -37817,7 +37857,7 @@ packages:
     engines: {node: '>= 10'}
     dependencies:
       agent-base: 6.0.2
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       socks: 2.7.1
     transitivePeerDependencies:
       - supports-color
@@ -37827,7 +37867,7 @@ packages:
     engines: {node: '>= 10'}
     dependencies:
       agent-base: 6.0.2
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       socks: 2.7.1
     transitivePeerDependencies:
       - supports-color
@@ -37963,7 +38003,7 @@ packages:
   /spdy-transport@3.0.0(supports-color@6.1.0):
     resolution: {integrity: sha512-hsLVFE5SjA6TCisWeJXFKniGGOpBgMLmerfO2aCyCU5s7nJ/rpAepqmFifv/GCbSbueEeAJJnmSQ2rKC/g8Fcw==}
     dependencies:
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       detect-node: 2.1.0
       hpack.js: 2.1.6
       obuf: 1.1.2
@@ -37976,7 +38016,7 @@ packages:
     resolution: {integrity: sha512-r46gZQZQV+Kl9oItvl1JZZqJKGr+oEkB08A6BzkiR7593/7IbtuncXHd2YoYeTsG4157ZssMu9KYvUHLcjcDoA==}
     engines: {node: '>=6.0.0'}
     dependencies:
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       handle-thing: 2.0.1
       http-deceiver: 1.2.7
       select-hose: 2.0.0
@@ -39061,7 +39101,7 @@ packages:
     engines: {node: '>= 0.10'}
     dependencies:
       array-find: 1.0.0
-      debug: 4.3.3(supports-color@6.1.0)
+      debug: 4.3.4(supports-color@6.1.0)
       dedent: 0.7.0
       del: 5.1.0
       execa: 3.4.0
@@ -39998,7 +40038,7 @@ packages:
       buffer: 6.0.3
       chalk: 4.1.2
       cli-highlight: 2.1.11
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@6.1.0)
       dotenv: 16.3.1
       glob: 8.1.0
       mkdirp: 2.1.6
@@ -41006,7 +41046,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /webpack-dev-server@4.15.1(debug@4.3.3)(webpack@5.88.1):
+  /webpack-dev-server@4.15.1(debug@4.3.4)(webpack@5.88.1):
     resolution: {integrity: sha512-5hbAst3h3C3L8w6W4P96L5vaV0PxSmJhxZvWKYIdgxOQm8pNZ5dEOmmSLBVpP85ReeyRt6AS1QJNyo/oFFPeVA==}
     engines: {node: '>= 12.13.0'}
     hasBin: true
@@ -41036,7 +41076,7 @@ packages:
       express: 4.18.2(supports-color@6.1.0)
       graceful-fs: 4.2.11
       html-entities: 2.4.0
-      http-proxy-middleware: 2.0.6(@types/express@4.17.17)(debug@4.3.3)
+      http-proxy-middleware: 2.0.6(@types/express@4.17.17)(debug@4.3.4)
       ipaddr.js: 2.1.0
       launch-editor: 2.6.1
       open: 8.4.2

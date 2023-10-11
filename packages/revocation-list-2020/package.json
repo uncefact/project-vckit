@@ -1,6 +1,6 @@
 {
   "name": "@vckit/revocationlist",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.7",
   "description": "To encrypt the data and store to the database.",
   "author": "Nam Hoang <hoangxuannam160493@gmail.com>",
   "homepage": "https://github.com/uncefact/project-vckit#readme",
@@ -45,9 +45,9 @@
     "@transmute/json-web-signature": "^0.7.0-unstable.79",
     "@transmute/vc-status-rl-2020": "0.7.0-unstable.81",
     "@vckit/core-types": "workspace:^",
+    "@veramo/credential-ld": "5.2.0",
     "@veramo/data-store": "5.2.0",
     "@veramo/utils": "5.2.0",
-    "@veramo/credential-ld": "5.2.0",
     "credential-status": "^2.0.5",
     "dotenv": "^16.0.0",
     "express-interceptor": "^1.2.0",
