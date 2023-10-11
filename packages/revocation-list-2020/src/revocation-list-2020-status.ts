@@ -7,6 +7,7 @@ import { DocumentLoader } from '@transmute/vc-status-rl-2020/dist/types';
 import * as didKey from '@transmute/did-key.js';
 import * as didWeb from '@transmute/did-web';
 import { CredentialStatus } from '@vckit/core-types';
+import { LdDefaultContexts } from '@veramo/credential-ld';
 
 const resolve = async (did: string) => {
   if (did.startsWith('did:key')) {
@@ -25,6 +26,10 @@ const documentLoader: DocumentLoader = async (iri: string) => {
   if (iri) {
     if (contexts.get(iri)) {
       return { documentUrl: iri, document: contexts.get(iri) };
+    }
+
+    if (LdDefaultContexts.get(iri)) {
+      return { documentUrl: iri, document: LdDefaultContexts.get(iri) };
     }
 
     if (iri.startsWith('did:')) {

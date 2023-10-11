@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.7](https://github.com/uncefact/project-vckit/compare/v1.0.0-beta.2...v1.0.0-beta.7) (2023-10-11)
+
+
+### Bug Fixes
+
+* add missing plugin schema ([#97](https://github.com/uncefact/project-vckit/issues/97)) ([78cd8fa](https://github.com/uncefact/project-vckit/commit/78cd8faeeb959afc469b7fbfd7cdb09391f71033))
+
+
+### Features
+
+* vc api for the holder and the verifier ([#107](https://github.com/uncefact/project-vckit/issues/107)) ([022fb56](https://github.com/uncefact/project-vckit/commit/022fb56da58eff6b46258dbda0e8a2f9dd708331)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+
+
+
+
+
+# [1.0.0-beta.6](https://github.com/uncefact/project-vckit/compare/v1.0.0-beta.2...v1.0.0-beta.6) (2023-10-09)
+
+
+### Bug Fixes
+
+* add missing plugin schema ([#97](https://github.com/uncefact/project-vckit/issues/97)) ([78cd8fa](https://github.com/uncefact/project-vckit/commit/78cd8faeeb959afc469b7fbfd7cdb09391f71033))
+
+
+### Features
+
+* vc api for the holder and the verifier ([#107](https://github.com/uncefact/project-vckit/issues/107)) ([022fb56](https://github.com/uncefact/project-vckit/commit/022fb56da58eff6b46258dbda0e8a2f9dd708331)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+
+
+
+
+
 # [1.0.0-beta.5](https://github.com/uncefact/project-vckit/compare/v1.0.0-beta.2...v1.0.0-beta.5) (2023-06-22)
 
 ### Bug Fixes

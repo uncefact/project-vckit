@@ -72,11 +72,26 @@ export class Renderer implements IAgentPlugin {
     context?: IRendererContext
   ): Promise<IRenderResult> {
     try {
-      const [expandedDocument] = await expandVerifiableCredential(
-        args.credential
-      );
-      const renderMethods: RenderMethodPayload[] | [] =
-        extractRenderMethods(expandedDocument);
+      const renderMethods: RenderMethodPayload[] | [] = [];
+
+      // const [expandedDocument] = await expandVerifiableCredential(
+      //   args.credential
+      // );
+      // const renderMethods: RenderMethodPayload[] | [] =
+      //   extractRenderMethods(expandedDocument);
+
+      // TODO: There's an issue with W3 availability causing the fetching of some W3 context files to fail. Since we know the exact location of the template we can bypass the JSONLD expansion. This is a temporary workaround.
+
+      const template = args.credential.render[0]?.template;
+      const type = args.credential.render[0]?.['@type'];
+
+      if (template && type) {
+        renderMethods[0] = {
+          template,
+          '@type': type,
+        };
+      }
+
       if (!renderMethods.length) {
         throw new Error('Render method not found in the verifiable credential');
       }
