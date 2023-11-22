@@ -33,7 +33,8 @@ export function revocationList2020Middleware(args: {
         if (
           !req.body ||
           !args.apiRoutes.includes(req.path) ||
-          !args.supportedProofFormats.includes(req.body.proofFormat)
+          (args.supportedProofFormats &&
+            !args.supportedProofFormats.includes(req.body.proofFormat))
         ) {
           next();
           return;

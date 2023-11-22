@@ -5,7 +5,7 @@
     "https://dev-dvp-context.s3.ap-southeast-2.amazonaws.com/AANZFTA-CoO-Context-Partial.json",
     "https://w3id.org/vc-revocation-list-2020/v1",
     "https://w3id.org/security/suites/jws-2020/v1",
-    "https://dev-render-method-context.s3.ap-southeast-1.amazonaws.com/dev-render-method-context.json"
+    "https://vckit-contexts.s3.ap-southeast-2.amazonaws.com/dev-render-method-context.json"
   ],
   "type": ["VerifiableCredential"],
   "issuer": "did:web:localhost%3A4566:did-documents-bucket:jvtrkl45qubg",
