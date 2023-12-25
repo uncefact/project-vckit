@@ -14,6 +14,18 @@ import {
 
 import { createAgent, IAgentOptions } from '@veramo/core';
 import { CredentialPlugin } from '@veramo/credential-w3c';
+import {
+  CredentialIssuerLD,
+  ICredentialIssuerLD,
+  LdDefaultContexts,
+  VeramoEcdsaSecp256k1RecoverySignature2020,
+  VeramoEd25519Signature2018,
+} from '@veramo/credential-ld';
+
+import {
+  CredentialMerkleDisclosureProof,
+  VCKitMerkleDisclosureProof2021,
+} from '@vckit/credential-merkle-disclosure-proof';
 
 import { DIDResolverPlugin } from '@veramo/did-resolver';
 import { KeyManager } from '@veramo/key-manager';
@@ -129,6 +141,17 @@ export function getAgent(options?: IAgentOptions): TAgent<InstalledPlugins> {
       }),
       new DataStoreJson(memoryJsonStore),
       new CredentialPlugin(),
+      new CredentialIssuerLD({
+        contextMaps: [LdDefaultContexts],
+        suites: [
+          new VeramoEcdsaSecp256k1RecoverySignature2020(),
+          new VeramoEd25519Signature2018(),
+        ],
+      }),
+      new CredentialMerkleDisclosureProof({
+        contextMaps: [LdDefaultContexts],
+        suites: [],
+      }),
       ...(options?.plugins || []),
     ],
   });

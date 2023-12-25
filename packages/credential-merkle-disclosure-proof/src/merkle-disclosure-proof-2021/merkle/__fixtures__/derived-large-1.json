@@ -1,0 +1,43 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/traceability/v1"
+  ],
+  "id": "https://example.com/credential/123",
+  "type": ["VerifiableCredential", "MillTestReportCertificate"],
+  "name": "Certified Mill Test Report",
+  "description": "This document includes recommended mill certificate fields.",
+  "relatedLink": [
+    {
+      "type": ["LinkRole"],
+      "target": "https://www.example.com/template/123",
+      "linkRelationship": "templateLink"
+    }
+  ],
+  "issuanceDate": "2019-12-11T03:50:55Z",
+  "issuer": {
+    "id": "did:key:z6MktHQo3fRRohk44dsbE76CuiTpBmyMWq2VVjvV6aBSeE3U",
+    "type": "Organization",
+    "name": "Kulas Inc",
+    "description": "Universal heuristic infrastructure",
+    "email": "Israel53@example.org",
+    "phoneNumber": "555-856-7287",
+    "faxNumber": "555-562-7335"
+  },
+  "credentialSubject": {
+    "type": ["MillTestReport"],
+    "purchase": {
+      "type": ["Purchase"],
+      "customer": {
+        "type": ["Person"],
+        "email": "Ashton26@example.net",
+        "phoneNumber": "555-888-1160"
+      }
+    }
+  },
+  "proof": {
+    "type": "MerkleDisclosureProof2021",
+    "root": "a7b07482eaa8e3c04464a842aaca0c52be8051fd04780bd325f87a2f88bcc9a0",
+    "proofs": "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"
+  }
+}

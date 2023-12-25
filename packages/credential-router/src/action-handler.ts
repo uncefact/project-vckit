@@ -17,6 +17,7 @@ const enum DocumentFormat {
   JSONLD,
   EIP712,
   OA,
+  MerkleDisclosureProof2021,
 }
 
 /**
@@ -41,31 +42,50 @@ export class CredentialRouter implements IAgentPlugin {
     const { proofFormat, credential } = args;
     try {
       let verifiableCredential: VerifiableCredential;
-      if (proofFormat === 'OpenAttestationMerkleProofSignature2018') {
-        if (typeof context.agent.createVerifiableCredentialOA === 'function') {
-          verifiableCredential =
-            await context.agent.createVerifiableCredentialOA({
-              ...args,
-              credential,
-            });
-        } else {
-          throw new Error(
-            'invalid_setup: your agent does not seem to have CredentialOA plugin installed'
-          );
-        }
-      } else {
-        if (typeof context.agent.createVerifiableCredential === 'function') {
-          verifiableCredential = await context.agent.createVerifiableCredential(
-            {
-              ...args,
-              credential,
-            }
-          );
-        } else {
-          throw new Error(
-            'invalid_setup: your agent does not seem to have CredentialW3c plugin installed'
-          );
-        }
+      switch (proofFormat) {
+        case 'OpenAttestationMerkleProofSignature2018':
+          if (
+            typeof context.agent.createVerifiableCredentialOA === 'function'
+          ) {
+            verifiableCredential =
+              await context.agent.createVerifiableCredentialOA({
+                ...args,
+                credential,
+              });
+          } else {
+            throw new Error(
+              'invalid_setup: your agent does not seem to have CredentialOA plugin installed'
+            );
+          }
+          break;
+        case 'MerkleDisclosureProof2021':
+          if (
+            typeof context.agent.createVerifiableCredentialMDP === 'function'
+          ) {
+            verifiableCredential =
+              await context.agent.createVerifiableCredentialMDP({
+                ...args,
+                credential,
+              });
+          } else {
+            throw new Error(
+              'invalid_setup: your agent does not seem to have CredentialMDP plugin installed'
+            );
+          }
+          break;
+        default:
+          if (typeof context.agent.createVerifiableCredential === 'function') {
+            verifiableCredential =
+              await context.agent.createVerifiableCredential({
+                ...args,
+                credential,
+              });
+          } else {
+            throw new Error(
+              'invalid_setup: your agent does not seem to have CredentialW3c plugin installed'
+            );
+          }
+          break;
       }
       return verifiableCredential;
     } catch (error) {
@@ -81,22 +101,31 @@ export class CredentialRouter implements IAgentPlugin {
 
     const type: DocumentFormat = detectDocumentType(credential);
     try {
-      if (type === DocumentFormat.OA) {
-        if (typeof context.agent.verifyCredentialOA === 'function') {
-          return await context.agent.verifyCredentialOA(args);
-        } else {
-          throw new Error(
-            'invalid_setup: your agent does not seem to have CredentialOA plugin installed'
-          );
-        }
-      } else {
-        if (typeof context.agent.verifyCredential === 'function') {
-          return await context.agent.verifyCredential(args);
-        } else {
-          throw new Error(
-            'invalid_setup: your agent does not seem to have CredentialW3c plugin installed'
-          );
-        }
+      switch (type) {
+        case DocumentFormat.OA:
+          if (typeof context.agent.verifyCredentialOA === 'function') {
+            return await context.agent.verifyCredentialOA(args);
+          } else {
+            throw new Error(
+              'invalid_setup: your agent does not seem to have CredentialOA plugin installed'
+            );
+          }
+        case DocumentFormat.MerkleDisclosureProof2021:
+          if (typeof context.agent.verifyCredentialMDP === 'function') {
+            return await context.agent.verifyCredentialMDP(args);
+          } else {
+            throw new Error(
+              'invalid_setup: your agent does not seem to have CredentialMerkleDisclosureProof plugin installed'
+            );
+          }
+        default:
+          if (typeof context.agent.verifyCredential === 'function') {
+            return await context.agent.verifyCredential(args);
+          } else {
+            throw new Error(
+              'invalid_setup: your agent does not seem to have CredentialW3c plugin installed'
+            );
+          }
       }
     } catch (error) {
       throw new Error(error);
@@ -122,5 +151,10 @@ function detectDocumentType(
     'OpenAttestationMerkleProofSignature2018'
   )
     return DocumentFormat.OA;
+  if (
+    (<VerifiableCredential>document)?.proof?.type ===
+    'MerkleDisclosureProof2021'
+  )
+    return DocumentFormat.MerkleDisclosureProof2021;
   return DocumentFormat.JSONLD;
 }
