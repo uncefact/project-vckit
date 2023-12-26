@@ -4337,7 +4337,8 @@
             "jwt",
             "lds",
             "EthereumEip712Signature2021",
-            "OpenAttestationMerkleProofSignature2018"
+            "OpenAttestationMerkleProofSignature2018",
+            "MerkleDisclosureProof2021"
           ],
           "description": "The type of encoding to be used for the Verifiable Credential or Presentation to be generated.\n\nOnly `jwt` , `lds` and `OpenAttestationMerkleProofSignature2018` are supported at the moment."
         },
@@ -5093,7 +5094,8 @@
             "jwt",
             "lds",
             "EthereumEip712Signature2021",
-            "OpenAttestationMerkleProofSignature2018"
+            "OpenAttestationMerkleProofSignature2018",
+            "MerkleDisclosureProof2021"
           ],
           "description": "The type of encoding to be used for the Verifiable Credential or Presentation to be generated.\n\nOnly `jwt` , `lds` and `OpenAttestationMerkleProofSignature2018` are supported at the moment."
         },
@@ -6549,7 +6551,8 @@
             "jwt",
             "lds",
             "EthereumEip712Signature2021",
-            "OpenAttestationMerkleProofSignature2018"
+            "OpenAttestationMerkleProofSignature2018",
+            "MerkleDisclosureProof2021"
           ],
           "description": "The type of encoding to be used for the Verifiable Credential or Presentation to be generated.\n\nOnly `jwt` , `lds` and `OpenAttestationMerkleProofSignature2018` are supported at the moment."
         },

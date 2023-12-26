@@ -21,7 +21,8 @@ export type ProofFormat =
   | 'jwt'
   | 'lds'
   | 'EthereumEip712Signature2021'
-  | 'OpenAttestationMerkleProofSignature2018';
+  | 'OpenAttestationMerkleProofSignature2018'
+  | 'MerkleDisclosureProof2021';
 
 /**
  * Encapsulates the parameters required to create a

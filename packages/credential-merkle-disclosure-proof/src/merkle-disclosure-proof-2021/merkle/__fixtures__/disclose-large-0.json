@@ -1,0 +1,38 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/traceability/v1"
+  ],
+  "id": "https://example.com/credential/123",
+  "type": ["VerifiableCredential", "MillTestReportCertificate"],
+  "name": "Certified Mill Test Report",
+  "description": "This document includes recommended mill certificate fields.",
+  "relatedLink": [
+    {
+      "type": ["LinkRole"],
+      "target": "https://www.example.com/template/123",
+      "linkRelationship": "templateLink"
+    }
+  ],
+  "issuanceDate": "2019-12-11T03:50:55Z",
+  "issuer": {
+    "id": "did:key:z6MktHQo3fRRohk44dsbE76CuiTpBmyMWq2VVjvV6aBSeE3U",
+    "type": "Organization",
+    "name": "Kulas Inc",
+    "description": "Universal heuristic infrastructure",
+    "email": "Israel53@example.org",
+    "phoneNumber": "555-856-7287",
+    "faxNumber": "555-562-7335"
+  },
+  "credentialSubject": {
+    "type": ["MillTestReport"],
+    "purchase": {
+      "type": ["Purchase"],
+      "customer": {
+        "type": ["Person"],
+        "email": "Ashton26@example.net",
+        "phoneNumber": "555-888-1160"
+      }
+    }
+  }
+}
