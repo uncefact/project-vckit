@@ -13,6 +13,6 @@ else
     . ~/.nvm/nvm.sh
     nvm install 18.17.0
     nvm use 18.17.0
-    npm install -g pnpm@8.6.0
+    npm install -g pnpm@8.14.0
     npm install pm2 -g
 fi
