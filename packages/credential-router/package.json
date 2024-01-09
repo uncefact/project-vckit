@@ -36,9 +36,9 @@
   },
   "dependencies": {
     "@vckit/core-types": "workspace:^",
-    "@vckit/credential-oa": "workspace:^",
     "@vckit/credential-merkle-disclosure-proof": "workspace:^",
-    "@veramo/credential-w3c": "5.2.0"
+    "@vckit/credential-oa": "workspace:^",
+    "@veramo/credential-w3c": "5.5.3"
   },
   "publishConfig": {
     "access": "public"

@@ -54,7 +54,10 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
     if (!key) {
       throw new Error('JsonWebKey2020 requires Ed25519 key');
     }
-
+    // key.kid =
+    //   'bfd193662cf9ab7c7eabde2c14611bdb4aea266db20d1f13e4c1fc02159511c2';
+    // key.publicKeyHex =
+    //   'bfd193662cf9ab7c7eabde2c14611bdb4aea266db20d1f13e4c1fc02159511c2';
     const publicKeyBytes = hexToBytes(key.publicKeyHex);
     const publicKeyMultibase = bytesToMultibase(
       hexToBytes(key.publicKeyHex),
@@ -234,6 +237,21 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
       }
     }
   );
+
+  router.get('/keys/:did', async (req: RequestWithAgentDIDManager, res) => {
+    if (req.agent) {
+      try {
+        console.log(req.params);
+        const identifier = await req.agent.didManagerGet({
+          did: req.params.did,
+        });
+        const keys = await webKeysForIdentifier(identifier);
+        res.json(keys);
+      } catch (e) {
+        res.status(404).send(e);
+      }
+    }
+  });
 
   return router;
 };

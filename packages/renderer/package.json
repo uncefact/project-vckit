@@ -32,9 +32,9 @@
     "jsonld": "npm:@digitalcredentials/jsonld@^5.2.1"
   },
   "dependencies": {
-    "@digitalcredentials/jsonld": "^5.2.1",
+    "@digitalcredentials/jsonld": "^6.0.0",
     "@vckit/core-types": "workspace:^",
-    "handlebars": "^4.7.6"
+    "handlebars": "^4.7.8"
   },
   "type": "module",
   "moduleDirectories": [
@@ -42,6 +42,6 @@
     "src"
   ],
   "devDependencies": {
-    "@types/jsonld": "^1.5.8"
+    "@types/jsonld": "^1.5.13"
   }
 }
