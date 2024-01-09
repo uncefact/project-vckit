@@ -48,16 +48,17 @@ const CreateRequest: React.FC<CreateRequestProps> = () => {
   }
 
   const addClaim = (addClaimArgs: AddClaimArgs) => {
-    setClaims((s) =>
-      s?.concat([
-        {
-          claimType: addClaimArgs.claimType,
-          // claimValue: addClaimArgs.claimValue,
-          issuers: addClaimArgs.issuers,
-          essential: addClaimArgs.essential,
-          reason: addClaimArgs.reason,
-        },
-      ]),
+    setClaims(
+      (s) =>
+        s?.concat([
+          {
+            claimType: addClaimArgs.claimType,
+            // claimValue: addClaimArgs.claimValue,
+            issuers: addClaimArgs.issuers,
+            essential: addClaimArgs.essential,
+            reason: addClaimArgs.reason,
+          },
+        ]),
     )
 
     setClaimType('')
@@ -209,7 +210,7 @@ const CreateRequest: React.FC<CreateRequestProps> = () => {
                 </Form.Item>
               </Row>
               <Button
-                type="ghost"
+                type="primary"
                 disabled={!requiredIssuer}
                 onClick={() =>
                   addRequiredIssuer(requiredIssuer, requiredIssuerUrl)
@@ -219,7 +220,7 @@ const CreateRequest: React.FC<CreateRequestProps> = () => {
               </Button>
             </Card>
             <Button
-              type="ghost"
+              type="primary"
               disabled={!claimType}
               onClick={() =>
                 addClaim({
