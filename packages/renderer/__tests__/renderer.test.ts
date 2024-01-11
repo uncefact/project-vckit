@@ -105,7 +105,6 @@ describe('Renderer', () => {
         credentialSubject: {
           id: 'did:example:ebfeb1f712ebc6f1c276e12ec21',
         },
-        render: [],
       },
     };
     const context = {};

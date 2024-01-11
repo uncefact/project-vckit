@@ -82,6 +82,10 @@ export class Renderer implements IAgentPlugin {
 
       // TODO: There's an issue with W3 availability causing the fetching of some W3 context files to fail. Since we know the exact location of the template we can bypass the JSONLD expansion. This is a temporary workaround.
 
+      if (!args.credential.render) {
+        throw new Error('Render method not found in the verifiable credential');
+      }
+
       const template = args.credential.render[0]?.template;
       const type = args.credential.render[0]?.['@type'];
 
