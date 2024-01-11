@@ -1,4 +1,4 @@
-import { Renderer } from '../src/Renderer';
+import { Renderer } from '../src/renderer';
 import { WebRenderingTemplate2022 } from '../src/providers/web-rendering-template-2022';
 import {
   IRendererProvider,
@@ -66,7 +66,7 @@ describe('Renderer', () => {
         ...universityDegreeCredential,
         render: [
           {
-            '@id':
+            template:
               '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="100">\n  <rect width="100%" height="100%" style="fill:rgb(0,0,255);stroke-width:2;stroke:rgb(0,0,0)" />\n  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" style="font-size:16px">Jane Smith</text>\n</svg>',
             '@type': 'SvgRenderingHint2022',
           },
@@ -105,6 +105,7 @@ describe('Renderer', () => {
         credentialSubject: {
           id: 'did:example:ebfeb1f712ebc6f1c276e12ec21',
         },
+        render: [],
       },
     };
     const context = {};
@@ -150,19 +151,19 @@ describe('Renderer', () => {
     ).rejects.toThrow('Render method not found in the verifiable credential');
   });
 
-  it('should skip render methods without @type or @id', async () => {
+  it('should skip render methods without @type or template', async () => {
     // Mock data
     const args: IRenderCredentialArgs = {
       credential: {
         ...universityDegreeCredential,
         render: [
           {
-            '@id':
+            template:
               '<div style="width:300px; height:100px; border: 2px solid black; text-align:center">\n  <div>\n    This {{credentialSubject.degree.name}} is conferred to\n  </div>\n  <strong style="font-size: 16px">\n    {{credentialSubject.name}}\n  </strong>\n  <div>\n    by {{credentialSubject.degree.institution}}.\n  </div>\n</div>',
             '@type': 'SvgRenderingHint2022',
           },
           {
-            '@id':
+            template:
               '<div style="width:300px; height:100px; border: 2px solid black; text-align:center">\n  <div>\n    This {{credentialSubject.degree.name}} is conferred to\n  </div>\n  <strong style="font-size: 16px">\n    {{credentialSubject.name}}\n  </strong>\n  <div>\n    by {{credentialSubject.degree.institution}}.\n  </div>\n</div>',
           },
           {
@@ -202,7 +203,7 @@ describe('Renderer', () => {
         credentialSubject: {},
         render: [
           {
-            '@id': 'random-template',
+            template: 'random-template',
             '@type': 'invalid-render-type',
           },
         ],
