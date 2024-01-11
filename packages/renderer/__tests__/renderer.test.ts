@@ -146,8 +146,8 @@ describe('Renderer', () => {
 
     // Call the renderCredential method
     await expect(
-      rendererMockProvider.renderCredential(args, context as IRendererContext)
-    ).rejects.toThrow('Render method not found in the verifiable credential');
+      rendererMockProvider.renderCredential(args, context as IRendererContext),
+    ).rejects.toThrow('Render method must have template and @type.');
   });
 
   it('should skip render methods without @type or template', async () => {
