@@ -1,12 +1,21 @@
 import React from 'react'
+
 import { parse, formatRelative, format } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
+import { Flex, Select, SelectProps, Space } from 'antd'
+
 import { useVeramo } from '@veramo-community/veramo-react'
 import { PageContainer, ProList } from '@ant-design/pro-components'
 import { VerifiableCredential } from '@veramo-community/react-components'
-import { IDataStoreORM, UniqueVerifiableCredential } from '@veramo/core'
+import {
+  IDIDManager,
+  IDataStoreORM,
+  IIdentifier,
+  UniqueVerifiableCredential,
+} from '@veramo/core'
 import { EllipsisOutlined } from '@ant-design/icons'
+
 import { convertDateToFormat } from '../utils/dataGenerator'
 import { getIssuerDID } from '../utils/did'
 import IdentifierProfile from '../components/IdentifierProfile'
@@ -20,14 +29,21 @@ export const DEFAULT_PAGE = 1
 const Credentials = () => {
   const dateFormat = 'yyyy/MM/dd HH:mm:ss'
   const navigate = useNavigate()
-  const { agent } = useVeramo<IDataStoreORM>()
+  const { agent } = useVeramo<IDataStoreORM | IDIDManager>()
   const [page, setPage] = React.useState(DEFAULT_PAGE)
   const [pageSize, setPageSize] = React.useState(DEFAULT_PAGE_SIZE)
   const [filter, setFilter] = React.useState<string[] | RangeValue>([
     convertDateToFormat(dateFormat),
     convertDateToFormat(dateFormat),
   ])
+  const [selectedIssuer, setSelectedIssuer] = React.useState<string[]>([])
 
+  const { data: identifiers } = useQuery(
+    ['identifiers', { agentId: agent?.context.id }],
+    () => agent?.didManagerFind(),
+  )
+
+  const isValidIssuers = selectedIssuer?.length > 0
   const {
     data: credentials,
     isLoading,
@@ -52,8 +68,13 @@ const Credentials = () => {
               format(filter?.[1] as Date, 'yyyy-MM-dd'),
             ],
           },
+          {
+            column: 'issuer',
+            value: [...selectedIssuer],
+          },
         ],
       }),
+    { enabled: isValidIssuers },
   )
 
   const { data: credentialsCount, refetch: refetchCount } = useQuery(
@@ -69,27 +90,59 @@ const Credentials = () => {
               format(filter?.[1] as Date, 'yyyy-MM-dd HH:mm:ss'),
             ],
           },
+          {
+            column: 'issuer',
+            value: [...selectedIssuer],
+          },
         ],
       }),
+    { enabled: isValidIssuers },
   )
+
+  const resetPagination = () => {
+    setPage(DEFAULT_PAGE)
+    setPageSize(DEFAULT_PAGE_SIZE)
+  }
 
   const getFilterValue = (date: RangeValue) => {
     setFilter(date)
+    resetPagination()
+  }
+
+  const getSelectedIssuer = (issuer: string[]) => {
+    resetPagination()
+    if (issuer.length === 0) {
+      setSelectedIssuer(
+        (identifiers as IIdentifier[]).map((identifier) => identifier.did),
+      )
+      return
+    }
+
+    setSelectedIssuer(issuer)
   }
 
   React.useEffect(() => {
     refetch()
     refetchCount()
-  }, [page, pageSize, filter])
+  }, [page, pageSize, filter, selectedIssuer])
 
   React.useEffect(() => {
-    setPage(DEFAULT_PAGE)
-    setPageSize(DEFAULT_PAGE_SIZE)
-  }, [filter])
+    if (identifiers?.length > 0) {
+      setSelectedIssuer(
+        (identifiers as IIdentifier[]).map((identifier) => identifier.did),
+      )
+    }
+  }, [identifiers])
 
   return (
     <PageContainer>
-      <FilterRangePicker getFilterValue={getFilterValue} />
+      <Flex wrap="wrap" justify="flex-start" align="start" vertical={false}>
+        <FilterRangePicker getFilterValue={getFilterValue} />
+        <SelectIssuer
+          identifiers={identifiers}
+          getSelectedIssuer={getSelectedIssuer}
+        />
+      </Flex>
       <ProList
         ghost
         loading={isLoading}
@@ -172,5 +225,38 @@ const FilterRangePicker = ({
       showTime={{ use12Hours: true }}
       onChange={(date) => getFilterValue(date)}
     />
+  )
+}
+
+const SelectIssuer = ({
+  identifiers,
+  getSelectedIssuer,
+}: {
+  identifiers: IIdentifier[]
+  getSelectedIssuer: (issuer: string[]) => void
+}) => {
+  const options: SelectProps['options'] = []
+  identifiers?.forEach((identifier) => {
+    options.push({
+      label: identifier.alias,
+      value: identifier.did,
+    })
+  })
+
+  const handleChange = (value: string[]) => {
+    getSelectedIssuer(value)
+  }
+
+  return (
+    <Space style={{ marginLeft: 10, width: '40%' }} direction="vertical">
+      <Select
+        mode="multiple"
+        allowClear
+        style={{ width: '100%' }}
+        placeholder="Please select issuer"
+        onChange={handleChange}
+        options={options}
+      />
+    </Space>
   )
 }
