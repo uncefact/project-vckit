@@ -11,16 +11,39 @@ import IdentifierProfile from '../components/IdentifierProfile'
 import { getIssuerDID } from '../utils/did'
 import CredentialActionsDropdown from '../components/CredentialActionsDropdown'
 
+export const DEFAULT_PAGE_SIZE = 10
+export const DEFAULT_PAGE = 1
+
 const Credentials = () => {
   const navigate = useNavigate()
   const { agent } = useVeramo<IDataStoreORM>()
-  const { data: credentials, isLoading } = useQuery(
-    ['credentials', { agentId: agent?.context.name }],
+  const [page, setPage] = React.useState(DEFAULT_PAGE)
+  const [pageSize, setPageSize] = React.useState(DEFAULT_PAGE_SIZE)
+  const {
+    data: credentials,
+    isLoading,
+    refetch,
+  } = useQuery(
+    [
+      'credentials',
+      { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, agentId: agent?.context.name },
+    ],
     () =>
       agent?.dataStoreORMGetVerifiableCredentials({
         order: [{ column: 'issuanceDate', direction: 'DESC' }],
+        take: pageSize,
+        skip: (page - 1) * pageSize,
       }),
   )
+
+  const { data: credentialsCount } = useQuery(
+    ['credentialsCount', { agentId: agent?.context.name }],
+    () => agent?.dataStoreORMGetVerifiableCredentialsCount(),
+  )
+
+  React.useEffect(() => {
+    refetch()
+  }, [page, pageSize])
 
   return (
     <PageContainer>
@@ -28,8 +51,14 @@ const Credentials = () => {
         ghost
         loading={isLoading}
         pagination={{
-          defaultPageSize: 20,
+          defaultPageSize: DEFAULT_PAGE_SIZE,
           showSizeChanger: true,
+          current: page,
+          total: credentialsCount,
+          onChange: (page, pageSize) => {
+            setPage(page)
+            setPageSize(pageSize)
+          },
         }}
         grid={{ column: 1, lg: 2, xxl: 2, xl: 2 }}
         onItem={(record: any) => {
