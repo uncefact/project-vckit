@@ -4,6 +4,7 @@ import {
   ICreateVerifiableCredentialArgs,
 } from '@veramo/core'
 import randomWords from 'random-words'
+import { format } from 'date-fns'
 
 export function getRandomDate(from: Date, to: Date) {
   const fromTime = from.getTime()
@@ -204,4 +205,10 @@ export function convertToSchema(data: any, schema?: any) {
   })
 
   return schema
+}
+
+export const convertDateToFormat = (formatParams: string) => {
+  let currentDateTime = new Date()
+  const formattedDateTime = format(currentDateTime, formatParams)
+  return formattedDateTime
 }
