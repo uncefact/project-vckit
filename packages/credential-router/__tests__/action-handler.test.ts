@@ -3,9 +3,6 @@ import {
   ICreateVerifiableCredentialArgs,
   IVerifyCredentialArgs,
   IssuerAgentContext,
-  ProofFormat,
-  VerifiableCredential,
-  W3CVerifiableCredential,
 } from '@vckit/core-types';
 
 import { CredentialRouter } from '../src/action-handler';
@@ -22,184 +19,282 @@ describe('CredentialRouter', () => {
   });
 
   describe('routeCreationVerifiableCredential', () => {
-    const routerCreateCredentialTestSuccessfully = (
-      proofFormat: ProofFormat,
-      signedDocument: VerifiableCredential,
-    ) =>
-      it(`should create a credential router with proofFormat is ${proofFormat}`, async () => {
-        const mockIssuerAgentContext = {
-          agent: {
-            createVerifiableCredentialOA: jest
-              .fn()
-              .mockReturnValue(signedDocument),
-            createVerifiableCredentialMDP: jest
-              .fn()
-              .mockReturnValue(signedDocument),
-            createVerifiableCredential: jest
-              .fn()
-              .mockReturnValue(signedDocument),
-          },
-        } as unknown as IssuerAgentContext;
+    it('should call createVerifiableCredentialOA function when proofFormat is OpenAttestationMerkleProofSignature2018', async () => {
+      const mockIssuerAgentContext = {
+        agent: {
+          createVerifiableCredentialOA: jest
+            .fn()
+            .mockReturnValue(SIGNED_WRAPPED_DOCUMENT_OPEN_ATTESTATION),
+        },
+      } as unknown as IssuerAgentContext;
 
-        const credentialPlugin = new CredentialRouter();
-        const args: ICreateVerifiableCredentialArgs = {
-          credential: RAW_CREDENTIAL,
-          proofFormat,
-        };
+      const credentialPlugin = new CredentialRouter();
+      const args: ICreateVerifiableCredentialArgs = {
+        credential: RAW_CREDENTIAL,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      };
 
-        const result = await credentialPlugin.routeCreationVerifiableCredential(
+      const result = await credentialPlugin.routeCreationVerifiableCredential(
+        args,
+        mockIssuerAgentContext,
+      );
+
+      expect(result).not.toBeNull();
+      expect(result).toEqual(SIGNED_WRAPPED_DOCUMENT_OPEN_ATTESTATION);
+    });
+
+    it('should call createVerifiableCredentialMDP function when proofFormat is MerkleDisclosureProof2021', async () => {
+      const mockIssuerAgentContext = {
+        agent: {
+          createVerifiableCredentialMDP: jest
+            .fn()
+            .mockReturnValue(SIGNED_WRAPPED_DOCUMENT_MERKLE_DISCLOSURE),
+        },
+      } as unknown as IssuerAgentContext;
+
+      const credentialPlugin = new CredentialRouter();
+      const args: ICreateVerifiableCredentialArgs = {
+        credential: RAW_CREDENTIAL,
+        proofFormat: 'MerkleDisclosureProof2021',
+      };
+
+      const result = await credentialPlugin.routeCreationVerifiableCredential(
+        args,
+        mockIssuerAgentContext,
+      );
+
+      expect(result).not.toBeNull();
+      expect(result).toEqual(SIGNED_WRAPPED_DOCUMENT_MERKLE_DISCLOSURE);
+    });
+
+    it('should call createVerifiableCredential function when proofFormat is JWT', async () => {
+      const mockIssuerAgentContext = {
+        agent: {
+          createVerifiableCredential: jest
+            .fn()
+            .mockReturnValue(SIGNED_WRAPPED_DOCUMENT_JWT),
+        },
+      } as unknown as IssuerAgentContext;
+
+      const credentialPlugin = new CredentialRouter();
+      const args: ICreateVerifiableCredentialArgs = {
+        credential: RAW_CREDENTIAL,
+        proofFormat: 'jwt',
+      };
+
+      const result = await credentialPlugin.routeCreationVerifiableCredential(
+        args,
+        mockIssuerAgentContext,
+      );
+
+      expect(result).not.toBeNull();
+      expect(result).toEqual(SIGNED_WRAPPED_DOCUMENT_JWT);
+    });
+
+    it(`should throw error when create a credential router with proofFormat is OpenAttestationMerkleProofSignature2018`, async () => {
+      const mockIssuerAgentContext = {
+        agent: {
+          createVerifiableCredentialOA: undefined,
+        },
+      } as unknown as IssuerAgentContext;
+
+      const credentialPlugin = new CredentialRouter();
+      const args: ICreateVerifiableCredentialArgs = {
+        credential: RAW_CREDENTIAL,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      };
+
+      await expect(
+        credentialPlugin.routeCreationVerifiableCredential(
           args,
           mockIssuerAgentContext,
-        );
+        ),
+      ).rejects.toThrow(
+        'invalid_setup: your agent does not seem to have CredentialOA plugin installed',
+      );
+    });
 
-        expect(result).not.toBeNull();
-        expect(result).toEqual(signedDocument);
-      });
+    it(`should throw error when create a credential router with proofFormat is MerkleDisclosureProof2021`, async () => {
+      const mockIssuerAgentContext = {
+        agent: {
+          createVerifiableCredentialMDP: undefined,
+        },
+      } as unknown as IssuerAgentContext;
 
-    routerCreateCredentialTestSuccessfully(
-      'OpenAttestationMerkleProofSignature2018',
-      SIGNED_WRAPPED_DOCUMENT_OPEN_ATTESTATION,
-    );
-    routerCreateCredentialTestSuccessfully(
-      'MerkleDisclosureProof2021',
-      SIGNED_WRAPPED_DOCUMENT_MERKLE_DISCLOSURE,
-    );
-    routerCreateCredentialTestSuccessfully('jwt', SIGNED_WRAPPED_DOCUMENT_JWT);
+      const credentialPlugin = new CredentialRouter();
+      const args: ICreateVerifiableCredentialArgs = {
+        credential: RAW_CREDENTIAL,
+        proofFormat: 'MerkleDisclosureProof2021',
+      };
 
-    const routerCreateCredentialTestFailed = (
-      proofFormat: ProofFormat,
-      pluginName: string,
-    ) =>
-      it(`should throw error when create a credential router with proofFormat is ${proofFormat}`, async () => {
-        const mockIssuerAgentContext = {
-          agent: {
-            createVerifiableCredentialOA: undefined,
-            createVerifiableCredentialMDP: undefined,
-            createVerifiableCredential: undefined,
-          },
-        } as unknown as IssuerAgentContext;
+      await expect(
+        credentialPlugin.routeCreationVerifiableCredential(
+          args,
+          mockIssuerAgentContext,
+        ),
+      ).rejects.toThrow(
+        'invalid_setup: your agent does not seem to have CredentialMDP plugin installed',
+      );
+    });
 
-        const credentialPlugin = new CredentialRouter();
-        const args: ICreateVerifiableCredentialArgs = {
-          credential: RAW_CREDENTIAL,
-          proofFormat,
-        };
+    it(`should throw error when create a credential router with proofFormat is JWT`, async () => {
+      const mockIssuerAgentContext = {
+        agent: {
+          createVerifiableCredential: undefined,
+        },
+      } as unknown as IssuerAgentContext;
 
-        await expect(
-          credentialPlugin.routeCreationVerifiableCredential(
-            args,
-            mockIssuerAgentContext,
-          ),
-        ).rejects.toThrow(
-          `invalid_setup: your agent does not seem to have ${pluginName} plugin installed`,
-        );
-      });
+      const credentialPlugin = new CredentialRouter();
+      const args: ICreateVerifiableCredentialArgs = {
+        credential: RAW_CREDENTIAL,
+        proofFormat: 'jwt',
+      };
 
-    routerCreateCredentialTestFailed(
-      'OpenAttestationMerkleProofSignature2018',
-      'CredentialOA',
-    );
-    routerCreateCredentialTestFailed(
-      'MerkleDisclosureProof2021',
-      'CredentialMDP',
-    );
-    routerCreateCredentialTestFailed('jwt', 'CredentialW3c');
+      await expect(
+        credentialPlugin.routeCreationVerifiableCredential(
+          args,
+          mockIssuerAgentContext,
+        ),
+      ).rejects.toThrow(
+        'invalid_setup: your agent does not seem to have CredentialW3c plugin installed',
+      );
+    });
   });
 
   describe('routeVerifyCredential', () => {
-    const enum DocumentFormat {
-      JWT,
-      JSONLD,
-      EIP712,
-      OA,
-      MerkleDisclosureProof2021,
-    }
+    it('should call verifyCredentialOA function when credential proof type is OpenAttestationMerkleProofSignature2018', async () => {
+      const mockIssuerAgentContext = {
+        agent: {
+          verifyCredentialOA: jest.fn().mockReturnValue({ verified: true }),
+        },
+      } as unknown as IssuerAgentContext;
 
-    const routerVerifyCredentialTestSuccessFully = (
-      type: DocumentFormat,
-      credential: W3CVerifiableCredential,
-    ) =>
-      it(`should return value when verify a credential router with credential is ${type}`, async () => {
-        const mockIssuerAgentContext = {
-          agent: {
-            verifyCredentialOA: jest.fn().mockReturnValue({ verified: true }),
-            verifyCredentialMDP: jest.fn().mockReturnValue({ verified: true }),
-            verifyCredential: jest.fn().mockReturnValue({ verified: true }),
-          },
-        } as unknown as IssuerAgentContext;
+      const credentialPlugin = new CredentialRouter();
+      const args: IVerifyCredentialArgs = {
+        credential: SIGNED_WRAPPED_DOCUMENT_OPEN_ATTESTATION,
+        fetchRemoteContexts: true,
+        policies: { credentialStatus: true },
+      };
 
-        const credentialPlugin = new CredentialRouter();
-        const args: IVerifyCredentialArgs = {
-          credential,
-          fetchRemoteContexts: true,
-          policies: { credentialStatus: true },
-        };
+      const result = await credentialPlugin.routeVerificationCredential(
+        args,
+        mockIssuerAgentContext,
+      );
 
-        const result = await credentialPlugin.routeVerificationCredential(
+      expect(result).not.toBeNull();
+      expect(result).toEqual({ verified: true });
+    });
+
+    it('should call verifyCredentialMDP function when credential proof type is MerkleDisclosureProof2021', async () => {
+      const mockIssuerAgentContext = {
+        agent: {
+          verifyCredentialMDP: jest.fn().mockReturnValue({ verified: true }),
+        },
+      } as unknown as IssuerAgentContext;
+
+      const credentialPlugin = new CredentialRouter();
+      const args: IVerifyCredentialArgs = {
+        credential: SIGNED_WRAPPED_DOCUMENT_MERKLE_DISCLOSURE,
+        fetchRemoteContexts: true,
+        policies: { credentialStatus: true },
+      };
+
+      const result = await credentialPlugin.routeVerificationCredential(
+        args,
+        mockIssuerAgentContext,
+      );
+
+      expect(result).not.toBeNull();
+      expect(result).toEqual({ verified: true });
+    });
+
+    it('should call verifyCredential function when credential proof is JWT', async () => {
+      const mockIssuerAgentContext = {
+        agent: {
+          verifyCredential: jest.fn().mockReturnValue({ verified: true }),
+        },
+      } as unknown as IssuerAgentContext;
+
+      const credentialPlugin = new CredentialRouter();
+      const args: IVerifyCredentialArgs = {
+        credential: SIGNED_WRAPPED_DOCUMENT_JWT,
+        fetchRemoteContexts: true,
+        policies: { credentialStatus: true },
+      };
+
+      const result = await credentialPlugin.routeVerificationCredential(
+        args,
+        mockIssuerAgentContext,
+      );
+
+      expect(result).not.toBeNull();
+      expect(result).toEqual({ verified: true });
+    });
+
+    it(`should throw error when verify a credential router with credential proof type is OpenAttestationMerkleProofSignature2018`, async () => {
+      const mockIssuerAgentContext = {
+        agent: {
+          verifyCredentialOA: undefined,
+        },
+      } as unknown as IssuerAgentContext;
+
+      const credentialPlugin = new CredentialRouter();
+      const args: IVerifyCredentialArgs = {
+        credential: SIGNED_WRAPPED_DOCUMENT_OPEN_ATTESTATION,
+      };
+
+      await expect(
+        credentialPlugin.routeVerificationCredential(
           args,
           mockIssuerAgentContext,
-        );
+        ),
+      ).rejects.toThrow(
+        `invalid_setup: your agent does not seem to have CredentialOA plugin installed`,
+      );
+    });
 
-        expect(result).not.toBeNull();
-        expect(result).toEqual({ verified: true });
-      });
+    it(`should throw error when verify a credential router with credential proof type is MerkleDisclosureProof2021`, async () => {
+      const mockIssuerAgentContext = {
+        agent: {
+          verifyCredentialMDP: undefined,
+        },
+      } as unknown as IssuerAgentContext;
 
-    routerVerifyCredentialTestSuccessFully(
-      DocumentFormat.OA,
-      SIGNED_WRAPPED_DOCUMENT_OPEN_ATTESTATION,
-    );
-    routerVerifyCredentialTestSuccessFully(
-      DocumentFormat.MerkleDisclosureProof2021,
-      SIGNED_WRAPPED_DOCUMENT_MERKLE_DISCLOSURE,
-    );
-    routerVerifyCredentialTestSuccessFully(
-      DocumentFormat.JWT,
-      SIGNED_WRAPPED_DOCUMENT_JWT,
-    );
+      const credentialPlugin = new CredentialRouter();
+      const args: IVerifyCredentialArgs = {
+        credential: SIGNED_WRAPPED_DOCUMENT_MERKLE_DISCLOSURE,
+      };
 
-    const routerVerifyCredentialTestFailed = (
-      type: DocumentFormat,
-      pluginName: string,
-      credential: W3CVerifiableCredential,
-    ) =>
-      it(`should throw error when verify a credential router with credential is ${type}`, async () => {
-        const mockIssuerAgentContext = {
-          agent: {
-            verifyCredentialOA: undefined,
-            verifyCredentialMDP: undefined,
-            verifyCredential: undefined,
-          },
-        } as unknown as IssuerAgentContext;
+      await expect(
+        credentialPlugin.routeVerificationCredential(
+          args,
+          mockIssuerAgentContext,
+        ),
+      ).rejects.toThrow(
+        `invalid_setup: your agent does not seem to have CredentialMerkleDisclosureProof plugin installed`,
+      );
+    });
 
-        const credentialPlugin = new CredentialRouter();
-        const args: IVerifyCredentialArgs = {
-          credential,
-        };
+    it(`should throw error when verify a credential router with credential proof is JWT`, async () => {
+      const mockIssuerAgentContext = {
+        agent: {
+          verifyCredential: undefined,
+        },
+      } as unknown as IssuerAgentContext;
 
-        await expect(
-          credentialPlugin.routeVerificationCredential(
-            args,
-            mockIssuerAgentContext,
-          ),
-        ).rejects.toThrow(
-          `invalid_setup: your agent does not seem to have ${pluginName} plugin installed`,
-        );
-      });
+      const credentialPlugin = new CredentialRouter();
+      const args: IVerifyCredentialArgs = {
+        credential: SIGNED_WRAPPED_DOCUMENT_JWT,
+      };
 
-    routerVerifyCredentialTestFailed(
-      DocumentFormat.OA,
-      'CredentialOA',
-      SIGNED_WRAPPED_DOCUMENT_OPEN_ATTESTATION,
-    );
-    routerVerifyCredentialTestFailed(
-      DocumentFormat.MerkleDisclosureProof2021,
-      'CredentialMerkleDisclosureProof',
-      SIGNED_WRAPPED_DOCUMENT_MERKLE_DISCLOSURE,
-    );
-    routerVerifyCredentialTestFailed(
-      DocumentFormat.JWT,
-      'CredentialW3c',
-      SIGNED_WRAPPED_DOCUMENT_JWT,
-    );
+      await expect(
+        credentialPlugin.routeVerificationCredential(
+          args,
+          mockIssuerAgentContext,
+        ),
+      ).rejects.toThrow(
+        `invalid_setup: your agent does not seem to have CredentialW3c plugin installed`,
+      );
+    });
   });
 });
