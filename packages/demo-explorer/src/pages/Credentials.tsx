@@ -29,6 +29,9 @@ import IdentifierSelected from '../components/IdentifierSelected'
 export const DEFAULT_PAGE_SIZE = 10
 export const DEFAULT_PAGE = 1
 
+/**
+ * Generate the where query for the dataStoreORMGetVerifiableCredentials agent based on the selected issuers and filter date
+ */
 function generateGetVerifiableCredentialsWhereQuery(
   selectedIssuer?: string[],
   issuanceDate?: RangeValue,
@@ -61,14 +64,24 @@ const Credentials = () => {
   const [page, setPage] = React.useState(DEFAULT_PAGE)
   const [pageSize, setPageSize] = React.useState(DEFAULT_PAGE_SIZE)
   const [filter, setFilter] = React.useState<RangeValue>(null)
-  const [identifierSelected, setIdentifierSelected] = React.useState<string[]>([])
+  const [identifierSelected, setIdentifierSelected] = React.useState<string[]>(
+    [],
+  )
 
+  /**
+   * Get all identifiers from the agent
+   */
   const { data: identifiers } = useQuery(
     ['identifiers', { agentId: agent?.context.id }],
     () => agent?.didManagerFind(),
   )
 
+  // Check if there is at least one issuer selected
   const isValidIssuers = identifierSelected?.length > 0
+
+  /**
+   * Get credentials from the agent based on the selected issuers and filter date
+   */
   const {
     data: credentials,
     isLoading,
@@ -92,6 +105,9 @@ const Credentials = () => {
     { enabled: isValidIssuers },
   )
 
+  /**
+   * Get the total count of credentials based on the selected issuers and filter date
+   */
   const { data: credentialsCount, refetch: refetchCount } = useQuery(
     ['credentialsCount', { agentId: agent?.context.name }],
     () =>
@@ -104,16 +120,25 @@ const Credentials = () => {
     { enabled: isValidIssuers },
   )
 
+  /**
+   * Reset pagination to default values
+   */
   const resetPagination = () => {
     setPage(DEFAULT_PAGE)
     setPageSize(DEFAULT_PAGE_SIZE)
   }
 
+  /**
+   * Get the filter date value
+   */
   const getFilterValue = (date: RangeValue) => {
     setFilter(date)
     resetPagination()
   }
 
+  /**
+   * Get the selected issuers
+   */
   const getIdentifierSelected = (issuer: string[]) => {
     resetPagination()
     if (issuer.length === 0) {
