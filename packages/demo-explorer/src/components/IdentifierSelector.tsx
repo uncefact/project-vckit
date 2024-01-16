@@ -20,17 +20,6 @@ const IdentifierSelector = ({ onChange }: IdentifierSelectorProps) => {
     () => agent?.didManagerFind(),
   )
 
-  /**
-   * Convert the identifiers to options for the select component
-   */
-  const options: SelectProps['options'] = []
-  identifiers?.forEach((identifier) => {
-    options.push({
-      label: identifier.alias,
-      value: identifier.did,
-    })
-  })
-
   return (
     <Space style={{ width: '40%' }} direction="vertical">
       <Select
@@ -39,7 +28,12 @@ const IdentifierSelector = ({ onChange }: IdentifierSelectorProps) => {
         style={{ width: '100%' }}
         placeholder="Please select issuer"
         onChange={onChange}
-        options={options}
+        options={identifiers?.map((identifier) => {
+          return {
+            label: identifier.alias,
+            value: identifier.did,
+          }
+        })}
       />
     </Space>
   )

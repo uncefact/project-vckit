@@ -107,26 +107,18 @@ const Credentials = () => {
   )
 
   /**
-   * Reset pagination to default values
-   */
-  const resetPagination = () => {
-    setPage(DEFAULT_PAGE)
-    setPageSize(DEFAULT_PAGE_SIZE)
-  }
-
-  /**
    * Get the filter date value
    */
   const getFilterValue = (date: RangeValue) => {
     setFilter(date)
-    resetPagination()
+    setPage(DEFAULT_PAGE)
   }
 
   /**
    * Get the selected issuers
    */
   const getIdentifierSelected = (issuer: string[]) => {
-    resetPagination()
+    setPage(DEFAULT_PAGE)
     setIdentifierSelected(issuer)
   }
 

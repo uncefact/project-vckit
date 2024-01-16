@@ -12,7 +12,7 @@ interface DateRangePickerProps {
 }
 
 const DateRangePicker = ({
-  onChange: getRangePickerValue,
+  onChange,
   dateFormat = 'yyyy-MM-dd HH:mm:ss.SSS',
 }: DateRangePickerProps) => {
   const { RangePicker } = CustomDatePickerWithDateFns
@@ -22,7 +22,7 @@ const DateRangePicker = ({
       style={{ marginRight: 20 }}
       format={dateFormat}
       showTime={{ use12Hours: true }}
-      onChange={(date) => getRangePickerValue(date)}
+      onChange={(date) => onChange(date)}
     />
   )
 }
