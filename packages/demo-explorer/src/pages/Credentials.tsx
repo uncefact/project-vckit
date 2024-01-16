@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { parse, formatRelative, format } from 'date-fns'
+import { format, formatRelative } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { Flex, Select, SelectProps, Space } from 'antd'
+import { Flex } from 'antd'
 
 import { useVeramo } from '@veramo-community/veramo-react'
 import { PageContainer, ProList } from '@ant-design/pro-components'
@@ -12,38 +12,63 @@ import {
   IDIDManager,
   IDataStoreORM,
   IIdentifier,
+  TCredentialColumns,
   UniqueVerifiableCredential,
+  Where,
 } from '@veramo/core'
 import { EllipsisOutlined } from '@ant-design/icons'
 
-import { convertDateToFormat } from '../utils/dataGenerator'
 import { getIssuerDID } from '../utils/did'
+import { RangeValue } from '../types'
+
 import IdentifierProfile from '../components/IdentifierProfile'
 import CredentialActionsDropdown from '../components/CredentialActionsDropdown'
-import CustomDatePickerWithDateFns from '../components/DatePicker'
-import { RangeValue } from '../types'
+import DateRangePicker from '../components/DateRangePicker'
+import IdentifierSelected from '../components/IdentifierSelected'
 
 export const DEFAULT_PAGE_SIZE = 10
 export const DEFAULT_PAGE = 1
 
+function generateGetVerifiableCredentialsWhereQuery(
+  selectedIssuer?: string[],
+  issuanceDate?: RangeValue,
+): Where<TCredentialColumns>[] {
+  const where: Where<TCredentialColumns>[] = []
+  if (selectedIssuer) {
+    where.push({
+      column: 'issuer',
+      value: [...selectedIssuer],
+    })
+  }
+
+  if (issuanceDate) {
+    where.push({
+      column: 'issuanceDate',
+      op: 'Between',
+      value: [
+        format(issuanceDate?.[0] as Date, 'yyyy-MM-dd '),
+        format(issuanceDate?.[1] as Date, 'yyyy-MM-dd'),
+      ],
+    })
+  }
+
+  return where
+}
+
 const Credentials = () => {
-  const dateFormat = 'yyyy/MM/dd HH:mm:ss'
   const navigate = useNavigate()
   const { agent } = useVeramo<IDataStoreORM | IDIDManager>()
   const [page, setPage] = React.useState(DEFAULT_PAGE)
   const [pageSize, setPageSize] = React.useState(DEFAULT_PAGE_SIZE)
-  const [filter, setFilter] = React.useState<string[] | RangeValue>([
-    convertDateToFormat(dateFormat),
-    convertDateToFormat(dateFormat),
-  ])
-  const [selectedIssuer, setSelectedIssuer] = React.useState<string[]>([])
+  const [filter, setFilter] = React.useState<RangeValue>(null)
+  const [identifierSelected, setIdentifierSelected] = React.useState<string[]>([])
 
   const { data: identifiers } = useQuery(
     ['identifiers', { agentId: agent?.context.id }],
     () => agent?.didManagerFind(),
   )
 
-  const isValidIssuers = selectedIssuer?.length > 0
+  const isValidIssuers = identifierSelected?.length > 0
   const {
     data: credentials,
     isLoading,
@@ -59,20 +84,10 @@ const Credentials = () => {
         take: pageSize,
         skip: (page - 1) * pageSize,
 
-        where: [
-          {
-            column: 'issuanceDate',
-            op: 'Between',
-            value: [
-              format(filter?.[0] as Date, 'yyyy-MM-dd '),
-              format(filter?.[1] as Date, 'yyyy-MM-dd'),
-            ],
-          },
-          {
-            column: 'issuer',
-            value: [...selectedIssuer],
-          },
-        ],
+        where: generateGetVerifiableCredentialsWhereQuery(
+          identifierSelected,
+          filter,
+        ),
       }),
     { enabled: isValidIssuers },
   )
@@ -81,20 +96,10 @@ const Credentials = () => {
     ['credentialsCount', { agentId: agent?.context.name }],
     () =>
       agent?.dataStoreORMGetVerifiableCredentialsCount({
-        where: [
-          {
-            column: 'issuanceDate',
-            op: 'Between',
-            value: [
-              format(filter?.[0] as Date, 'yyyy-MM-dd HH:mm:ss'),
-              format(filter?.[1] as Date, 'yyyy-MM-dd HH:mm:ss'),
-            ],
-          },
-          {
-            column: 'issuer',
-            value: [...selectedIssuer],
-          },
-        ],
+        where: generateGetVerifiableCredentialsWhereQuery(
+          identifierSelected,
+          filter,
+        ),
       }),
     { enabled: isValidIssuers },
   )
@@ -109,26 +114,26 @@ const Credentials = () => {
     resetPagination()
   }
 
-  const getSelectedIssuer = (issuer: string[]) => {
+  const getIdentifierSelected = (issuer: string[]) => {
     resetPagination()
     if (issuer.length === 0) {
-      setSelectedIssuer(
+      setIdentifierSelected(
         (identifiers as IIdentifier[]).map((identifier) => identifier.did),
       )
       return
     }
 
-    setSelectedIssuer(issuer)
+    setIdentifierSelected(issuer)
   }
 
   React.useEffect(() => {
     refetch()
     refetchCount()
-  }, [page, pageSize, filter, selectedIssuer])
+  }, [page, pageSize, filter, identifierSelected])
 
   React.useEffect(() => {
     if (identifiers?.length > 0) {
-      setSelectedIssuer(
+      setIdentifierSelected(
         (identifiers as IIdentifier[]).map((identifier) => identifier.did),
       )
     }
@@ -137,10 +142,13 @@ const Credentials = () => {
   return (
     <PageContainer>
       <Flex wrap="wrap" justify="flex-start" align="start" vertical={false}>
-        <FilterRangePicker getFilterValue={getFilterValue} />
-        <SelectIssuer
+        <DateRangePicker
+          dateFormat="dd/MM/yyyy HH:mm:ss"
+          getFilterValue={getFilterValue}
+        />
+        <IdentifierSelected
           identifiers={identifiers}
-          getSelectedIssuer={getSelectedIssuer}
+          getIdentifierSelected={getIdentifierSelected}
         />
       </Flex>
       <ProList
@@ -206,57 +214,3 @@ const Credentials = () => {
 }
 
 export default Credentials
-
-const FilterRangePicker = ({
-  getFilterValue,
-}: {
-  getFilterValue: (date: RangeValue) => void
-}) => {
-  const { RangePicker } = CustomDatePickerWithDateFns
-  const dateFormat = 'dd/MM/yyyy HH:mm:ss'
-
-  return (
-    <RangePicker
-      defaultValue={[
-        parse(convertDateToFormat(dateFormat), dateFormat, new Date()),
-        parse(convertDateToFormat(dateFormat), dateFormat, new Date()),
-      ]}
-      format={dateFormat}
-      showTime={{ use12Hours: true }}
-      onChange={(date) => getFilterValue(date)}
-    />
-  )
-}
-
-const SelectIssuer = ({
-  identifiers,
-  getSelectedIssuer,
-}: {
-  identifiers: IIdentifier[]
-  getSelectedIssuer: (issuer: string[]) => void
-}) => {
-  const options: SelectProps['options'] = []
-  identifiers?.forEach((identifier) => {
-    options.push({
-      label: identifier.alias,
-      value: identifier.did,
-    })
-  })
-
-  const handleChange = (value: string[]) => {
-    getSelectedIssuer(value)
-  }
-
-  return (
-    <Space style={{ marginLeft: 10, width: '40%' }} direction="vertical">
-      <Select
-        mode="multiple"
-        allowClear
-        style={{ width: '100%' }}
-        placeholder="Please select issuer"
-        onChange={handleChange}
-        options={options}
-      />
-    </Space>
-  )
-}
