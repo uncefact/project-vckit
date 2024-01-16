@@ -11,7 +11,6 @@ import { VerifiableCredential } from '@veramo-community/react-components'
 import {
   IDIDManager,
   IDataStoreORM,
-  IIdentifier,
   TCredentialColumns,
   UniqueVerifiableCredential,
   Where,
@@ -24,7 +23,7 @@ import { RangeValue } from '../types'
 import IdentifierProfile from '../components/IdentifierProfile'
 import CredentialActionsDropdown from '../components/CredentialActionsDropdown'
 import DateRangePicker from '../components/DateRangePicker'
-import IdentifierSelected from '../components/IdentifierSelected'
+import IdentifierSelector from '../components/IdentifierSelector'
 
 export const DEFAULT_PAGE_SIZE = 10
 export const DEFAULT_PAGE = 1
@@ -37,7 +36,7 @@ function generateGetVerifiableCredentialsWhereQuery(
   issuanceDate?: RangeValue,
 ): Where<TCredentialColumns>[] {
   const where: Where<TCredentialColumns>[] = []
-  if (selectedIssuer) {
+  if (selectedIssuer && selectedIssuer?.length > 0) {
     where.push({
       column: 'issuer',
       value: [...selectedIssuer],
@@ -49,8 +48,8 @@ function generateGetVerifiableCredentialsWhereQuery(
       column: 'issuanceDate',
       op: 'Between',
       value: [
-        format(issuanceDate?.[0] as Date, 'yyyy-MM-dd '),
-        format(issuanceDate?.[1] as Date, 'yyyy-MM-dd'),
+        format(issuanceDate?.[0] as Date, 'yyyy-MM-dd HH:mm:ss.SSS'),
+        format(issuanceDate?.[1] as Date, 'yyyy-MM-dd HH:mm:ss.SSS'),
       ],
     })
   }
@@ -67,17 +66,6 @@ const Credentials = () => {
   const [identifierSelected, setIdentifierSelected] = React.useState<string[]>(
     [],
   )
-
-  /**
-   * Get all identifiers from the agent
-   */
-  const { data: identifiers } = useQuery(
-    ['identifiers', { agentId: agent?.context.id }],
-    () => agent?.didManagerFind(),
-  )
-
-  // Check if there is at least one issuer selected
-  const isValidIssuers = identifierSelected?.length > 0
 
   /**
    * Get credentials from the agent based on the selected issuers and filter date
@@ -102,7 +90,6 @@ const Credentials = () => {
           filter,
         ),
       }),
-    { enabled: isValidIssuers },
   )
 
   /**
@@ -117,7 +104,6 @@ const Credentials = () => {
           filter,
         ),
       }),
-    { enabled: isValidIssuers },
   )
 
   /**
@@ -141,14 +127,19 @@ const Credentials = () => {
    */
   const getIdentifierSelected = (issuer: string[]) => {
     resetPagination()
-    if (issuer.length === 0) {
-      setIdentifierSelected(
-        (identifiers as IIdentifier[]).map((identifier) => identifier.did),
-      )
+    setIdentifierSelected(issuer)
+  }
+
+  /**
+   * Change pagination values based on the selected page and page size
+   */
+  const onChangePagination = (page: number, pageSizeParams: number) => {
+    if (pageSize !== pageSizeParams) {
+      setPageSize(pageSizeParams)
+      setPage(DEFAULT_PAGE)
       return
     }
-
-    setIdentifierSelected(issuer)
+    setPage(page)
   }
 
   React.useEffect(() => {
@@ -156,25 +147,17 @@ const Credentials = () => {
     refetchCount()
   }, [page, pageSize, filter, identifierSelected])
 
-  React.useEffect(() => {
-    if (identifiers?.length > 0) {
-      setIdentifierSelected(
-        (identifiers as IIdentifier[]).map((identifier) => identifier.did),
-      )
-    }
-  }, [identifiers])
-
   return (
     <PageContainer>
-      <Flex wrap="wrap" justify="flex-start" align="start" vertical={false}>
-        <DateRangePicker
-          dateFormat="dd/MM/yyyy HH:mm:ss"
-          getFilterValue={getFilterValue}
-        />
-        <IdentifierSelected
-          identifiers={identifiers}
-          getIdentifierSelected={getIdentifierSelected}
-        />
+      <Flex
+        style={{ marginBottom: 20 }}
+        wrap="wrap"
+        justify="flex-start"
+        align="start"
+        vertical={false}
+      >
+        <DateRangePicker onChange={getFilterValue} />
+        <IdentifierSelector onChange={getIdentifierSelected} />
       </Flex>
       <ProList
         ghost
@@ -185,8 +168,7 @@ const Credentials = () => {
           current: page,
           total: credentialsCount,
           onChange: (page, pageSize) => {
-            setPage(page)
-            setPageSize(pageSize)
+            onChangePagination(page, pageSize)
           },
         }}
         grid={{ column: 1, lg: 2, xxl: 2, xl: 2 }}
@@ -225,7 +207,11 @@ const Credentials = () => {
             ],
             content: (
               <div
-                style={{ width: '100%', maxHeight: '300px', overflowY: 'auto' }}
+                style={{
+                  width: '100%',
+                  maxHeight: '300px',
+                  overflowY: 'auto',
+                }}
               >
                 <VerifiableCredential credential={item.verifiableCredential} />
               </div>

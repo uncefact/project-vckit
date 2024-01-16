@@ -6,17 +6,20 @@ export const CustomDatePickerWithDateFns = DatePicker.generatePicker<Date>(
   dateFnsGenerateConfig,
 )
 
+interface DateRangePickerProps {
+  onChange: (date: RangeValue) => void
+  dateFormat?: string
+}
+
 const DateRangePicker = ({
-  dateFormat,
-  getFilterValue: getRangePickerValue,
-}: {
-  dateFormat: string
-  getFilterValue: (date: RangeValue) => void
-}) => {
+  onChange: getRangePickerValue,
+  dateFormat = 'yyyy-MM-dd HH:mm:ss.SSS',
+}: DateRangePickerProps) => {
   const { RangePicker } = CustomDatePickerWithDateFns
 
   return (
     <RangePicker
+      style={{ marginRight: 20 }}
       format={dateFormat}
       showTime={{ use12Hours: true }}
       onChange={(date) => getRangePickerValue(date)}
