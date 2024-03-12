@@ -20,7 +20,7 @@ export const ApiDocsRouter = (): Router => {
     </head>
     <body>
       <rapi-doc
-          spec-url="../open-api.json"
+          spec-url="/open-api.json"
           theme="light"
           primary-color="#006ba4"
           render-style="read"
