@@ -11,3 +11,4 @@ export { revocationList2020Middleware } from './revocation-list-2020-middleware.
 export { revocationList2020Router } from './revocation-list-2020-router.js';
 
 export const Entities = [RevocationData, RevocationList];
+export { RevocationListDefaultContexts } from './revocaltion-list-default-contexts.js';

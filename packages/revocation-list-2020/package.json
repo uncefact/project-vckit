@@ -45,6 +45,7 @@
     "@transmute/json-web-signature": "0.7.0-unstable.82",
     "@transmute/vc-status-rl-2020": "0.7.0-unstable.82",
     "@vckit/core-types": "workspace:^",
+    "@vckit/renderer": "workspace:^",
     "@veramo/credential-ld": "5.5.3",
     "@veramo/data-store": "5.5.3",
     "@veramo/utils": "5.5.3",

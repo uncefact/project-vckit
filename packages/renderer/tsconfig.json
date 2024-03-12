@@ -5,10 +5,16 @@
     "outDir": "build",
     "declarationDir": "build",
     // https://github.com/transmute-industries/vc.js/issues/60
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "references": [
-    { "path": "../core-types" }
+    {
+      "path": "../core-types"
+    }
   ],
-  "include": ["./**/*.ts", "./src/plugin.schema.json"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.json",
+  ]
 }

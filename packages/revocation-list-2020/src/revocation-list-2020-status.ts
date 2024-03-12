@@ -8,6 +8,8 @@ import * as didKey from '@transmute/did-key.js';
 import * as didWeb from '@transmute/did-web';
 import { CredentialStatus } from '@vckit/core-types';
 import { LdDefaultContexts } from '@veramo/credential-ld';
+import { RevocationListDefaultContexts } from './revocaltion-list-default-contexts.js';
+import { RenderDefaultContexts } from '@vckit/renderer';
 
 const resolve = async (did: string) => {
   if (did.startsWith('did:key')) {
@@ -30,6 +32,17 @@ const documentLoader: DocumentLoader = async (iri: string) => {
 
     if (LdDefaultContexts.get(iri)) {
       return { documentUrl: iri, document: LdDefaultContexts.get(iri) };
+    }
+
+    if (RevocationListDefaultContexts.get(iri)) {
+      return {
+        documentUrl: iri,
+        document: RevocationListDefaultContexts.get(iri),
+      };
+    }
+
+    if (RenderDefaultContexts.get(iri)) {
+      return { documentUrl: iri, document: RenderDefaultContexts.get(iri) };
     }
 
     if (iri.startsWith('did:')) {
