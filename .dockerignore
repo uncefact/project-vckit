@@ -1,5 +1,11 @@
-Dockerfile
+*Dockerfile*
+*docker-compose*
+node_modules
+*/__test__/*
+coverage
+build
 .git
+.gitignore
 jest.*
 *.md
 LICENSE
@@ -7,11 +13,10 @@ database.sqlite
 appspec.yml
 .prettierrc
 .prettierignore
-.gitignore
 .eslintrc.json
 .eslintignore
 .editorconfig
 .vscode
 logs
 aws
-
+.DS_Store

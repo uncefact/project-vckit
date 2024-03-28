@@ -90,6 +90,7 @@ COPY --from=build /app/packages/utils/package.json packages/utils/package.json
 COPY --from=build /app/packages/vc-api/build/ packages/vc-api/build/
 COPY --from=build /app/packages/vc-api/node_modules/ packages/vc-api/node_modules/
 COPY --from=build /app/packages/vc-api/package.json packages/vc-api/package.json
+COPY --from=build /app/packages/vc-api/src/vc-api-schemas/vc-api.yaml packages/vc-api/src/vc-api-schemas/vc-api.yaml
 
 EXPOSE 3332
 
