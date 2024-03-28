@@ -2,12 +2,20 @@ FROM node:18 as build
 
 WORKDIR /app
 
-COPY ["agent.yml", "package.json", "lerna.json", "pnpm-lock.yaml", "pnpm-workspace.yaml", "./"]
+COPY packages/cli/default/default-docker.yml ./agent.yml
+
+COPY package.json .
+COPY pnpm-lock.yaml .
+COPY pnpm-workspace.yaml .
+COPY lerna.json .
+
+COPY packages/tsconfig.json packages/
 COPY packages/tsconfig.settings.json packages/
 
 COPY packages/cli/package.json packages/cli/
 COPY packages/core-types/package.json packages/core-types/
 COPY packages/credential-merkle-disclosure-proof/package.json packages/credential-merkle-disclosure-proof/
+COPY packages/credential-oa/package.json packages/credential-oa/
 COPY packages/credential-router/package.json packages/credential-router/
 COPY packages/encrypted-storage/package.json packages/encrypted-storage/
 COPY packages/example-documents/package.json packages/example-documents/
@@ -24,6 +32,7 @@ RUN pnpm install
 COPY packages/cli/ packages/cli/
 COPY packages/core-types/ packages/core-types/
 COPY packages/credential-merkle-disclosure-proof/ packages/credential-merkle-disclosure-proof/
+COPY packages/credential-oa/ packages/credential-oa/
 COPY packages/credential-router/ packages/credential-router/
 COPY packages/encrypted-storage/ packages/encrypted-storage/
 COPY packages/example-documents/ packages/example-documents/
@@ -41,8 +50,8 @@ FROM node:18-alpine as vckit-api
 
 WORKDIR /app
 
-COPY --from=build /app/node_modules .
-COPY --from=build /app/packages/cli/default/default-docker.yml ./agent.yml
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/agent.yml ./agent.yml
 
 COPY --from=build /app/packages/cli/build/ packages/cli/build/
 COPY --from=build /app/packages/cli/node_modules/ packages/cli/node_modules/
