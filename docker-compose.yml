@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  demo-explorer:
+    image: demo-explore
+    ports: 
+     - "8080:80"
+    restart: unless-stopped
+    env_file: ./packages/demo-explorer/.env
