@@ -52,3 +52,37 @@ cd packages/demo-explorer && pnpm dev
 ```
 
 Now you can open the demo explorer at http://localhost:3000. And you can check the api documentation at http://localhost:3332/api-docs.
+
+## The containerized VCkit API
+
+This Dockerfile is optimized for deploying the VCkit API in production environments. It leverages Docker multi-stage builds to separate the build environment from the runtime environment, resulting in a smaller final image size and enhanced security.
+
+### Building the Docker image:
+
+Run the following command in the directory containing the Dockerfile:
+
+```bash
+docker build -t vckit-api .
+```
+
+### Building the Docker Image with Custom Configuration
+
+You can customize the Docker image build process by specifying a custom configuration file path for the VCkit API.
+Ensure that you have the custom configuration file (`<config_path>`) ready. This file should contain the necessary settings and configurations for the VCkit API.
+Use the `--build-arg` flag to specify the `AGENT_CONFIG` build argument along with the custom configuration file path (`<config_path>`) when running the docker build command.
+
+```bash
+docker build --build-arg AGENT_CONFIG=<config_path> -t vckit-api .
+```
+
+Replace `<config_path>` with the actual path to your custom configuration file.
+
+### Running the Docker container:
+
+Execute the following command:
+
+```bash
+docker run -p 3332:3332 vckit-api
+```
+
+This will expose the VCkit API on port 3332 of your Docker host.
