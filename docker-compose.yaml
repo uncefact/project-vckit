@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  vckit-api:
+    build: 
+      context: .
+      args:
+        DATABASE_HOST: db
+    ports: 
+      - 3332:3332
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16-alpine
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=vckit
+    restart: always
