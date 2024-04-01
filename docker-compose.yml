@@ -4,6 +4,6 @@ services:
   demo-explorer:
     image: demo-explore
     ports: 
-     - "8080:80"
+     - "${DEMO_EXPLORE_PORT}:80"
     restart: unless-stopped
     env_file: ./packages/demo-explorer/.env
