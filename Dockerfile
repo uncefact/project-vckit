@@ -3,14 +3,47 @@ FROM node:18 as build
 
 WORKDIR /app
 
+# Default arguments for environment variables
+ARG DATABASE_TYPE=postgres
+ARG DATABASE_USERNAME=postgres
+ARG DATABASE_PASSWORD=postgres
+ARG DATABASE_NAME=vckit
+ARG DATABASE_HOST=localhost
+ARG DATABASE_PORT=5432
+ARG DATABASE_ENCRYPTION_KEY=29739248cad1bd1a0fc4d9b75cd4d2990de535baf5caadfdf8d8f86664aa830c
+ARG PORT=3332
+ARG PROTOCOL=http
+ARG API_DOMAIN=localhost:3332
+
+# Set environment variables
+ENV DATABASE_TYPE=${DATABASE_TYPE}
+ENV DATABASE_USERNAME=${DATABASE_USERNAME}
+ENV DATABASE_PASSWORD=${DATABASE_PASSWORD}
+ENV DATABASE_NAME=${DATABASE_NAME}
+ENV DATABASE_HOST=${DATABASE_HOST}
+ENV DATABASE_PORT=${DATABASE_PORT}
+ENV DATABASE_ENCRYPTION_KEY=${DATABASE_ENCRYPTION_KEY}
+ENV PORT=${PORT}
+ENV PROTOCOL=${PROTOCOL}
+ENV API_DOMAIN=${API_DOMAIN}
+
 # Copy necessary files
 COPY package.json .
 COPY pnpm-lock.yaml .
 COPY pnpm-workspace.yaml .
 COPY lerna.json .
+COPY packages/cli/default/agent.template.yml ./agent.template.yml
 
 COPY packages/tsconfig.json packages/
 COPY packages/tsconfig.settings.json packages/
+
+# Install gettext for envsubst command
+RUN apt-get update && apt-get install gettext -y
+
+# Substitute environment variables in agent template file
+RUN envsubst '${DATABASE_TYPE},${DATABASE_NAME},${DATABASE_HOST},${DATABASE_PORT},${DATABASE_USERNAME},${DATABASE_PASSWORD},${DATABASE_ENCRYPTION_KEY},${PORT},${PROTOCOL},${API_DOMAIN}' \
+< ./agent.template.yml \
+> ./agent.yml
 
 # Copy package.json for each package
 COPY packages/cli/package.json packages/cli/
@@ -54,11 +87,8 @@ FROM node:18-alpine as vckit-api
 
 WORKDIR /app
 
-# Agent config path
-ARG AGENT_CONFIG=packages/cli/default/default-docker.yml
-
 # Copy the agent config file
-COPY ${AGENT_CONFIG} ./agent.yml
+COPY --from=build /app/agent.yml ./agent.yml
 
 # Copy built artifacts and node_modules from the build stage
 COPY --from=build /app/node_modules ./node_modules
@@ -103,7 +133,7 @@ COPY --from=build /app/packages/vc-api/package.json packages/vc-api/package.json
 COPY --from=build /app/packages/vc-api/src/vc-api-schemas/vc-api.yaml packages/vc-api/src/vc-api-schemas/vc-api.yaml
 
 # Expose the port
-EXPOSE 3332
+EXPOSE ${PORT}
 
 # Command to run the application
 CMD [ "node", "packages/cli/build/cli.js", "server" ]

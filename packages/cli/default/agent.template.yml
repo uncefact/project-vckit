@@ -1,12 +1,11 @@
 version: 3.0
 
 constants:
-  baseUrl: http://localhost:3332
-  port: 3332
+  baseUrl: ${PROTOCOL}://${API_DOMAIN}
+  port: ${PORT}
   # please use your own X25519 key, this is only an example
   # you can generate a new key by running `veramo config gen-key` in a terminal
-  dbEncryptionKey: 29739248cad1bd1a0fc4d9b75cd4d2990de535baf5caadfdf8d8f86664aa830c
-  databaseFile: ./database.sqlite
+  dbEncryptionKey: ${DATABASE_ENCRYPTION_KEY}
   methods:
     - keyManagerGetKeyManagementSystems
     - keyManagerCreate
@@ -64,8 +63,6 @@ constants:
     - getVerifiableCredentialsForSdr
     - validatePresentationAgainstSdr
     - renderCredential
-    # - createVerifiableCredentialOA
-    # - verifyCredentialOA
     - encryptAndStoreData
     - fetchEncryptedData
     - fetchEncryptedDataByCredentialHash
@@ -79,9 +76,12 @@ constants:
 dbConnection:
   $require: typeorm#DataSource
   $args:
-    - type: sqlite
-      database:
-        $ref: /constants/databaseFile
+    - type: ${DATABASE_TYPE}
+      database: ${DATABASE_NAME}
+      host: ${DATABASE_HOST}
+      port: ${DATABASE_PORT}
+      username: ${DATABASE_USERNAME}
+      password: ${DATABASE_PASSWORD}
       synchronize: false
       migrationsRun: true
       migrations:
@@ -93,9 +93,12 @@ dbConnection:
 dbConnectionEncrypted:
   $require: typeorm#DataSource
   $args:
-    - type: sqlite
-      database:
-        $ref: /constants/databaseFile
+    - type: ${DATABASE_TYPE}
+      database: ${DATABASE_NAME}
+      host: ${DATABASE_HOST}
+      port: ${DATABASE_PORT}
+      username: ${DATABASE_USERNAME}
+      password: ${DATABASE_PASSWORD}
       synchronize: false
       migrationsRun: true
       migrations:
@@ -107,9 +110,12 @@ dbConnectionEncrypted:
 dbConnectionRevocationList:
   $require: typeorm#DataSource
   $args:
-    - type: sqlite
-      database:
-        $ref: /constants/databaseFile
+    - type: ${DATABASE_TYPE}
+      database: ${DATABASE_NAME}
+      host: ${DATABASE_HOST}
+      port: ${DATABASE_PORT}
+      username: ${DATABASE_USERNAME}
+      password: ${DATABASE_PASSWORD}
       synchronize: false
       migrationsRun: true
       migrations:
@@ -121,7 +127,8 @@ dbConnectionRevocationList:
 revocationList:
   $require: '@vckit/revocationlist#RevocationStatus2020'
   $args:
-    - revocationListPath: http://localhost:3332
+    - revocationListPath: 
+        $ref: /constants/baseUrl
       bitStringLength: 8
       dbConnection:
         $ref: /dbConnectionRevocationList
@@ -152,11 +159,12 @@ server:
 
     # VC API
     - - $require: '@vckit/vc-api?t=function#VCRouter'
+
     # VC API docs path
     - - /vc-api.json
       - $require: '@vckit/vc-api?t=function#VCApiSchemaRouter'
         $args:
-          - basePath: :3332
+          - basePath: :${PORT}
 
     - - /vc-api-docs
       - $require: '@vckit/vc-api?t=function#VCApiDocsRouter'
@@ -205,7 +213,7 @@ server:
     - - /open-api.json
       - $require: '@vckit/remote-server?t=function#ApiSchemaRouter'
         $args:
-          - basePath: :3332/agent
+          - basePath: /agent
             securityScheme: bearer
             apiName: Agent
             apiVersion: '1.0.0'
