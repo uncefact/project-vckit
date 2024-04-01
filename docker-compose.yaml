@@ -19,4 +19,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=vckit
+    volumes:
+      - vckit-data:/var/lib/postgresql/data
     restart: always
+
+volumes:
+  vckit-data:
