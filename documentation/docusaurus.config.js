@@ -3,14 +3,15 @@
 // (when paired with `@ts-check`).
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
+// Todo: replace all links by actual ones
 
 import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  title: 'VCKit',
+  tagline: 'UN/CEFACT Verifiable Credentials Toolkit',
+  favicon: 'img/vckit-logo.svg',
 
   // Set the production url of your site here
   url: 'https://your-docusaurus-site.example.com',
@@ -69,7 +70,7 @@ const config = {
         title: 'VCKit Documentation',
         logo: {
           alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          src: 'img/vckit-logo.svg',
         },
         items: [
           {
@@ -80,7 +81,7 @@ const config = {
           },
           {to: '/', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: '/', //todo: replace with actual link
             label: 'GitHub',
             position: 'right',
           },
@@ -102,16 +103,12 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
                 label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                href: '/',
               },
               {
                 label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                href: '/',
               },
             ],
           },
@@ -124,12 +121,12 @@ const config = {
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: '/',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} VCKit. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,
