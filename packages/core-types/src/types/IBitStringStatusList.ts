@@ -5,10 +5,10 @@ import { CredentialStatus } from './vc-data-model.js';
 /**
  * @public
  */
-export interface IBitStringStatusListDataArgs {
-  bitStringStatusListPath?: string;
-  bitStringLength?: string;
-  bitStringStatusListVCIssuer: string;
+export interface IBitstringStatusListDataArgs {
+  bitstringStatusListPath?: string;
+  bitstringLength?: string;
+  bitstringStatusListVCIssuer: string;
 
   [x: string]: any;
 }
@@ -16,9 +16,9 @@ export interface IBitStringStatusListDataArgs {
 /**
  * @public
  */
-export interface IBitStringStatusList extends IPluginMethodMap {
-  getBitStringStatusListData(args: IBitStringStatusListDataArgs): Promise<any>;
-  getBitStringStatusListVC(bitStringStatusListUrlPath: string): Promise<any>;
+export interface IBitstringStatusList extends IPluginMethodMap {
+  getBitstringStatusListData(args: IBitstringStatusListDataArgs): Promise<any>;
+  getBitstringStatusListVC(bitstringStatusListUrlPath: string): Promise<any>;
   checkStatus(
     args: IHashCredentialArgs,
     context: { agent?: IAgent },

@@ -32,7 +32,7 @@
       "IEncryptedStorage": "./src/types/IEncryptedStorage.ts",
       "IRevocationList2020": "./src/types/IRevocationList2020.ts",
       "ICredentialRouter": "./src/types/ICredentialRouter.ts",
-      "IBitStringStatusList": "./src/types/IBitStringStatusList.ts"
+      "IBitstringStatusList": "./src/types/IBitstringStatusList.ts"
     }
   },
   "dependencies": {

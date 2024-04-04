@@ -1,0 +1,39 @@
+{
+  "name": "@vckit/bitstringStatusList",
+  "version": "1.0.0",
+  "description": "Using Bitstring to represent status list for revocation VC",
+  "homepage": "https://github.com/uncefact/project-vckit#readme",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "exports": {
+    ".": "./build/index.js",
+    "./build/plugin.schema.json": "./build/plugin.schema.json"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "type": "module",
+  "moduleDirectories": [
+    "node_modules",
+    "src"
+  ],
+  "files": [
+    "build/**/*",
+    "src/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uncefact/project-vckit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/uncefact/project-vckit/issues"
+  },
+  "dependencies": {
+    "@vckit/core-types": "workspace:*"
+  }
+}

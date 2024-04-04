@@ -6740,10 +6740,10 @@
       }
     }
   },
-  "IBitStringStatusList": {
+  "IBitstringStatusList": {
     "components": {
       "schemas": {
-        "IBitStringStatusListDataArgs": {
+        "IBitstringStatusListDataArgs": {
           "type": "object",
           "properties": {
             "revocationListPath": {
@@ -6780,16 +6780,16 @@
             "$ref": "#/components/schemas/CredentialStatus"
           }
         },
-        "getBitStringStatusListData": {
+        "getBitstringStatusListData": {
           "description": "",
           "arguments": {
-            "$ref": "#/components/schemas/IBitStringStatusListDataArgs"
+            "$ref": "#/components/schemas/IBitstringStatusListDataArgs"
           },
           "returnType": {
             "type": "object"
           }
         },
-        "getBitStringStatusListVC": {
+        "getBitstringStatusListVC": {
           "description": "",
           "arguments": {
             "type": "string"
