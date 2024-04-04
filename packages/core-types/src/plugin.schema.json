@@ -6739,5 +6739,75 @@
         }
       }
     }
+  },
+  "IBitStringStatusList": {
+    "components": {
+      "schemas": {
+        "IBitStringStatusListDataArgs": {
+          "type": "object",
+          "properties": {
+            "revocationListPath": {
+              "type": "string"
+            },
+            "bitStringLength": {
+              "type": "string"
+            },
+            "revocationVCIssuer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "revocationVCIssuer"
+          ]
+        }
+      },
+      "methods": {
+        "activateCredential": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IHashCredentialArgs"
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/CredentialStatus"
+          }
+        },
+        "checkStatus": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IHashCredentialArgs"
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/CredentialStatus"
+          }
+        },
+        "getBitStringStatusListData": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IBitStringStatusListDataArgs"
+          },
+          "returnType": {
+            "type": "object"
+          }
+        },
+        "getBitStringStatusListVC": {
+          "description": "",
+          "arguments": {
+            "type": "string"
+          },
+          "returnType": {
+            "type": "object"
+          }
+        },
+        "revokeCredential": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IHashCredentialArgs"
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/CredentialStatus"
+          }
+        }
+      }
+    }
   }
 }
