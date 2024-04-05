@@ -6,9 +6,9 @@ import { CredentialStatus } from './vc-data-model.js';
  * @public
  */
 export interface IBitstringStatusListDataArgs {
+  bitstringStatusListVCIssuer: string;
   bitstringStatusListPath?: string;
   bitstringLength?: string;
-  bitstringStatusListVCIssuer: string;
 
   [x: string]: any;
 }

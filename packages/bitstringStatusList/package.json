@@ -34,6 +34,11 @@
     "url": "https://github.com/uncefact/project-vckit/issues"
   },
   "dependencies": {
-    "@vckit/core-types": "workspace:*"
+    "@vckit/core-types": "workspace:*",
+    "credential-status": "^2.0.5",
+    "typeorm": "^0.3.10",
+    "uuid": "^9.0.0",
+    "@digitalbazaar/vc-bitstring-status-list": "github:gs-gs/vc-bitstring-status-list",
+    "@veramo/utils": "5.5.3"
   }
 }
