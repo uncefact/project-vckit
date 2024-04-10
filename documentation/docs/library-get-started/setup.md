@@ -7,8 +7,9 @@ sidebar_position: 2
 To start using VCKit, we need to initialize an agent.
 Create a set up file in **`src/vckit/setup.ts`**, and add the following code.
 ## Dependencies
+Copy and paste this into your set up file.
 ```typescript
-//VCkit interfaces
+//VCkit interfaces and plugins
 import {
     ICredentialPlugin,
     IDataStore,
@@ -18,7 +19,10 @@ import {
     IMessageHandler,
     IResolver,
     TAgent,
+    IRenderer
 } from '@vckit/core-types';
+
+import { Renderer, WebRenderingTemplate2022 } from '@vckit/renderer';
 
 //Veramo core and plugins
 import { createAgent } from '@veramo/core';
@@ -53,6 +57,7 @@ import { Entities, KeyStore, DIDStore, PrivateKeyStore, migrations } from '@vera
 import { DataSource } from 'typeorm'
 ```
 ## Variables
+Create some variables in your set up file, remember to replace their value by yours.
 ```typescript
 const INFURA_PROJECT_ID = '<YOUR-INFURA-PROJECT-ID>';
 const DB_SECRET_KEY ='<YOUR-GENERATED-SECRET-KEY>';
@@ -60,7 +65,7 @@ const DB_SECRET_KEY ='<YOUR-GENERATED-SECRET-KEY>';
 const DATABASE_FILE = 'database.sqlite'
 ```
 ## Initialize the agent
-
+This is how an agent is initialized in your set up file, copy and paste into your file.
 ```typescript
 type InstalledPlugins = IResolver &
     IKeyManager &
@@ -68,7 +73,8 @@ type InstalledPlugins = IResolver &
     ICredentialPlugin &
     IDataStoreORM &
     IDataStore &
-    IMessageHandler;
+    IMessageHandler&
+    IRenderer;
 
 const dbConnection = new DataSource({
     type: 'sqlite',
@@ -144,6 +150,13 @@ export const agent: TAgent<InstalledPlugins> = createAgent<InstalledPlugins>({
                 new VeramoEcdsaSecp256k1RecoverySignature2020(),
                 new VeramoEd25519Signature2018(),
             ],
+        }),
+        new Renderer({
+            providers: {
+                WebRenderingTemplate2022: new WebRenderingTemplate2022(),
+                SvgRenderingHint2022: new WebRenderingTemplate2022(),
+            },
+            defaultProvider: 'WebRenderingTemplate2022',
         })
     ],
 });

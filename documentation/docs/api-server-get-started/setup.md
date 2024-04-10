@@ -1,0 +1,429 @@
+---
+sidebar_label: 'Set Up'
+sidebar_position: 2
+---
+# Set up
+To start using VCKit, we need to initialize an agent. We generated an **`agent.yml`** file at the previous step by running this command `pnpm vckit config`. The default configuration is sufficient to get started. You still can add more plugins from Veramo or VCKit by editing this file (this is optional). But first, let's see how it looks like.
+
+```yml
+version: 3.0
+
+constants:
+  baseUrl: http://localhost:3332
+  port: 3332
+  # please use your own X25519 key, this is only an example
+  # you can generate a new key by running `veramo config gen-key` in a terminal
+  dbEncryptionKey: 29739248cad1bd1a0fc4d9b75cd4d2990de535baf5caadfdf8d8f86664aa830c
+  databaseFile: ./database.sqlite
+  methods:
+    - keyManagerGetKeyManagementSystems
+    - keyManagerCreate
+    - keyManagerGet
+    - keyManagerDelete
+    - keyManagerImport
+    - keyManagerEncryptJWE
+    - keyManagerDecryptJWE
+    - keyManagerSign
+    - keyManagerSharedSecret
+    - keyManagerSignJWT
+    - keyManagerSignEthTX
+    - didManagerGetProviders
+    - didManagerFind
+    - didManagerGet
+    - didManagerGetByAlias
+    - didManagerCreate
+    - didManagerGetOrCreate
+    - didManagerImport
+    - didManagerDelete
+    - didManagerAddKey
+    - didManagerRemoveKey
+    - didManagerAddService
+    - didManagerRemoveService
+    - resolveDid
+    - getDIDComponentById
+    - discoverDid
+    - dataStoreGetMessage
+    - dataStoreSaveMessage
+    - dataStoreGetVerifiableCredential
+    - dataStoreSaveVerifiableCredential
+    - dataStoreGetVerifiablePresentation
+    - dataStoreSaveVerifiablePresentation
+    - dataStoreORMGetIdentifiers
+    - dataStoreORMGetIdentifiersCount
+    - dataStoreORMGetMessages
+    - dataStoreORMGetMessagesCount
+    - dataStoreORMGetVerifiableCredentialsByClaims
+    - dataStoreORMGetVerifiableCredentialsByClaimsCount
+    - dataStoreORMGetVerifiableCredentials
+    - dataStoreORMGetVerifiableCredentialsCount
+    - dataStoreORMGetVerifiablePresentations
+    - dataStoreORMGetVerifiablePresentationsCount
+    - handleMessage
+    - packDIDCommMessage
+    - unpackDIDCommMessage
+    - sendDIDCommMessage
+    - sendMessageDIDCommAlpha1
+    - createVerifiableCredential
+    - createVerifiablePresentation
+    - verifyCredential
+    - verifyCredentialLD
+    - verifyPresentation
+    - createSelectiveDisclosureRequest
+    - getVerifiableCredentialsForSdr
+    - validatePresentationAgainstSdr
+    - renderCredential
+    - createVerifiableCredentialOA
+    - verifyCredentialOA
+    - encryptAndStoreData
+    - fetchEncryptedData
+    - fetchEncryptedDataByCredentialHash
+    - revokeCredential
+    - activateCredential
+    - checkStatus
+    - routeCreationVerifiableCredential
+    - routeVerificationCredential
+
+# Data base
+dbConnection:
+  $require: typeorm#DataSource
+  $args:
+    - type: sqlite
+      database:
+        $ref: /constants/databaseFile
+      synchronize: false
+      migrationsRun: true
+      migrations:
+        $require: '@veramo/data-store?t=object#migrations'
+      logging: false
+      entities:
+        $require: '@veramo/data-store?t=object#Entities'
+
+dbConnectionEncrypted:
+  $require: typeorm#DataSource
+  $args:
+    - type: sqlite
+      database:
+        $ref: /constants/databaseFile
+      synchronize: false
+      migrationsRun: true
+      migrations:
+        $require: '@vckit/encrypted-storage?t=object#migrations'
+      logging: false
+      entities:
+        $require: '@vckit/encrypted-storage?t=object#Entities'
+
+dbConnectionRevocationList:
+  $require: typeorm#DataSource
+  $args:
+    - type: sqlite
+      database:
+        $ref: /constants/databaseFile
+      synchronize: false
+      migrationsRun: true
+      migrations:
+        $require: '@vckit/revocationlist?t=object#migrations'
+      logging: false
+      entities:
+        $require: '@vckit/revocationlist?t=object#Entities'
+
+revocationList:
+  $require: '@vckit/revocationlist#RevocationStatus2020'
+  $args:
+    - revocationListPath: http://localhost:3332
+      bitStringLength: 8
+      dbConnection:
+        $ref: /dbConnectionRevocationList
+
+# Server configuration
+server:
+  baseUrl:
+    $ref: /constants/baseUrl
+  port:
+    $ref: /constants/port
+  use:
+    # CORS
+    - - $require: 'cors?t=function#default'
+
+    # Add agent to the request object
+    - - $require: '@vckit/remote-server?t=function#RequestWithAgentRouter'
+        $args:
+          - agent:
+              $ref: /agent
+
+    - - $require: '@vckit/utils?t=function#loggerMiddleware'
+
+    # DID Documents
+    - - $require: '@vckit/remote-server?t=function#WebDidDocRouter'
+        $args:
+          - keyMapping:
+              Ed25519: JsonWebKey2020 # Ed25519VerificationKey2020 | JsonWebKey2020
+
+    # VC API
+    - - $require: '@vckit/vc-api?t=function#VCRouter'
+    # VC API docs path
+    - - /vc-api.json
+      - $require: '@vckit/vc-api?t=function#VCApiSchemaRouter'
+        $args:
+          - basePath: :3332
+
+    - - /vc-api-docs
+      - $require: '@vckit/vc-api?t=function#VCApiDocsRouter'
+
+    # API base path
+    - - /messaging
+      - $require: '@vckit/remote-server?t=function#MessagingRouter'
+        $args:
+          - metaData:
+              type: DIDComm
+              value: https
+
+    # Encrypted storage API
+    - - /encrypted-storage
+      - $require: '@vckit/encrypted-storage?t=function#encryptedStoreRouter'
+
+    # Revocation List
+    - - /credentials/status/revocation-list-2020
+      - $require: '@vckit/revocationlist?t=function#revocationList2020Router'
+
+    # API base path
+    - - /agent
+      # - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+      #   $args:
+      #     - apiKey: kh14g04piduv
+
+      - $require: '@vckit/revocationlist?t=function#revocationList2020Middleware'
+        $args:
+          - apiRoutes:
+              - /routeCreationVerifiableCredential
+            supportedProofFormats:
+              - jwt
+              - lds
+
+      - $require: '@vckit/encrypted-storage?t=function#encryptedStoreMiddleware'
+        $args:
+          - apiRoutes:
+              - /routeCreationVerifiableCredential
+
+      - $require: '@vckit/remote-server?t=function#AgentRouter'
+        $args:
+          - exposedMethods:
+              $ref: /constants/methods
+
+    # Open API schema
+    - - /open-api.json
+      - $require: '@vckit/remote-server?t=function#ApiSchemaRouter'
+        $args:
+          - basePath: :3332/agent
+            securityScheme: bearer
+            apiName: Agent
+            apiVersion: '1.0.0'
+            exposedMethods:
+              $ref: /constants/methods
+
+    # rapidoc docs
+    - - /api-docs
+      - $require: '@vckit/remote-server?t=function#ApiDocsRouter'
+
+  # Execute during server initialization
+  # init:
+  #   - $require: '@vckit/remote-server?t=function#createDefaultDid'
+  #     $args:
+  #       - agent:
+  #           $ref: /agent
+  #         baseUrl:
+  #           $ref: /constants/baseUrl
+  #         messagingServiceEndpoint: /messaging
+
+# Message handler plugin
+messageHandler:
+  $require: '@veramo/message-handler#MessageHandler'
+  $args:
+    - messageHandlers:
+        - $require: '@veramo/did-comm#DIDCommMessageHandler'
+        - $require: '@veramo/did-comm#TrustPingMessageHandler'
+        - $require: '@veramo/did-jwt#JwtMessageHandler'
+        - $require: '@veramo/credential-w3c#W3cMessageHandler'
+        - $require: '@veramo/selective-disclosure#SdrMessageHandler'
+
+# DID resolvers
+didResolver:
+  $require: '@veramo/did-resolver#DIDResolverPlugin'
+  $args:
+    - ethr:
+        $ref: /ethr-did-resolver
+      web:
+        $ref: /web-did-resolver
+      key:
+        $ref: /did-key-resolver
+      pkh:
+        $require: '@veramo/did-provider-pkh?t=function&p=/pkh#getDidPkhResolver'
+      elem:
+        $ref: /universal-resolver
+      io:
+        $ref: /universal-resolver
+      ion:
+        $ref: /universal-resolver
+      sov:
+        $ref: /universal-resolver
+
+#  TODO: remove hardcoded infura project ID
+
+#  this is referencing someone else's infura project that could
+#  be shut down at any point, breaking any functionality that requires
+#  eth interactions.
+
+#  worth searching the rest of the codebase at the same time as
+#  fixing this, there are several other references in demo-explorer,
+#  and tests...
+
+ethr-did-resolver:
+  $require: ethr-did-resolver?t=function&p=/ethr#getResolver
+  $args:
+    - infuraProjectId: 3586660d179141e3801c3895de1c2eba
+
+web-did-resolver:
+  $require: web-did-resolver?t=function&p=/web#getResolver
+
+universal-resolver:
+  $require: '@veramo/did-resolver#UniversalResolver'
+  $args:
+    - url: https://dev.uniresolver.io/1.0/identifiers/
+
+did-key-resolver:
+  $require: '@veramo/did-provider-key?t=function&p=/key#getDidKeyResolver'
+
+# Key Manager
+keyManager:
+  $require: '@veramo/key-manager#KeyManager'
+  $args:
+    - store:
+        $require: '@veramo/data-store#KeyStore'
+        $args:
+          - $ref: /dbConnection
+      kms:
+        local:
+          $require: '@veramo/kms-local#KeyManagementSystem'
+          $args:
+            - $require: '@veramo/data-store#PrivateKeyStore'
+              $args:
+                - $ref: /dbConnection
+                - $require: '@veramo/kms-local#SecretBox'
+                  $args:
+                    - $ref: /constants/dbEncryptionKey
+
+# Encrypted Storage Plugin
+encryptedStorage:
+  $require: '@vckit/encrypted-storage#EncryptedStorage'
+  $args:
+    - dbConnection:
+        $ref: /dbConnectionEncrypted
+
+# DID Manager
+didManager:
+  $require: '@veramo/did-manager#DIDManager'
+  $args:
+    - store:
+        $require: '@veramo/data-store#DIDStore'
+        $args:
+          - $ref: /dbConnection
+      defaultProvider: did:ethr:goerli
+      providers:
+        # did:ethr:
+        #   $require: '@veramo/did-provider-ethr#EthrDIDProvider'
+        #   $args:
+        #     - defaultKms: local
+        #       network: mainnet
+        #       rpcUrl: https://mainnet.infura.io/v3/3586660d179141e3801c3895de1c2eba
+        #       gas: 1000001
+        #       ttl: 31104001
+        # did:ethr:goerli:
+        #   $require: '@veramo/did-provider-ethr#EthrDIDProvider'
+        #   $args:
+        #     - defaultKms: local
+        #       network: goerli
+        #       rpcUrl: https://goerli.infura.io/v3/3586660d179141e3801c3895de1c2eba
+        #       gas: 1000001
+        #       ttl: 31104001
+        did:web:
+          $require: '@veramo/did-provider-web#WebDIDProvider'
+          $args:
+            - defaultKms: local
+        did:key:
+          $require: '@veramo/did-provider-key#KeyDIDProvider'
+          $args:
+            - defaultKms: local
+        # did:pkh:
+        #   $require: '@veramo/did-provider-pkh#PkhDIDProvider'
+        #   $args:
+        #     - defaultKms: local
+        #       chainId: 1
+
+didDiscovery:
+  $require: '@veramo/did-discovery#DIDDiscovery'
+  $args:
+    - providers:
+        - $require: '@veramo/did-manager#AliasDiscoveryProvider'
+        - $require: '@veramo/data-store#DataStoreDiscoveryProvider'
+
+# W3C credentialPlugin
+credentialIssuerLD:
+  $require: '@veramo/credential-ld#CredentialIssuerLD'
+  $args:
+    - suites:
+        - $require: '@veramo/credential-ld#VeramoEd25519Signature2018'
+        # - $require: '@veramo/credential-ld#VeramoEd25519Signature2020'
+        - $require: '@veramo/credential-ld#VeramoJsonWebSignature2020'
+        - $require: '@veramo/credential-ld#VeramoEcdsaSecp256k1RecoverySignature2020'
+      contextMaps:
+        # The LdDefaultContext is a "catch-all" for now.
+        - $require: '@veramo/credential-ld?t=object#LdDefaultContexts'
+        - $require: '@transmute/credentials-context?t=object#contexts'
+        - $require: '@transmute/did-context?t=object#contexts'
+        - $require: '@vckit/renderer?t=object#RenderDefaultContexts'
+        - $require: '@vckit/revocationlist?t=object#RevocationListDefaultContexts'
+        #  others should be included here
+
+# Renderer
+renderer:
+  $require: '@vckit/renderer#Renderer'
+  $args:
+    - defaultProvider: WebRenderingTemplate2022
+      providers:
+        WebRenderingTemplate2022:
+          $require: '@vckit/renderer#WebRenderingTemplate2022'
+        SvgRenderingHint2022:
+          $require: '@vckit/renderer#WebRenderingTemplate2022'
+
+# Agent
+agent:
+  $require: '@veramo/core#Agent'
+  $args:
+    - schemaValidation: false
+      plugins:
+        - $ref: /keyManager
+        - $ref: /didManager
+        - $ref: /didResolver
+        - $ref: /didDiscovery
+        - $ref: /messageHandler
+        - $require: '@veramo/did-comm#DIDComm'
+        - $require: '@vckit/credential-router#CredentialRouter'
+        - $require: '@veramo/credential-w3c#CredentialPlugin'
+        - $require: '@vckit/credential-oa#CredentialOA'
+        - $ref: /credentialIssuerLD
+        - $require: '@veramo/credential-eip712#CredentialIssuerEIP712'
+        - $require: '@veramo/selective-disclosure#SelectiveDisclosure'
+        - $require: '@veramo/data-store#DataStore'
+          $args:
+            - $ref: /dbConnection
+        - $require: '@veramo/data-store#DataStoreORM'
+          $args:
+            - $ref: /dbConnection
+        - $ref: /renderer
+        - $ref: /encryptedStorage
+        - $ref: /revocationList
+        - $require: '@veramo/credential-status#CredentialStatusPlugin'
+          $args:
+            - RevocationList2020Status:
+                $require: '@vckit/revocationlist?t=object#checkStatus'
+
+```

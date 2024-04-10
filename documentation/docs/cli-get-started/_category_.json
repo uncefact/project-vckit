@@ -1,0 +1,8 @@
+{
+  "label": "CLI",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "This CLI Started Guide covers installation, and basic operations/functionality. We expect after following this guide you will be able to try all the functions end to end of the VCKit."
+  }
+}

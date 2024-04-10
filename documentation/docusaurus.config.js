@@ -77,11 +77,11 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Documentation',
+            label: 'Getting Started',
           },
-          {to: '/', label: 'Blog', position: 'left'},
+          // {to: '/', label: 'Blog', position: 'left'},
           {
-            href: '/', //todo: replace with actual link
+            href: 'https://github.com/uncefact/project-vckit.git', 
             label: 'GitHub',
             position: 'right',
           },
