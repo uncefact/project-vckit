@@ -360,5 +360,7 @@ To get the rendered VC, you can try this endpoint `/renderCredential`.
   ]
 }
 ```
+:::tip
 The document value is a string which is a encoded HTML string. You can use any online [Base64](https://www.base64decode.org/) tool out there to decode it. Good luck!
+:::
 

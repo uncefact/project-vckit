@@ -21,7 +21,7 @@ Here's the identifier you just created, you can click **copy** button to copy th
 ![create identifier 3](/img/create-identifier-3.png)
 
 ## Issue a Verifiable Credential
-Visit this URL `http://localhost:3001/developer/credential-from-schema` to issue a VC.
+Visit this URL `http://localhost:3000/developer/credential-from-schema` to issue a VC.
 
 ### Step 1
 1. Select the VC schema from the dropdown.

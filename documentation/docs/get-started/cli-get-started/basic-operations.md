@@ -3,6 +3,9 @@ sidebar_label: 'Basic Operations'
 sidebar_position: 3
 ---
 # Basic Operations
+:::info
+Please note that this content is still under development
+:::
 ## Start using the VCKit CLI
 Create a new folder, open a terminal, and run this command to check if the VCKit CLI has been installed successfully.
 ```bash

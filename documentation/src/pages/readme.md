@@ -1,7 +1,4 @@
-![Logo](https://i.imgur.com/Jztaz3d.png)
-## Badges
-
-Add some badges related to the project
+![Logo](/img/vckit-logo.svg)
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
@@ -12,19 +9,21 @@ A reference implementation of a verifiable credentials platform for digital trad
 
 # Who is VCKit for?
 
-* Describe the portrait of the target audience that the project is aiming for.
+* If you are an organisation that issues any kind of credential such as a permit, certificate, accreditation, license, or other "claim" of value to your community or constituency, then this project is for you. VCkit provides the tools to equip your existing business systems with the ability to issue your existing credentials as high integrity, standards based, and interoperable VCs that your constituents (VC holders) can present to any party that needs to verify them.
+
+* VCs issued by VCkit tooling can be verified using any mobile device camera to scan a QR code. This is important so that uptake can remain compatible with today's paper processes. There is no requirement for verifiers of credentials to adopt any new new technology in order to verify a credential. However, if you are an organisation that is likely to be verifying at scale or you wish to extract the digital data in a credential for use in your business systems then VCkit is also for you. It provides an advanced multi-protocol verification capability that can be integrated with your systems.
 
 # Why VCKit
 
-* List down the benefits of the project
-* List down the purpose of the project
+* **Open Source**: VCKit is open source software, meaning it's free to use, modify, and distribute. You can customize it to your needs, and it's constantly being improved by a community of developers.
+* **Interoperable**: Our goal is to facilitate interoperability among diverse international trade stakeholders by enabling seamless integration with existing systems and standards, streamlining processes, increasing efficiency, and promoting trust and transparency in transactions.
+* **Built on Open Standards**: Built on open standards, vc-kit ensures compatibility with established technologies, protocols, and frameworks, enabling seamless integration, enhancing interoperability, and promoting innovation in the international trade ecosystem.
 
 # Getting Started
 
 VCkit aims to provide the tools to equip your existing business systems to issue your existing credentials as high integrity, standards-based, and interoperable VCs that your constituents (VC holders) can present to any party that needs to verify them.
 
-* Visit [Getting Started Page](#) to start with VCKit
-* Visit [other links](#) blah blah
+* Visit [Getting Started Page](http://localhost:3000/docs/) to get started with VCKit
 
 
 
@@ -32,8 +31,8 @@ VCkit aims to provide the tools to equip your existing business systems to issue
 
 ## Documentation
 
-* [How to use agent config file](#)
-* [Component Documentation](#)
+* [How to use agent config file](/docs/category/agent-configuration)
+* [Component Documentation](http://localhost:3000/docs/category/vckit-plugins)
 * [Produce Guides for Plugin Creation/Management](#)
 
 
@@ -42,16 +41,14 @@ VCkit aims to provide the tools to equip your existing business systems to issue
 
 Contributions are always welcome!
 
-See `contributing.md` for ways to get started.
-
-Please adhere to this project's `code of conduct`.
-
 
 ## Hall Of Fame
-Link to GitHub account of the authors/contributors
-* [person1](#)
-* [person2](#)
-* ...
+Here we honor VCKit's biggest contributors
+* [Steven Capell](https://github.com/onthebreeze)
+* [Zach Zeus](https://github.com/zachzeus)
+* [Hoa Ngo](https://github.com/hoa-ngo-gs)
+* [Nam Hoang](https://github.com/namhoang1604)
+* [Yen Le](https://github.com/ldhyen99)
 
 
 ## Good First Issues

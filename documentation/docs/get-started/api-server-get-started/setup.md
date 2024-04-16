@@ -3,6 +3,9 @@ sidebar_label: 'Set Up'
 sidebar_position: 2
 ---
 # Set up
+:::tip
+To understand the structure of the agent file, read [here](/docs/agent-configuration/config-agent-file).
+:::
 ## Prerequisites
 ### Infura Project ID
 To create your own Infura Project ID, visit https://www.infura.io and follow the instruction.
