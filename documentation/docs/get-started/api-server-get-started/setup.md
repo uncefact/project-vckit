@@ -3,7 +3,17 @@ sidebar_label: 'Set Up'
 sidebar_position: 2
 ---
 # Set up
+## Prerequisites
+### Infura Project ID
+To create your own Infura Project ID, visit https://www.infura.io and follow the instruction.
+### Generate secret key
+You need to generate an X25519 key, run this command in a terminal:
+```bash
+veramo config gen-key
+```
+### Agent file
 To start using VCKit, we need to initialize an agent. We generated an **`agent.yml`** file at the previous step by running this command `pnpm vckit config`. The default configuration is sufficient to get started. You still can add more plugins from Veramo or VCKit by editing this file (this is optional). But first, let's see how it looks like.
+
 
 ```yml
 version: 3.0
@@ -11,9 +21,7 @@ version: 3.0
 constants:
   baseUrl: http://localhost:3332
   port: 3332
-  # please use your own X25519 key, this is only an example
-  # you can generate a new key by running `veramo config gen-key` in a terminal
-  dbEncryptionKey: 29739248cad1bd1a0fc4d9b75cd4d2990de535baf5caadfdf8d8f86664aa830c
+  dbEncryptionKey: <YOUR-SECRET-KEY>
   databaseFile: ./database.sqlite
   methods:
     - keyManagerGetKeyManagementSystems
@@ -266,20 +274,10 @@ didResolver:
       sov:
         $ref: /universal-resolver
 
-#  TODO: remove hardcoded infura project ID
-
-#  this is referencing someone else's infura project that could
-#  be shut down at any point, breaking any functionality that requires
-#  eth interactions.
-
-#  worth searching the rest of the codebase at the same time as
-#  fixing this, there are several other references in demo-explorer,
-#  and tests...
-
 ethr-did-resolver:
   $require: ethr-did-resolver?t=function&p=/ethr#getResolver
   $args:
-    - infuraProjectId: 3586660d179141e3801c3895de1c2eba
+    - infuraProjectId: <YOUR-INFRURA-PROJECT-ID>
 
 web-did-resolver:
   $require: web-did-resolver?t=function&p=/web#getResolver
