@@ -5,7 +5,7 @@ sidebar_position: 3
 # Basic Operations
 
 ## Create an indentifier
-First of all, you need to create an **indentifier**. To do it, visit this URL `http://localhost:3001/managed-identifiers`.
+First of all, you need to create an **indentifier**. To do it, visit this URL `http://localhost:3000/managed-identifiers`.
 ### Step 1
 Click **Create New Identifier** button.
 
