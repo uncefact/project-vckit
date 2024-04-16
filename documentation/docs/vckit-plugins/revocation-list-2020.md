@@ -71,3 +71,10 @@ agent:
 ```
 
 Every time the credential is issued by API `/routeCreationVerifiableCredential`, the middleware will inject the credential status to the credential.
+
+## Sample Operations
+Please make sure you have the VCKit API server started on your local machine, and that you're running the Demo Explorer locally as well.
+* [Getting started with Demo Explorer](/docs/category/demo-explorer).
+
+After that you can follow this intruction to try some sample operations like revoking/unrevoking VC with VCkit Revocation List 2020 plugin
+* [VCKit Revocation List 2020 sample operations](/docs/get-started/demo-explorer-get-started/basic-operations).

@@ -78,3 +78,8 @@ curl -X 'POST' \
   }
 }'
 ```
+
+### With VCKit Library
+
+You can try VCKit Renderer plugin by follow this get started guide.
+* [VCKit Library Get Started](/docs/get-started/library-get-started/installation).
