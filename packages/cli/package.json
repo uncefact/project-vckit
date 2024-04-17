@@ -49,6 +49,7 @@
     "@vckit/remote-server": "workspace:1.0.0-beta.7",
     "@vckit/renderer": "workspace:1.0.0-beta.7",
     "@vckit/revocationlist": "workspace:^",
+    "@vckit/bitstringStatusList": "workspace:^",
     "@vckit/utils": "workspace:^",
     "@vckit/vc-api": "workspace:1.0.0-beta.7",
     "@veramo/core": "5.5.3",

@@ -1,14 +1,16 @@
-// import {
-//   RevocationList2020,
-//   createCredential,
-//   createList,
-//   decodeList,
-// } from '@digitalbazaar/vc-bitstring-status-list';
+import {
+  createCredential,
+  BitstringStatusList,
+  decodeList,
+  VC_BSL_VC_V2_CONTEXT,
+} from '@digitalbazaar/vc-bitstring-status-list';
 
 import {
   IAgent,
   IIdentifier,
-  IBitstringStatusListDataArgs,
+  IBitstringStatusListArgs,
+  IBitstringStatusListEntry,
+  ISetBitstringStatusArgs,
 } from '@vckit/core-types';
 import { OrPromise } from '@veramo/utils';
 import {
@@ -17,10 +19,7 @@ import {
   ObjectLiteral,
   LockNotSupportedOnGivenDriverError,
 } from 'typeorm';
-import {
-  BitstringStatusData,
-  BitstringStatusListEntry,
-} from '../entities/bitstring-status-list-entry-data';
+import { BitstringStatusListEntry } from '../entities/bitstring-status-list-entry-data.js';
 import { getConnectedDb } from '../utils.js';
 
 const DB_ERRORS = ['serialize', 'deadlock'];
@@ -28,7 +27,7 @@ const DB_ERRORS = ['serialize', 'deadlock'];
 /**
  * @public
  */
-export class BitstringStatusListDataStore {
+export class BitstringStatusListEntryStore {
   constructor(private dbConnection: OrPromise<DataSource>) {}
 
   async runTransactionWithExponentialBackoff(
@@ -83,35 +82,17 @@ export class BitstringStatusListDataStore {
     }
   }
 
-  async lockBitstringStatusData(
-    transactionalEntityManager: EntityManager,
-    query: ObjectLiteral,
-  ) {
-    try {
-      await transactionalEntityManager
-        .getRepository(BitstringStatusData)
-        .createQueryBuilder()
-        .setLock('pessimistic_read')
-        .where(query)
-        .getExists();
-    } catch (err) {
-      if (err instanceof LockNotSupportedOnGivenDriverError) {
-        return;
-      }
-      throw err;
-    }
-  }
-
   async lockBitstringStatusListEntry(
     transactionalEntityManager: EntityManager,
-    query: ObjectLiteral,
+    query: string,
+    params: ObjectLiteral,
   ) {
     try {
       await transactionalEntityManager
         .getRepository(BitstringStatusListEntry)
         .createQueryBuilder()
         .setLock('pessimistic_read')
-        .where(query)
+        .where(query, params)
         .getExists();
     } catch (err) {
       if (err instanceof LockNotSupportedOnGivenDriverError) {
@@ -122,31 +103,31 @@ export class BitstringStatusListDataStore {
   }
 
   async createBitstringStatusListVC(
-    bitstringStatusListFullUrlPath: string,
-    bitStringLengthOrList: number,
-    bitstringStatusVCIssuer: string,
+    bitstringStatusListUrl: string,
+    statusPurpose: string,
+    bitStringLength: number,
+    bitstringStatusIssuer: string,
     context: { agent?: IAgent },
   ): Promise<any> {
     try {
       if (!context.agent) {
         throw Error('Agent not available');
       }
-      let list;
-      if (typeof bitStringLengthOrList === 'number') {
-        list = await createList({ length: bitStringLengthOrList });
-      } else {
-        list = bitStringLengthOrList;
-      }
+      let list = new BitstringStatusList({ length: bitStringLength });
 
       const credentialList = await createCredential({
-        id: bitstringStatusListFullUrlPath,
+        id: bitstringStatusListUrl,
         list,
+        statusPurpose,
+        // context: VC_BSL_VC_V2_CONTEXT,
       });
 
       // @ts-ignore
-      credentialList.issuer = bitstringStatusVCIssuer;
+      credentialList.issuer = bitstringStatusIssuer;
+      // TODO: Support context V2
+      credentialList['@context'] = [];
 
-      // Issue RevocationList VC
+      // Issue bitstring status list VC
       const bitstringStatusList = await context.agent.execute(
         'createVerifiableCredential',
         {
@@ -162,151 +143,23 @@ export class BitstringStatusListDataStore {
     }
   }
 
-  async issueBitstringStatusData(
+  async setBitstringStatus(
     transactionalEntityManager: EntityManager,
-    args: IBitstringStatusListDataArgs,
-  ): Promise<{ bitstringStatusListFullUrl: string; indexCounter: number }> {
-    try {
-      let bitstringStatusData: BitstringStatusData;
-      const {
-        bitstringStatusListPath: bitstringStatusListUrlPath,
-        bitstringStatusListVCIssuer,
-        bitstringLength,
-        req,
-      } = args;
-      if (!bitstringStatusListUrlPath) {
-        throw new Error('Bitstring Status List Path not provided');
-      }
-
-      if (!bitstringLength) {
-        throw new Error('Bitstring Length not provided');
-      }
-
-      let bitstringStatusListFullUrlPath: string;
-
-      let bitstringStatusVCIdentifier: IIdentifier;
-      try {
-        bitstringStatusVCIdentifier = (await req.agent?.execute(
-          'didManagerGet',
-          {
-            did: bitstringStatusListVCIssuer,
-          },
-        )) as IIdentifier;
-      } catch (e) {
-        throw new Error(
-          `invalid_argument: credential.issuer must be a DID managed by this agent.`,
-        );
-      }
-      const bitstringStatusVCIssuerDid =
-        bitstringStatusVCIdentifier.did.replaceAll(':', '_');
-
-      bitstringStatusData = await this.upsertBitstringStatusData(
-        transactionalEntityManager,
-        {
-          bitstringStatusListUrlPath,
-          bitstringStatusVCIdentifier: bitstringStatusVCIdentifier.did,
-          bitStringLength: Number(bitstringLength),
-        },
-      );
-
-      bitstringStatusListFullUrlPath = `/credentials/status/bitstring-status-list-entry/${bitstringStatusVCIssuerDid}/${bitstringStatusData.listCounter}`;
-
-      await this.upsertBitstringStatusList(transactionalEntityManager, {
-        bitstringStatusListFullUrlPath,
-        bitstringStatusVCIdentifierDid: bitstringStatusVCIdentifier.did,
-        bitstringStatusListVCIssuer,
-        bitstringLength: Number(bitstringLength),
-        bitstringStatusListUrlPath,
-        req,
-      });
-
-      return {
-        bitstringStatusListFullUrl: `${bitstringStatusListUrlPath}${bitstringStatusListFullUrlPath!}`,
-        indexCounter: bitstringStatusData!.indexCounter,
-      };
-    } catch (err) {
-      throw new Error(err);
-    }
-  }
-
-  async updateBitstringStatusData(
-    transactionalEntityManager: EntityManager,
-    {
-      bitstringStatusData,
-      bitstringStatusVCIssuerDid,
-      args,
-    }: {
-      bitstringStatusData: BitstringStatusData;
-      bitstringStatusVCIssuerDid: string;
-      args: IBitstringStatusListDataArgs;
+    args: ISetBitstringStatusArgs & {
+      context: { agent?: IAgent };
     },
-  ): Promise<void> {
+  ) {
     try {
-      let nextIndex = bitstringStatusData.indexCounter + 1;
-      let nextList = bitstringStatusData.listCounter;
-      let nextBitStringLength = bitstringStatusData.bitstringLength;
-
-      // Check if we need to update the bit string length
-      if (
-        Number(args.bitStringLength) != bitstringStatusData.bitstringLength ||
-        nextIndex >= bitstringStatusData.bitstringLength
-      ) {
-        nextList += 1;
-        nextIndex = 0;
-
-        if (
-          Number(args.bitStringLength) != bitstringStatusData.bitstringLength
-        ) {
-          nextBitStringLength = Number(args.bitStringLength);
-        }
-
-        const bitstringStatusListFullUrlPath = `/credentials/status/bitstring-status-list-entry/${bitstringStatusVCIssuerDid}/${nextList}`;
-
-        await this.lockBitstringStatusData(transactionalEntityManager, {
-          bitstringStatusListFullUrlPath,
-          bitstringStatusVCIssuer: args.bitstringStatusListVCIssuer,
-        });
-
-        const bitstringStatusList = await this.createBitstringStatusListVC(
-          `${args.bitstringStatusListPath}${bitstringStatusListFullUrlPath}`,
-          Number(args.bitStringLength),
-          args.bitstringStatusListVCIssuer,
-          args.req,
-        );
-
-        await transactionalEntityManager
-          .getRepository(BitstringStatusListEntry)
-          .save({
-            bitstringStatusListFullUrlPath,
-            bitstringStatusListVCIssuer: args.bitstringStatusListVCIssuer,
-            verifiableCredential: JSON.stringify(bitstringStatusList),
-          });
+      if (!args.context.agent) {
+        throw Error('Agent not available');
       }
-
-      await transactionalEntityManager.getRepository(BitstringStatusData).save({
-        ...bitstringStatusData,
-        bitstringStatusListUrlPath:
-          bitstringStatusData.bitstringStatusListUrlPath,
-        bitstringStatusListVCIssuer: args.bitstringStatusListVCIssuer,
-        indexCounter: nextIndex,
-        listCounter: nextList,
-        bitStringLength: nextBitStringLength,
-      });
-    } catch (err) {
-      // Handle Errors here
-      throw new Error(err);
-    }
-  }
-
-  async getBitstringStatusListVC(bitstringStatusListFullUrlPath: string) {
-    try {
-      const db = await getConnectedDb(this.dbConnection);
-
-      const bitstringStatusList = await db
+      const bitstringStatusList = await transactionalEntityManager
         .getRepository(BitstringStatusListEntry)
         .findOne({
           where: {
-            bitstringStatusListFullUrlPath,
+            statusListCredential: args.statusListCredential,
+            statusListVCIssuer: args.statusListVCIssuer,
+            statusPurpose: args.statusPurpose,
           },
         });
 
@@ -314,7 +167,54 @@ export class BitstringStatusListDataStore {
         throw new Error('Bitstring Status List not found');
       }
 
-      return JSON.parse(bitstringStatusList.verifiableCredential);
+      const vc = JSON.parse(bitstringStatusList.verifiableCredential!);
+      const list = await decodeList({
+        encodedList: vc.credentialSubject.encodedList,
+      });
+
+      list.setStatus(args.index, args.status);
+
+      vc.credentialSubject.encodedList = await list.encode();
+      delete vc.proof;
+      delete vc.issuanceDate;
+
+      const bitstringStatusListVC = await args.context.agent.execute(
+        'createVerifiableCredential',
+        {
+          credential: vc,
+          proofFormat: 'lds',
+          fetchRemoteContexts: true,
+        },
+      );
+
+      return await transactionalEntityManager
+        .getRepository(BitstringStatusListEntry)
+        .save({
+          ...bitstringStatusList,
+          verifiableCredential: JSON.stringify(bitstringStatusListVC),
+        });
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async getBitstringStatusListVC(listIndex: number) {
+    try {
+      const db = await getConnectedDb(this.dbConnection);
+
+      const bitstringStatusList = await db
+        .getRepository(BitstringStatusListEntry)
+        .findOne({
+          where: {
+            listIndex,
+          },
+        });
+
+      if (!bitstringStatusList) {
+        throw new Error('Bitstring Status List not found');
+      }
+
+      return JSON.parse(bitstringStatusList.verifiableCredential!);
     } catch (err) {
       throw new Error(err);
     }
@@ -322,14 +222,14 @@ export class BitstringStatusListDataStore {
 
   async getBitstringStatusList(
     transactionalEntityManager: EntityManager,
-    bitstringStatusListFullUrlPath: string,
+    listIndex: number,
   ) {
     try {
       const bitstringStatusList = await transactionalEntityManager
         .getRepository(BitstringStatusListEntry)
         .findOne({
           where: {
-            bitstringStatusListFullUrlPath,
+            listIndex,
           },
         });
 
@@ -343,162 +243,93 @@ export class BitstringStatusListDataStore {
     }
   }
 
-  async upsertBitstringStatusData(
-    transactionalEntityManager: EntityManager,
-    args: {
-      bitstringStatusListUrlPath: string;
-      bitstringStatusVCIdentifier: string;
-      bitStringLength: number;
-    },
-  ) {
-    const {
-      bitstringStatusListUrlPath,
-      bitstringStatusVCIdentifier,
-      bitStringLength,
-    } = args;
-
-    await this.lockBitstringStatusData(transactionalEntityManager, {
-      bitstringStatusListUrlPath,
-      bitstringStatusVCIdentifier,
-    });
-
-    let bitstringStatusData: BitstringStatusData | null =
-      await transactionalEntityManager
-        .getRepository(BitstringStatusData)
-        .findOne({
-          where: {
-            bitstringStatusListUrlPath,
-            bitstringStatusListVCIssuer: bitstringStatusVCIdentifier,
-          },
-        });
-
-    if (!bitstringStatusData) {
-      bitstringStatusData = new BitstringStatusData();
-      bitstringStatusData.bitstringStatusListUrlPath =
-        bitstringStatusListUrlPath!;
-      bitstringStatusData.bitstringStatusListVCIssuer =
-        bitstringStatusVCIdentifier;
-      bitstringStatusData.bitstringLength = bitStringLength;
-    } else {
-      let nextIndex = bitstringStatusData.indexCounter + 1;
-      let nextList = bitstringStatusData.listCounter;
-      if (
-        args.bitStringLength != bitstringStatusData.bitstringLength ||
-        nextIndex >= bitstringStatusData.bitstringLength
-      ) {
-        nextList += 1;
-        nextIndex = 0;
-
-        if (args.bitStringLength != bitstringStatusData.bitstringLength) {
-          bitstringStatusData.bitstringLength = args.bitStringLength;
-        }
-      }
-      bitstringStatusData.indexCounter = nextIndex;
-      bitstringStatusData.listCounter = nextList;
-    }
-
-    return await transactionalEntityManager
-      .getRepository(BitstringStatusData)
-      .save(bitstringStatusData);
-  }
-
   async upsertBitstringStatusList(
     transactionalEntityManager: EntityManager,
-    args: {
-      bitstringStatusListFullUrlPath: string;
-      bitstringStatusVCIdentifierDid: string;
-      bitstringStatusListVCIssuer: string;
-      bitstringLength: number;
-      bitstringStatusListUrlPath: string;
-      req: any;
-    },
+    args: IBitstringStatusListArgs,
   ) {
     try {
       const {
-        bitstringStatusListFullUrlPath,
-        bitstringStatusVCIdentifierDid,
-        bitstringStatusListVCIssuer,
+        bitstringDomainURL,
+        bitstringStatusIssuer,
         bitstringLength,
-        bitstringStatusListUrlPath,
-        req,
+        statusPurpose,
+        statusSize,
+        statusMessages,
+        statusReference,
+        context,
       } = args;
 
-      await this.lockBitstringStatusData(transactionalEntityManager, {
-        bitstringStatusListFullUrlPath,
-        bitstringStatusListVCIssuer: bitstringStatusVCIdentifierDid,
-      });
+      const queryParams = {
+        bitstringLength: bitstringLength || 131072,
+        statusPurpose: statusPurpose.toString(),
+        statusListVCIssuer: bitstringStatusIssuer,
+        statusSize: statusSize || 1,
+        statusMessages:
+          JSON.stringify(statusMessages) || '[{"status":0},{"status":1}]',
+      };
 
-      let bitstringStatusList = await transactionalEntityManager
+      this.lockBitstringStatusListEntry(
+        transactionalEntityManager,
+        'bsl.statusListVCIssuer = :statusListVCIssuer AND bsl.statusPurpose = :statusPurpose AND bsl.lastStatusIndex < bitstringLength AND bsl.bitstringLength = :bitstringLength AND bsl.statusSize = :statusSize AND bsl.statusMessages = :statusMessages',
+        queryParams,
+      );
+
+      let bitstringStatusList: BitstringStatusListEntry | null;
+
+      bitstringStatusList = await transactionalEntityManager
         .getRepository(BitstringStatusListEntry)
-        .findOne({
-          where: {
-            bitstringStatusListFullUrlPath,
-            bitstringStatusListVCIssuer: bitstringStatusVCIdentifierDid,
-          },
-        });
+        .createQueryBuilder('bsl')
+        .where(
+          'bsl.statusListVCIssuer = :statusListVCIssuer AND bsl.statusPurpose = :statusPurpose AND bsl.lastStatusIndex < bitstringLength AND bsl.bitstringLength = :bitstringLength AND bsl.statusSize = :statusSize AND bsl.statusMessages = :statusMessages',
+          queryParams,
+        )
+        .getOne();
 
       if (
         !bitstringStatusList ||
-        bitstringStatusList.bitstringStatusListFullUrlPath !==
-          bitstringStatusListFullUrlPath
+        bitstringStatusList.lastStatusIndex + bitstringStatusList.statusSize >
+          bitstringLength - 1
       ) {
-        const BitstringStatusListVC = await this.createBitstringStatusListVC(
-          `${bitstringStatusListUrlPath}${bitstringStatusListFullUrlPath}`,
-          bitstringLength,
-          bitstringStatusListVCIssuer,
-          req,
+        bitstringStatusList = new BitstringStatusListEntry();
+        bitstringStatusList.bitstringLength = bitstringLength;
+        bitstringStatusList.statusListVCIssuer = bitstringStatusIssuer;
+        bitstringStatusList.statusPurpose = statusPurpose;
+        if (statusSize) {
+          bitstringStatusList.statusSize = statusSize;
+        }
+        if (statusMessages) {
+          bitstringStatusList.statusMessages = JSON.stringify(statusMessages);
+        }
+        if (statusReference) {
+          bitstringStatusList.statusReference = statusReference;
+        }
+
+        bitstringStatusList = await transactionalEntityManager
+          .getRepository(BitstringStatusListEntry)
+          .save(bitstringStatusList);
+
+        const statusListCredentialUrl = `${bitstringDomainURL}/credentials/status/bitstring-status-list/${bitstringStatusList.listIndex}`;
+        const bitstringStatusListVC = await this.createBitstringStatusListVC(
+          statusListCredentialUrl,
+          bitstringStatusList.statusPurpose,
+          bitstringStatusList.bitstringLength,
+          bitstringStatusIssuer,
+          context,
         );
 
-        bitstringStatusList = new BitstringStatusListEntry();
-        bitstringStatusList.bitstringStatusListFullUrlPath =
-          bitstringStatusListFullUrlPath;
-        bitstringStatusList.bitstringStatusListVCIssuer =
-          bitstringStatusVCIdentifierDid;
+        bitstringStatusList.statusListCredential = statusListCredentialUrl;
         bitstringStatusList.verifiableCredential = JSON.stringify(
-          BitstringStatusListVC,
+          bitstringStatusListVC,
         );
+      } else {
+        bitstringStatusList.lastStatusIndex += bitstringStatusList.statusSize;
       }
 
       return await transactionalEntityManager
         .getRepository(BitstringStatusListEntry)
         .save(bitstringStatusList);
     } catch (err) {
-      throw new Error(err);
-    }
-  }
-
-  async updateBitstringStatusListVC(
-    transactionalEntityManager: EntityManager,
-    args: {
-      context: { agent?: IAgent };
-      bitstringStatusList: BitstringStatusListEntry;
-      index: number;
-      revoked: boolean;
-    },
-  ) {
-    try {
-      const vc = JSON.parse(args.bitstringStatusList.verifiableCredential);
-      const bitstringStatusList = await decodeList({
-        encodedList: vc.credentialSubject.encodedList,
-      });
-
-      bitstringStatusList.setRevoked(args.index, args.revoked);
-
-      const bitstringStatusVc = await this.createBitstringStatusListVC(
-        vc.id,
-        bitstringStatusList,
-        vc.issuer,
-        args.context,
-      );
-
-      await transactionalEntityManager
-        .getRepository(BitstringStatusListEntry)
-        .save({
-          ...args.bitstringStatusList,
-          verifiableCredential: JSON.stringify(bitstringStatusVc),
-        });
-    } catch (err) {
-      throw new Error(err);
+      throw err;
     }
   }
 }

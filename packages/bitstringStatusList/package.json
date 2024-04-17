@@ -10,7 +10,9 @@
     "./build/plugin.schema.json": "./build/plugin.schema.json"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "extract-api": "node ../cli/bin/vckit.js dev extract-api",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js  -d ./build/data-source.js"
   },
   "keywords": [],
   "author": "",
@@ -34,11 +36,22 @@
     "url": "https://github.com/uncefact/project-vckit/issues"
   },
   "dependencies": {
-    "@vckit/core-types": "workspace:*",
-    "credential-status": "^2.0.5",
-    "typeorm": "^0.3.10",
-    "uuid": "^9.0.0",
     "@digitalbazaar/vc-bitstring-status-list": "github:gs-gs/vc-bitstring-status-list",
-    "@veramo/utils": "5.5.3"
+    "@transmute/did-context": "0.7.0-unstable.82",
+    "@transmute/did-key.js": "0.3.0-unstable.10",
+    "@transmute/did-web": "0.7.0-unstable.82",
+    "@transmute/vc-status-rl-2020": "0.7.0-unstable.82",
+    "@vckit/core-types": "workspace:*",
+    "@vckit/credential-router": "workspace:*",
+    "@veramo/core": "5.5.3",
+    "@veramo/credential-w3c": "5.5.3",
+    "@veramo/credential-ld": "5.5.3",
+    "@veramo/utils": "5.5.3",
+    "@veramo/did-resolver": "5.5.3",
+    "@veramo/did-provider-key": "5.5.3",
+    "credential-status": "^2.0.5",
+    "did-jwt": "^7.4.7",
+    "typeorm": "^0.3.10",
+    "uuid": "^9.0.0"
   }
 }

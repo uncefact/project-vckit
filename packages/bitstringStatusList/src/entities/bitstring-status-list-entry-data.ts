@@ -1,37 +1,53 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
-@Entity('bitstring-status-data')
-export class BitstringStatusData extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
-
-  @Column()
-  bitstringStatusListUrlPath!: string;
-
-  @Column()
-  bitstringStatusListVCIssuer!: string;
-
-  @Column({ default: 0 })
-  listCounter!: number;
-
-  @Column({ default: 0 })
-  indexCounter!: number;
-
-  @Column({ default: 8 })
-  bitstringLength!: number;
-}
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  Index,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
 
 @Entity('bitstring-status-list')
+@Unique('unique_bitstringLength_statusListVCIssuer_statusSize_statusMessages', [
+  'bitstringLength',
+  'statusListVCIssuer',
+  'statusPurpose',
+  'statusSize',
+  'statusMessages',
+])
+@Unique('unique_statusListCredential_statusListVCIssuer', [
+  'statusListCredential',
+  'statusListVCIssuer',
+  'statusPurpose',
+])
 export class BitstringStatusListEntry extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  @PrimaryGeneratedColumn()
+  listIndex!: number;
+
+  @Column({ default: 0 })
+  lastStatusIndex!: number;
+
+  @Column({ default: 131072 })
+  bitstringLength!: number;
 
   @Column()
-  bitstringStatusListFullUrlPath!: string;
+  statusListVCIssuer!: string;
 
   @Column()
-  bitstringStatusListVCIssuer!: string;
+  statusPurpose!: string;
+
+  @Column({ default: 1 })
+  statusSize!: number;
 
   @Column()
-  verifiableCredential!: string;
+  statusListCredential?: string;
+
+  @Column()
+  verifiableCredential?: string;
+
+  @Column({ default: '[{"status":0},{"status":1}]' })
+  statusMessages!: string;
+
+  @Column({ nullable: true })
+  statusReference?: string;
 }

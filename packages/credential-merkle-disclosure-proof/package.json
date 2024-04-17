@@ -11,8 +11,7 @@
   "scripts": {
     "postinstall": "pnpm add --ignore-scripts ../../.tmp_npm/packages/credential-ld/",
     "build": "tsc",
-    "watch": "tsc -b --watch",
-    "generate-plugin-schema": "node ../cli/bin/vckit.js dev generate-plugin-schema"
+    "watch": "tsc -b --watch"
   },
   "veramo": {
     "pluginInterfaces": {

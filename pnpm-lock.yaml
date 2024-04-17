@@ -155,16 +155,49 @@ importers:
     dependencies:
       '@digitalbazaar/vc-bitstring-status-list':
         specifier: github:gs-gs/vc-bitstring-status-list
-        version: github.com/gs-gs/vc-bitstring-status-list/eb093cb2ab9cec30fa343c5459cd5695facfbf81
+        version: github.com/gs-gs/vc-bitstring-status-list/eb093cb2ab9cec30fa343c5459cd5695facfbf81(expo@50.0.17)(react-native@0.73.6)
+      '@transmute/did-context':
+        specifier: 0.7.0-unstable.82
+        version: 0.7.0-unstable.82
+      '@transmute/did-key.js':
+        specifier: 0.3.0-unstable.10
+        version: 0.3.0-unstable.10(expo@50.0.17)(react-native@0.73.6)
+      '@transmute/did-web':
+        specifier: 0.7.0-unstable.82
+        version: 0.7.0-unstable.82
+      '@transmute/vc-status-rl-2020':
+        specifier: 0.7.0-unstable.82
+        version: 0.7.0-unstable.82(expo@50.0.17)(react-native@0.73.6)
       '@vckit/core-types':
         specifier: workspace:*
         version: link:../core-types
+      '@vckit/credential-router':
+        specifier: workspace:*
+        version: link:../credential-router
+      '@veramo/core':
+        specifier: 5.5.3
+        version: 5.5.3
+      '@veramo/credential-ld':
+        specifier: 5.5.3
+        version: 5.5.3(expo@50.0.17)(react-native@0.73.6)
+      '@veramo/credential-w3c':
+        specifier: 5.5.3
+        version: 5.5.3(expo@50.0.17)(react-native@0.73.6)
+      '@veramo/did-provider-key':
+        specifier: 5.5.3
+        version: 5.5.3(expo@50.0.17)(react-native@0.73.6)
+      '@veramo/did-resolver':
+        specifier: 5.5.3
+        version: 5.5.3
       '@veramo/utils':
         specifier: 5.5.3
         version: 5.5.3
       credential-status:
         specifier: ^2.0.5
         version: 2.0.6
+      did-jwt:
+        specifier: ^7.4.7
+        version: 7.4.7
       typeorm:
         specifier: ^0.3.10
         version: 0.3.20(pg@8.11.5)(sqlite3@5.1.7)(ts-node@10.9.2)
@@ -192,6 +225,9 @@ importers:
       '@types/swagger-ui-express':
         specifier: ^4.1.6
         version: 4.1.6
+      '@vckit/bitstringStatusList':
+        specifier: workspace:^
+        version: link:../bitstringStatusList
       '@vckit/core-types':
         specifier: workspace:^
         version: link:../core-types
@@ -3977,6 +4013,15 @@ packages:
       crypto-ld: 6.0.0
     dev: false
 
+  /@digitalcredentials/ed25519-verification-key-2020@4.0.0:
+    resolution: {integrity: sha512-GrfITgp1guFbExZckj2q6LOxxm08PFSScr0lBYtDRezJa6CTpA9XQ8yXSSXE3LvpEi5/2uOMFxxIfKAtL1J2ww==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@digitalcredentials/keypair': 1.0.5
+      '@noble/ed25519': 1.7.3
+      base-x: 4.0.0
+    dev: false
+
   /@digitalcredentials/http-client@1.2.2:
     resolution: {integrity: sha512-YOwaE+vUDSwiDhZT0BbXSWVg+bvp1HA1eg/gEc8OCwCOj9Bn9FRQdu8P9Y/fnYqyFCioDwwTRzGxgJLl50baEg==}
     engines: {node: '>=12.0.0'}
@@ -4032,6 +4077,11 @@ packages:
       - expo
       - react-native
       - web-streams-polyfill
+    dev: false
+
+  /@digitalcredentials/keypair@1.0.5:
+    resolution: {integrity: sha512-g0QvhJMTSFCoUkEvSeggwVTJa2jFkQXjf/mpTn9sePkz+5OouMEDfXUWL61juTaxK5JWPEFc0PKlolXzHaHHHQ==}
+    engines: {node: '>=16.0'}
     dev: false
 
   /@digitalcredentials/open-badges-context@2.1.0:
@@ -7043,6 +7093,10 @@ packages:
     resolution: {integrity: sha512-p+4cb332SFCrReJkCYe8Xzm0OWi4Jji5jVdIZRL/PmacmDkFNw6MrrV+gGpiPxLHbV+zKFRywUWbaseT+tZRXg==}
     dependencies:
       '@noble/hashes': 1.4.0
+
+  /@noble/ed25519@1.7.3:
+    resolution: {integrity: sha512-iR8GBkDt0Q3GyaVcIu7mSsVIqnFbkbRzGLWlvhwunacoLwt4J3swfKhfaM6rN6WY+TBGoYT1GtT1mIh2/jGbRQ==}
+    dev: false
 
   /@noble/hashes@1.3.2:
     resolution: {integrity: sha512-MVC8EAQp7MvEcm30KWENFjgR+Mkmf+D189XJTkFIlwohU5hcBbn1ZkKq7KVTi2Hme3PMGF390DaL52beVrIihQ==}
@@ -12958,6 +13012,32 @@ packages:
       - encoding
       - supports-color
 
+  /@veramo/credential-ld@5.5.3(expo@50.0.17)(react-native@0.73.6):
+    resolution: {integrity: sha512-XksvjGLrq7XQuH5Uzp7F8iZ3DQqcn6TWKb/DF5sjYoKUrPEFZ/zq6co5QpElRq+Z+BRwOplehNl0kxikgR6qKw==}
+    dependencies:
+      '@digitalcredentials/ed25519-signature-2020': 3.0.2(expo@50.0.17)(react-native@0.73.6)
+      '@digitalcredentials/ed25519-verification-key-2020': 4.0.0
+      '@digitalcredentials/jsonld': 6.0.0(expo@50.0.17)(react-native@0.73.6)
+      '@digitalcredentials/jsonld-signatures': 9.4.0(expo@50.0.17)(react-native@0.73.6)
+      '@digitalcredentials/vc': 6.0.1(expo@50.0.17)(react-native@0.73.6)
+      '@transmute/credentials-context': 0.7.0-unstable.82
+      '@transmute/ed25519-signature-2018': 0.7.0-unstable.82(expo@50.0.17)(react-native@0.73.6)
+      '@transmute/json-web-signature': 0.7.0-unstable.82(expo@50.0.17)(react-native@0.73.6)
+      '@veramo-community/lds-ecdsa-secp256k1-recovery2020': github.com/uport-project/EcdsaSecp256k1RecoverySignature2020/ab0db52de6f4e6663ef271a48009ba26e688ef9b(expo@50.0.17)(react-native@0.73.6)
+      '@veramo/core-types': 5.5.3
+      '@veramo/utils': 5.5.3
+      cross-fetch: 4.0.0
+      debug: 4.3.4(supports-color@6.1.0)
+      did-resolver: 4.1.0
+    transitivePeerDependencies:
+      - domexception
+      - encoding
+      - expo
+      - react-native
+      - supports-color
+      - web-streams-polyfill
+    dev: false
+
   /@veramo/credential-status@5.5.3:
     resolution: {integrity: sha512-nfGYNhsWdKAcvvw0uyaRa6nlgZ5csoTdSQ0at7w4pbrPENyApPlsJAy5ol6sCWASIE6C5mZhyN3eas1Pk3ELGQ==}
     dependencies:
@@ -12969,6 +13049,29 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    dev: false
+
+  /@veramo/credential-w3c@5.5.3(expo@50.0.17)(react-native@0.73.6):
+    resolution: {integrity: sha512-MGQGTm3KZdmzD0Mv3zJRJ9n9Tv+0deRpHouo6zIaAJNhovETULNZtPlzbCioe3AM6AZos40DK1TuX3tgED2JIg==}
+    dependencies:
+      '@veramo/core-types': 5.5.3
+      '@veramo/message-handler': 5.5.3
+      '@veramo/utils': 5.5.3
+      canonicalize: 2.0.0
+      debug: 4.3.4(supports-color@6.1.0)
+      did-jwt: 7.4.7
+      did-jwt-vc: 3.2.15
+      did-resolver: 4.1.0
+      uuid: 9.0.1
+    optionalDependencies:
+      '@veramo/credential-ld': 5.5.3(expo@50.0.17)(react-native@0.73.6)
+    transitivePeerDependencies:
+      - domexception
+      - encoding
+      - expo
+      - react-native
+      - supports-color
+      - web-streams-polyfill
     dev: false
 
   /@veramo/data-store-json@5.5.3:
@@ -15665,6 +15768,10 @@ packages:
       safe-buffer: 5.2.1
     dev: false
 
+  /base-x@4.0.0:
+    resolution: {integrity: sha512-FuwxlW4H5kh37X/oW59pwTzzTKRzfrrQwhmyspRM7swOEZcHtDZSCt45U6oKgtuFE+WYPblePMVIPR4RZrh/hw==}
+    dev: false
+
   /base64-arraybuffer@1.0.2:
     resolution: {integrity: sha512-I3yl4r9QB5ZRY3XuJVEPfc2XhZO6YweFPI+UovAzn+8/hb3oJ6lnysaFcjVpkCPfVWFUDvoZ8kmVDP7WyRtYtQ==}
     engines: {node: '>= 0.6.0'}
@@ -17719,6 +17826,11 @@ packages:
   /crypto-ld@6.0.0:
     resolution: {integrity: sha512-XWL1LslqggNoaCI/m3I7HcvaSt9b2tYzdrXO+jHLUj9G1BvRfvV7ZTFDVY5nifYuIGAPdAGu7unPxLRustw3VA==}
     engines: {node: '>=8.3.0'}
+    dev: false
+
+  /crypto-ld@7.0.0:
+    resolution: {integrity: sha512-RrXy6aB0TOhSiqsgavTQt1G8mKomKIaNLb2JZxj7A/Vi0EwmXguuBQoeiAvePfK6bDR3uQbqYnaLLs4irTWwgw==}
+    engines: {node: '>=14'}
     dev: false
 
   /crypto-md5@1.0.0:
@@ -25873,6 +25985,11 @@ packages:
   /json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
     dev: true
+
+  /json-stringify-deterministic@1.0.12:
+    resolution: {integrity: sha512-q3PN0lbUdv0pmurkBNdJH3pfFvOTL/Zp0lquqpvcjfKzt6Y0j49EPHAmVHCAS4Ceq/Y+PejWTzyiVpoY71+D6g==}
+    engines: {node: '>= 4'}
+    dev: false
 
   /json-stringify-safe@5.0.1:
     resolution: {integrity: sha512-ZClg6AaYvamvYEE82d3Iyd3vSSIjQ+odgjaTzRuO3s7toCdFKczob2i0zCh7JE8kWn17yvAWhUVxvqGwUalsRA==}
@@ -39012,8 +39129,9 @@ packages:
     requiresBuild: true
     dev: false
 
-  github.com/digitalbazaar/vc/0bb92add827f234b1b9c2c74aba78d024a6e9da0:
+  github.com/digitalbazaar/vc/0bb92add827f234b1b9c2c74aba78d024a6e9da0(expo@50.0.17)(react-native@0.73.6):
     resolution: {tarball: https://codeload.github.com/digitalbazaar/vc/tar.gz/0bb92add827f234b1b9c2c74aba78d024a6e9da0}
+    id: github.com/digitalbazaar/vc/0bb92add827f234b1b9c2c74aba78d024a6e9da0
     name: '@digitalbazaar/vc'
     version: 6.2.1-0
     engines: {node: '>=18'}
@@ -39030,17 +39148,39 @@ packages:
       - web-streams-polyfill
     dev: false
 
-  github.com/gs-gs/vc-bitstring-status-list/eb093cb2ab9cec30fa343c5459cd5695facfbf81:
+  github.com/gs-gs/vc-bitstring-status-list/eb093cb2ab9cec30fa343c5459cd5695facfbf81(expo@50.0.17)(react-native@0.73.6):
     resolution: {tarball: https://codeload.github.com/gs-gs/vc-bitstring-status-list/tar.gz/eb093cb2ab9cec30fa343c5459cd5695facfbf81}
+    id: github.com/gs-gs/vc-bitstring-status-list/eb093cb2ab9cec30fa343c5459cd5695facfbf81
     name: '@digitalbazaar/vc-bitstring-status-list'
     version: 0.0.1-0
     engines: {node: '>=18'}
     dependencies:
       '@digitalbazaar/bitstring': 3.1.0
       '@digitalbazaar/credentials-v2-context': github.com/digitalbazaar/credentials-v2-context/277d50b948ada35fedf63feb43de32b2483489e0
-      '@digitalbazaar/vc': github.com/digitalbazaar/vc/0bb92add827f234b1b9c2c74aba78d024a6e9da0
+      '@digitalbazaar/vc': github.com/digitalbazaar/vc/0bb92add827f234b1b9c2c74aba78d024a6e9da0(expo@50.0.17)(react-native@0.73.6)
       '@digitalbazaar/vc-bitstring-status-list-context': 1.0.0
       credentials-context: 2.0.0
+    transitivePeerDependencies:
+      - domexception
+      - expo
+      - react-native
+      - web-streams-polyfill
+    dev: false
+
+  github.com/uport-project/EcdsaSecp256k1RecoverySignature2020/ab0db52de6f4e6663ef271a48009ba26e688ef9b(expo@50.0.17)(react-native@0.73.6):
+    resolution: {tarball: https://codeload.github.com/uport-project/EcdsaSecp256k1RecoverySignature2020/tar.gz/ab0db52de6f4e6663ef271a48009ba26e688ef9b}
+    id: github.com/uport-project/EcdsaSecp256k1RecoverySignature2020/ab0db52de6f4e6663ef271a48009ba26e688ef9b
+    name: '@veramo-community/lds-ecdsa-secp256k1-recovery2020'
+    version: 0.0.8
+    dependencies:
+      '@bitauth/libauth': 1.19.1
+      '@digitalcredentials/jsonld': 5.2.2(expo@50.0.17)(react-native@0.73.6)
+      '@digitalcredentials/jsonld-signatures': 9.4.0(expo@50.0.17)(react-native@0.73.6)
+      '@ethersproject/transactions': 5.7.0
+      '@trust/keyto': 1.0.1
+      base64url: 3.0.1
+      crypto-ld: 7.0.0
+      json-stringify-deterministic: 1.0.12
     transitivePeerDependencies:
       - domexception
       - expo

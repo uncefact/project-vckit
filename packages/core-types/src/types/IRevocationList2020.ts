@@ -35,14 +35,14 @@ export interface IRevocationList2020 extends IPluginMethodMap {
   getRevocationListVC(revocationListFullUrlPath: string): Promise<any>;
   checkStatus(
     args: IHashCredentialArgs,
-    context: { agent?: IAgent }
+    context: { agent?: IAgent },
   ): Promise<CredentialStatus>;
   revokeCredential(
     args: IHashCredentialArgs,
-    context: { agent?: IAgent }
+    context: { agent?: IAgent },
   ): Promise<CredentialStatus>;
   activateCredential(
     args: IHashCredentialArgs,
-    context: { agent?: IAgent }
+    context: { agent?: IAgent },
   ): Promise<CredentialStatus>;
 }
