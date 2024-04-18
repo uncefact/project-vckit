@@ -1,10 +1,12 @@
-*Dockerfile*
-*docker-compose*
+docker-compose.yaml
+.dockerignore
+**/Dockerfile
 **/node_modules
-*/__test__/*
-coverage
-build
+**/__test__
+**/coverage
+**/build
 .git
+.github
 .gitignore
 jest.*
 *.md
