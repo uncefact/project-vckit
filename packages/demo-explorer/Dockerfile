@@ -1,8 +1,6 @@
 FROM node:18 AS builder
 WORKDIR /app
 ENV NODE_OPTIONS=--max-old-space-size=16384
-COPY ../../pnpm-workspace.yaml .
-COPY package.json .
 COPY . .
 RUN npm install -g pnpm@8.14.0 && pnpm install
 
