@@ -1,6 +1,6 @@
 *Dockerfile*
 *docker-compose*
-node_modules
+**/node_modules
 */__test__/*
 coverage
 build
