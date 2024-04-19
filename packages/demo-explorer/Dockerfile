@@ -4,6 +4,8 @@ ENV NODE_OPTIONS=--max-old-space-size=16384
 COPY . .
 RUN npm install -g pnpm@8.14.0 && pnpm install
 
+WORKDIR /app/packages/core-types
+RUN pnpm run build
 WORKDIR /app/packages/example-documents
 RUN pnpm run build
 WORKDIR /app/packages/react-components
