@@ -27,6 +27,7 @@
     "vckit": "bin/vckit.js"
   },
   "scripts": {
+    "postinstall": "pnpm add --ignore-scripts ../../.tmp_npm/packages/credential-w3c/ ../../.tmp_npm/packages/credential-ld/",
     "build": "tsc",
     "watch": "tsc -b --watch",
     "update-vckit-next": "pnpm add @veramo/core@next @veramo/discovery@next @veramo/remote-client@next @vckit/remote-server@next @veramo/did-provider-key@next @veramo/did-resolver@next @veramo/did-jwt@next @veramo/credential-w3c@next @veramo/did-provider-ethr@next @veramo/did-provider-web@next @veramo/did-comm@next @veramo/kms-local@next @veramo/selective-disclosure@next @veramo/data-store@next @veramo/key-manager@next @veramo/message-handler@next @veramo/did-manager@next @veramo/url-handler@next @veramo/credential-eip712@next @veramo/utils@next @vckit/renderer@next @vckit/oauth-middleware@next",
@@ -52,9 +53,9 @@
     "@vckit/vc-api": "workspace:1.0.0-beta.7",
     "@veramo/core": "5.5.3",
     "@veramo/credential-eip712": "5.5.3",
-    "@veramo/credential-ld": "5.5.3",
+    "@veramo/credential-ld": "link:../../.tmp_npm/packages/credential-ld",
     "@veramo/credential-status": "5.5.3",
-    "@veramo/credential-w3c": "5.5.3",
+    "@veramo/credential-w3c": "link:../../.tmp_npm/packages/credential-w3c",
     "@veramo/data-store": "5.5.3",
     "@veramo/did-comm": "5.5.3",
     "@veramo/did-discovery": "5.5.3",
@@ -76,6 +77,8 @@
     "commander": "^11.1.0",
     "console-table-printer": "^2.12.0",
     "cors": "^2.8.5",
+    "credential-ld": "link:.tmp_npm/packages/credential-ld",
+    "credential-w3c": "link:.tmp_npm/packages/credential-w3c",
     "cross-fetch": "^4.0.0",
     "date-fns": "^3.1.0",
     "debug": "^4.3.4",

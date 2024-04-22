@@ -2,6 +2,7 @@
   "name": "vckit",
   "version": "1.0.0-beta.5",
   "scripts": {
+    "postinstall": "mkdir .tmp_npm; cd .tmp_npm; git init; git remote add -f origin https://github.com/gs-gs/veramo.git; git pull --depth=1 origin vc-v2; pnpm install --ignore-scripts; pnpm build;",
     "build": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --experimental-json-modules\" pnpm build:js && pnpm build:api && pnpm build:schema",
     "build:js": "pnpm -r --stream build",
     "build:api": "pnpm --package=@vckit/cli -c dlx \"pnpm -r --stream extract-api\"",

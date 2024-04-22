@@ -16,6 +16,7 @@
     "agent-explore": "./bin/bin.js"
   },
   "scripts": {
+    "postinstall": "pnpm add --ignore-scripts ../../.tmp_npm/packages/credential-w3c/",
     "dev": "craco start",
     "build": "pnpm run build:explorer",
     "build:explorer": "craco build",
@@ -133,7 +134,7 @@
     "@veramo/core": "5.5.3",
     "@veramo/core-types": "5.5.3",
     "@veramo/credential-eip712": "5.5.3",
-    "@veramo/credential-w3c": "5.5.3",
+    "@veramo/credential-w3c": "link:../../.tmp_npm/packages/credential-w3c",
     "@veramo/data-store": "5.5.3",
     "@veramo/data-store-json": "5.5.3",
     "@veramo/did-comm": "5.5.3",
