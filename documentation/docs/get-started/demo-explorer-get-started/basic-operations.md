@@ -4,8 +4,8 @@ sidebar_position: 3
 ---
 # Basic Operations
 
-## Create an indentifier
-First of all, you need to create an **indentifier**. To do it, visit this URL `http://localhost:3000/managed-identifiers`.
+## Create an identifier
+First of all, you need to create an **identifier**. To do it, visit this URL [`http://localhost:3000/managed-identifiers`](http://localhost:3000/managed-identifiers).
 ### Step 1
 Click **Create New Identifier** button.
 
@@ -21,7 +21,7 @@ Here's the identifier you just created, you can click **copy** button to copy th
 ![create identifier 3](/img/create-identifier-3.png)
 
 ## Issue a Verifiable Credential
-Visit this URL `http://localhost:3000/developer/credential-from-schema` to issue a VC.
+Visit this URL [`http://localhost:3000/developer/credential-from-schema`](http://localhost:3000/developer/credential-from-schema) to issue a VC.
 
 ### Step 1
 1. Select the VC schema from the dropdown.
@@ -33,23 +33,27 @@ Visit this URL `http://localhost:3000/developer/credential-from-schema` to issue
 ![issue credential](/img/issue-credential.png)
 
 ### Step 2
-Go to **Credential** page to see the list of issued VC. Here you can download the VC, and verify it in the next step.
+Go to [**Credential**](http://localhost:3000/credentials) page to see the list of issued VC. Here you can download the VC, and verify it in the next step.
 
-![issue credential 3](/img/issue-credential-3.png)
+![issue credential 3](/img/issue-credential-2.png)
 
-You can also see the details of the VC. At Rendered tab, you can see the rendered version of it, this is made by the Renderer plugin of VCKit.
+You can also see the details of the VC. At Rendered tab, you can see the rendered version of it, this is made by the [Renderer](https://www.npmjs.com/package/@vckit/renderer) plugin of VCKit.
+
+:::note
+The QR code won't work due to being on localhost, and it's not a result of rendering.
+:::
 
 ![issue credential 4](/img/issue-credential-4.png)
 
 ## Verify a VC
-Go to **Credential verifier** page to verify a VC. You can upload the VC that you downloaded previously here to verify it.
+Go to [**Credential verifier**](http://localhost:3000/credential-verifier) page to verify a VC. You can upload the VC that you downloaded previously here to verify it.
 This is the expected result.
 
 ![verify vc](/img/verify-vc.png)
 
 ## Revoke a VC
 To revoke a VC, do these steps:
-1. Go to **Credentials** page.
+1. Go to [**Credential**](http://localhost:3000/credentials) page.
 2. Select the VC that you want to revoke.
 3. Select tab **Info**
 4. Scroll to the bottom of the page, and click **Revoke**

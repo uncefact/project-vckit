@@ -6,18 +6,7 @@ sidebar_position: 3
 :::info
 Please note that this content is still under development
 :::
-## Start using the VCKit CLI
-Create a new folder, open a terminal, and run this command to check if the VCKit CLI has been installed successfully.
-```bash
-vckit -v
-```
-It's expected to show the version of VCKit CLI.
 
-Next, run this command to create an **`agent.yml`** file.
-
-```bash
-vckit config create 
-```
 ## Create an identifer
 Run this command, and follow the instruction to create an identifier.
 ```bash

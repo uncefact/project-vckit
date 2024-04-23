@@ -21,17 +21,40 @@ Let's install the dependencies of this project by running this command.
 ```bash
 cd project-vckit & pnpm install
 ```
+...then run this command to build the project
+
+```bash
+pnpm build
+```
 ## Initialize the agent configuration
+:::tip
+To understand more about the agent file structure and how to config it, read [here](/docs/agent-configuration/config-agent-file).
+:::
+The `pnpm vckit config` command will create a `agent.yml` file in the root of the project. This file contains the configuration for the Veramo agent. You can edit this file to configure the agent to your needs. The default configuration is sufficient to get started.
+
 ```bash
 pnpm vckit config
 ```
-The `pnpm vckit config` command will create a `agent.yml` file in the root of the project. This file contains the configuration for the Veramo agent. You can edit this file to configure the agent to your needs. The default configuration is sufficient to get started.
+After run this command, you will have an `agent.yml` file in your root directory. You need to change the default **infuraProjectId** and **dbEncryptionKey** by yours. To generate those things, follow this.
+
+**1. Infura Project ID**
+
+To create your own Infura Project ID, visit https://www.infura.io and follow the instruction.
+
+**2. Generate secret key**
+
+You need to generate an X25519 key, run this command in a terminal:
+```bash
+veramo config gen-key
+```
+
+
 
 ## Start the local server
 ```bash
 pnpm vckit server
 ```
-Now you can check the api documentation at http://localhost:3332/api-docs
+Now you can check the api documentation at [http://localhost:3332/api-docs](http://localhost:3332/api-docs)
 
 
 
