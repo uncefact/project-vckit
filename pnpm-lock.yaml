@@ -268,14 +268,14 @@ importers:
         specifier: 5.5.3
         version: 5.5.3
       '@veramo/credential-ld':
-        specifier: link:../../.tmp_npm/packages/credential-ld
-        version: link:../../.tmp_npm/packages/credential-ld
+        specifier: link:../../.tmp_npm/veramo/packages/credential-ld
+        version: link:../../.tmp_npm/veramo/packages/credential-ld
       '@veramo/credential-status':
-        specifier: 5.5.3
-        version: 5.5.3
+        specifier: link:../../.tmp_npm/veramo/packages/credential-status
+        version: link:../../.tmp_npm/veramo/packages/credential-status
       '@veramo/credential-w3c':
-        specifier: link:../../.tmp_npm/packages/credential-w3c
-        version: link:../../.tmp_npm/packages/credential-w3c
+        specifier: link:../../.tmp_npm/veramo/packages/credential-w3c
+        version: link:../../.tmp_npm/veramo/packages/credential-w3c
       '@veramo/data-store':
         specifier: 5.5.3
         version: 5.5.3(pg@8.11.5)(sqlite3@5.1.7)(ts-node@10.9.2)
@@ -498,8 +498,8 @@ importers:
         specifier: workspace:^
         version: link:../core-types
       '@veramo/credential-ld':
-        specifier: link:../../.tmp_npm/packages/credential-ld
-        version: link:../../.tmp_npm/packages/credential-ld
+        specifier: link:../../.tmp_npm/veramo/packages/credential-ld
+        version: link:../../.tmp_npm/veramo/packages/credential-ld
       '@veramo/utils':
         specifier: 5.5.3
         version: 5.5.3
@@ -578,8 +578,8 @@ importers:
         specifier: workspace:^
         version: link:../credential-oa
       '@veramo/credential-w3c':
-        specifier: link:../../.tmp_npm/packages/credential-w3c
-        version: link:../../.tmp_npm/packages/credential-w3c
+        specifier: link:../../.tmp_npm/veramo/packages/credential-w3c
+        version: link:../../.tmp_npm/veramo/packages/credential-w3c
 
   packages/demo-explorer:
     dependencies:
@@ -729,8 +729,8 @@ importers:
         specifier: 5.5.3
         version: 5.5.3
       '@veramo/credential-w3c':
-        specifier: link:../../.tmp_npm/packages/credential-w3c
-        version: link:../../.tmp_npm/packages/credential-w3c
+        specifier: link:../../.tmp_npm/veramo/packages/credential-w3c
+        version: link:../../.tmp_npm/veramo/packages/credential-w3c
       '@veramo/data-store':
         specifier: 5.5.3
         version: 5.5.3(pg@8.11.5)(sqlite3@5.1.7)(ts-node@10.9.2)
@@ -906,11 +906,11 @@ importers:
         specifier: 5.5.3
         version: 5.5.3
       '@veramo/credential-ld':
-        specifier: link:../../.tmp_npm/packages/credential-ld
-        version: link:../../.tmp_npm/packages/credential-ld
+        specifier: link:../../.tmp_npm/veramo/packages/credential-ld
+        version: link:../../.tmp_npm/veramo/packages/credential-ld
       '@veramo/credential-w3c':
-        specifier: link:../../.tmp_npm/packages/credential-w3c
-        version: link:../../.tmp_npm/packages/credential-w3c
+        specifier: link:../../.tmp_npm/veramo/packages/credential-w3c
+        version: link:../../.tmp_npm/veramo/packages/credential-w3c
       '@veramo/data-store':
         specifier: 5.5.3
         version: 5.5.3(pg@8.11.5)(sqlite3@5.1.7)(ts-node@10.9.2)
@@ -1280,8 +1280,8 @@ importers:
         specifier: workspace:^
         version: link:../renderer
       '@veramo/credential-ld':
-        specifier: link:../../.tmp_npm/packages/credential-ld
-        version: link:../../.tmp_npm/packages/credential-ld
+        specifier: link:../../.tmp_npm/veramo/packages/credential-ld
+        version: link:../../.tmp_npm/veramo/packages/credential-ld
       '@veramo/data-store':
         specifier: 5.5.3
         version: 5.5.3(pg@8.11.5)(sqlite3@5.1.7)(ts-node@10.9.2)
@@ -13036,19 +13036,6 @@ packages:
       - react-native
       - supports-color
       - web-streams-polyfill
-    dev: false
-
-  /@veramo/credential-status@5.5.3:
-    resolution: {integrity: sha512-nfGYNhsWdKAcvvw0uyaRa6nlgZ5csoTdSQ0at7w4pbrPENyApPlsJAy5ol6sCWASIE6C5mZhyN3eas1Pk3ELGQ==}
-    dependencies:
-      '@veramo/core-types': 5.5.3
-      '@veramo/utils': 5.5.3
-      credential-status: 2.0.6
-      did-jwt: 7.4.7
-      did-resolver: 4.1.0
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
     dev: false
 
   /@veramo/credential-w3c@5.5.3(expo@50.0.17)(react-native@0.73.6):

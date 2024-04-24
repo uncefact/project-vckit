@@ -27,7 +27,7 @@
     "url": "git+https://github.com/uncefact/project-vckit.git"
   },
   "scripts": {
-    "postinstall": "pnpm add --ignore-scripts ../../.tmp_npm/packages/credential-w3c/",
+    "postinstall": "pnpm add --ignore-scripts ../../.tmp_npm/veramo/packages/credential-w3c/",
     "build": "tsc",
     "watch": "tsc -b --watch",
     "extract-api": "node ../cli/bin/vckit.js dev extract-api"
@@ -39,7 +39,7 @@
     "@vckit/core-types": "workspace:^",
     "@vckit/credential-merkle-disclosure-proof": "workspace:^",
     "@vckit/credential-oa": "workspace:^",
-    "@veramo/credential-w3c": "link:../../.tmp_npm/packages/credential-w3c"
+    "@veramo/credential-w3c": "link:../../.tmp_npm/veramo/packages/credential-w3c"
   },
   "publishConfig": {
     "access": "public"

@@ -9,7 +9,7 @@
   },
   "types": "build/index.d.ts",
   "scripts": {
-    "postinstall": "pnpm add --ignore-scripts ../../.tmp_npm/packages/credential-ld/",
+    "postinstall": "pnpm add --ignore-scripts ../../.tmp_npm/veramo/packages/credential-ld/",
     "build": "tsc",
     "watch": "tsc -b --watch"
   },
@@ -24,7 +24,7 @@
     "@transmute/json-web-signature": "0.7.0-unstable.82",
     "@transmute/merkle-proof": "0.7.0-unstable.82",
     "@vckit/core-types": "workspace:^",
-    "@veramo/credential-ld": "link:../../.tmp_npm/packages/credential-ld",
+    "@veramo/credential-ld": "link:../../.tmp_npm/veramo/packages/credential-ld",
     "@veramo/utils": "5.5.3",
     "debug": "^4.3.4",
     "flat": "5.0.2",
