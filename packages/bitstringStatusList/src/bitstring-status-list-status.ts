@@ -95,21 +95,6 @@ export async function checkStatus(credential: IVerifiableCredentialJSONOrJWT) {
     statusEntryArray = statusEntry;
   }
 
-  // retrieve SL VC
-  let slCredential;
-  try {
-    ({ document: slCredential } = await documentLoader(
-      statusEntry.statusListCredential,
-    ));
-  } catch (e) {
-    const err = new Error(
-      'Could not load "BitstringStatusListCredential"; ' +
-        `reason: ${e.message}`,
-    );
-    err.cause = e;
-    throw err;
-  }
-
   return _checkStatuses(issuer, statusEntryArray);
 }
 

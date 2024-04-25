@@ -119,13 +119,11 @@ export class BitstringStatusListEntryStore {
         id: bitstringStatusListUrl,
         list,
         statusPurpose,
-        // context: VC_BSL_VC_V2_CONTEXT,
+        context: VC_BSL_VC_V2_CONTEXT,
       });
 
       // @ts-ignore
       credentialList.issuer = bitstringStatusIssuer;
-      // TODO: Support context V2
-      credentialList['@context'] = [];
 
       // Issue bitstring status list VC
       const bitstringStatusList = await context.agent.execute(
