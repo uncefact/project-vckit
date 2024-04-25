@@ -79,7 +79,7 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
   }
 
   const checkVCStatus = async (args: { hash: string }) => {
-    const { revoked: vcRevoked } = await agent?.checkStatus(args)
+    const { revoked: vcRevoked } = await agent?.checkRevocationStatus(args)
 
     setRevoked(vcRevoked || false)
   }

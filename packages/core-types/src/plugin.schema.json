@@ -6345,6 +6345,29 @@
           "required": [
             "revocationVCIssuer"
           ]
+        },
+        "IRevocationStatus": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "revocationListIndex": {
+              "type": "number"
+            },
+            "revocationListCredential": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "revocationListIndex",
+            "revocationListCredential"
+          ]
         }
       },
       "methods": {
@@ -6357,22 +6380,13 @@
             "$ref": "#/components/schemas/CredentialStatus"
           }
         },
-        "checkStatus": {
+        "checkRevocationStatus": {
           "description": "",
           "arguments": {
             "$ref": "#/components/schemas/IHashCredentialArgs"
           },
           "returnType": {
             "$ref": "#/components/schemas/CredentialStatus"
-          }
-        },
-        "getRevocationData": {
-          "description": "",
-          "arguments": {
-            "$ref": "#/components/schemas/IRevocationListDataArgs"
-          },
-          "returnType": {
-            "type": "object"
           }
         },
         "getRevocationListVC": {
@@ -6382,6 +6396,15 @@
           },
           "returnType": {
             "type": "object"
+          }
+        },
+        "issueRevocationStatusList": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IRevocationListDataArgs"
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/IRevocationStatus"
           }
         },
         "revokeCredential": {

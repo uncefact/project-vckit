@@ -30,10 +30,23 @@ export interface IHashCredentialArgs {
 /**
  * @public
  */
+export interface IRevocationStatus {
+  id: string;
+  type: string;
+  revocationListIndex: number;
+  revocationListCredential: string;
+}
+
+/**
+ * @public
+ */
 export interface IRevocationList2020 extends IPluginMethodMap {
-  getRevocationData(args: IRevocationListDataArgs): Promise<any>;
+  issueRevocationStatusList(
+    args: IRevocationListDataArgs,
+    context: { agent?: IAgent },
+  ): Promise<IRevocationStatus>;
   getRevocationListVC(revocationListFullUrlPath: string): Promise<any>;
-  checkStatus(
+  checkRevocationStatus(
     args: IHashCredentialArgs,
     context: { agent?: IAgent },
   ): Promise<CredentialStatus>;
