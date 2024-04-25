@@ -11,6 +11,7 @@ You can find the complete source code of this tutorial [here](#)
 * You need to have Node v14 or later installed.
 * This guide uses npm as the package manager but you can use yarn or anything else.
 * You will need to get a project ID from infura https://www.infura.io
+* Make sure you have the [VCKit API server](/docs/category/api-server) started.
 
 ## Create a new project
 Let's start by creating a new project

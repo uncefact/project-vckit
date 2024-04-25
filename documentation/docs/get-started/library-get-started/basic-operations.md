@@ -13,7 +13,7 @@ In this guide we use **did:web** as the did method, you can use other method by 
 :::
 
 :::tip
-To have your own a **did:web**, you can follow this [instruction](#) 
+To have your own a **did:web**, you can follow this [instruction](/docs/get-started/demo-explorer-get-started/basic-operations#create-an-identifier) 
 :::
 <!-- Todo: add creating did:web intruction -->
 

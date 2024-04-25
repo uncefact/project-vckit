@@ -5,6 +5,10 @@ The diagram belows describes the structure of an agent file
 
 ![agent file diagram](/img/agent-file.svg)
 
+:::tip
+For more information about yml configuration, you can see [here](https://veramo.io/docs/veramo_agent/configuration_internals)
+:::
+
 ## Constants
 This section is to declare all the constants of the agent.
 
@@ -23,6 +27,12 @@ constants:
 * `databaseFile`: This specifies the path to the SQLite database file.
 * `methods`: This specifies the functions that are exposed by the plugins integrated within the agent
 ## Database connection
+### **`$require` syntax**
+Example:
+`$require: '@veramo/data-store?t=object#migrations'`
+* `@veramo/data-store` - Module name
+* `t=object` - Optional. Type can be `function`, `object`, `class`. Default is `class`
+* `#migrations` - Imported symbol name
 This section is to declare all of the database connections that are used by the agent plugins. Below is a declaration of a database connection.
 
 ```yml

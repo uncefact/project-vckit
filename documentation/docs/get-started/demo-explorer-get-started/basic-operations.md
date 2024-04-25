@@ -3,7 +3,9 @@ sidebar_label: 'Basic Operations'
 sidebar_position: 3
 ---
 # Basic Operations
-
+:::info
+To try this locally, you need to create a secure tunnel to your `localhost:3332`. You can use **ngrok** to do this.
+:::
 ## Create an identifier
 First of all, you need to create an **identifier**. To do it, visit this URL [`http://localhost:3000/managed-identifiers`](http://localhost:3000/managed-identifiers).
 ### Step 1
@@ -11,7 +13,7 @@ Click **Create New Identifier** button.
 
 ![create identifier](/img/create-identifier.png)
 ### Step 2
-Give it an example alias, and select the did type, in this case we use did:key. Then click **Save**
+Give it an example alias, in this case it's the **ngrok** custom domain which is connected to `localhost:3332`. Then select the did type, in this case we use **did:web**. Then click **Save**
 
 ![create identifier 2](/img/create-identifier-2.png)
 
