@@ -7,6 +7,9 @@ import multihashes from 'multihashes';
  * @returns The hash of the template as a multibase encoded string.
  */
 export const computeHash = (content: string): string => {
+  if (!content) {
+    throw new Error('Content is required');
+  }
   // Create a SHA-256 hash of the template
   const hash = crypto.createHash('sha256').update(content).digest();
 
@@ -16,5 +19,7 @@ export const computeHash = (content: string): string => {
   // Encode the multihash using multibase with the prefix 'z'
   const multibaseEncodedHash = multihashes.toB58String(multihash);
 
-  return multibaseEncodedHash;
+  // Add prefix 'z' to the multibase encoded hash
+  const multibaseEncodedHashWithPrefix = `z${multibaseEncodedHash}`;
+  return multibaseEncodedHashWithPrefix;
 };
