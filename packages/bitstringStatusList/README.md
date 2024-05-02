@@ -12,12 +12,6 @@ Add the plugin to your agent:
 dbConnectionBitstringStatusList:
   $require: typeorm#DataSource
   $args:
-    # - type: postgres
-    #   database: vckit
-    #   host: localhost
-    #   port: 5432,
-    #   username: postgres
-    #   password: postgres
     - type: sqlite
       database:
         $ref: /constants/databaseFile
@@ -73,6 +67,7 @@ server:
 constants:
   ...
   methods:
+    ...
     - issueBitstringStatusList
     - checkBitstringStatus
     - setBitstringStatus
