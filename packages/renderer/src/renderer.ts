@@ -12,8 +12,10 @@ import {
   IRenderResult,
   UnsignedCredential,
   IRenderer,
+  IWebRenderer2024Provider
 } from '@vckit/core-types';
 import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
+import { url } from 'inspector';
 
 export const RENDER_METHOD = 'https://www.w3.org/2018/credentials#renderMethod';
 
@@ -51,7 +53,7 @@ export class Renderer implements IAgentPlugin {
   }
 
   private getProvider(name: string): IRendererProvider {
-    let provider: IRendererProvider | undefined =
+    let provider: IRendererProvider | IWebRenderer2024Provider | undefined =
       this.providers[name] ||
       (this.defaultProvider && this.providers[this.defaultProvider]);
     if (!provider) {
@@ -72,7 +74,7 @@ export class Renderer implements IAgentPlugin {
     context?: IRendererContext
   ): Promise<IRenderResult> {
     try {
-      const renderMethods: RenderMethodPayload[] | [] = [];
+      let renderMethods: RenderMethodPayload[] | [] = [];
 
       // const [expandedDocument] = await expandVerifiableCredential(
       //   args.credential
@@ -82,28 +84,40 @@ export class Renderer implements IAgentPlugin {
 
       // TODO: There's an issue with W3 availability causing the fetching of some W3 context files to fail. Since we know the exact location of the template we can bypass the JSONLD expansion. This is a temporary workaround.
 
-      const render = args.credential.render;
+      const render = args.credential.render || args.credential.renderMethod;
       if (!Array.isArray(render)) {
         throw new Error('Render method not found in the verifiable credential');
       }
 
-      const template = render[0]?.template;
-      const type = render[0]?.['@type'];
-      if (!template || !type) {
-        throw new Error('Render method must have template and @type.');
-      }
+      // const template = render[0]?.template;
+      // const type = render[0]?.['@type'];
+      // if (!template || !type) {
+      //   throw new Error('Render method must have template and @type.');
+      // }
 
-      renderMethods[0] = {
-        template,
-        '@type': type,
-      };
+      renderMethods = render.map((r) => {
+        return { 
+          template: r.template, 
+          '@type': r['@type'] || r.type,
+          url: r.url,
+          digestMultibase: r.digestMultibase,
+        };
+      
+      })
+      // renderMethods[0] = {
+      //   template,
+      //   '@type': type,
+      // };
 
       const documents = await Promise.all(
         renderMethods.map(async (renderMethod) => {
           const rendererProvider = this.getProvider(renderMethod['@type']);
+          console.log('rendererProvider:',rendererProvider);
           const document = await rendererProvider.renderCredential(
             renderMethod.template,
-            args.credential
+            args.credential,
+            renderMethod.url,
+            renderMethod.digestMultibase,
           );
           return convertToBase64(document);
         })

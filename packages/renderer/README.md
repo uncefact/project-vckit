@@ -10,7 +10,13 @@ To implement a new render provider, follow these steps:
 
 2. Save the provider file in the `packages/renderer/src/providers` folder, using a name that corresponds to the render type. For example, if you want to implement a provider for `WebRenderingTemplate2022`, name the provider file as `web-rendering-template-2022.ts`.
 
-3. Add the provider to the agent.yml file, as shown in the following example:
+3. Delete  `tsconfig.tsbuildinfo` and run build the plugin by running this command 
+```bash
+pnpm build
+```
+To test it locally, you need to restart your vckit server.
+
+4. Add the provider to the agent.yml file, as shown in the following example:
 
 ```yaml
 renderer:
