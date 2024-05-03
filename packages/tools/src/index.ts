@@ -1,1 +1,1 @@
-export { MultibaseEncodedSHA256 } from './multibase-encoded-256.js';
+export { MultibaseEncodedSHA256 } from './hash/multibase-encoded-256.js';
