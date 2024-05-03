@@ -6739,5 +6739,21 @@
         }
       }
     }
+  },
+  "ITools": {
+    "components": {
+      "schemas": {},
+      "methods": {
+        "encryptHash": {
+          "description": "",
+          "arguments": {
+            "type": "string"
+          },
+          "returnType": {
+            "type": "string"
+          }
+        }
+      }
+    }
   }
 }

@@ -198,6 +198,9 @@ importers:
       '@vckit/revocationlist':
         specifier: workspace:^
         version: link:../revocation-list-2020
+      '@vckit/tools':
+        specifier: workspace:^
+        version: link:../tools
       '@vckit/utils':
         specifier: workspace:^
         version: link:../utils
@@ -997,6 +1000,15 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
+  packages/hashing-tools:
+    dependencies:
+      '@vckit/core-types':
+        specifier: workspace:1.0.0-beta.7
+        version: link:../core-types
+      multihashes:
+        specifier: ^4.0.3
+        version: 4.0.3
+
   packages/oauth-middleware:
     dependencies:
       express:
@@ -1247,6 +1259,18 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
 
+  packages/tools:
+    dependencies:
+      '@vckit/core-types':
+        specifier: workspace:1.0.0-beta.7
+        version: link:../core-types
+      multiformats:
+        specifier: ^13.1.0
+        version: 13.1.0
+      multihashes:
+        specifier: ^4.0.3
+        version: 4.0.3
+
   packages/utils:
     dependencies:
       express:
@@ -1473,6 +1497,12 @@ importers:
       whatwg-fetch:
         specifier: ^3.6.2
         version: 3.6.20
+
+  packages/vckit-tools:
+    dependencies:
+      multihashes:
+        specifier: ^4.0.3
+        version: 4.0.3
 
 packages:
 
@@ -12111,6 +12141,7 @@ packages:
 
   /@types/minimatch@5.1.2:
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
+    requiresBuild: true
     dev: true
 
   /@types/minimist@1.2.5:
@@ -27877,6 +27908,10 @@ packages:
 
   /multiformats@13.0.0:
     resolution: {integrity: sha512-xiIB0p7EKmETm3wyKedOg/xuyQ18PoWwXCzzgpZAiDxL9ktl3XTh8AqoDT5kAqRg+DU48XAGPsUJL2Rn6Bx3Lw==}
+
+  /multiformats@13.1.0:
+    resolution: {integrity: sha512-HzdtdBwxsIkzpeXzhQ5mAhhuxcHbjEHH+JQoxt7hG/2HGFjjwyolLo7hbaexcnhoEuV4e0TNJ8kkpMjiEYY4VQ==}
+    dev: false
 
   /multiformats@9.9.0:
     resolution: {integrity: sha512-HoMUjhH9T8DDBNT+6xzkrd9ga/XiBI4xLr58LJACwK6G3HTOPeMz4nB4KJs33L2BelrIJa7P0VuNaVF3hMYfjg==}

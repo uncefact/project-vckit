@@ -1,0 +1,17 @@
+{
+  "name": "@vckit/tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vckit/core-types": "workspace:1.0.0-beta.7",
+    "multiformats": "^13.1.0",
+    "multihashes": "^4.0.3"
+  }
+}
