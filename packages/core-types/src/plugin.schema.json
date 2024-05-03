@@ -6744,7 +6744,7 @@
     "components": {
       "schemas": {},
       "methods": {
-        "encryptHash": {
+        "computeHash": {
           "description": "",
           "arguments": {
             "type": "string"

@@ -2,7 +2,19 @@
   "name": "@vckit/tools",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "exports": {
+    ".": "./build/index.js"
+  },
+  "files": [
+    "build/**/*",
+    "src/**/*",
+    "plugin.schema.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -b --watch"

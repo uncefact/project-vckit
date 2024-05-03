@@ -1000,15 +1000,6 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  packages/hashing-tools:
-    dependencies:
-      '@vckit/core-types':
-        specifier: workspace:1.0.0-beta.7
-        version: link:../core-types
-      multihashes:
-        specifier: ^4.0.3
-        version: 4.0.3
-
   packages/oauth-middleware:
     dependencies:
       express:
@@ -1267,18 +1258,12 @@ importers:
       multiformats:
         specifier: ^13.1.0
         version: 13.1.0
-      multihashes:
-        specifier: ^4.0.3
-        version: 4.0.3
 
   packages/utils:
     dependencies:
       express:
         specifier: ^4.18.2
         version: 4.18.2(supports-color@6.1.0)
-      multihashes:
-        specifier: ^4.0.3
-        version: 4.0.3
       winston:
         specifier: ^3.11.0
         version: 3.11.0
@@ -1497,12 +1482,6 @@ importers:
       whatwg-fetch:
         specifier: ^3.6.2
         version: 3.6.20
-
-  packages/vckit-tools:
-    dependencies:
-      multihashes:
-        specifier: ^4.0.3
-        version: 4.0.3
 
 packages:
 
@@ -27916,15 +27895,6 @@ packages:
   /multiformats@9.9.0:
     resolution: {integrity: sha512-HoMUjhH9T8DDBNT+6xzkrd9ga/XiBI4xLr58LJACwK6G3HTOPeMz4nB4KJs33L2BelrIJa7P0VuNaVF3hMYfjg==}
 
-  /multihashes@4.0.3:
-    resolution: {integrity: sha512-0AhMH7Iu95XjDLxIeuCOOE4t9+vQZsACyKZ9Fxw2pcsRmlX4iCn1mby0hS0bb+nQOVpdQYWPpnyusw4da5RPhA==}
-    engines: {node: '>=12.0.0', npm: '>=6.0.0'}
-    dependencies:
-      multibase: 4.0.6
-      uint8arrays: 3.1.1
-      varint: 5.0.2
-    dev: false
-
   /multimatch@4.0.0:
     resolution: {integrity: sha512-lDmx79y1z6i7RNx0ZGCPq1bzJ6ZoDDKbvh7jxr9SJcWLkShMzXrHbYVpTdnhNM5MXpDUxCQ4DgqVttVXlBgiBQ==}
     engines: {node: '>=8'}
@@ -37527,10 +37497,6 @@ packages:
   /validator@13.11.0:
     resolution: {integrity: sha512-Ii+sehpSfZy+At5nPdnyMhx78fEoPDkR2XW/zimHEL3MyGJQOCQ7WeP20jPYRz7ZCpcKLB21NxuXHF3bxjStBQ==}
     engines: {node: '>= 0.10'}
-
-  /varint@5.0.2:
-    resolution: {integrity: sha512-lKxKYG6H03yCZUpAGOPOsMcGxd1RHCu1iKvEHYDPmTyq2HueGhD73ssNBqqQWfvYs04G9iUFRvmAVLW20Jw6ow==}
-    dev: false
 
   /varint@6.0.0:
     resolution: {integrity: sha512-cXEIW6cfr15lFv563k4GuVuW/fiwjknytD37jIOLSdSWuOI6WnO/oKwmP2FQTU2l01LP8/M5TSAJpzUaGe3uWg==}
