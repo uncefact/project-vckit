@@ -74,6 +74,7 @@ constants:
     - checkStatus
     - routeCreationVerifiableCredential
     - routeVerificationCredential
+    - computeHash
 
 # Data base
 dbConnection:
@@ -447,3 +448,4 @@ agent:
           $args:
             - BitstringStatusListEntry:
                 $require: '@vckit/bitstringStatusList?t=object#checkStatus'
+        - $require: '@vckit/tools#MultibaseEncodedSHA256'

@@ -33,3 +33,4 @@ export * from './types/IEncryptedStorage.js';
 export * from './types/IRevocationList2020.js';
 export * from './types/ICredentialRouter.js';
 export * from './types/IBitstringStatusList.js';
+export * from './types/ITools.js';

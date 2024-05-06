@@ -52,6 +52,7 @@
     "@vckit/revocationlist": "workspace:^",
     "@vckit/utils": "workspace:^",
     "@vckit/vc-api": "workspace:1.0.0-beta.7",
+    "@vckit/tools": "workspace:^",
     "@veramo/core": "5.5.3",
     "@veramo/credential-eip712": "5.5.3",
     "@veramo/credential-ld": "link:../../.tmp_npm/veramo/packages/credential-ld",
