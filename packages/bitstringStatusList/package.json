@@ -1,8 +1,7 @@
 {
-  "name": "@vckit/revocationlist",
-  "version": "1.0.0-beta.7",
-  "description": "To encrypt the data and store to the database.",
-  "author": "Nam Hoang <hoangxuannam160493@gmail.com>",
+  "name": "@vckit/bitstringStatusList",
+  "version": "1.0.0",
+  "description": "Using Bitstring to represent status list for revocation VC",
   "homepage": "https://github.com/uncefact/project-vckit#readme",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -11,13 +10,14 @@
     "./build/plugin.schema.json": "./build/plugin.schema.json"
   },
   "scripts": {
-    "postinstall": "pnpm add --ignore-scripts ../../.tmp_npm/veramo/packages/credential-ld/",
+    "postinstall": "pnpm add --ignore-scripts ../../.tmp_npm/veramo/packages/credential-w3c/ ../../.tmp_npm/veramo/packages/credential-ld/ ../../.tmp_npm/veramo/packages/credential-status/",
     "build": "tsc",
     "extract-api": "node ../cli/bin/vckit.js dev extract-api",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js  -d ./build/data-source.js"
   },
-  "license": "Apache-2.0",
   "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
   "type": "module",
   "moduleDirectories": [
     "node_modules",
@@ -37,28 +37,23 @@
     "url": "https://github.com/uncefact/project-vckit/issues"
   },
   "dependencies": {
-    "@digitalbazaar/vc": "^6.2.0",
-    "@govtechsg/oa-encryption": "^1.3.5",
+    "@digitalbazaar/vc-bitstring-status-list": "github:gs-gs/vc-bitstring-status-list",
     "@transmute/did-context": "0.7.0-unstable.82",
     "@transmute/did-key.js": "0.3.0-unstable.10",
     "@transmute/did-web": "0.7.0-unstable.82",
-    "@transmute/ed25519-signature-2018": "0.7.0-unstable.82",
-    "@transmute/json-web-signature": "0.7.0-unstable.82",
     "@transmute/vc-status-rl-2020": "0.7.0-unstable.82",
-    "@vckit/core-types": "workspace:^",
-    "@vckit/renderer": "workspace:^",
+    "@vckit/core-types": "workspace:*",
+    "@vckit/credential-router": "workspace:*",
+    "@veramo/core": "5.5.3",
     "@veramo/credential-ld": "link:../../.tmp_npm/veramo/packages/credential-ld",
-    "@veramo/data-store": "5.5.3",
+    "@veramo/credential-status": "link:../../.tmp_npm/veramo/packages/credential-status",
+    "@veramo/credential-w3c": "link:../../.tmp_npm/veramo/packages/credential-w3c",
+    "@veramo/did-provider-key": "5.5.3",
+    "@veramo/did-resolver": "5.5.3",
     "@veramo/utils": "5.5.3",
-    "credential-status": "^2.0.6",
-    "dotenv": "^16.3.1",
-    "express-interceptor": "^1.2.0",
-    "jsonld-signatures": "^11.2.1",
-    "typeorm": "^0.3.19",
-    "uuid": "^9.0.1",
-    "vc-revocation-list-context": "^1.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
+    "credential-status": "^2.0.5",
+    "did-jwt": "^7.4.7",
+    "typeorm": "^0.3.10",
+    "uuid": "^9.0.0"
   }
 }

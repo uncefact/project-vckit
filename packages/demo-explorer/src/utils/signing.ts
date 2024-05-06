@@ -1,6 +1,4 @@
 import { W3CVerifiableCredential, ProofFormat } from '@veramo/core'
-import { dropFields } from './helpers'
-import { is } from 'date-fns/locale'
 
 interface ICreateCredentialArgs {
   agent: any
@@ -29,7 +27,9 @@ const issueCredential = async (args: ICreateCredentialArgs) => {
     type,
     ...additionalProperties
   } = args
-  let context = ['https://www.w3.org/2018/credentials/v1']
+  const credentialStatus = await issueBitstringStatus(agent, issuer)
+
+  let context = ['https://www.w3.org/ns/credentials/v2']
   if (typeof customContext === 'string') {
     context = [...context, customContext]
   }
@@ -44,7 +44,7 @@ const issueCredential = async (args: ICreateCredentialArgs) => {
   if (Array.isArray(type)) {
     typeArr = [...typeArr, ...type]
   }
-  const credential = buildCredential(
+  let credential = buildCredential(
     {
       issuanceDate: new Date().toISOString(),
       '@context': context,
@@ -55,6 +55,10 @@ const issueCredential = async (args: ICreateCredentialArgs) => {
     issuer,
     additionalProperties,
   )
+
+  if (credentialStatus) {
+    credential = { ...credential, credentialStatus }
+  }
 
   let credentialObj: any = {
     credential,
@@ -77,7 +81,7 @@ const signVerifiablePresentation = async (
     presentation: {
       holder: did,
       verifier,
-      '@context': ['https://www.w3.org/2018/credentials/v1'],
+      '@context': ['https://www.w3.org/ns/credentials/v2'],
       verifiableCredential: selected,
     },
     proofFormat,
@@ -141,6 +145,18 @@ function buildCredential(
   } else {
     return { ..._credential, issuer }
   }
+}
+
+const issueBitstringStatus = async (agent: any, issuer: string) => {
+  if (typeof agent.issueBitstringStatusList === 'function') {
+    const credentialStatus = await agent?.issueBitstringStatusList({
+      statusPurpose: 'revocation',
+      bitstringStatusIssuer: issuer,
+    })
+
+    return credentialStatus
+  }
+  return null
 }
 
 export { claimToObject, issueCredential, signVerifiablePresentation }

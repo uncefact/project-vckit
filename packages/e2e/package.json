@@ -11,6 +11,7 @@
     "url": "git+https://github.com/uncefact/project-vckit.git"
   },
   "scripts": {
+    "postinstall": "pnpm add --ignore-scripts ../../.tmp_npm/veramo/packages/credential-w3c/ ../../.tmp_npm/veramo/packages/credential-ld/",
     "test:e2e": "NODE_OPTIONS=\"--experimental-vm-modules\" pnpm jest"
   },
   "bugs": {
@@ -20,8 +21,8 @@
     "@vckit/core-types": "workspace:^",
     "@vckit/credential-merkle-disclosure-proof": "workspace:^",
     "@veramo/core": "5.5.3",
-    "@veramo/credential-ld": "5.5.3",
-    "@veramo/credential-w3c": "5.5.3",
+    "@veramo/credential-ld": "link:../../.tmp_npm/veramo/packages/credential-ld",
+    "@veramo/credential-w3c": "link:../../.tmp_npm/veramo/packages/credential-w3c",
     "@veramo/data-store": "5.5.3",
     "@veramo/data-store-json": "5.5.3",
     "@veramo/did-comm": "5.5.3",
