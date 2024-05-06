@@ -6739,5 +6739,21 @@
         }
       }
     }
+  },
+  "ITools": {
+    "components": {
+      "schemas": {},
+      "methods": {
+        "computeHash": {
+          "description": "",
+          "arguments": {
+            "type": "string"
+          },
+          "returnType": {
+            "type": "string"
+          }
+        }
+      }
+    }
   }
 }

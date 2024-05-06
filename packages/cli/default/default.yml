@@ -74,6 +74,7 @@ constants:
     - checkStatus
     - routeCreationVerifiableCredential
     - routeVerificationCredential
+    - computeHash
 
 # Data base
 dbConnection:
@@ -417,3 +418,4 @@ agent:
           $args:
             - RevocationList2020Status:
                 $require: '@vckit/revocationlist?t=object#checkStatus'
+        - $require: '@vckit/tools#MultibaseEncodedSHA256'
