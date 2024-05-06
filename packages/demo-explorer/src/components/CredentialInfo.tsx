@@ -55,13 +55,17 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
   const revoke = async () => {
     setLoading(true)
     try {
-      if (credentialData?.credentialStatus?.type?.includes('RevocationList2020')) {
+      let vcRevoked = false;
+      if (credentialData?.credentialStatus?.type === 'RevocationList2020Status') {
         const { revoked } = await agent?.revokeCredential({ hash })
-        return setRevoked(revoked || false);
+        vcRevoked = revoked;
+      }
+      if (credentialData?.credentialStatus?.type === 'BitstringStatusListEntry') {
+        const revoked = await setBitstringStatus(true);
+        vcRevoked = revoked;
       }
       
-      const statusResult = await setBitstringStatus(true);
-      setRevoked(statusResult || false);
+      setRevoked(vcRevoked);
     } catch (e: any) {
       console.log(e)
       setErrorMessage(e.message + ' Please refresh the page and try again.')
@@ -73,13 +77,17 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
   const activate = async () => {
     setLoading(true)
     try {
-      if (credentialData?.credentialStatus?.type?.includes('RevocationList2020')) {
+      let vcRevoked = false;
+      if (credentialData?.credentialStatus?.type === 'RevocationList2020Status') {
         const { revoked } = await agent?.activateCredential({ hash })
-        return setRevoked(revoked || false)
+        vcRevoked = revoked;
       }
-      
-      const statusResult = await setBitstringStatus(false);
-      setRevoked(statusResult || false)
+      if (credentialData?.credentialStatus?.type === 'BitstringStatusListEntry') {
+        const revoked = await setBitstringStatus(false);
+        vcRevoked = revoked;
+      }
+    
+      setRevoked(vcRevoked)
     } catch (e: any) {
       console.log(e)
       setErrorMessage(e.message + ' Please refresh the page and try again.')
@@ -91,13 +99,17 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
   const checkVCStatus = async (args: { hash: string }) => {
     setLoading(true)
     try {
-      if (credentialData?.credentialStatus?.type?.includes('RevocationList2020')) {
+      let vcRevoked = false;
+      if (credentialData?.credentialStatus?.type === 'RevocationList2020Status') {
         const { revoked } = await agent?.checkRevocationStatus(args);
-        return setRevoked(revoked || false)
+        vcRevoked = revoked;
       }
-  
-      const { revoked } = await agent?.checkBitstringStatus({ verifiableCredential: credentialData });
-      setRevoked(revoked || false)
+      if (credentialData?.credentialStatus?.type === 'BitstringStatusListEntry') {
+        const { revoked } = await agent?.checkBitstringStatus({ verifiableCredential: credentialData });
+        vcRevoked = revoked;
+      }
+    
+      setRevoked(vcRevoked)
     } catch (e: any) {
       console.log(e)
       setErrorMessage(e.message + ' Please refresh the page and try again.')
