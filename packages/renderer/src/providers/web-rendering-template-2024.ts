@@ -31,10 +31,11 @@ export class WebRenderingTemplate2024 implements IRendererProvider {
         } catch (error) {
           console.error(`Failed to fetch from ${url}:`, error);
         }
-      } else if (template) {
+      }  
+      if (template && svgTemplate === '') {
         svgTemplate = template;
       } else {
-        return('<p style="color: red">Error: No template provided</p>');
+        return('<p style="color: red">Error: Failed to fetch template or no template provided</p>');
       }
       // verify the template
       if (

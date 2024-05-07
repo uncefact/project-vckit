@@ -11,7 +11,7 @@ describe('WebRenderingTemplate2024', () => {
     const result = await renderer.renderCredential({});
 
     expect(result).toBe(
-      '<p style="color: red">Error: No template provided</p>',
+      '<p style="color: red">Error: Failed to fetch template or no template provided</p>',
     );
   });
 
