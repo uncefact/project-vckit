@@ -1,25 +1,60 @@
-import { IRendererProvider, RenderDocument } from '@vckit/core-types';
+import {
+  IRendererContext,
+  IRendererProvider,
+  RenderDocument,
+} from '@vckit/core-types';
 import handlebars from 'handlebars';
 /**
  * @public
  */
 export class WebRenderingTemplate2024 implements IRendererProvider {
-    async renderCredential(
-        template?: string,
-        document?: RenderDocument,
-        url?: string,
-        digestMultibase?: string,
-    ): Promise<string> {
-        // Check if the template is empty or contains only whitespace
-        console.log(url);
-        let svgTemplate : string|any = '';
-        if(url){
-            await fetch(url).then(async response => svgTemplate = await response.text());
+  async renderCredential({
+    template,
+    document,
+    url,
+    digestMultibase,
+    context,
+  }: {
+    template?: string;
+    document?: RenderDocument;
+    url?: string;
+    digestMultibase?: string;
+    context?: IRendererContext;
+  }): Promise<string> {
+    try {
+      let svgTemplate: string | any = '';
+      //get the template
+      if (url) {
+        try {
+          const response = await fetch(url);
+          svgTemplate = await response.text();
+        } catch (error) {
+          console.error(`Failed to fetch from ${url}:`, error);
+          throw error;
         }
-        const compiledTemplate = handlebars.compile(svgTemplate);
-        
-        const renderedContent = compiledTemplate(document);
+      } else if (template) {
+        svgTemplate = template;
+      } else {
+        throw new Error('No template provided');
+      }
+      // verify the template
+      if (
+        digestMultibase &&
+        context &&
+        typeof context.agent.createVerifiableCredentialOA === 'function'
+      ) {
+        const hashedTemplate = await context.agent.computeHash(svgTemplate);
+        if (hashedTemplate !== digestMultibase) {
+          return('<p style="color: red">Error: Template hash does not match the provided digest</p>');
+        }
+      }
+      const compiledTemplate = handlebars.compile(svgTemplate);
 
-        return renderedContent;
+      const renderedContent = compiledTemplate(document);
+
+      return renderedContent;
+    } catch (error) {
+        throw error;
     }
+  }
 }

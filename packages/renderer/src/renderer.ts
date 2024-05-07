@@ -11,8 +11,7 @@ import {
   IRendererContext,
   IRenderResult,
   UnsignedCredential,
-  IRenderer,
-  IWebRenderer2024Provider
+  IRenderer
 } from '@vckit/core-types';
 import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
 import { url } from 'inspector';
@@ -53,7 +52,7 @@ export class Renderer implements IAgentPlugin {
   }
 
   private getProvider(name: string): IRendererProvider {
-    let provider: IRendererProvider | IWebRenderer2024Provider | undefined =
+    let provider: IRendererProvider | undefined =
       this.providers[name] ||
       (this.defaultProvider && this.providers[this.defaultProvider]);
     if (!provider) {
@@ -97,10 +96,13 @@ export class Renderer implements IAgentPlugin {
 
       renderMethods = render.map((r) => {
         return { 
-          template: r.template, 
           '@type': r['@type'] || r.type,
+          template: r.template, 
+          id: r.id,
+          name: r.name,
           url: r.url,
           digestMultibase: r.digestMultibase,
+          mediaType: r.mediaType,
         };
       
       })
@@ -112,14 +114,24 @@ export class Renderer implements IAgentPlugin {
       const documents = await Promise.all(
         renderMethods.map(async (renderMethod) => {
           const rendererProvider = this.getProvider(renderMethod['@type']);
-          console.log('rendererProvider:',rendererProvider);
           const document = await rendererProvider.renderCredential(
-            renderMethod.template,
-            args.credential,
-            renderMethod.url,
-            renderMethod.digestMultibase,
+            {
+              template: renderMethod.template,
+              document: args.credential,
+              url: renderMethod.url,
+              digestMultibase: renderMethod.digestMultibase,
+              context,
+            }
           );
-          return convertToBase64(document);
+          const responseDocument = {
+            type: renderMethod['@type'],
+            renderedTemplate: convertToBase64(document),
+            id: renderMethod.id,
+            name: renderMethod.name,
+            mediaType: renderMethod.mediaType,
+            
+          };
+          return responseDocument;
         })
       );
       return { documents };

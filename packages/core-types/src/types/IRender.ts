@@ -32,8 +32,16 @@ export type IRendererContext = IAgentContext<
  * Result of rendering a verifiable credential.
  * @beta
  */
+export interface IRenderDocument{
+  type: string;
+  renderedTemplate: string;
+  id: string | undefined;
+  name: string | undefined;
+  mediaType: string | undefined;
+  
+}
 export interface IRenderResult {
-  documents: string[];
+  documents: IRenderDocument[];
 }
 
 /**

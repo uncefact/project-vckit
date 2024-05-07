@@ -1,3 +1,5 @@
+import { IRendererContext } from "./IRender";
+
 /**
  * The document to render.
  * @public
@@ -19,14 +21,18 @@ export interface IRendererProvider {
    * @param digestMultibase - The digest multibase of the svg template to verify.
    * @returns A promise that resolves to the rendered document.
    */
-  renderCredential(template?: string, document?: RenderDocument, url?: string, digestMultibase?: string): Promise<string>;
+  renderCredential({
+    template,
+    document,
+    url,
+    digestMultibase,
+    context,
+  }: {
+    template?: string;
+    document?: RenderDocument;
+    url?: string;
+    digestMultibase?: string;
+    context?: IRendererContext;
+  }): Promise<string>;
 }
 
-export interface IWebRenderer2024Provider {
-  /**
-   * @param url - The url to the svg template to render.
-   * @param digestMultibase - The digest multibase of the svg template to verify.
-   * @param document - The document to render.
-   */
-  renderCredential(url: string, digestMultibase: string, document: RenderDocument): Promise<string>;
-}
