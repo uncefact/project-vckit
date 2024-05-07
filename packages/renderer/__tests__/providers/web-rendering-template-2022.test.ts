@@ -12,10 +12,10 @@ describe('WebRenderingTemplate2022', () => {
       const template = '<p>{{name}}</p>';
       const document = { name: 'John Doe' };
 
-      const renderedContent = await renderer.renderCredential(
+      const renderedContent = await renderer.renderCredential({
         template,
-        document
-      );
+        document,
+      });
 
       expect(renderedContent).toBe('<p>John Doe</p>');
     });
@@ -24,10 +24,10 @@ describe('WebRenderingTemplate2022', () => {
       const template = '';
       const document = { name: 'John Doe' };
 
-      const renderedContent = await renderer.renderCredential(
+      const renderedContent = await renderer.renderCredential({
         template,
-        document
-      );
+        document,
+      });
 
       expect(renderedContent).toBe('');
     });
@@ -36,10 +36,10 @@ describe('WebRenderingTemplate2022', () => {
       const template = 'Some random text';
       const document = { name: 'John Doe' };
 
-      const renderedContent = await renderer.renderCredential(
+      const renderedContent = await renderer.renderCredential({
         template,
-        document
-      );
+        document,
+      });
 
       expect(renderedContent).toBe(template);
     });
@@ -48,10 +48,10 @@ describe('WebRenderingTemplate2022', () => {
       const template = '    \t\n   ';
       const document = { name: 'John Doe' };
 
-      const renderedContent = await renderer.renderCredential(
+      const renderedContent = await renderer.renderCredential({
         template,
-        document
-      );
+        document,
+      });
 
       expect(renderedContent).toBe('');
     });

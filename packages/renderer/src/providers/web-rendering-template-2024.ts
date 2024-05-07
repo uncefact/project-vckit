@@ -30,12 +30,11 @@ export class WebRenderingTemplate2024 implements IRendererProvider {
           svgTemplate = await response.text();
         } catch (error) {
           console.error(`Failed to fetch from ${url}:`, error);
-          throw error;
         }
       } else if (template) {
         svgTemplate = template;
       } else {
-        throw new Error('No template provided');
+        return('<p style="color: red">Error: No template provided</p>');
       }
       // verify the template
       if (

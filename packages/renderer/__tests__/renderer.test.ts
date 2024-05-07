@@ -11,7 +11,7 @@ import universityDegreeCredential from '../fixtures/university-degree-credential
 describe('Renderer', () => {
   // Mock renderer provider
   const MockWebRenderingTemplate2022: IRendererProvider = {
-    async renderCredential(template: string, document: any): Promise<string> {
+    async renderCredential({template: string, document: any}): Promise<string> {
       // Mock implementation
       return 'Rendered credential successfully';
     },
