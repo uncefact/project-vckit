@@ -10,8 +10,9 @@ import {
 } from 'express';
 const VC_REVOCATION_LIST_2020 = 'https://w3id.org/vc-revocation-list-2020/v1';
 
+// TODO: remove the middleware and use the method/API directly
 /**
- *
+ * @deprecated
  * @public
  */
 export function revocationList2020Middleware(args: {
@@ -42,18 +43,20 @@ export function revocationList2020Middleware(args: {
 
         const revocationVCIssuer = extractIssuer(req.body.credential);
 
-        const revocationData = await req.agent.execute('getRevocationData', {
-          revocationVCIssuer,
-          req,
-        });
+        const revocationData = await req.agent.execute(
+          'issueRevocationStatusList',
+          {
+            revocationVCIssuer,
+          },
+        );
 
         req.body.credential['@context'] = asArray<string>(
-          req.body.credential['@context']
+          req.body.credential['@context'],
         );
 
         if (
           !req.body.credential['@context'].find(
-            (context: string) => context === VC_REVOCATION_LIST_2020
+            (context: string) => context === VC_REVOCATION_LIST_2020,
           )
         ) {
           req.body.credential['@context'] = [
@@ -62,18 +65,13 @@ export function revocationList2020Middleware(args: {
           ];
         }
 
-        req.body.credential.credentialStatus = {
-          id: revocationData.revocationListFullUrl,
-          type: 'RevocationList2020Status',
-          revocationListIndex: revocationData.indexCounter,
-          revocationListCredential: revocationData.revocationListFullUrl,
-        };
+        req.body.credential.credentialStatus = revocationData;
 
         next();
       } catch (err) {
         res.status(500).json({ error: err.message });
       }
-    }
+    },
   );
   return router;
 }
