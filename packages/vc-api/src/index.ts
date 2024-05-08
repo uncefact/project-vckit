@@ -1,3 +1,2 @@
-export { VCRouter } from './vc-router.js';
-export { VCApiSchemaRouter } from './vc-api-schema-router.js';
-export { VCApiDocsRouter } from './vc-api-docs-router.js';
+export { V1VcRouter } from './v1-vc-api/v1-vc-router.js';
+export { V2VcRouter } from './v2-vc-api/v2-vc-router.js';

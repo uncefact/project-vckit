@@ -151,16 +151,17 @@ server:
           - keyMapping:
               Ed25519: JsonWebKey2020 # Ed25519VerificationKey2020 | JsonWebKey2020
 
-    # VC API
-    - - $require: '@vckit/vc-api?t=function#VCRouter'
-    # VC API docs path
-    - - /vc-api.json
-      - $require: '@vckit/vc-api?t=function#VCApiSchemaRouter'
+    # VC API v1
+    - - /v1/vc-api
+      - $require: '@vckit/vc-api?t=function#V1VcRouter'
         $args:
           - basePath: :3332
 
-    - - /vc-api-docs
-      - $require: '@vckit/vc-api?t=function#VCApiDocsRouter'
+    # VC API v2
+    - - /v2/vc-api
+      - $require: '@vckit/vc-api?t=function#V2VcRouter'
+        $args:
+          - basePath: :3332
 
     # API base path
     - - /messaging

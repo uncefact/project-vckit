@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import YAML from 'yaml';
 import fs from 'fs';
-import { RequestWithAgent } from './types/request-type.js';
+import { RequestWithAgent } from '../types/request-type.js';
 
 /**
  * @public
@@ -24,10 +24,10 @@ export interface ApiSchemaRouterOptions {
 export const VCApiSchemaRouter = (options: ApiSchemaRouterOptions): Router => {
   const router = Router();
 
-  router.get('/', (req: RequestWithAgent, res) => {
+  router.get('/vc-api.json', (req: RequestWithAgent, res) => {
     const file = fs.readFileSync(
       'packages/vc-api/src/vc-api-schemas/vc-api.yaml',
-      'utf8'
+      'utf8',
     );
     const schema = YAML.parse(file);
     const url =
