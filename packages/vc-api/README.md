@@ -6,19 +6,18 @@ This repository contains an agent router that adheres to the vc-api standard, ai
 
 The router follows the `veramo` architecture, allowing you to configure it using the `agent.yml` file. Below is an example of how to set up the router with different functionalities:
 
-```yaml
-# API base path
-- - $require: '@vckit/vc-api?t=function#VCRouter'
-
-# VC API docs path
-- - /vc-api.json
-  - $require: '@vckit/vc-api?t=function#VCApiSchemaRouter'
+````yaml
+# VC API v1
+- - /v1/vc-api
+  - $require: '@vckit/vc-api?t=function#V1VcRouter'
     $args:
       - basePath: :3332
 
-- - /vc-api-docs
-  - $require: '@vckit/vc-api?t=function#VCApiDocsRouter'
-```
+# VC API v2
+- - /v2/vc-api
+  - $require: '@vckit/vc-api?t=function#V2VcRouter'
+    $args:
+      - basePath: :3332
 
 ## Test with test-suite
 
@@ -35,7 +34,7 @@ To test the agent router, you can use the vc-api test suite. Follow the steps be
   "issuers": [
     {
       "id": "DID_WEB",
-      "endpoint": "http://localhost:3332/credentials/issue",
+      "endpoint": "http://localhost:3332/v1/vc-api/credentials/issue",
       "method": "POST",
       "tags": ["vc-api", "Ed25519Signature2020"]
     }
@@ -43,13 +42,13 @@ To test the agent router, you can use the vc-api test suite. Follow the steps be
   "verifiers": [
     {
       "id": "DID_WEB",
-      "endpoint": "http://localhost:3332/credentials/verify",
+      "endpoint": "http://localhost:3332/v1/vc-api/credentials/verify",
       "method": "POST",
       "tags": ["vc-api", "Ed25519Signature2020"]
     }
   ]
 }
-```
+````
 
 At the moment, Only did:web is supported to configure the verification method to adapt to the test suite. So we will configure the did document to use the `Ed25519VerificationKey2020` verification method. That will be explained in the next steps.
 
