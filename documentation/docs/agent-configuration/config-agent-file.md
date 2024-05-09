@@ -26,13 +26,15 @@ constants:
 * `dbEncryptionKey`: This field contains a cryptographic key used for encrypting data in the database. It's a hexadecimal string representing the encryption key. Run this command `veramo config gen-key` to generate a key.
 * `databaseFile`: This specifies the path to the SQLite database file.
 * `methods`: This specifies the functions that are exposed by the plugins integrated within the agent
-## Database connection
-### **`$require` syntax**
+## **`$require` syntax**
 Example:
 `$require: '@veramo/data-store?t=object#migrations'`
 * `@veramo/data-store` - Module name
 * `t=object` - Optional. Type can be `function`, `object`, `class`. Default is `class`
 * `#migrations` - Imported symbol name
+
+## Database connection
+
 This section is to declare all of the database connections that are used by the agent plugins. Below is a declaration of a database connection.
 
 ```yml
@@ -54,7 +56,7 @@ dbConnection: //this is name of the connection
 * `dbConnection`: This is the name of the connection. It's a label that identifies this specific database connection configuration.
 * `$require`: This indicates that a specific module or package is required to handle this configuration. In this case, it's indicating that the DataSource type from the typeorm package is required.
 * `$args`: This specifies the arguments to be passed to the DataSource constructor.
-    * `type`: Specifies the type of database to be used
+    * `type`: Specifies the type of database to be used. You can use whatever type of database as long as it's supported by TypeOrm Datasource.
     * `database`: This field specifies the path to the SQLite database file.
         * `$ref`: This refers to a constant defined elsewhere in the configuration. 
     * `synchronize`: Determines whether TypeORM should automatically synchronize the database schema.
