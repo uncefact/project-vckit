@@ -159,13 +159,13 @@ server:
               Ed25519: JsonWebKey2020 # Ed25519VerificationKey2020 | JsonWebKey2020
 
     # VC API v1
-    - - /v1/vc-api
+    - - /v1
       - $require: '@vckit/vc-api?t=function#V1VcRouter'
         $args:
           - basePath: :${PORT}
 
     # VC API v2
-    - - /v2/vc-api
+    - - /v2
       - $require: '@vckit/vc-api?t=function#V2VcRouter'
         $args:
           - basePath: :${PORT}

@@ -10,7 +10,7 @@ info:
     url: http://www.w3.org/Consortium/Legal/copyright-software.
   contact:
     name: GitHub Source Code
-    url: https://github.com/w3c-ccg/vc-api
+    url: https://github.com/w3c-ccg
 tags:
   - name: holder_Credentials
     x-displayName: Credentials
@@ -25,7 +25,7 @@ tags:
   - name: verifier_Presentations
     x-displayName: Presentations
 paths:
-  /v2/vc-api/credentials/{id}:
+  /v2/credentials/{id}:
     get:
       tags:
         - holder_Credentials
@@ -86,7 +86,7 @@ paths:
           description: Internal Error
         '501':
           description: Not Implemented
-  /v2/vc-api/credentials:
+  /v2/credentials:
     get:
       tags:
         - holder_Credentials
@@ -124,7 +124,7 @@ paths:
           description: Internal Error
         '501':
           description: Not Implemented
-  /v2/vc-api/credentials/derive:
+  /v2/credentials/derive:
     post:
       tags:
         - holder_Credentials
@@ -152,7 +152,7 @@ paths:
           description: Internal Error
         '501':
           description: Not Implemented
-  /v2/vc-api/presentations/{id}:
+  /v2/presentations/{id}:
     get:
       tags:
         - holder_Presentations
@@ -209,7 +209,7 @@ paths:
           description: Internal Error
         '501':
           description: Not Implemented
-  /v2/vc-api/presentations:
+  /v2/presentations:
     get:
       tags:
         - holder_Presentations
@@ -247,7 +247,7 @@ paths:
           description: Internal Error
         '501':
           description: Not Implemented
-  /v2/vc-api/presentations/prove:
+  /v2/presentations/prove:
     post:
       summary: Proves a presentation and returns it in the response body.
       tags:
@@ -273,7 +273,7 @@ paths:
           description: invalid input!
         '500':
           description: error!
-  /v2/vc-api/exchanges:
+  /v2/exchanges:
     get:
       summary: >-
         Provides a discovery endpoint for the exchanges supported by this server
@@ -362,7 +362,7 @@ paths:
           description: invalid input
         '500':
           description: error
-  /v2/vc-api/exchanges/{exchange-id}:
+  /v2/exchanges/{exchange-id}:
     post:
       summary: Initiates an exchange of information.
       tags:
@@ -406,7 +406,7 @@ paths:
           description: Internal server error.
         '501':
           description: Service not implemented.
-  /v2/vc-api/exchanges/{exchange-id}/{transaction-id}:
+  /v2/exchanges/{exchange-id}/{transaction-id}:
     post:
       summary: Receives information related to an existing exchange.
       tags:
@@ -448,7 +448,7 @@ paths:
           description: Internal server error.
         '501':
           description: Service not implemented.
-  /v2/vc-api/credentials/issue:
+  /v2/credentials/issue:
     post:
       summary: Issues a credential and returns it in the response body.
       tags:
@@ -474,7 +474,7 @@ paths:
           description: invalid input!
         '500':
           description: error!
-  /v2/vc-api/credentials/status:
+  /v2/credentials/status:
     post:
       summary: Updates the status of an issued credential
       tags:
@@ -500,7 +500,7 @@ paths:
           description: Credential not found
         '500':
           description: Internal Server Error
-  /v2/vc-api/credentials/verify:
+  /v2/credentials/verify:
     post:
       summary: >-
         Verifies a verifiableCredential and returns a verificationResult in the
@@ -532,7 +532,7 @@ paths:
           description: invalid input!
         '500':
           description: error!
-  /v2/vc-api/presentations/verify:
+  /v2/presentations/verify:
     post:
       summary: >-
         Verifies a Presentation with or without proofs attached and returns a
@@ -666,10 +666,29 @@ components:
       oneOf:
         - type: string
         - type: object
+          required:
+            - id
           properties:
             id:
               type: string
               description: The issuer id.
+            description:
+              oneOf:
+                - type: string
+                - type: object
+                  required:
+                    - '@value'
+                  properties:
+                    '@value':
+                      type: string
+                - type: array
+                  items:
+                    type: object
+                    required:
+                      - '@value'
+                    properties:
+                      '@value':
+                        type: string
     Credential:
       type: object
       description: A JSON-LD Verifiable Credential without a proof.
@@ -714,12 +733,13 @@ components:
               description: The subject
             - type: array
               description: The subject
-        credentialSchemas:
+        credentialSchema:
           oneOf:
             - type: object
               description: The subject
               required:
                 - type
+                - id
               properties:
                 type:
                   type: string
@@ -732,12 +752,37 @@ components:
                 type: object
                 required:
                   - type
+                  - id
                 properties:
                   type:
                     type: string
                   id:
                     type: string
                     format: uri
+        credentialStatus:
+          oneOf:
+            - type: object
+              description: The subject
+              required:
+                - type
+              properties:
+                type:
+                  type: string
+                  description: The schemas used to validate the credential.
+            - type: array
+              items:
+                type: object
+                required:
+                  - type
+                properties:
+                  type:
+                    type: string
+        renderMethod:
+          type: array
+          items:
+            type: object
+            required:
+              - type
     LinkedDataProof:
       type: object
       description: A JSON-LD Linked Data proof.

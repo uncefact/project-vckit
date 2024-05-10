@@ -19,7 +19,7 @@ export const VCApiDocsRouter = (): Router => {
     </head>
     <body>
       <rapi-doc
-          spec-url="../v1/vc-api/vc-api.json"
+          spec-url="../v1/vc-api.json"
           theme="light"
           primary-color="#006ba4"
           render-style="read"

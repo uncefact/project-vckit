@@ -8,13 +8,13 @@ The router follows the `veramo` architecture, allowing you to configure it using
 
 ````yaml
 # VC API v1
-- - /v1/vc-api
+- - /v1
   - $require: '@vckit/vc-api?t=function#V1VcRouter'
     $args:
       - basePath: :3332
 
 # VC API v2
-- - /v2/vc-api
+- - /v2
   - $require: '@vckit/vc-api?t=function#V2VcRouter'
     $args:
       - basePath: :3332
@@ -34,7 +34,7 @@ To test the agent router, you can use the vc-api test suite. Follow the steps be
   "issuers": [
     {
       "id": "DID_WEB",
-      "endpoint": "http://localhost:3332/v1/vc-api/credentials/issue",
+      "endpoint": "http://localhost:3332/v1/credentials/issue",
       "method": "POST",
       "tags": ["vc-api", "Ed25519Signature2020"]
     }
@@ -42,7 +42,7 @@ To test the agent router, you can use the vc-api test suite. Follow the steps be
   "verifiers": [
     {
       "id": "DID_WEB",
-      "endpoint": "http://localhost:3332/v1/vc-api/credentials/verify",
+      "endpoint": "http://localhost:3332/v1/credentials/verify",
       "method": "POST",
       "tags": ["vc-api", "Ed25519Signature2020"]
     }
