@@ -67,19 +67,25 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'VCKit Documentation',
+        title: 'VCKit',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'VCKit Logo',
           src: 'img/vckit-logo.svg',
         },
         items: [
           {
             type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            sidebarId: 'getStartedSideBar',
             position: 'left',
-            label: 'Getting Started',
+            label: 'Documentation',
           },
-          // {to: '/', label: 'Blog', position: 'left'},
+          // {
+          //   type: 'docSidebar',
+          //   sidebarId: 'documentSidebar',
+          //   position: 'left',
+          //   label: 'Agent Configuration',
+          // },
+          // {to: '/readme', label: 'README', position: 'left'},
           {
             href: 'https://github.com/uncefact/project-vckit.git', 
             label: 'GitHub',

@@ -1,0 +1,8 @@
+{
+  "label": "Agent Configuration",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "This documentation is a guide of how to config an VCKit agent."
+  }
+}

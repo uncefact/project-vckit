@@ -3,9 +3,18 @@ sidebar_label: 'Set Up'
 sidebar_position: 2
 ---
 
-# Set up
+# Set up Agent
 To start using VCKit, we need to initialize an agent.
+## Copy database file
+This tutorial will use the **did:web** method and we will need an available did:web identifier. To do that, we need to use the same database as the **VCKit API server** responsible for hosting the **did:web**.
+
+Please follow these steps below:
+1. Copy the **`database.sqlite`** from **PROJECT_VCKIT** folder at `/project_vckit/project-vckit/database.sqlite` to your root folder of this tutorial, in this case it's `/vckit/database.sqlite`.
+2. Copy the value of `dbEncryptionKey` in `/project_vckit/project-vckit/agent.yml` file and paste it as the value of **DB_SECRET_KEY** variable will be mentioned in the next step.
+
+:::note
 Create a set up file in **`src/vckit/setup.ts`**, and add the following code.
+:::
 ## Dependencies
 Copy and paste this into your set up file.
 ```typescript
@@ -28,10 +37,11 @@ import { Renderer, WebRenderingTemplate2022 } from '@vckit/renderer';
 import { createAgent } from '@veramo/core';
 import { CredentialPlugin } from '@veramo/credential-w3c';
 import {
-    CredentialIssuerLD,
+   CredentialIssuerLD,
     LdDefaultContexts,
     VeramoEcdsaSecp256k1RecoverySignature2020,
     VeramoEd25519Signature2018,
+    VeramoJsonWebSignature2020,
 } from '@veramo/credential-ld';
 
 import { DIDResolverPlugin } from '@veramo/did-resolver';
@@ -59,8 +69,7 @@ import { DataSource } from 'typeorm'
 ## Variables
 Create some variables in your set up file, remember to replace their value by yours.
 ```typescript
-const INFURA_PROJECT_ID = '<YOUR-INFURA-PROJECT-ID>';
-const DB_SECRET_KEY ='<YOUR-GENERATED-SECRET-KEY>';
+const DB_SECRET_KEY ='<The key you copied previously>';
 
 const DATABASE_FILE = 'database.sqlite'
 ```
@@ -106,29 +115,8 @@ export const agent: TAgent<InstalledPlugins> = createAgent<InstalledPlugins>({
         }),
         new DIDManager({
             store: new DIDStore(dbConnection),
-            defaultProvider: 'did:ethr:goerli',
+            defaultProvider: 'did:web',
             providers: {
-                'did:ethr': new EthrDIDProvider({
-                    defaultKms: 'local',
-                    ttl: 60 * 60 * 24 * 30 * 12 + 1,
-                    networks: [
-                        {
-                            name: 'mainnet',
-                            rpcUrl: 'https://mainnet.infura.io/v3/' + INFURA_PROJECT_ID,
-                        },
-                        {
-                            name: 'goerli',
-                            rpcUrl: 'https://goerli.infura.io/v3/' + INFURA_PROJECT_ID,
-                        },
-                        {
-                            chainId: 421613,
-                            name: 'arbitrum:goerli',
-                            rpcUrl:
-                                'https://arbitrum-goerli.infura.io/v3/' + INFURA_PROJECT_ID,
-                            registry: '0x8FFfcD6a85D29E9C33517aaf60b16FE4548f517E',
-                        },
-                    ],
-                }),
                 'did:web': new WebDIDProvider({
                     defaultKms: 'local',
                 }),
@@ -148,6 +136,7 @@ export const agent: TAgent<InstalledPlugins> = createAgent<InstalledPlugins>({
             contextMaps: [LdDefaultContexts],
             suites: [
                 new VeramoEcdsaSecp256k1RecoverySignature2020(),
+                new VeramoJsonWebSignature2020(),
                 new VeramoEd25519Signature2018(),
             ],
         }),
