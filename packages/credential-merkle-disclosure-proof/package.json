@@ -9,7 +9,6 @@
   },
   "types": "build/index.d.ts",
   "scripts": {
-    "postinstall": "pnpm add --ignore-scripts ../../.tmp_npm/veramo/packages/credential-ld/",
     "build": "tsc",
     "watch": "tsc -b --watch"
   },
