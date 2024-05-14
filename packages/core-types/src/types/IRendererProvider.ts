@@ -26,12 +26,14 @@ export interface IRendererProvider {
     document,
     url,
     digestMultibase,
+    mediaType,
     context,
   }: {
     template?: string;
     document?: RenderDocument;
     url?: string;
     digestMultibase?: string;
+    mediaType: string;
     context?: IRendererContext;
   }): Promise<string>;
 }

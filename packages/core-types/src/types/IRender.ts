@@ -37,7 +37,6 @@ export interface IRenderDocument{
   renderedTemplate: string;
   id: string | undefined;
   name: string | undefined;
-  mediaType: string | undefined;
   
 }
 export interface IRenderResult {

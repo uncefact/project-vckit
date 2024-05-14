@@ -1,10 +1,10 @@
-import { WebRenderingTemplate2024 } from '/Users/ducpm/GoSource/projects/project_vckit/project-vckit/packages/renderer/src/providers/web-rendering-template-2024';
+import { RenderTemplate2024 } from '/Users/ducpm/GoSource/projects/project_vckit/project-vckit/packages/renderer/src/providers/web-rendering-template-2024';
 
-describe('WebRenderingTemplate2024', () => {
-  let renderer: WebRenderingTemplate2024;
+describe('RenderTemplate2024', () => {
+  let renderer: RenderTemplate2024;
 
   beforeEach(() => {
-    renderer = new WebRenderingTemplate2024();
+    renderer = new RenderTemplate2024();
   });
 
   it('should return an p tag with error message if the template is not provided', async () => {

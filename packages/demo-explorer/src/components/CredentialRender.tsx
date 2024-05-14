@@ -3,7 +3,7 @@ import { QrCodeDocumentWrapper } from '@vckit/react-components'
 import {
   Renderer,
   WebRenderingTemplate2022,
-  WebRenderingTemplate2024,
+  RenderTemplate2024,
 } from '@vckit/renderer'
 import { useVeramo } from '@veramo-community/veramo-react'
 import { VerifiableCredential } from '@veramo/core'
@@ -37,7 +37,6 @@ interface IRenderDocument{
   renderedTemplate: string;
   id: string | undefined;
   name: string | undefined;
-  mediaType: string | undefined;
   
 }
 const CredentialRender: React.FC<CredentialRenderProps> = ({
@@ -72,7 +71,7 @@ const CredentialRender: React.FC<CredentialRenderProps> = ({
       const renderer = new Renderer({
         providers: {
           WebRenderingTemplate2022: new WebRenderingTemplate2022(),
-          WebRenderingTemplate2024: new WebRenderingTemplate2024(),
+          RenderTemplate2024: new RenderTemplate2024(),
         },
         defaultProvider: 'WebRenderingTemplate2022',
       })

@@ -14,7 +14,6 @@ import {
   IRenderer
 } from '@vckit/core-types';
 import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
-import { url } from 'inspector';
 
 export const RENDER_METHOD = 'https://www.w3.org/2018/credentials#renderMethod';
 
@@ -111,15 +110,19 @@ export class Renderer implements IAgentPlugin {
       //   '@type': type,
       // };
 
+      console.log('Debugging')
       const documents = await Promise.all(
         renderMethods.map(async (renderMethod) => {
+          console.log('Rendering with method:', renderMethod);
           const rendererProvider = this.getProvider(renderMethod['@type']);
+          console.log('Rendering with provider:', rendererProvider);
           const document = await rendererProvider.renderCredential(
             {
               template: renderMethod.template,
               document: args.credential,
               url: renderMethod.url,
               digestMultibase: renderMethod.digestMultibase,
+              mediaType: renderMethod.mediaType,
               context,
             }
           );
@@ -128,7 +131,7 @@ export class Renderer implements IAgentPlugin {
             renderedTemplate: convertToBase64(document),
             id: renderMethod.id,
             name: renderMethod.name,
-            mediaType: renderMethod.mediaType,
+           
             
           };
           return responseDocument;
