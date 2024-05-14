@@ -72,18 +72,17 @@ export class Renderer implements IAgentPlugin {
     context?: IRendererContext
   ): Promise<IRenderResult> {
     try {
-      let renderMethods: RenderMethodPayload[] | [] = [];
-
-      // const [expandedDocument] = await expandVerifiableCredential(
-      //   args.credential
-      // );
-      // const renderMethods: RenderMethodPayload[] | [] =
-      //   extractRenderMethods(expandedDocument);
+     
+      const [expandedDocument] = await expandVerifiableCredential(
+        args.credential
+      );
+    
+      const renderMethods: RenderMethodPayload[] | [] =
+        extractRenderMethods(expandedDocument);
 
       // TODO: There's an issue with W3 availability causing the fetching of some W3 context files to fail. Since we know the exact location of the template we can bypass the JSONLD expansion. This is a temporary workaround.
 
-      const render = args.credential.render || args.credential.renderMethod;
-      if (!Array.isArray(render)) {
+      if (!Array.isArray(renderMethods)) {
         throw new Error('Render method not found in the verifiable credential');
       }
 
@@ -92,30 +91,17 @@ export class Renderer implements IAgentPlugin {
       // if (!template || !type) {
       //   throw new Error('Render method must have template and @type.');
       // }
-
-      renderMethods = render.map((r) => {
-        return { 
-          '@type': r['@type'] || r.type,
-          template: r.template, 
-          id: r.id,
-          name: r.name,
-          url: r.url,
-          digestMultibase: r.digestMultibase,
-          mediaType: r.mediaType,
-        };
       
-      })
+      // })
       // renderMethods[0] = {
       //   template,
       //   '@type': type,
       // };
 
-      console.log('Debugging')
+      
       const documents = await Promise.all(
         renderMethods.map(async (renderMethod) => {
-          console.log('Rendering with method:', renderMethod);
           const rendererProvider = this.getProvider(renderMethod['@type']);
-          console.log('Rendering with provider:', rendererProvider);
           const document = await rendererProvider.renderCredential(
             {
               template: renderMethod.template,
@@ -131,8 +117,6 @@ export class Renderer implements IAgentPlugin {
             renderedTemplate: convertToBase64(document),
             id: renderMethod.id,
             name: renderMethod.name,
-           
-            
           };
           return responseDocument;
         })
@@ -166,7 +150,7 @@ function extractRenderMethods(
 ): RenderMethodPayload[] | [] {
   const renders = ((expandedDocument[RENDER_METHOD] as JsonLdObj[]) || [])
     .filter((render) => {
-      return render[`${RENDER_METHOD}#template`] && render['@type'];
+      return render['@type'];
     })
     .map((render) => {
       // TODO: Handle @type as an array of strings with more than one element.
@@ -174,12 +158,31 @@ function extractRenderMethods(
         ? render['@type'][0]
         : render['@type'];
 
-      const template = (
-        render[`${RENDER_METHOD}#template`] as {
-          '@value': string;
-        }[]
-      )[0]['@value'];
-      return { template, '@type': type } as RenderMethodPayload;
+      const extractedType = type?.split('#')[1] // Handle the case where the type is a URL.
+        ? type.split('#')[1]
+        : type;
+        
+        const template = render[`${RENDER_METHOD}#template`]
+        ? (render[`${RENDER_METHOD}#template`] as { '@value': string; }[])[0]['@value']
+        : undefined;
+  
+      const url = render[`${RENDER_METHOD}#url`]
+        ? (render[`${RENDER_METHOD}#url`] as { '@value': string; }[])[0]['@value']
+        : undefined;
+  
+      const mediaType = render['https://schema.org/encodingFormat']
+        ? (render['https://schema.org/encodingFormat'] as { '@value': string; }[])[0]['@value']
+        : undefined;
+  
+      const digestMultibase = render['https://w3id.org/security#digestMultibase']
+        ? (render['https://w3id.org/security#digestMultibase'] as { '@value': string; }[])[0]['@value']
+        : undefined;
+      
+      const name = render['https://schema.org/name']
+        ? (render['https://schema.org/name'] as { '@value': string; }[])[0]['@value']
+        : undefined;
+
+      return { template, '@type': extractedType, url, mediaType, digestMultibase, name } as RenderMethodPayload;
     });
 
   return renders;

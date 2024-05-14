@@ -25,8 +25,6 @@ export class RenderTemplate2024 implements IRendererProvider {
     context?: IRendererContext;
   }): Promise<string> {
     try {
-      console.log('checkingggg')
-      console.log('Document media type', mediaType);
       if(!this.supportedMediaTypes.includes(mediaType)){
         return('<p style="color: red">Error: Unsupported media type</p>')
       }
@@ -45,10 +43,7 @@ export class RenderTemplate2024 implements IRendererProvider {
           renderTemplate = template;
         }
       }  
-      // if (template && renderTemplate === '') {
-      //   renderTemplate = template;
-      // } 
-      console.log('checking');
+      
       // verify the template
       if (
         digestMultibase &&
@@ -56,7 +51,6 @@ export class RenderTemplate2024 implements IRendererProvider {
         typeof context.agent.computeHash === 'function'
       ) {
         const hashedTemplate = await context.agent.computeHash(renderTemplate);
-        console.log('Hashed template:', hashedTemplate);
         if (hashedTemplate !== digestMultibase) {
           return('<p style="color: red">Error: Template hash does not match the provided digest</p>');
         }
