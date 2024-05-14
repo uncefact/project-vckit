@@ -11,7 +11,6 @@
     "./build/plugin.schema.json": "./build/plugin.schema.json"
   },
   "scripts": {
-    "postinstall": "pnpm add --ignore-scripts ../../.tmp_npm/veramo/packages/credential-ld/",
     "build": "tsc",
     "extract-api": "node ../cli/bin/vckit.js dev extract-api",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js  -d ./build/data-source.js"

@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@govtechsg/oa-verify": "^9.0.0",
-    "@govtechsg/open-attestation": "^6.9.0",
+    "@govtechsg/open-attestation": "6.5.1",
     "@vckit/core-types": "workspace:^",
     "@veramo/utils": "5.5.3"
   },

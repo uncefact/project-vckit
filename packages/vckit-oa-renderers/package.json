@@ -6,8 +6,8 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@govtechsg/decentralized-renderer-react-components": "^3.8.0",
-    "@govtechsg/open-attestation": "^6.5.1",
+    "@govtechsg/decentralized-renderer-react-components": "3.8.0",
+    "@govtechsg/open-attestation": "6.5.1",
     "@hot-loader/react-dom": "^16.11.0",
     "debug": "4.1.1",
     "handlebars": "^4.7.6",

@@ -1,9 +1,6 @@
 {
   "name": "@vckit/demo-explorer",
   "version": "1.0.0-beta.7",
-  "engines": {
-    "node": "18.x"
-  },
   "private": true,
   "license": "Apache-2.0",
   "files": [
@@ -16,7 +13,6 @@
     "agent-explore": "./bin/bin.js"
   },
   "scripts": {
-    "postinstall": "pnpm add --ignore-scripts ../../.tmp_npm/veramo/packages/credential-w3c/",
     "dev": "craco start",
     "build": "pnpm run build:explorer",
     "build:explorer": "craco build",

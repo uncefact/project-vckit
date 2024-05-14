@@ -27,7 +27,6 @@
     "url": "git+https://github.com/uncefact/project-vckit.git"
   },
   "scripts": {
-    "postinstall": "pnpm add --ignore-scripts ../../.tmp_npm/veramo/packages/credential-w3c/",
     "build": "tsc",
     "watch": "tsc -b --watch",
     "extract-api": "node ../cli/bin/vckit.js dev extract-api"
