@@ -5,6 +5,7 @@ docker-compose.yaml
 **/__test__
 **/coverage
 **/build
+**/tsconfig.tsbuildinfo
 .git
 .github
 .gitignore
