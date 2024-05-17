@@ -50,7 +50,9 @@ export class RenderTemplate2024 implements IRendererProvider {
         context &&
         typeof context.agent.computeHash === 'function'
       ) {
-        const hashedTemplate = await context.agent.computeHash(renderTemplate);
+        const hashedTemplate = await context.agent.computeHash({
+          content: renderTemplate
+        });
         if (hashedTemplate !== digestMultibase) {
           return('<p style="color: red">Error: Template hash does not match the provided digest</p>');
         }
