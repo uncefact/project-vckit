@@ -64,16 +64,18 @@ constants:
     - getVerifiableCredentialsForSdr
     - validatePresentationAgainstSdr
     - renderCredential
-    - createVerifiableCredentialOA
-    - verifyCredentialOA
     - encryptAndStoreData
     - fetchEncryptedData
     - fetchEncryptedDataByCredentialHash
+    - issueRevocationStatusList
     - revokeCredential
     - activateCredential
-    - checkStatus
+    - checkRevocationStatus
     - routeCreationVerifiableCredential
     - routeVerificationCredential
+    - issueBitstringStatusList
+    - checkBitstringStatus
+    - setBitstringStatus
     - computeHash
 
 # Data base
@@ -156,7 +158,7 @@ server:
       - $require: '@vckit/vc-api?t=function#V1VcRouter'
         $args:
           - basePath: :3332
-    
+
     # VC API v2
     - - /v2
       - $require: '@vckit/vc-api?t=function#V2VcRouter'
@@ -441,10 +443,6 @@ agent:
         - $ref: /renderer
         - $ref: /encryptedStorage
         - $ref: /revocationList
-        - $require: '@veramo/credential-status#CredentialStatusPlugin'
-          $args:
-            - RevocationList2020Status:
-                $require: '@vckit/revocationlist?t=object#checkStatus'
         - $ref: /bitstringStatusList
         - $require: '@veramo/credential-status#CredentialStatusPlugin'
           $args:
