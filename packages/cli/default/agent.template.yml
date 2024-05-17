@@ -435,4 +435,4 @@ agent:
                 $require: '@vckit/bitstringStatusList?t=object#checkStatus'
               RevocationList2020Status:
                 $require: '@vckit/revocationlist?t=object#checkStatus'
-        - $require: '@vckit/tools?#MultibaseEncodedSHA256'
+        - $require: '@vckit/tools#MultibaseEncodedSHA256'
