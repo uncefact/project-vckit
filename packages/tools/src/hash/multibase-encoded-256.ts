@@ -14,7 +14,11 @@ export class MultibaseEncodedSHA256 implements IAgentPlugin {
   }
 
   async computeHash(args: IToolsComputeHashArgs): Promise<string> {
-    if (!args.value || typeof args.value !== 'string') {
+    if (
+      typeof args !== 'object' ||
+      !args?.value ||
+      typeof args.value !== 'string'
+    ) {
       throw new Error('Value is invalid');
     }
 
