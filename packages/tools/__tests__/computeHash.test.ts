@@ -10,12 +10,14 @@ describe('compute hash', () => {
   });
 
   it('should compute hash', async () => {
-    const hash = await computeHash({value: 'hello world'});
+    const hash = await computeHash({content: 'hello world'});
     expect(hash).toBe('zQmaozNR7DZHQK1ZcU9p7QdrshMvXqWK6gpu5rmrkPdT3L4');
   });
 
-  it('should throw error when value is empty', async () => {
-    await expect(computeHash({value: ''})).rejects.toThrow('Value is invalid');
+  it('should throw error when content is empty', async () => {
+    await expect(computeHash({ content: '' })).rejects.toThrow(
+      'Value is invalid',
+    );
   });
 
   it('should throw error when payload is invalid', async () => {

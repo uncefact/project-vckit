@@ -16,13 +16,13 @@ export class MultibaseEncodedSHA256 implements IAgentPlugin {
   async computeHash(args: IToolsComputeHashArgs): Promise<string> {
     if (
       typeof args !== 'object' ||
-      !args?.value ||
-      typeof args.value !== 'string'
+      !args?.content ||
+      typeof args?.content !== 'string'
     ) {
       throw new Error('Value is invalid');
     }
 
-    const bytes = new TextEncoder().encode(args.value);
+    const bytes = new TextEncoder().encode(args.content);
     const hash = await sha256.digest(bytes);
     const multibasedHash = base58btc.encode(hash.bytes);
     return multibasedHash;

@@ -4,7 +4,7 @@ import { IAgent, IPluginMethodMap } from './IAgent.js';
  * @public
  */
 export interface IToolsComputeHashArgs {
-  value: string;
+  content: string;
 }
 
 /**
