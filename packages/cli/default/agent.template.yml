@@ -66,11 +66,15 @@ constants:
     - encryptAndStoreData
     - fetchEncryptedData
     - fetchEncryptedDataByCredentialHash
+    - issueRevocationStatusList
     - revokeCredential
     - activateCredential
-    - checkStatus
+    - checkRevocationStatus
     - routeCreationVerifiableCredential
     - routeVerificationCredential
+    - issueBitstringStatusList
+    - checkBitstringStatus
+    - setBitstringStatus
     - computeHash
 
 # Data base
@@ -424,8 +428,11 @@ agent:
         - $ref: /renderer
         - $ref: /encryptedStorage
         - $ref: /revocationList
+        - $ref: /bitstringStatusList
         - $require: '@veramo/credential-status#CredentialStatusPlugin'
           $args:
-            - RevocationList2020Status:
+            - BitstringStatusListEntry:
+                $require: '@vckit/bitstringStatusList?t=object#checkStatus'
+              RevocationList2020Status:
                 $require: '@vckit/revocationlist?t=object#checkStatus'
-        - $require: '@vckit/tools#MultibaseEncodedSHA256'
+        - $require: '@vckit/tools?#MultibaseEncodedSHA256'
