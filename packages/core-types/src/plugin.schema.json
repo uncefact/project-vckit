@@ -6987,12 +6987,24 @@
   },
   "ITools": {
     "components": {
-      "schemas": {},
+      "schemas": {
+        "IToolsComputeHashArgs": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "value"
+          ]
+        }
+      },
       "methods": {
         "computeHash": {
           "description": "",
           "arguments": {
-            "type": "string"
+            "$ref": "#/components/schemas/IToolsComputeHashArgs"
           },
           "returnType": {
             "type": "string"
