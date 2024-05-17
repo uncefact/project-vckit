@@ -6205,9 +6205,6 @@
             },
             "name": {
               "type": "string"
-            },
-            "mediaType": {
-              "type": "string"
             }
           },
           "required": [

@@ -80,24 +80,9 @@ export class Renderer implements IAgentPlugin {
       const renderMethods: RenderMethodPayload[] | [] =
         extractRenderMethods(expandedDocument);
 
-      // TODO: There's an issue with W3 availability causing the fetching of some W3 context files to fail. Since we know the exact location of the template we can bypass the JSONLD expansion. This is a temporary workaround.
-
       if (!Array.isArray(renderMethods)) {
         throw new Error('Render method not found in the verifiable credential');
       }
-
-      // const template = render[0]?.template;
-      // const type = render[0]?.['@type'];
-      // if (!template || !type) {
-      //   throw new Error('Render method must have template and @type.');
-      // }
-      
-      // })
-      // renderMethods[0] = {
-      //   template,
-      //   '@type': type,
-      // };
-
       
       const documents = await Promise.all(
         renderMethods.map(async (renderMethod) => {
@@ -166,23 +151,24 @@ function extractRenderMethods(
         ? (render[`${RENDER_METHOD}#template`] as { '@value': string; }[])[0]['@value']
         : undefined;
   
-      const url = render[`${RENDER_METHOD}#url`]
-        ? (render[`${RENDER_METHOD}#url`] as { '@value': string; }[])[0]['@value']
-        : undefined;
+      // const url = render[`${RENDER_METHOD}#url`]
+      //   ? (render[`${RENDER_METHOD}#url`] as { '@value': string; }[])[0]['@value']
+      //   : undefined;
   
-      const mediaType = render['https://schema.org/encodingFormat']
-        ? (render['https://schema.org/encodingFormat'] as { '@value': string; }[])[0]['@value']
-        : undefined;
+      // const mediaType = render['https://schema.org/encodingFormat']
+      //   ? (render['https://schema.org/encodingFormat'] as { '@value': string; }[])[0]['@value']
+      //   : undefined;
   
-      const digestMultibase = render['https://w3id.org/security#digestMultibase']
-        ? (render['https://w3id.org/security#digestMultibase'] as { '@value': string; }[])[0]['@value']
-        : undefined;
+      // const digestMultibase = render['https://w3id.org/security#digestMultibase']
+      //   ? (render['https://w3id.org/security#digestMultibase'] as { '@value': string; }[])[0]['@value']
+      //   : undefined;
       
-      const name = render['https://schema.org/name']
-        ? (render['https://schema.org/name'] as { '@value': string; }[])[0]['@value']
-        : undefined;
+      // const name = render['https://schema.org/name']
+      //   ? (render['https://schema.org/name'] as { '@value': string; }[])[0]['@value']
+      //   : undefined;
 
-      return { template, '@type': extractedType, url, mediaType, digestMultibase, name } as RenderMethodPayload;
+      // 
+      return { template, '@type': extractedType } as RenderMethodPayload;
     });
 
   return renders;
