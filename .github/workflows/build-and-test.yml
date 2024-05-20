@@ -1,0 +1,43 @@
+name: Build and Test
+
+on:
+  pull_request:
+    branches:
+      - next
+
+jobs:
+  test_and_build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Install pnpm
+        run: npm i pnpm --global
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21'
+
+      - name: Install dependencies
+        run: |
+          pnpm install
+
+      - name: Build
+        run: pnpm build
+
+      - name: Run tests
+        run: |
+          pnpm test:packages --changedSince=origin/next --ci --json --coverage --testLocationInResults --outputFile=report.json
+
+      - name: Coverage
+        uses: artiomtr/jest-coverage-report-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          coverage-file: report.json
+          base-coverage-file: report.json
+          threshold: 80
