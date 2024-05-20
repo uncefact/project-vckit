@@ -181,14 +181,14 @@ server:
     - - /credentials/status/revocation-list-2020
       - $require: '@vckit/revocationlist?t=function#revocationList2020Router'
 
-    - - /credentials/status/bitstring-status-list-entry
-      - $require: '@vckit/@vckit/bitstringStatusList?t=function#bitstringStatusListRouter'
+    - - /credentials/status/bitstring-status-list
+      - $require: '@vckit/bitstringStatusList?t=function#bitstringStatusListRouter'
 
     # API base path
     - - /agent
-      - $require: '@vckit/remote-server?t=function#apiKeyAuth'
-        $args:
-          - apiKey: kh14g04piduv
+      # - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+      #   $args:
+      #     - apiKey: kh14g04piduv
 
       - $require: '@vckit/revocationlist?t=function#revocationList2020Middleware'
         $args:
@@ -409,9 +409,9 @@ dbConnectionBitstringStatusList:
 
 # BitstringStatusList for credentialStatus
 bitstringStatusList:
-  $require: '@vckit/bitstringStatusList#BitstringStatusListEntry'
+  $require: '@vckit/bitstringStatusList#BitstringStatusList'
   $args:
-    - bitstringStatusListPath: http://localhost:3332
+    - bitstringDomainURL: http://localhost:3332
       bitstringLength: 8
       dbConnection:
         $ref: /dbConnectionBitstringStatusList

@@ -6970,12 +6970,12 @@
         "IToolsComputeHashArgs": {
           "type": "object",
           "properties": {
-            "value": {
+            "content": {
               "type": "string"
             }
           },
           "required": [
-            "value"
+            "content"
           ]
         }
       },

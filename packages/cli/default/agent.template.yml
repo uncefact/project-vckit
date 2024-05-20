@@ -1,11 +1,12 @@
 version: 3.0
 
 constants:
-  baseUrl: ${PROTOCOL}://${API_DOMAIN}
-  port: ${PORT}
+  baseUrl: http://localhost:3332
+  port: 3332
   # please use your own X25519 key, this is only an example
   # you can generate a new key by running `veramo config gen-key` in a terminal
-  dbEncryptionKey: ${DATABASE_ENCRYPTION_KEY}
+  dbEncryptionKey: 29739248cad1bd1a0fc4d9b75cd4d2990de535baf5caadfdf8d8f86664aa830c
+  databaseFile: ./database.sqlite
   methods:
     - keyManagerGetKeyManagementSystems
     - keyManagerCreate
@@ -81,12 +82,9 @@ constants:
 dbConnection:
   $require: typeorm#DataSource
   $args:
-    - type: ${DATABASE_TYPE}
-      database: ${DATABASE_NAME}
-      host: ${DATABASE_HOST}
-      port: ${DATABASE_PORT}
-      username: ${DATABASE_USERNAME}
-      password: ${DATABASE_PASSWORD}
+    - type: sqlite
+      database:
+        $ref: /constants/databaseFile
       synchronize: false
       migrationsRun: true
       migrations:
@@ -98,12 +96,9 @@ dbConnection:
 dbConnectionEncrypted:
   $require: typeorm#DataSource
   $args:
-    - type: ${DATABASE_TYPE}
-      database: ${DATABASE_NAME}
-      host: ${DATABASE_HOST}
-      port: ${DATABASE_PORT}
-      username: ${DATABASE_USERNAME}
-      password: ${DATABASE_PASSWORD}
+    - type: sqlite
+      database:
+        $ref: /constants/databaseFile
       synchronize: false
       migrationsRun: true
       migrations:
@@ -115,12 +110,9 @@ dbConnectionEncrypted:
 dbConnectionRevocationList:
   $require: typeorm#DataSource
   $args:
-    - type: ${DATABASE_TYPE}
-      database: ${DATABASE_NAME}
-      host: ${DATABASE_HOST}
-      port: ${DATABASE_PORT}
-      username: ${DATABASE_USERNAME}
-      password: ${DATABASE_PASSWORD}
+    - type: sqlite
+      database:
+        $ref: /constants/databaseFile
       synchronize: false
       migrationsRun: true
       migrations:
@@ -132,8 +124,7 @@ dbConnectionRevocationList:
 revocationList:
   $require: '@vckit/revocationlist#RevocationStatus2020'
   $args:
-    - revocationListPath:
-        $ref: /constants/baseUrl
+    - revocationListPath: http://localhost:3332
       bitStringLength: 8
       dbConnection:
         $ref: /dbConnectionRevocationList
@@ -174,9 +165,6 @@ server:
         $args:
           - basePath: :${PORT}
 
-    - - /vc-api-docs
-      - $require: '@vckit/vc-api?t=function#VCApiDocsRouter'
-
     # API base path
     - - /messaging
       - $require: '@vckit/remote-server?t=function#MessagingRouter'
@@ -193,11 +181,14 @@ server:
     - - /credentials/status/revocation-list-2020
       - $require: '@vckit/revocationlist?t=function#revocationList2020Router'
 
+    - - /credentials/status/bitstring-status-list
+      - $require: '@vckit/bitstringStatusList?t=function#bitstringStatusListRouter'
+
     # API base path
     - - /agent
-      - $require: '@vckit/remote-server?t=function#apiKeyAuth'
-        $args:
-          - apiKey: kh14g04piduv
+      # - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+      #   $args:
+      #     - apiKey: test123
 
       - $require: '@vckit/revocationlist?t=function#revocationList2020Middleware'
         $args:
@@ -221,7 +212,7 @@ server:
     - - /open-api.json
       - $require: '@vckit/remote-server?t=function#ApiSchemaRouter'
         $args:
-          - basePath: /agent
+          - basePath: :3332/agent
             securityScheme: bearer
             apiName: Agent
             apiVersion: '1.0.0'
@@ -402,6 +393,28 @@ renderer:
         SvgRenderingHint2022:
           $require: '@vckit/renderer#WebRenderingTemplate2022'
 
+dbConnectionBitstringStatusList:
+  $require: typeorm#DataSource
+  $args:
+    - type: sqlite
+      database:
+        $ref: /constants/databaseFile
+      synchronize: false
+      migrationsRun: true
+      migrations:
+        $require: '@vckit/bitstringStatusList?t=object#migrations'
+      logging: false
+      entities:
+        $require: '@vckit/bitstringStatusList?t=object#Entities'
+
+bitstringStatusList:
+  $require: '@vckit/bitstringStatusList#BitstringStatusList'
+  $args:
+    - bitstringDomainURL: http://localhost:3332
+      bitstringLength: 8
+      dbConnection:
+        $ref: /dbConnectionBitstringStatusList
+
 # Agent
 agent:
   $require: '@veramo/core#Agent'
@@ -416,6 +429,7 @@ agent:
         - $require: '@veramo/did-comm#DIDComm'
         - $require: '@vckit/credential-router#CredentialRouter'
         - $require: '@veramo/credential-w3c#CredentialPlugin'
+        - $require: '@vckit/credential-oa#CredentialOA'
         - $ref: /credentialIssuerLD
         - $require: '@veramo/credential-eip712#CredentialIssuerEIP712'
         - $require: '@veramo/selective-disclosure#SelectiveDisclosure'
@@ -433,6 +447,4 @@ agent:
           $args:
             - BitstringStatusListEntry:
                 $require: '@vckit/bitstringStatusList?t=object#checkStatus'
-              RevocationList2020Status:
-                $require: '@vckit/revocationlist?t=object#checkStatus'
         - $require: '@vckit/tools#MultibaseEncodedSHA256'
