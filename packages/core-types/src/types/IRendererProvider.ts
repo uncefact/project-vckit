@@ -12,7 +12,6 @@ export type RenderDocument = {
  * Plugin interface for the renderer.
  * @public
  */
-
 export interface IRendererProvider {
   /**
    * Render a verifiable credential using the specified render methods.
@@ -28,6 +27,16 @@ export interface IRendererProvider {
     data: any;
     context?: IRendererContext;
     document: RenderDocument;
-  }): Promise<string>;
+  }): Promise<IRenderedResult>;
+}
+/**
+ * The result of rendering
+ * @public
+ */
+export interface IRenderedResult {
+  id?: string;
+  name?: string;
+  renderedTemplate?: string;
+  errorMessages?: string;
 }
 

@@ -93,8 +93,9 @@ export class Renderer implements IAgentPlugin {
           });
           const responseDocument = {
             type: renderMethod.type,
-            renderedTemplate: convertToBase64(document),
-            name: '',
+            renderedTemplate: document.renderedTemplate? convertToBase64(document.renderedTemplate) : '',
+            name: document.name,
+            id: document.id,
           };
           return responseDocument;
         }),

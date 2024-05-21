@@ -35,8 +35,8 @@ interface CredentialRenderProps {
 interface IRenderDocument{
   type: string;
   renderedTemplate: string;
-  id: string | undefined;
-  name: string | undefined;
+  id?: string | undefined;
+  name?: string | undefined;
   
 }
 const CredentialRender: React.FC<CredentialRenderProps> = ({

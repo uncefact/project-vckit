@@ -2,8 +2,10 @@ import {
   IRendererContext,
   IRendererProvider,
   RenderDocument,
+  IRenderedResult,
 } from '@vckit/core-types';
 import handlebars from 'handlebars';
+import { RENDER_METHOD } from '../renderer.js';
 /**
  * @public
  */
@@ -22,15 +24,19 @@ export class RenderTemplate2024 implements IRendererProvider {
     data: any;
     context?: IRendererContext;
     document: RenderDocument;
-  }): Promise<string> {
+  }): Promise<IRenderedResult> {
     try {
-      const { template, url, mediaType, digestMultibase, mediaQuery } = this.extractData(data);
+      const { template, url, mediaType, digestMultibase, mediaQuery, name } = this.extractData(data);
     
       if (!mediaType || !this.supportedMediaTypes.includes(mediaType)) {
-        return 'Error: Unsupported media type';
+        return {
+          errorMessages: 'Error: Unsupported media type',
+        };
       }
       if (!template && !url) {
-        return 'Error: Failed to fetch template or no template provided';
+        return {
+          errorMessages: 'Error: No template or url provided',
+        };
       }
 
       let renderTemplate: any;
@@ -55,7 +61,9 @@ export class RenderTemplate2024 implements IRendererProvider {
           content: renderTemplate,
         });
         if (hashedTemplate !== digestMultibase) {
-          return 'Error: Template hash does not match the provided digest';
+          return {
+            errorMessages: 'Error: Template hash does not match the provided digest',
+          };
         }
       }
       //insert media query into template for html template only
@@ -67,14 +75,17 @@ export class RenderTemplate2024 implements IRendererProvider {
 
       const renderedContent = compiledTemplate(document);
 
-      return renderedContent;
+      return {
+        renderedTemplate: renderedContent,
+        name: name,
+      };
     } catch (error) {
       throw error;
     }
   }
 
   private extractData(data: any) {
-    const RENDER_METHOD = 'https://www.w3.org/2018/credentials#renderMethod';
+    // const RENDER_METHOD = 'https://www.w3.org/2018/credentials#renderMethod';
 
     const template = data[`${RENDER_METHOD}#template`]
       ? (data[`${RENDER_METHOD}#template`] as { '@value': string }[])[0][

@@ -6200,10 +6200,10 @@
             "renderedTemplate": {
               "type": "string"
             },
-            "id": {
+            "name": {
               "type": "string"
             },
-            "name": {
+            "id": {
               "type": "string"
             }
           },
@@ -6991,12 +6991,12 @@
         "IToolsComputeHashArgs": {
           "type": "object",
           "properties": {
-            "value": {
+            "content": {
               "type": "string"
             }
           },
           "required": [
-            "value"
+            "content"
           ]
         }
       },

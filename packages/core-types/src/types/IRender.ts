@@ -35,8 +35,8 @@ export type IRendererContext = IAgentContext<
 export interface IRenderDocument{
   type: string;
   renderedTemplate: string;
-  name: string | undefined;
-  
+  name?: string;
+  id?: string;
 }
 export interface IRenderResult {
   documents: IRenderDocument[];

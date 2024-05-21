@@ -1,16 +1,19 @@
-import { IRendererProvider, RenderDocument } from '@vckit/core-types';
+import { IRendererProvider, RenderDocument, IRenderedResult } from '@vckit/core-types';
 import handlebars from 'handlebars';
+import { RENDER_METHOD } from '../renderer.js';
 
 /**
  * WebRenderingTemplate2022 class implements the IRendererProvider interface for rendering verifiable credentials using Handlebars templates.
  * @public
  */
 export class WebRenderingTemplate2022 implements IRendererProvider {
-  async renderCredential({ data, document }: { data: any, document: RenderDocument }): Promise<string> {
+  async renderCredential({ data, document }: { data: any, document: RenderDocument }): Promise<IRenderedResult> {
     // Check if the template is empty or contains only whitespace
     const template = this.extractTemplate(data);
     if (!template?.trim()) {
-      return '';
+      return {
+        errorMessages: 'Error: invalid template provided',
+      };
     }
     const compiledTemplate = handlebars.compile(template);
 
@@ -18,11 +21,13 @@ export class WebRenderingTemplate2022 implements IRendererProvider {
    
     const renderedContent = compiledTemplate(document);
 
-    return renderedContent;
+    return {
+      renderedTemplate: renderedContent,
+    };
   }
 
   private extractTemplate(data: any) {
-    const RENDER_METHOD = 'https://www.w3.org/2018/credentials#renderMethod';
+    // const RENDER_METHOD = 'https://www.w3.org/2018/credentials#renderMethod';
     const template = data[`${RENDER_METHOD}#template`]
       ? (data[`${RENDER_METHOD}#template`] as { '@value': string }[])[0][
           '@value'
