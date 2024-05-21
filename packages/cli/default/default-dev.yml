@@ -181,8 +181,8 @@ server:
     - - /credentials/status/revocation-list-2020
       - $require: '@vckit/revocationlist?t=function#revocationList2020Router'
 
-    - - /credentials/status/bitstring-status-list-entry
-      - $require: '@vckit/@vckit/bitstringStatusList?t=function#bitstringStatusListRouter'
+    - - /credentials/status/bitstring-status-list
+      - $require: '@vckit/bitstringStatusList?t=function#bitstringStatusListRouter'
 
     # API base path
     - - /agent
@@ -408,10 +408,9 @@ dbConnectionBitstringStatusList:
         $require: '@vckit/bitstringStatusList?t=object#Entities'
 
 bitstringStatusList:
-  $require: '@vckit/bitstringStatusList#BitstringStatusListEntry'
+  $require: '@vckit/bitstringStatusList#BitstringStatusList'
   $args:
-    - bitstringStatusListPath: http://localhost:3332
-      bitstringLength: 8
+    - bitstringDomainURL: http://localhost:3332
       dbConnection:
         $ref: /dbConnectionBitstringStatusList
 
@@ -429,7 +428,7 @@ agent:
         - $require: '@veramo/did-comm#DIDComm'
         - $require: '@vckit/credential-router#CredentialRouter'
         - $require: '@veramo/credential-w3c#CredentialPlugin'
-        - $require: '@vckit/credential-oa#CredentialOA'
+        # - $require: '@vckit/credential-oa#CredentialOA' #TODO: Implement
         - $ref: /credentialIssuerLD
         - $require: '@veramo/credential-eip712#CredentialIssuerEIP712'
         - $require: '@veramo/selective-disclosure#SelectiveDisclosure'
