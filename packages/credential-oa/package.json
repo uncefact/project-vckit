@@ -14,7 +14,7 @@
     "extract-api": "node ../cli/bin/vckit.js dev extract-api"
   },
   "dependencies": {
-    "@govtechsg/oa-verify": "8.0.0",
+    "@govtechsg/oa-verify": "^9.0.0",
     "@govtechsg/open-attestation": "6.5.1",
     "@vckit/core-types": "workspace:^",
     "@veramo/utils": "5.5.3"

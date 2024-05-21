@@ -412,7 +412,6 @@ bitstringStatusList:
   $require: '@vckit/bitstringStatusList#BitstringStatusList'
   $args:
     - bitstringDomainURL: http://localhost:3332
-      bitstringLength: 8
       dbConnection:
         $ref: /dbConnectionBitstringStatusList
 
