@@ -11,8 +11,9 @@ import {
   IRendererContext,
   IRenderResult,
   UnsignedCredential,
-  IRenderer
+  IRenderer,
 } from '@vckit/core-types';
+import { RenderDefaultContexts } from './render-default-contexts.js';
 import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
 
 export const RENDER_METHOD = 'https://www.w3.org/2018/credentials#renderMethod';
@@ -69,7 +70,7 @@ export class Renderer implements IAgentPlugin {
    */
   async renderCredential(
     args: IRenderCredentialArgs,
-    context?: IRendererContext
+    context?: IRendererContext,
   ): Promise<IRenderResult> {
     try {
       const [expandedDocument] = await expandVerifiableCredential(
@@ -114,7 +115,10 @@ function expandVerifiableCredential(
   credential: VerifiableCredential | UnsignedCredential,
 ) {
   // base: null is used to prevent jsonld from resolving relative URLs.
-  return jsonld.expand(credential, { base: null });
+  return jsonld.expand(credential, {
+    base: null,
+    documentLoader: documentLoader,
+  });
 }
 
 /**
@@ -158,4 +162,24 @@ function extractRenderMethods(
  */
 function convertToBase64(content: string): string {
   return Buffer.from(content).toString('base64');
+}
+
+/**
+ * Custom document loader to handle default contexts.
+ * @param url - The URL of the document.
+ * @param options - The options for the document loader.
+ * @returns The document.
+ */
+function documentLoader(url: string, options: any) {
+  const nodeDocumentLoader = jsonld.documentLoaders.node();
+  const contextValue = RenderDefaultContexts.get(url);
+  if (contextValue) {
+    return {
+      contextUrl: null,
+      document: contextValue,
+      documentUrl: url,
+    };
+  }
+
+  return nodeDocumentLoader(url);
 }
