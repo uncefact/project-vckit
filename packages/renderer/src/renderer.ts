@@ -175,12 +175,13 @@ function documentLoader(url: string, options: any) {
   const nodeDocumentLoader = jsonld.documentLoaders.node();
   const contextValue = RenderDefaultContexts.get(url);
   if (contextValue) {
+    
     return {
       contextUrl: null,
       document: contextValue,
       documentUrl: url,
     };
-  }
 
+  }
   return nodeDocumentLoader(url);
 }
