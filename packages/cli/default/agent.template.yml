@@ -5,8 +5,7 @@ constants:
   port: ${PORT}
   # please use your own X25519 key, this is only an example
   # you can generate a new key by running `veramo config gen-key` in a terminal
-  dbEncryptionKey: 29739248cad1bd1a0fc4d9b75cd4d2990de535baf5caadfdf8d8f86664aa830c
-  databaseFile: ./database.sqlite
+  dbEncryptionKey: ${DATABASE_ENCRYPTION_KEY}
   methods:
     - keyManagerGetKeyManagementSystems
     - keyManagerCreate
@@ -196,9 +195,9 @@ server:
 
     # API base path
     - - /agent
-      # - $require: '@vckit/remote-server?t=function#apiKeyAuth'
-      #   $args:
-      #     - apiKey: test123
+      - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+        $args:
+          - apiKey: test123
 
       - $require: '@vckit/revocationlist?t=function#revocationList2020Middleware'
         $args:
