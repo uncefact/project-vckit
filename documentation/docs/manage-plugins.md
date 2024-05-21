@@ -15,14 +15,25 @@ In this guide, we implement a new plugin for hashing a string.
 
 Navigate to `packages/core-types/src/types`, create a new file and name it `Itools` (this is just an example). This interface extends **IPluginMethodMap** interface, and has a method **computeHash** with a string parameter.
 ```ts
-import { IPluginMethodMap } from './IAgent.js';
+import { IAgent, IPluginMethodMap } from './IAgent.js';
+
+/**
+ * @public
+ */
+export interface IToolsComputeHashArgs {
+  content: string;
+}
 
 /**
  * @public
  */
 export interface ITools extends IPluginMethodMap {
-  computeHash(args: string): Promise<string>;
+  computeHash(
+    args: IToolsComputeHashArgs,
+    context: { agent?: IAgent },
+  ): Promise<string>;
 }
+
 ```
 
 ### Step 3: Implement the plugin
@@ -32,7 +43,7 @@ Creating a new plugin means implementing the **IAgentPlugin** interface.
 Example code of the Hash Tool:
 
 ```ts
-import { IAgentPlugin, ITools } from '@vckit/core-types';
+import { IAgentPlugin, ITools, IToolsComputeHashArgs } from '@vckit/core-types';
 import { sha256 } from 'multiformats/hashes/sha2';
 import { base58btc } from 'multiformats/bases/base58';
 import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
@@ -47,17 +58,22 @@ export class MultibaseEncodedSHA256 implements IAgentPlugin {
     };
   }
 
-  async computeHash(value: string): Promise<string> {
-    if (!value || typeof value !== 'string') {
+  async computeHash(args: IToolsComputeHashArgs): Promise<string> {
+    if (
+      typeof args !== 'object' ||
+      !args?.content ||
+      typeof args?.content !== 'string'
+    ) {
       throw new Error('Value is invalid');
     }
 
-    const bytes = new TextEncoder().encode(value);
+    const bytes = new TextEncoder().encode(args.content);
     const hash = await sha256.digest(bytes);
     const multibasedHash = base58btc.encode(hash.bytes);
     return multibasedHash;
   }
 }
+
 ```
 
 There're 2 properties of the class are required, both of them are from @vckit/core-types:
@@ -76,34 +92,10 @@ Open the `agent.yml` file, and add this line `- $require: '@vckit/tools#Multibas
 agent:
   $require: '@veramo/core#Agent'
   $args:
-    - schemaValidation: false
-      plugins:
-        - $ref: /keyManager
-        - $ref: /didManager
-        - $ref: /didResolver
-        - $ref: /didDiscovery
-        - $ref: /messageHandler
-        - $require: '@veramo/did-comm#DIDComm'
-        - $require: '@vckit/credential-router#CredentialRouter'
-        - $require: '@veramo/credential-w3c#CredentialPlugin'
-        - $require: '@vckit/credential-oa#CredentialOA'
-        - $ref: /credentialIssuerLD
-        - $require: '@veramo/credential-eip712#CredentialIssuerEIP712'
-        - $require: '@veramo/selective-disclosure#SelectiveDisclosure'
-        - $require: '@veramo/data-store#DataStore'
-          $args:
-            - $ref: /dbConnection
-        - $require: '@veramo/data-store#DataStoreORM'
-          $args:
-            - $ref: /dbConnection
-        - $ref: /renderer
-        - $ref: /encryptedStorage
-        - $ref: /revocationList
-        - $require: '@veramo/credential-status#CredentialStatusPlugin'
-          $args:
-            - RevocationList2020Status:
-                $require: '@vckit/revocationlist?t=object#checkStatus'
-        - $require: '@vckit/tools#MultibaseEncodedSHA256'
+    plugins:
+        ...
+        # Add tools plugin for MultibaseEncodedSHA256
+        - $require: '@vckit/tools?#MultibaseEncodedSHA256'
 ```
 
 ### Step 2: Expose the method.
@@ -111,7 +103,12 @@ agent:
 Under **constants** > **methods**, and the new method from the plugin. 
 Example: we expose the computeHash method at the end of the **methods**.
 ```yml
-- computeHash
+constants:
+  methods:
+    ...
+    # Add method for MultibaseEncodedSHA256
+    - computeHash
+
 ```
 
 Now you can build the project-vckit and start the vckit api server and test the new plugin. 
