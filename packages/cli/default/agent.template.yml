@@ -99,7 +99,7 @@ dbConnection:
 dbConnectionEncrypted:
   $require: typeorm#DataSource
   $args:
-   - type: ${DATABASE_TYPE}
+    - type: ${DATABASE_TYPE}
       database: ${DATABASE_NAME}
       host: ${DATABASE_HOST}
       port: ${DATABASE_PORT}
