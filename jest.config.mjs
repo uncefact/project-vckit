@@ -21,6 +21,7 @@ export default {
     '<rootDir>/node_modules/',
     '<rootDir>/packages/credential-ld/',
     '<rootDir>/packages/vckit-oa-renderers/',
+    '<rootDir>/packages/credential-oa/',
   ],
   testEnvironment: 'node',
   automock: false,

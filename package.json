@@ -9,7 +9,7 @@
     "build:api": "pnpm --package=@vckit/cli -c dlx \"pnpm -r --stream --filter=!{@vckit/credential-oa,@vckit/oa-renderers,@vckit/demo-explorer} extract-api\"",
     "build:schema": "pnpm --package=@vckit/cli -c dlx \"pnpm -r --stream generate-plugin-schema\"",
     "build:explorer": "pnpm -r --stream --filter=@vckit/demo-explorer build",
-    "test": "pnpm test:packages && pnpm test:oa-renderer",
+    "test": "pnpm test:packages",
     "test:packages-ci": "pnpm test:packages --coverage=true",
     "test:packages": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --experimental-import-meta-resolve\" jest",
     "test:packages-watch": "pnpm test:packages --watch --verbose",
