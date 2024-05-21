@@ -430,7 +430,7 @@ agent:
         - $require: '@veramo/did-comm#DIDComm'
         - $require: '@vckit/credential-router#CredentialRouter'
         - $require: '@veramo/credential-w3c#CredentialPlugin'
-        - $require: '@vckit/credential-oa#CredentialOA'
+        # - $require: '@vckit/credential-oa#CredentialOA' #TODO: Implement
         - $ref: /credentialIssuerLD
         - $require: '@veramo/credential-eip712#CredentialIssuerEIP712'
         - $require: '@veramo/selective-disclosure#SelectiveDisclosure'
