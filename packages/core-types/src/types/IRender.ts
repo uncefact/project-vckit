@@ -35,7 +35,6 @@ export type IRendererContext = IAgentContext<
 export interface IRenderDocument{
   type: string;
   renderedTemplate: string;
-  id: string | undefined;
   name: string | undefined;
   
 }

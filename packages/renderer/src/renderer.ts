@@ -72,39 +72,31 @@ export class Renderer implements IAgentPlugin {
     context?: IRendererContext
   ): Promise<IRenderResult> {
     try {
-     
       const [expandedDocument] = await expandVerifiableCredential(
-        args.credential
+        args.credential,
       );
-    
       const renderMethods: RenderMethodPayload[] | [] =
         extractRenderMethods(expandedDocument);
 
       if (!Array.isArray(renderMethods)) {
         throw new Error('Render method not found in the verifiable credential');
       }
-      
+
       const documents = await Promise.all(
         renderMethods.map(async (renderMethod) => {
-          const rendererProvider = this.getProvider(renderMethod['@type']);
-          const document = await rendererProvider.renderCredential(
-            {
-              template: renderMethod.template,
-              document: args.credential,
-              url: renderMethod.url,
-              digestMultibase: renderMethod.digestMultibase,
-              mediaType: renderMethod.mediaType,
-              context,
-            }
-          );
+          const rendererProvider = this.getProvider(renderMethod.type);
+          const document = await rendererProvider.renderCredential({
+            data: renderMethod.data,
+            context,
+            document: args.credential,
+          });
           const responseDocument = {
-            type: renderMethod['@type'],
+            type: renderMethod.type,
             renderedTemplate: convertToBase64(document),
-            id: renderMethod.id,
-            name: renderMethod.name,
+            name: '',
           };
           return responseDocument;
-        })
+        }),
       );
       return { documents };
     } catch (error) {
@@ -119,7 +111,7 @@ export class Renderer implements IAgentPlugin {
  * @returns The expanded document.
  */
 function expandVerifiableCredential(
-  credential: VerifiableCredential | UnsignedCredential
+  credential: VerifiableCredential | UnsignedCredential,
 ) {
   // base: null is used to prevent jsonld from resolving relative URLs.
   return jsonld.expand(credential, { base: null });
@@ -130,48 +122,33 @@ function expandVerifiableCredential(
  * @param expandedDocument - The expanded JSON-LD document.
  * @returns The array of render methods.
  */
+
 function extractRenderMethods(
-  expandedDocument: JsonLdObj
+  expandedDocument: JsonLdObj,
 ): RenderMethodPayload[] | [] {
-  const renders = ((expandedDocument[RENDER_METHOD] as JsonLdObj[]) || [])
-    .filter((render) => {
-      return render['@type'];
-    })
-    .map((render) => {
-      // TODO: Handle @type as an array of strings with more than one element.
-      const type = Array.isArray(render['@type'])
-        ? render['@type'][0]
-        : render['@type'];
+  const result: RenderMethodPayload[] = [];
+  const renders = (
+    (expandedDocument[RENDER_METHOD] as JsonLdObj[]) || []
+  ).filter((render) => {
+    return render['@type'];
+  });
 
-      const extractedType = type?.split('#')[1] // Handle the case where the type is a URL.
-        ? type.split('#')[1]
-        : type;
-        
-        const template = render[`${RENDER_METHOD}#template`]
-        ? (render[`${RENDER_METHOD}#template`] as { '@value': string; }[])[0]['@value']
-        : undefined;
-  
-      // const url = render[`${RENDER_METHOD}#url`]
-      //   ? (render[`${RENDER_METHOD}#url`] as { '@value': string; }[])[0]['@value']
-      //   : undefined;
-  
-      // const mediaType = render['https://schema.org/encodingFormat']
-      //   ? (render['https://schema.org/encodingFormat'] as { '@value': string; }[])[0]['@value']
-      //   : undefined;
-  
-      // const digestMultibase = render['https://w3id.org/security#digestMultibase']
-      //   ? (render['https://w3id.org/security#digestMultibase'] as { '@value': string; }[])[0]['@value']
-      //   : undefined;
-      
-      // const name = render['https://schema.org/name']
-      //   ? (render['https://schema.org/name'] as { '@value': string; }[])[0]['@value']
-      //   : undefined;
+  renders.forEach((renderMethod: Record<string, any>) => {
+    let type = Array.isArray(renderMethod['@type'])
+      ? renderMethod['@type'][0]
+      : renderMethod['@type'];
 
-      // 
-      return { template, '@type': extractedType } as RenderMethodPayload;
-    });
+    type = type?.split('#')[1] // Handle the case where the type is a URL.
+      ? type.split('#')[1]
+      : type;
 
-  return renders;
+    const data = { ...renderMethod };
+    delete data['@type'];
+
+    result.push({ type, data });
+  });
+
+  return result;
 }
 
 /**
