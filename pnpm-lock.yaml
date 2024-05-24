@@ -6,7 +6,7 @@ settings:
 
 overrides:
   '@types/eslint': ^8.4.6
-  jsonld: npm:@digitalcredentials/jsonld@^5.2.1
+  jsonld: npm:@digitalcredentials/jsonld@5.2.1
 
 importers:
 
@@ -513,8 +513,8 @@ importers:
         specifier: ^0.6.2
         version: 0.6.2
       jsonld:
-        specifier: npm:@digitalcredentials/jsonld@^5.2.1
-        version: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+        specifier: npm:@digitalcredentials/jsonld@5.2.1
+        version: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
       pako:
         specifier: ^2.1.0
         version: 2.1.0
@@ -1234,8 +1234,8 @@ importers:
   packages/renderer:
     dependencies:
       '@digitalcredentials/jsonld':
-        specifier: ^6.0.0
-        version: 6.0.0(expo@51.0.5)(react-native@0.74.1)
+        specifier: 5.2.1
+        version: 5.2.1(expo@51.0.5)(react-native@0.74.1)
       '@vckit/core-types':
         specifier: workspace:^
         version: link:../core-types
@@ -3959,7 +3959,7 @@ packages:
     engines: {node: '>=14'}
     dependencies:
       credentials-context: 2.0.0
-      jsonld: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
       jsonld-signatures: 11.2.1(expo@51.0.5)(react-native@0.74.1)
     transitivePeerDependencies:
       - domexception
@@ -3973,7 +3973,7 @@ packages:
     engines: {node: '>=14'}
     dependencies:
       credentials-context: 2.0.0
-      jsonld: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
       jsonld-signatures: 11.2.1(expo@51.0.5)(react-native@0.74.1)
     transitivePeerDependencies:
       - domexception
@@ -4055,8 +4055,8 @@ packages:
       - web-streams-polyfill
     dev: false
 
-  /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1):
-    resolution: {integrity: sha512-hz7YR3kv6+8UUdgMyTGl1o8NjVKKwnMry/Rh/rWeAvwL+NqgoUHorWzI3rM+PW+MPFyDC0ieXStClt9n9D9SGA==}
+  /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1):
+    resolution: {integrity: sha512-pDiO1liw8xs+J/43qnMZsxyz0VOWOb7Q2yUlBt/tyjq6SlT9xPo+3716tJPbjGPnou2lQRw3H5/I++z+6oQ07w==}
     engines: {node: '>=12'}
     dependencies:
       '@digitalcredentials/http-client': 1.2.2
@@ -4119,7 +4119,7 @@ packages:
     resolution: {integrity: sha512-8Rxpn77JghJN7noBQdcMuzm/tB8vhDwPoFepr3oGd5w+CyJxOk2RnBlgIGlAAGA+mALFWECPv1rANfXno+hdjA==}
     engines: {node: '>=12'}
     dependencies:
-      '@digitalcredentials/jsonld': 5.2.2(expo@51.0.5)(react-native@0.74.1)
+      '@digitalcredentials/jsonld': 5.2.1(expo@51.0.5)(react-native@0.74.1)
       '@digitalcredentials/jsonld-signatures': 9.4.0(expo@51.0.5)(react-native@0.74.1)
       credentials-context: 2.0.0
     transitivePeerDependencies:
@@ -11691,7 +11691,7 @@ packages:
     engines: {node: '>=16'}
     dependencies:
       json-pointer: 0.6.2
-      jsonld: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
     transitivePeerDependencies:
       - domexception
       - expo
@@ -11713,7 +11713,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       '@transmute/security-context': 0.0.4-unstable.2
-      jsonld: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
       serialize-error: 7.0.1
     transitivePeerDependencies:
       - domexception
@@ -11831,6 +11831,14 @@ packages:
       '@stablelib/x25519': 1.0.3
       '@transmute/ld-key-pair': 0.7.0-unstable.82
     dev: false
+
+  /@trufflesuite/bigint-buffer@1.1.10:
+    resolution: {integrity: sha512-pYIQC5EcMmID74t26GCC67946mgTJFiLXOT/BYozgrd4UEY2JHEGLhWi9cMiQCt5BSqFEvKkCHNnoj82SRjiEw==}
+    engines: {node: '>= 14.0.0'}
+    requiresBuild: true
+    dependencies:
+      node-gyp-build: 4.4.0
+    dev: true
 
   /@trufflesuite/uws-js-unofficial@20.30.0-unofficial.0:
     resolution: {integrity: sha512-r5X0aOQcuT6pLwTRLD+mPnAM/nlKtvIK4Z+My++A8tTOR0qTjNRx8UB8jzRj3D+p9PMAp5LnpCUUGmz7/TppwA==}
@@ -12260,6 +12268,7 @@ packages:
 
   /@types/minimatch@5.1.2:
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
+    requiresBuild: true
     dev: true
 
   /@types/minimist@1.2.5:
@@ -21536,6 +21545,7 @@ packages:
     resolution: {integrity: sha512-7gsVVDpO9AhrFyDMWWl7SpMsPpqGcnAzjxz3k32LheIPNd64p2XsY9GYRdhWmKuryb60W1iaWPZWDkFKlbRWHA==}
     hasBin: true
     dependencies:
+      '@trufflesuite/bigint-buffer': 1.1.10
       '@trufflesuite/uws-js-unofficial': 20.30.0-unofficial.0
       '@types/bn.js': 5.1.5
       '@types/lru-cache': 5.1.1
@@ -21544,6 +21554,9 @@ packages:
       abstract-leveldown: 7.2.0
       async-eventemitter: 0.2.4
       emittery: 0.10.0
+      keccak: 3.0.2
+      leveldown: 6.1.0
+      secp256k1: 4.0.3
     optionalDependencies:
       bufferutil: 4.0.5
       utf-8-validate: 5.0.7
@@ -25932,7 +25945,7 @@ packages:
     resolution: {integrity: sha512-jclmnPRrm5SEpaIV6IiSTJxplRAqIWHduQLsUfrYpZM41Ng48m1RN2/aUyHze/ynfO0D2UhlJBt8SdObsH5GBw==}
     engines: {node: '>=10'}
     dependencies:
-      jsonld: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
       node-fetch: 2.7.0
     transitivePeerDependencies:
       - domexception
@@ -25947,7 +25960,7 @@ packages:
     engines: {node: '>=14'}
     dependencies:
       '@digitalbazaar/security-context': 1.0.1
-      jsonld: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
       serialize-error: 8.1.0
     transitivePeerDependencies:
       - domexception
@@ -26037,6 +26050,16 @@ packages:
     dependencies:
       jwa: 1.4.1
       safe-buffer: 5.2.1
+    dev: true
+
+  /keccak@3.0.2:
+    resolution: {integrity: sha512-PyKKjkH53wDMLGrvmRGSNWgmSxZOUqbnXwKL9tmgbFYA1iAYqW21kfR7mZXV0MlESiefxQQE9X9fTa3X+2MPDQ==}
+    engines: {node: '>=10.0.0'}
+    requiresBuild: true
+    dependencies:
+      node-addon-api: 2.0.2
+      node-gyp-build: 4.8.1
+      readable-stream: 3.6.2
     dev: true
 
   /keyv@4.5.4:
@@ -26293,6 +26316,16 @@ packages:
     dependencies:
       buffer: 6.0.3
       module-error: 1.0.2
+    dev: true
+
+  /leveldown@6.1.0:
+    resolution: {integrity: sha512-8C7oJDT44JXxh04aSSsfcMI8YiaGRhOFI9/pMEL7nWJLVsWajDPTRxsSHTM2WcTVY5nXM+SuRHzPPi0GbnDX+w==}
+    engines: {node: '>=10.12.0'}
+    requiresBuild: true
+    dependencies:
+      abstract-leveldown: 7.2.0
+      napi-macros: 2.0.0
+      node-gyp-build: 4.8.1
     dev: true
 
   /leven@3.1.0:
@@ -27976,6 +28009,10 @@ packages:
   /napi-build-utils@1.0.2:
     resolution: {integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==}
 
+  /napi-macros@2.0.0:
+    resolution: {integrity: sha512-A0xLykHtARfueITVDernsAWdtIMbOJgKgcluwENp3AlsKN/PloyO10HtmoqnFAQAcxPkgZN7wdfPfEd0zNGxbg==}
+    dev: true
+
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
     dev: true
@@ -28081,7 +28118,6 @@ packages:
 
   /node-addon-api@2.0.2:
     resolution: {integrity: sha512-Ntyt4AIXyaLIuMHF6IOoTakB3K+RWxwtsHNRxllEoA6vPwP9o4866g6YWDLUdnucilZhmkxiHwHr11gAENw+QA==}
-    dev: false
 
   /node-addon-api@7.1.0:
     resolution: {integrity: sha512-mNcltoe1R8o7STTegSOHdnJNN7s5EUvhoS7ShnTHDyOSd+8H+UdWODq6qSv67PjC8Zc5JRT8+oLAMCr0SIXw7g==}
@@ -28161,6 +28197,11 @@ packages:
   /node-forge@1.3.1:
     resolution: {integrity: sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==}
     engines: {node: '>= 6.13.0'}
+
+  /node-gyp-build@4.4.0:
+    resolution: {integrity: sha512-amJnQCcgtRVw9SvoebO3BKGESClrfXGCUTX9hSn1OuGQTQBOZmVd0Z0OlecpuRksKvbsUqALE8jls/ErClAPuQ==}
+    hasBin: true
+    dev: true
 
   /node-gyp-build@4.8.1:
     resolution: {integrity: sha512-OSs33Z9yWr148JZcbZd5WiAXhh/n9z8TxQcdMhIOlpN9AhWpLfvVFO73+m77bBABQMaY9XSvIa+qk0jlI7Gcaw==}
@@ -34014,7 +34055,6 @@ packages:
       elliptic: 6.5.5
       node-addon-api: 2.0.2
       node-gyp-build: 4.8.1
-    dev: false
 
   /seedrandom@3.0.5:
     resolution: {integrity: sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==}
@@ -34781,6 +34821,9 @@ packages:
   /sqlite3@5.1.7:
     resolution: {integrity: sha512-GGIyOiFaG+TUra3JIfkI/zGP8yZYLPQ0pl1bH+ODjiX57sPhrLU5sQJn1y9bDKZUFYkX1crlrPfSYt0BKKdkog==}
     requiresBuild: true
+    peerDependenciesMeta:
+      node-gyp:
+        optional: true
     dependencies:
       bindings: 1.5.0
       node-addon-api: 7.1.0
@@ -39020,7 +39063,7 @@ packages:
       '@digitalbazaar/credentials-v2-context': github.com/digitalbazaar/credentials-v2-context/277d50b948ada35fedf63feb43de32b2483489e0
       credentials-context: 2.0.0
       ed25519-signature-2018-context: 1.1.0
-      jsonld: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
       jsonld-signatures: 11.2.1(expo@51.0.5)(react-native@0.74.1)
     transitivePeerDependencies:
       - domexception

@@ -76,6 +76,11 @@ export class Renderer implements IAgentPlugin {
       const [expandedDocument] = await expandVerifiableCredential(
         args.credential,
       );
+
+      if (!expandedDocument) {
+        throw new Error('Error expanding the verifiable credential');
+      }
+
       const renderMethods: RenderMethodPayload[] | [] =
         extractRenderMethods(expandedDocument);
 
@@ -93,15 +98,18 @@ export class Renderer implements IAgentPlugin {
           });
           const responseDocument = {
             type: renderMethod.type,
-            renderedTemplate: document.renderedTemplate? convertToBase64(document.renderedTemplate) : '',
+            renderedTemplate: document.renderedTemplate
+              ? convertToBase64(document.renderedTemplate)
+              : '',
             name: document.name,
-            id: document.id,
+            id: document.id
           };
           return responseDocument;
         }),
       );
       return { documents };
     } catch (error) {
+      console.error('Error rendering credential:', error);
       throw error;
     }
   }
@@ -172,16 +180,16 @@ function convertToBase64(content: string): string {
  * @returns The document.
  */
 function documentLoader(url: string, options: any) {
-  const nodeDocumentLoader = jsonld.documentLoaders.node();
+  const documentLoaderFn = jsonld.documentLoaders?.xhr
+    ? jsonld.documentLoaders.xhr()
+    : jsonld.documentLoaders.node();
   const contextValue = RenderDefaultContexts.get(url);
   if (contextValue) {
-    
     return {
       contextUrl: null,
       document: contextValue,
       documentUrl: url,
     };
-
   }
-  return nodeDocumentLoader(url);
+  return documentLoaderFn(url);
 }

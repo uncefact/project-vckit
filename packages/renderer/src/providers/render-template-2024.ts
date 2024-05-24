@@ -19,15 +19,16 @@ export class RenderTemplate2024 implements IRendererProvider {
   async renderCredential({
     data,
     context,
-    document
+    document,
   }: {
     data: any;
     context?: IRendererContext;
     document: RenderDocument;
   }): Promise<IRenderedResult> {
     try {
-      const { template, url, mediaType, digestMultibase, mediaQuery, name } = this.extractData(data);
-    
+      const { template, url, mediaType, digestMultibase, mediaQuery, name } =
+        this.extractData(data);
+
       if (!mediaType || !this.supportedMediaTypes.includes(mediaType)) {
         return {
           errorMessages: 'Error: Unsupported media type',
@@ -39,7 +40,7 @@ export class RenderTemplate2024 implements IRendererProvider {
         };
       }
 
-      let renderTemplate: any;
+      let renderTemplate: any = template;
       //get the template
       if (url) {
         try {
@@ -47,7 +48,6 @@ export class RenderTemplate2024 implements IRendererProvider {
           renderTemplate = await response.text();
         } catch (error) {
           console.error(`Failed to fetch from ${url}:`, error);
-          renderTemplate = template;
         }
       }
 
@@ -62,13 +62,14 @@ export class RenderTemplate2024 implements IRendererProvider {
         });
         if (hashedTemplate !== digestMultibase) {
           return {
-            errorMessages: 'Error: Template hash does not match the provided digest',
+            errorMessages:
+              'Error: Template hash does not match the provided digest',
           };
         }
       }
       //insert media query into template for html template only
-      if(mediaType === 'text/html' && mediaQuery){
-        renderTemplate = `<style>${mediaQuery}</style>` + renderTemplate; 
+      if (mediaType === 'text/html' && mediaQuery) {
+        renderTemplate = `<style>${mediaQuery}</style>` + renderTemplate;
       }
 
       const compiledTemplate = handlebars.compile(renderTemplate);
