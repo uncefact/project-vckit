@@ -10,7 +10,7 @@ info:
     url: http://www.w3.org/Consortium/Legal/copyright-software.
   contact:
     name: GitHub Source Code
-    url: https://github.com/w3c-ccg/vc-api
+    url: https://github.com/w3c-ccg
 tags:
   - name: holder_Credentials
     x-displayName: Credentials
@@ -25,7 +25,7 @@ tags:
   - name: verifier_Presentations
     x-displayName: Presentations
 paths:
-  /credentials/{id}:
+  /v1/credentials/{id}:
     get:
       tags:
         - holder_Credentials
@@ -86,7 +86,7 @@ paths:
           description: Internal Error
         '501':
           description: Not Implemented
-  /credentials:
+  /v1/credentials:
     get:
       tags:
         - holder_Credentials
@@ -124,7 +124,7 @@ paths:
           description: Internal Error
         '501':
           description: Not Implemented
-  /credentials/derive:
+  /v1/credentials/derive:
     post:
       tags:
         - holder_Credentials
@@ -152,7 +152,7 @@ paths:
           description: Internal Error
         '501':
           description: Not Implemented
-  /presentations/{id}:
+  /v1/presentations/{id}:
     get:
       tags:
         - holder_Presentations
@@ -209,7 +209,7 @@ paths:
           description: Internal Error
         '501':
           description: Not Implemented
-  /presentations:
+  /v1/presentations:
     get:
       tags:
         - holder_Presentations
@@ -247,7 +247,7 @@ paths:
           description: Internal Error
         '501':
           description: Not Implemented
-  /presentations/prove:
+  /v1/presentations/prove:
     post:
       summary: Proves a presentation and returns it in the response body.
       tags:
@@ -273,7 +273,7 @@ paths:
           description: invalid input!
         '500':
           description: error!
-  /exchanges:
+  /v1/exchanges:
     get:
       summary: >-
         Provides a discovery endpoint for the exchanges supported by this server
@@ -362,7 +362,7 @@ paths:
           description: invalid input
         '500':
           description: error
-  /exchanges/{exchange-id}:
+  /v1/exchanges/{exchange-id}:
     post:
       summary: Initiates an exchange of information.
       tags:
@@ -406,7 +406,7 @@ paths:
           description: Internal server error.
         '501':
           description: Service not implemented.
-  /exchanges/{exchange-id}/{transaction-id}:
+  /v1/exchanges/{exchange-id}/{transaction-id}:
     post:
       summary: Receives information related to an existing exchange.
       tags:
@@ -448,7 +448,7 @@ paths:
           description: Internal server error.
         '501':
           description: Service not implemented.
-  /credentials/issue:
+  /v1/credentials/issue:
     post:
       summary: Issues a credential and returns it in the response body.
       tags:
@@ -474,7 +474,7 @@ paths:
           description: invalid input!
         '500':
           description: error!
-  /credentials/status:
+  /v1/credentials/status:
     post:
       summary: Updates the status of an issued credential
       tags:
@@ -500,7 +500,7 @@ paths:
           description: Credential not found
         '500':
           description: Internal Server Error
-  /credentials/verify:
+  /v1/credentials/verify:
     post:
       summary: >-
         Verifies a verifiableCredential and returns a verificationResult in the
@@ -532,7 +532,7 @@ paths:
           description: invalid input!
         '500':
           description: error!
-  /presentations/verify:
+  /v1/presentations/verify:
     post:
       summary: >-
         Verifies a Presentation with or without proofs attached and returns a

@@ -18,7 +18,7 @@ The vckit is built on top of the [Veramo](https://veramo.io/) agent framework. V
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/en/) version 18.17.0
+- [Node.js](https://nodejs.org/en/) version 20.12.2
 - [pnpm](https://pnpm.io/) version 8.14.1
 
 This project has been tested and optimized for Node.js version v18.17.0 and pnpm version 8.14.1. Please note that using a Node.js version later than v18.17.0 may result incorrect functionality and potential bugs. It is strongly recommended to use these specific versions for running and testing the project. Deviating from these versions may result in unforeseen compatibility issues or unexpected behavior.

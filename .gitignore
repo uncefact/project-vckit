@@ -64,6 +64,7 @@ website/node_modules
 /packages/*/api/*.api.md
 /packages/*/coverage/
 /packages/*/node_modules/
+/packages/*/.tmp_npm/
 coverage
 
 .npmrc
@@ -92,3 +93,4 @@ local-database*.json
 
 # logs
 /logs
+.tmp_npm

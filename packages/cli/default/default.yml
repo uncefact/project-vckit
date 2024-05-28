@@ -64,16 +64,19 @@ constants:
     - getVerifiableCredentialsForSdr
     - validatePresentationAgainstSdr
     - renderCredential
-    - createVerifiableCredentialOA
-    - verifyCredentialOA
     - encryptAndStoreData
     - fetchEncryptedData
     - fetchEncryptedDataByCredentialHash
+    - issueRevocationStatusList
     - revokeCredential
     - activateCredential
-    - checkStatus
+    - checkRevocationStatus
     - routeCreationVerifiableCredential
     - routeVerificationCredential
+    - issueBitstringStatusList
+    - checkBitstringStatus
+    - setBitstringStatus
+    - computeHash
 
 # Data base
 dbConnection:
@@ -150,16 +153,17 @@ server:
           - keyMapping:
               Ed25519: JsonWebKey2020 # Ed25519VerificationKey2020 | JsonWebKey2020
 
-    # VC API
-    - - $require: '@vckit/vc-api?t=function#VCRouter'
-    # VC API docs path
-    - - /vc-api.json
-      - $require: '@vckit/vc-api?t=function#VCApiSchemaRouter'
+    # VC API v1
+    - - /v1
+      - $require: '@vckit/vc-api?t=function#V1VcRouter'
         $args:
           - basePath: :3332
 
-    - - /vc-api-docs
-      - $require: '@vckit/vc-api?t=function#VCApiDocsRouter'
+    # VC API v2
+    - - /v2
+      - $require: '@vckit/vc-api?t=function#V2VcRouter'
+        $args:
+          - basePath: :3332
 
     # API base path
     - - /messaging
@@ -176,6 +180,9 @@ server:
     # Revocation List
     - - /credentials/status/revocation-list-2020
       - $require: '@vckit/revocationlist?t=function#revocationList2020Router'
+
+    - - /credentials/status/bitstring-status-list
+      - $require: '@vckit/bitstringStatusList?t=function#bitstringStatusListRouter'
 
     # API base path
     - - /agent
@@ -386,6 +393,28 @@ renderer:
         SvgRenderingHint2022:
           $require: '@vckit/renderer#WebRenderingTemplate2022'
 
+dbConnectionBitstringStatusList:
+  $require: typeorm#DataSource
+  $args:
+    - type: sqlite
+      database:
+        $ref: /constants/databaseFile
+      synchronize: false
+      migrationsRun: true
+      migrations:
+        $require: '@vckit/bitstringStatusList?t=object#migrations'
+      logging: false
+      entities:
+        $require: '@vckit/bitstringStatusList?t=object#Entities'
+
+# BitstringStatusList for credentialStatus
+bitstringStatusList:
+  $require: '@vckit/bitstringStatusList#BitstringStatusList'
+  $args:
+    - bitstringDomainURL: http://localhost:3332
+      dbConnection:
+        $ref: /dbConnectionBitstringStatusList
+
 # Agent
 agent:
   $require: '@veramo/core#Agent'
@@ -400,7 +429,7 @@ agent:
         - $require: '@veramo/did-comm#DIDComm'
         - $require: '@vckit/credential-router#CredentialRouter'
         - $require: '@veramo/credential-w3c#CredentialPlugin'
-        - $require: '@vckit/credential-oa#CredentialOA'
+        # - $require: '@vckit/credential-oa#CredentialOA' #TODO: Implement
         - $ref: /credentialIssuerLD
         - $require: '@veramo/credential-eip712#CredentialIssuerEIP712'
         - $require: '@veramo/selective-disclosure#SelectiveDisclosure'
@@ -413,7 +442,9 @@ agent:
         - $ref: /renderer
         - $ref: /encryptedStorage
         - $ref: /revocationList
+        - $ref: /bitstringStatusList
         - $require: '@veramo/credential-status#CredentialStatusPlugin'
           $args:
-            - RevocationList2020Status:
-                $require: '@vckit/revocationlist?t=object#checkStatus'
+            - BitstringStatusListEntry:
+                $require: '@vckit/bitstringStatusList?t=object#checkStatus'
+        - $require: '@vckit/tools#MultibaseEncodedSHA256'

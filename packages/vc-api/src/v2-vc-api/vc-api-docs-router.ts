@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { RequestWithAgent } from './types/request-type.js';
+import { RequestWithAgent } from '../types/request-type.js';
 
 /**
  * Creates a router that exposes vc api documentation browser
@@ -19,7 +19,7 @@ export const VCApiDocsRouter = (): Router => {
     </head>
     <body>
       <rapi-doc
-          spec-url="../vc-api.json"
+          spec-url="../v2/vc-api.json"
           theme="light"
           primary-color="#006ba4"
           render-style="read"

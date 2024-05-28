@@ -11,16 +11,16 @@ import {
   initiateExchange,
   provePresentation,
   receiveExchange,
-} from './controllers/holder-controller.js';
+} from '../controllers/holder-controller.js';
 import { validatorMiddleware } from './validator-middleware.js';
 import {
   issueCredential,
   updateCredentialStatus,
-} from './controllers/issuer-controller.js';
+} from '../controllers/issuer-controller.js';
 import {
   verifyCredential,
   verifyPresentation,
-} from './controllers/verifier-controller.js';
+} from '../controllers/verifier-controller.js';
 
 /**
  *
@@ -50,7 +50,7 @@ export const VCRouter = (): Router => {
   router.delete(
     '/presentations/:id',
     validatorMiddleware(),
-    deletePresentation
+    deletePresentation,
   );
 
   router.get('/exchanges', validatorMiddleware(), getExchanges);
@@ -58,13 +58,13 @@ export const VCRouter = (): Router => {
   router.post(
     '/exchanges/:exchangeId',
     validatorMiddleware(),
-    initiateExchange
+    initiateExchange,
   );
 
   router.post(
     '/exchanges/:exchangeId/:transactionId',
     validatorMiddleware(),
-    receiveExchange
+    receiveExchange,
   );
 
   // Issuer routes
@@ -73,7 +73,7 @@ export const VCRouter = (): Router => {
   router.post(
     '/credentials/status',
     validatorMiddleware(),
-    updateCredentialStatus
+    updateCredentialStatus,
   );
 
   // Verifier routes
@@ -82,7 +82,7 @@ export const VCRouter = (): Router => {
   router.post(
     '/presentations/verify',
     validatorMiddleware(),
-    verifyPresentation
+    verifyPresentation,
   );
 
   return router;
