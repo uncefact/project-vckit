@@ -129,6 +129,23 @@ dbConnectionRevocationList:
       entities:
         $require: '@vckit/revocationlist?t=object#Entities'
 
+dbConnectionBitstringStatusList:
+  $require: typeorm#DataSource
+  $args:
+    - type: ${DATABASE_TYPE}
+      database: ${DATABASE_NAME}
+      host: ${DATABASE_HOST}
+      port: ${DATABASE_PORT}
+      username: ${DATABASE_USERNAME}
+      password: ${DATABASE_PASSWORD}
+      synchronize: false
+      migrationsRun: true
+      migrations:
+        $require: '@vckit/bitstringStatusList?t=object#migrations'
+      logging: false
+      entities:
+        $require: '@vckit/bitstringStatusList?t=object#Entities'
+
 revocationList:
   $require: '@vckit/revocationlist#RevocationStatus2020'
   $args:
@@ -401,20 +418,6 @@ renderer:
           $require: '@vckit/renderer#WebRenderingTemplate2022'
         SvgRenderingHint2022:
           $require: '@vckit/renderer#WebRenderingTemplate2022'
-
-dbConnectionBitstringStatusList:
-  $require: typeorm#DataSource
-  $args:
-    - type: sqlite
-      database:
-        $ref: /constants/databaseFile
-      synchronize: false
-      migrationsRun: true
-      migrations:
-        $require: '@vckit/bitstringStatusList?t=object#migrations'
-      logging: false
-      entities:
-        $require: '@vckit/bitstringStatusList?t=object#Entities'
 
 bitstringStatusList:
   $require: '@vckit/bitstringStatusList#BitstringStatusList'

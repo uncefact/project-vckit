@@ -42,8 +42,8 @@ RUN apt-get update && apt-get install gettext -y
 
 # Substitute environment variables in agent template file
 RUN envsubst '${DATABASE_TYPE},${DATABASE_NAME},${DATABASE_HOST},${DATABASE_PORT},${DATABASE_USERNAME},${DATABASE_PASSWORD},${DATABASE_ENCRYPTION_KEY},${PORT},${PROTOCOL},${API_DOMAIN}' \
-< ./agent.template.yml \
-> ./agent.yml
+    < ./agent.template.yml \
+    > ./agent.yml
 
 # Copy package.json for each package
 COPY packages/bitstringStatusList/package.json packages/bitstringStatusList/
@@ -96,6 +96,8 @@ COPY --from=build /app/agent.yml ./agent.yml
 
 # Copy built artifacts and node_modules from the build stage
 COPY --from=build /app/node_modules ./node_modules
+
+COPY --from=build /app/.tmp_npm ./.tmp_npm
 
 COPY --from=build /app/packages/bitstringStatusList/build/ packages/bitstringStatusList/build/
 COPY --from=build /app/packages/bitstringStatusList/node_modules/ packages/bitstringStatusList/node_modules/
