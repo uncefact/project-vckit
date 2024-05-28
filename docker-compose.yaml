@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   demo-explorer:
-    image: demo-explore
+    build:
+      context: .
+      dockerfile: packages/demo-explorer/Dockerfile
     ports:
       - 3000:80
     restart: unless-stopped
