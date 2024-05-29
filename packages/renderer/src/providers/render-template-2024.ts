@@ -31,16 +31,16 @@ export class RenderTemplate2024 implements IRendererProvider {
 
       if (!mediaType || !this.supportedMediaTypes.includes(mediaType)) {
         return {
-          errorMessages: 'Error: Unsupported media type',
+          renderedTemplate: 'Error: Unsupported media type',
         };
       }
       if (!template && !url) {
         return {
-          errorMessages: 'Error: No template or url provided',
+          renderedTemplate: 'Error: No template or url provided',
         };
       }
 
-      let renderTemplate: any = template;
+      let renderTemplate: any = '';
       //get the template
       if (url) {
         try {
@@ -49,8 +49,14 @@ export class RenderTemplate2024 implements IRendererProvider {
         } catch (error) {
           console.error(`Failed to fetch from ${url}:`, error);
         }
+      }else if (template) {
+        renderTemplate = template;
+      }else{
+        return {
+          renderedTemplate: 'Error: No template or url provided',
+        };
       }
-
+    
       // verify the template
       if (
         digestMultibase &&
@@ -62,11 +68,12 @@ export class RenderTemplate2024 implements IRendererProvider {
         });
         if (hashedTemplate !== digestMultibase) {
           return {
-            errorMessages:
+            renderedTemplate:
               'Error: Template hash does not match the provided digest',
           };
         }
       }
+
       //insert media query into template for html template only
       if (mediaType === 'text/html' && mediaQuery) {
         renderTemplate = `<style>${mediaQuery}</style>` + renderTemplate;
