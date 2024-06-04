@@ -58,21 +58,24 @@ export class RenderTemplate2024 implements IRendererProvider {
       }
     
       // verify the template
-      if (
-        digestMultibase &&
-        context &&
-        typeof context.agent.computeHash === 'function'
-      ) {
-        const hashedTemplate = await context.agent.computeHash({
-          content: renderTemplate,
-        });
-        if (hashedTemplate !== digestMultibase) {
+      if (digestMultibase){
+        if(context && typeof context.agent.computeHash === 'function'){
+          const hashedTemplate = await context.agent.computeHash({
+            content: renderTemplate,
+          });
+          if (hashedTemplate !== digestMultibase) {
+            return {
+              renderedTemplate:
+                'Error: Template hash does not match the provided digest',
+            };
+          }
+        }else{
           return {
             renderedTemplate:
-              'Error: Template hash does not match the provided digest',
+              'Error: No hash function provided to verify the template',
           };
         }
-      }
+      } 
 
       //insert media query into template for html template only
       if (mediaType === 'text/html' && mediaQuery) {

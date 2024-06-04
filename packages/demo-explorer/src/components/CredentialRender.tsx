@@ -32,19 +32,12 @@ interface CredentialRenderProps {
   hash: string
 }
 
-interface IRenderDocument{
-  type: string;
-  renderedTemplate: string;
-  id?: string | undefined;
-  name?: string | undefined;
-  
-}
 const CredentialRender: React.FC<CredentialRenderProps> = ({
   credential,
   hash,
 }) => {
   const { agent } = useVeramo()
-  const [documents, setDocuments] = useState<IRenderDocument[]>([])
+  const [documents, setDocuments] = useState<Array<any>>([])
   const [qrCodeValue, setQrCodeValue] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const encryptedEndpoint = process.env.REACT_APP_ENCRYPTED_ENDPOINT
@@ -68,19 +61,9 @@ const CredentialRender: React.FC<CredentialRenderProps> = ({
   const renderCredential = useCallback(async () => {
     setIsLoading(true)
     try {
-      const renderer = new Renderer({
-        providers: {
-          WebRenderingTemplate2022: new WebRenderingTemplate2022(),
-          RenderTemplate2024: new RenderTemplate2024(),
-        },
-        defaultProvider: 'WebRenderingTemplate2022',
-      })
-
-      let { documents }: { documents: IRenderDocument[] } =
-        await renderer.renderCredential({
-          credential,
-        })
-      documents = documents.map((doc) => {
+      let documents = await agent?.renderCredential({credential})
+        
+      documents = documents.documents.map((doc: any) => {
         return {
           ...doc,
           renderedTemplate: convertBase64ToString(doc.renderedTemplate),
