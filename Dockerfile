@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:18 as build
+FROM node:20 as build
 
 WORKDIR /app
 
@@ -32,20 +32,14 @@ COPY package.json .
 COPY pnpm-lock.yaml .
 COPY pnpm-workspace.yaml .
 COPY lerna.json .
-COPY packages/cli/default/agent.template.yml ./agent.template.yml
+COPY agent.template.yml .
+COPY entrypoint.sh .
 
 COPY packages/tsconfig.json packages/
 COPY packages/tsconfig.settings.json packages/
 
-# Install gettext for envsubst command
-RUN apt-get update && apt-get install gettext -y
-
-# Substitute environment variables in agent template file
-RUN envsubst '${DATABASE_TYPE},${DATABASE_NAME},${DATABASE_HOST},${DATABASE_PORT},${DATABASE_USERNAME},${DATABASE_PASSWORD},${DATABASE_ENCRYPTION_KEY},${PORT},${PROTOCOL},${API_DOMAIN}' \
-< ./agent.template.yml \
-> ./agent.yml
-
 # Copy package.json for each package
+COPY packages/bitstringStatusList/package.json packages/bitstringStatusList/
 COPY packages/cli/package.json packages/cli/
 COPY packages/core-types/package.json packages/core-types/
 COPY packages/credential-merkle-disclosure-proof/package.json packages/credential-merkle-disclosure-proof/
@@ -57,6 +51,7 @@ COPY packages/oauth-middleware/package.json packages/oauth-middleware/
 COPY packages/remote-server/package.json packages/remote-server/
 COPY packages/renderer/package.json packages/renderer/
 COPY packages/revocation-list-2020/package.json packages/revocation-list-2020/
+COPY packages/tools/package.json packages/tools/
 COPY packages/utils/package.json packages/utils/
 COPY packages/vc-api/package.json packages/vc-api/
 
@@ -65,6 +60,7 @@ RUN npm install -g pnpm@8.14.0
 RUN pnpm install
 
 # Copy the source code of each package
+COPY packages/bitstringStatusList/ packages/bitstringStatusList/
 COPY packages/cli/ packages/cli/
 COPY packages/core-types/ packages/core-types/
 COPY packages/credential-merkle-disclosure-proof/ packages/credential-merkle-disclosure-proof/
@@ -76,6 +72,7 @@ COPY packages/oauth-middleware/ packages/oauth-middleware/
 COPY packages/remote-server/ packages/remote-server/
 COPY packages/renderer/ packages/renderer/
 COPY packages/revocation-list-2020/ packages/revocation-list-2020/
+COPY packages/tools/ packages/tools/
 COPY packages/utils/ packages/utils/
 COPY packages/vc-api/ packages/vc-api/
 
@@ -83,15 +80,25 @@ COPY packages/vc-api/ packages/vc-api/
 RUN pnpm build
 
 # Stage 2: Run
-FROM node:18-alpine as vckit-api
+FROM node:20-alpine as vckit-api
 
 WORKDIR /app
 
-# Copy the agent config file
-COPY --from=build /app/agent.yml ./agent.yml
+RUN apk update && apk add 
+# Update package lists and install gettext and git
+RUN apk update && \
+    apk add gettext git
+
+COPY --from=build /app/agent.template.yml ./agent.template.yml
 
 # Copy built artifacts and node_modules from the build stage
 COPY --from=build /app/node_modules ./node_modules
+
+COPY --from=build /app/.tmp_npm ./.tmp_npm
+
+COPY --from=build /app/packages/bitstringStatusList/build/ packages/bitstringStatusList/build/
+COPY --from=build /app/packages/bitstringStatusList/node_modules/ packages/bitstringStatusList/node_modules/
+COPY --from=build /app/packages/bitstringStatusList/package.json packages/bitstringStatusList/package.json
 
 COPY --from=build /app/packages/cli/build/ packages/cli/build/
 COPY --from=build /app/packages/cli/node_modules/ packages/cli/node_modules/
@@ -123,6 +130,10 @@ COPY --from=build /app/packages/revocation-list-2020/build/ packages/revocation-
 COPY --from=build /app/packages/revocation-list-2020/node_modules/ packages/revocation-list-2020/node_modules/
 COPY --from=build /app/packages/revocation-list-2020/package.json packages/revocation-list-2020/package.json
 
+COPY --from=build /app/packages/tools/build/ packages/tools/build/
+COPY --from=build /app/packages/tools/node_modules/ packages/tools/node_modules/
+COPY --from=build /app/packages/tools/package.json packages/tools/package.json
+
 COPY --from=build /app/packages/utils/build/ packages/utils/build/
 COPY --from=build /app/packages/utils/node_modules/ packages/utils/node_modules/
 COPY --from=build /app/packages/utils/package.json packages/utils/package.json
@@ -131,6 +142,13 @@ COPY --from=build /app/packages/vc-api/build/ packages/vc-api/build/
 COPY --from=build /app/packages/vc-api/node_modules/ packages/vc-api/node_modules/
 COPY --from=build /app/packages/vc-api/package.json packages/vc-api/package.json
 COPY --from=build /app/packages/vc-api/src/vc-api-schemas/vc-api.yaml packages/vc-api/src/vc-api-schemas/vc-api.yaml
+
+# Add an entrypoint script to the image
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Specify the script to run on container start
+ENTRYPOINT ["/entrypoint.sh"]
 
 # Expose the port
 EXPOSE ${PORT}

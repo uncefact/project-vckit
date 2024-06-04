@@ -3,11 +3,13 @@
   "version": "1.0.0-beta.5",
   "scripts": {
     "postinstall": "mkdir .tmp_npm; cd .tmp_npm; mkdir veramo; cd veramo; git init; git remote add -f origin https://github.com/gs-gs/veramo.git; git pull --depth=1 origin vc-v2; pnpm install; pnpm build;",
-    "build": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --experimental-json-modules\" pnpm build:js && pnpm build:api && pnpm build:schema",
-    "build:js": "pnpm -r --stream build",
-    "build:api": "pnpm --package=@vckit/cli -c dlx \"pnpm -r --stream extract-api\"",
+    "build": "pnpm build:agent && pnpm build:explorer",
+    "build:agent": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --experimental-json-modules\" pnpm build:js && pnpm build:api && pnpm build:schema",
+    "build:js": "pnpm -r --stream --filter !./packages/vckit-oa-renderers/ --filter !./packages/credential-oa/ --filter !./packages/demo-explorer/ build",
+    "build:api": "pnpm --package=@vckit/cli -c dlx \"pnpm -r --stream --filter !./packages/vckit-oa-renderers/ --filter !./packages/credential-oa/ --filter !./packages/demo-explorer/ extract-api\"",
     "build:schema": "pnpm --package=@vckit/cli -c dlx \"pnpm -r --stream generate-plugin-schema\"",
-    "test": "pnpm test:packages && pnpm test:oa-renderer",
+    "build:explorer": "pnpm -r --stream --filter=@vckit/demo-explorer build",
+    "test": "pnpm test:packages",
     "test:packages-ci": "pnpm test:packages --coverage=true",
     "test:packages": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --experimental-import-meta-resolve\" jest",
     "test:packages-watch": "pnpm test:packages --watch --verbose",
@@ -84,6 +86,6 @@
     "jsonld": "npm:@digitalcredentials/jsonld@5.2.1"
   },
   "engines": {
-    "node": ">= 18.0.0"
+    "node": ">= 21.0.0"
   }
 }
