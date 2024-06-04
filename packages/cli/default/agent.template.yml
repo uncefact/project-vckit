@@ -87,7 +87,7 @@ dbConnection:
       port: ${DATABASE_PORT}
       username: ${DATABASE_USERNAME}
       password: ${DATABASE_PASSWORD}
-      synchronize: false
+      synchronize: true
       migrationsRun: true
       migrations:
         $require: '@veramo/data-store?t=object#migrations'
@@ -104,7 +104,7 @@ dbConnectionEncrypted:
       port: ${DATABASE_PORT}
       username: ${DATABASE_USERNAME}
       password: ${DATABASE_PASSWORD}
-      synchronize: false
+      synchronize: true
       migrationsRun: true
       migrations:
         $require: '@vckit/encrypted-storage?t=object#migrations'
@@ -121,7 +121,7 @@ dbConnectionRevocationList:
       port: ${DATABASE_PORT}
       username: ${DATABASE_USERNAME}
       password: ${DATABASE_PASSWORD}
-      synchronize: false
+      synchronize: true
       migrationsRun: true
       migrations:
         $require: '@vckit/revocationlist?t=object#migrations'
@@ -138,7 +138,7 @@ dbConnectionBitstringStatusList:
       port: ${DATABASE_PORT}
       username: ${DATABASE_USERNAME}
       password: ${DATABASE_PASSWORD}
-      synchronize: false
+      synchronize: true
       migrationsRun: true
       migrations:
         $require: '@vckit/bitstringStatusList?t=object#migrations'

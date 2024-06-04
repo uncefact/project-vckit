@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:21 as build
+FROM node:20 as build
 
 WORKDIR /app
 
@@ -32,18 +32,11 @@ COPY package.json .
 COPY pnpm-lock.yaml .
 COPY pnpm-workspace.yaml .
 COPY lerna.json .
-COPY packages/cli/default/agent.template.yml ./agent.template.yml
+COPY packages/cli/default/agent.template.yml .
+COPY entrypoint.sh .
 
 COPY packages/tsconfig.json packages/
 COPY packages/tsconfig.settings.json packages/
-
-# Install gettext for envsubst command
-RUN apt-get update && apt-get install gettext -y
-
-# Substitute environment variables in agent template file
-RUN envsubst '${DATABASE_TYPE},${DATABASE_NAME},${DATABASE_HOST},${DATABASE_PORT},${DATABASE_USERNAME},${DATABASE_PASSWORD},${DATABASE_ENCRYPTION_KEY},${PORT},${PROTOCOL},${API_DOMAIN}' \
-    < ./agent.template.yml \
-    > ./agent.yml
 
 # Copy package.json for each package
 COPY packages/bitstringStatusList/package.json packages/bitstringStatusList/
@@ -87,12 +80,16 @@ COPY packages/vc-api/ packages/vc-api/
 RUN pnpm build
 
 # Stage 2: Run
-FROM node:21-alpine as vckit-api
+FROM node:20-alpine as vckit-api
 
 WORKDIR /app
 
-# Copy the agent config file
-COPY --from=build /app/agent.yml ./agent.yml
+RUN apk update && apk add 
+# Update package lists and install gettext and git
+RUN apk update && \
+    apk add gettext git
+
+COPY --from=build /app/agent.template.yml ./agent.template.yml
 
 # Copy built artifacts and node_modules from the build stage
 COPY --from=build /app/node_modules ./node_modules
@@ -145,6 +142,13 @@ COPY --from=build /app/packages/vc-api/build/ packages/vc-api/build/
 COPY --from=build /app/packages/vc-api/node_modules/ packages/vc-api/node_modules/
 COPY --from=build /app/packages/vc-api/package.json packages/vc-api/package.json
 COPY --from=build /app/packages/vc-api/src/vc-api-schemas/vc-api.yaml packages/vc-api/src/vc-api-schemas/vc-api.yaml
+
+# Add an entrypoint script to the image
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Specify the script to run on container start
+ENTRYPOINT ["/entrypoint.sh"]
 
 # Expose the port
 EXPOSE ${PORT}
