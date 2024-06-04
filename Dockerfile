@@ -32,7 +32,7 @@ COPY package.json .
 COPY pnpm-lock.yaml .
 COPY pnpm-workspace.yaml .
 COPY lerna.json .
-COPY packages/cli/default/agent.template.yml .
+COPY agent.template.yml .
 COPY entrypoint.sh .
 
 COPY packages/tsconfig.json packages/
