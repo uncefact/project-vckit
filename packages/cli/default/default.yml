@@ -186,17 +186,9 @@ server:
 
     # API base path
     - - /agent
-      - $require: '@vckit/remote-server?t=function#apiKeyAuth'
-        $args:
-          - apiKey: kh14g04piduv
-
-      - $require: '@vckit/revocationlist?t=function#revocationList2020Middleware'
-        $args:
-          - apiRoutes:
-              - /routeCreationVerifiableCredential
-            supportedProofFormats:
-              - jwt
-              - lds
+      # - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+      #   $args:
+      #     - apiKey: kh14g04piduv
 
       - $require: '@vckit/encrypted-storage?t=function#encryptedStoreMiddleware'
         $args:
@@ -447,4 +439,6 @@ agent:
           $args:
             - BitstringStatusListEntry:
                 $require: '@vckit/bitstringStatusList?t=object#checkStatus'
+              RevocationList2020Status:
+                $require: '@vckit/revocationlist?t=object#checkStatus'
         - $require: '@vckit/tools#MultibaseEncodedSHA256'

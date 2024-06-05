@@ -216,14 +216,6 @@ server:
         $args:
           - apiKey: test123
 
-      - $require: '@vckit/revocationlist?t=function#revocationList2020Middleware'
-        $args:
-          - apiRoutes:
-              - /routeCreationVerifiableCredential
-            supportedProofFormats:
-              - jwt
-              - lds
-
       - $require: '@vckit/encrypted-storage?t=function#encryptedStoreMiddleware'
         $args:
           - apiRoutes:
@@ -458,4 +450,6 @@ agent:
           $args:
             - BitstringStatusListEntry:
                 $require: '@vckit/bitstringStatusList?t=object#checkStatus'
+              RevocationList2020Status:
+                $require: '@vckit/revocationlist?t=object#checkStatus'
         - $require: '@vckit/tools#MultibaseEncodedSHA256'
