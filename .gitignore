@@ -93,4 +93,3 @@ local-database*.json
 # logs
 /logs
 .tmp_npm
-.tmp_npm/veramo
