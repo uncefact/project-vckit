@@ -38,6 +38,18 @@ cp packages/demo-explorer/.env.example packages/demo-explorer/.env
 `REACT_APP_REMOTE_AGENT_API_KEY` - The API key for the agent (not required if the agent is not protected by an API key) <br/>
 `REACT_APP_DEFAULT_AGENT_ID` - The agent ID for the agent <br/>
 
+- To get `REACT_APP_REMOTE_AGENT_API_KEY` value, you can check in `agent.yml` file, the value of `apiKey` in the `apiKeyAuth` function.
+
+`agent.yml`
+```yml
+...
+- - /agent
+      - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+        $args:
+          - apiKey: kh14g04piduv
+...
+```
+
 ## Start the web server
 
 To start the VCKit Demo Exlorer on you local, run this command
