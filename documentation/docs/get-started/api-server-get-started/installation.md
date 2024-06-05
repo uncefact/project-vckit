@@ -3,13 +3,12 @@ sidebar_label: 'Installation'
 sidebar_position: 1
 ---
 
-
 # Installation
 ## Prerequisites
-- [Node.js](https://nodejs.org/en/) version 18.17.0.
+- [Node.js](https://nodejs.org/en/) version 20.12.2.
 - [pnpm](https://pnpm.io/) version 8.14.1.
 
-This project has been tested and optimized for Node.js version v18.17.0 and pnpm version 8.14.1. Please note that using a Node.js version later than v18.17.0 may result incorrect functionality and potential bugs. It is strongly recommended to use these specific versions for running and testing the project. Deviating from these versions may result in unforeseen compatibility issues or unexpected behavior.
+This project has been tested and optimized for Node.js version v20.12.2 and pnpm version 8.14.1. Please note that using a Node.js version later than v20.12.2 may result incorrect functionality and potential bugs. It is strongly recommended to use these specific versions for running and testing the project. Deviating from these versions may result in unforeseen compatibility issues or unexpected behavior.
 
 ## Clone vckit from github
 Let's start by cloning the VCKit repository at the URL below.
@@ -35,7 +34,14 @@ The `pnpm vckit config` command will create a `agent.yml` file in the root of th
 ```bash
 pnpm vckit config
 ```
-After run this command, you will have an `agent.yml` file in your root directory. You need to change the default **infuraProjectId** and **dbEncryptionKey** by yours. To generate those things, follow this.
+
+After run this command, you will have an `agent.yml` file in your root directory.
+
+## Optional: Configure the agent
+
+You can configure the agent by editing the `agent.yml` file in the root of the project. You can change the `infuraProjectId` and `dbEncryptionKey` to your own values.
+
+Currently, the `infuraProjectId` and `dbEncryptionKey` are set to the default values. That mean you can use the default values to run the project. However, it is recommended to change the default values to your own values.
 
 **1. Infura Project ID**
 
@@ -48,13 +54,8 @@ You need to generate an X25519 key, run this command in a terminal:
 veramo config gen-key
 ```
 
-
-
 ## Start the local server
 ```bash
 pnpm vckit server
 ```
 Now you can check the api documentation at [http://localhost:3332/api-docs](http://localhost:3332/api-docs)
-
-
-
