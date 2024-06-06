@@ -54,6 +54,21 @@ cd packages/demo-explorer && pnpm dev
 
 Now you can open the demo explorer at http://localhost:3000. And you can check the api documentation at http://localhost:3332/api-docs.
 
+## Start the documentation page
+
+```bash
+# Navigate to the documentation folder
+cd documentation
+
+# Install dependencies
+npm install
+
+# Start the documentation server
+npm start
+```
+
+Now you can open the documentation at http://localhost:3030.
+
 ## The containerized VCkit API
 
 This Dockerfile is optimized for deploying the VCkit API in production environments. It leverages Docker multi-stage builds to separate the build environment from the runtime environment, resulting in a smaller final image size and enhanced security.
