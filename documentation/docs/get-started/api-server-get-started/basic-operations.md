@@ -23,30 +23,57 @@ Or if you try with the API docs, you can add the API key to the [Authentication 
 
 ## Create identifier
 
+### [Optional] Using https for localhost by using ngrok
+
+To try this locally, you need to create a secure tunnel to your `localhost:3332`(the VCKit API server). You can use [**ngrok**](https://ngrok.com/) to do this. After you have installed and registered ngrok, you can run this command to create a secure tunnel to your localhost.
+
+```bash
+ngrok http 3332
+```
+
+![ngrok](/img/ngrok.png)
+
+### Create a DID web
+
 To create an identifier, we use this [`/didManagerCreate`](http://localhost:3332/api-docs#post-/didManagerCreate) endpoint.
 
-### Request body:
+#### Request body:
 
 ```json
 {
-  "alias": "exampleDid", //replace by your custom alias
-  "provider": "did:key", //you can use other providers, in this case we use did:key
+  "alias": "example.com", //replace by your domain
+  "provider": "did:web", //you can use other providers, in this case we use did:web
   "kms": "local",
-  "options": {}
+  "options": {
+    "type": "ed25519"
+  }
 }
 ```
 
-### Expected response:
+The `alias` is the domain name that you will store a [DID document](/docs/get-started/api-server-get-started/basic-operations#did-document) for your DID web after creation, your domain must be enabled with HTTPS. Or you can choice the easy way by using the ngrok domain that you created in the previous optional step to create your local DID web, with DID document is generated automatically. But the ngrok domain will be expired after a while, so the DID web will be invalid.
 
 ```json
 {
-  "did": "did:key:z6Mkk7jEuP5FjTMHqZ5KV9meyYKmMsomRAZG8qmN2AhVuBzr", //this is issuer id
-  "controllerKeyId": "54254141fdfea3c4c9b0cbce36c2be71de2705cb2967dd65061643223005e723",
+  "alias": "e3a8-42-117-186-253.ngrok-free.app", // Your ngrok domain
+  "provider": "did:web",
+  "kms": "local",
+  "options": {
+    "type": "ed25519"
+  }
+}
+```
+
+#### Expected response:
+
+```json
+{
+  "did": "did:web:example.com",
+  "controllerKeyId": "b111416ad45a8adf784fcaae7f7ac939d8a0cf007eae99edefa33393b18b1d1e",
   "keys": [
     {
       "type": "Ed25519",
-      "kid": "54254141fdfea3c4c9b0cbce36c2be71de2705cb2967dd65061643223005e723",
-      "publicKeyHex": "54254141fdfea3c4c9b0cbce36c2be71de2705cb2967dd65061643223005e723",
+      "kid": "b111416ad45a8adf784fcaae7f7ac939d8a0cf007eae99edefa33393b18b1d1e",
+      "publicKeyHex": "b111416ad45a8adf784fcaae7f7ac939d8a0cf007eae99edefa33393b18b1d1e",
       "meta": {
         "algorithms": ["EdDSA", "Ed25519"]
       },
@@ -54,10 +81,65 @@ To create an identifier, we use this [`/didManagerCreate`](http://localhost:3332
     }
   ],
   "services": [],
-  "provider": "did:key",
-  "alias": "exampleDid"
+  "provider": "did:web",
+  "alias": "example.com"
 }
 ```
+
+### DID document
+
+After creating your DID web, you need to generate a DID document for your domain by this API
+
+```curl
+# Request
+curl --location 'localhost:3332/.well-known/did.json' \
+--header 'Host: example.com'
+```
+
+```jsonc
+# Response
+{
+    "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/suites/jws-2020/v1"
+    ],
+    "id": "did:web:example.com",
+    "verificationMethod": [
+        {
+            "id": "did:web:example.com#b111416ad45a8adf784fcaae7f7ac939d8a0cf007eae99edefa33393b18b1d1e-key-0",
+            "type": "JsonWebKey2020",
+            "controller": "did:web:example.com",
+            "publicKeyJwk": {
+                "kty": "OKP",
+                "crv": "Ed25519",
+                "x": "sRFBatRait94T8quf3rJOdigzwB-rpnt76Mzk7GLHR4"
+            }
+        },
+        {
+            "id": "did:web:example.com#b111416ad45a8adf784fcaae7f7ac939d8a0cf007eae99edefa33393b18b1d1e-key-1",
+            "type": "JsonWebKey2020",
+            "controller": "did:web:example.com",
+            "publicKeyJwk": {
+                "kty": "OKP",
+                "crv": "X25519",
+                "x": "BnKiBQSLJTWOoGaAeWiKxwTprxnJuhY5ijr8lY3n6FU"
+            }
+        }
+    ],
+    "authentication": [
+        "did:web:example.com#b111416ad45a8adf784fcaae7f7ac939d8a0cf007eae99edefa33393b18b1d1e-key-0",
+        "did:web:example.com#b111416ad45a8adf784fcaae7f7ac939d8a0cf007eae99edefa33393b18b1d1e-key-1"
+    ],
+    "assertionMethod": [
+        "did:web:example.com#b111416ad45a8adf784fcaae7f7ac939d8a0cf007eae99edefa33393b18b1d1e-key-0",
+        "did:web:example.com#b111416ad45a8adf784fcaae7f7ac939d8a0cf007eae99edefa33393b18b1d1e-key-1"
+    ],
+    "keyAgreement": [],
+    "service": []
+}
+```
+
+After you have the DID document, you need to deploy it to your domain with the path `/.well-known/did.json`.
 
 ## Issue a VC
 
@@ -89,7 +171,7 @@ Copy the issuer id from last step, then replace the issuer.id in the request by 
       }
     ],
     "issuer": {
-      "id": "did:key:z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED"
+      "id": "did:web:example.com"
     }
   },
   "proofFormat": "lds",
@@ -121,12 +203,12 @@ Copy the issuer id from last step, then replace the issuer.id in the request by 
     }
   ],
   "issuer": {
-    "id": "did:key:z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED"
+    "id": "did:web:example.com"
   },
   "proof": {
     "type": "Ed25519Signature2018",
     "created": "2024-04-19T03:25:52Z",
-    "verificationMethod": "did:key:z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED#z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED",
+    "verificationMethod": "did:web:example.com#z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED",
     "proofPurpose": "assertionMethod",
     "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..Oha3rvy0-aqPBcwwGIWMYHvNd_37y4Cuf9krKkprbyeUsn0ZpQ-wE7n8liSj6kecKMQQceM4htkuC1yWVCF1DA"
   }
@@ -161,12 +243,12 @@ We use this [`/verifyCredential`](http://localhost:3332/api-docs/#post-/verifyCr
       }
     ],
     "issuer": {
-      "id": "did:key:z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED"
+      "id": "did:web:example.com"
     },
     "proof": {
       "type": "Ed25519Signature2018",
       "created": "2024-04-19T03:25:52Z",
-      "verificationMethod": "did:key:z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED#z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED",
+      "verificationMethod": "did:web:example.com#z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED",
       "proofPurpose": "assertionMethod",
       "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..Oha3rvy0-aqPBcwwGIWMYHvNd_37y4Cuf9krKkprbyeUsn0ZpQ-wE7n8liSj6kecKMQQceM4htkuC1yWVCF1DA"
     }
@@ -185,17 +267,17 @@ We use this [`/verifyCredential`](http://localhost:3332/api-docs/#post-/verifyCr
         "@context": ["https://www.w3.org/2018/credentials/v1", "https://www.w3.org/2018/credentials/examples/v1", "https://vckit-contexts.s3.ap-southeast-2.amazonaws.com/dev-render-method-context.json"],
         "type": "Ed25519Signature2018",
         "created": "2024-04-19T03:25:52Z",
-        "verificationMethod": "did:key:z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED#z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED",
+        "verificationMethod": "did:web:example.com#z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED",
         "proofPurpose": "assertionMethod",
         "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..Oha3rvy0-aqPBcwwGIWMYHvNd_37y4Cuf9krKkprbyeUsn0ZpQ-wE7n8liSj6kecKMQQceM4htkuC1yWVCF1DA"
       },
       "verified": true,
       "verificationMethod": {
         "@context": ["https://www.w3.org/ns/did/v1", "https://w3id.org/security/suites/ed25519-2018/v1", "https://w3id.org/security/suites/x25519-2019/v1"],
-        "id": "did:key:z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED#z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED",
+        "id": "did:web:example.com#z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED",
         "type": "Ed25519VerificationKey2018",
         "controller": {
-          "id": "did:key:z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED#z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED"
+          "id": "did:web:example.com#z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED"
         },
         "publicKeyBase58": "D2jx6KP78GMMj7ycMNtcvn5Q4hFUmu4Vs3rZeTgsGFSq"
       },
@@ -276,12 +358,12 @@ To get the rendered VC, you can try this endpoint [`/renderCredential`](http://l
       }
     ],
     "issuer": {
-      "id": "did:key:z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED"
+      "id": "did:web:example.com"
     },
     "proof": {
       "type": "Ed25519Signature2018",
       "created": "2024-04-19T03:25:52Z",
-      "verificationMethod": "did:key:z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED#z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED",
+      "verificationMethod": "did:web:example.com#z6MkrUzzgZdYToqpqcpK2wrTmsdPtGXLBnJrZ4mVUjetBUED",
       "proofPurpose": "assertionMethod",
       "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..Oha3rvy0-aqPBcwwGIWMYHvNd_37y4Cuf9krKkprbyeUsn0ZpQ-wE7n8liSj6kecKMQQceM4htkuC1yWVCF1DA"
     }
