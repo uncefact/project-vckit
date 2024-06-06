@@ -126,7 +126,7 @@ server:
           - apiKey: <your_api_key>
 ```
 
-The authentication middleware plugin is add by attaching the `apiKeyAuth` function to the route of the server with the `apiKey` argument. The `apiKey` argument is important to authenticate the incoming request, it also be used on Explorer to authenticate the agent.
+The authentication middleware plugin is added by attaching the `apiKeyAuth` function to the route of the server with the `apiKey` argument. The `apiKey` argument is important to authenticate the incoming request, it also be used on Explorer to authenticate the agent.
 
 ## Plugins configuration
 
@@ -141,7 +141,7 @@ renderer:
     - exampleArg: <field value>
 ```
 
-- `renderer`: This is the plugin's name
+- `renderer`: This is the plugin's name.
 - `$require`: Specifies the module or package required to handle functionality.
 - `$args`: Specifies the arguments to be passed to the module.
 

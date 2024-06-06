@@ -50,7 +50,7 @@ To create an identifier, we use this [`/didManagerCreate`](http://localhost:3332
 }
 ```
 
-The `alias` is the domain name that you will store a [DID document](/docs/get-started/api-server-get-started/basic-operations#did-document) for your DID web after creation, your domain must be enabled with HTTPS. Or you can choice the easy way by using the ngrok domain that you created in the previous optional step to create your local DID web, with DID document is generated automatically. But the ngrok domain will be expired after a while, so the DID web will be invalid.
+The `alias` is the domain name that you will store a [DID document](/docs/get-started/api-server-get-started/basic-operations#did-document) for your DID web after creation, your domain must be enabled with HTTPS. Or you can choose the easy way by using the ngrok domain that you created in the previous optional step to create your local DID web, with DID document is generated automatically. But the ngrok domain will be expired after a while, so the DID web will be invalid.
 
 ```json
 {
