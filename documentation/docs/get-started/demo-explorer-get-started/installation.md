@@ -48,3 +48,16 @@ cd packages/demo-explorer && pnpm dev
 ```
 
 Now you can see the VCKit Demo Explorer at [`http://localhost:3000`](http://localhost:3000)
+
+## Common cases
+
+:::warning
+**IMPORTANCE**: Every time you make changes to the agent configuration, you need to remove your agent data on Explorer by go to the `manage` on the top right corner and click `Remove Agent` on your agent, it will automatically remove and load the new agent configuration.
+
+![Synchronize Agent Configuration](/img/sync-agent-config.png)
+:::
+
+### Change the API Key
+
+- What is API key? You can read more about it [here](/docs/agent-configuration/config-agent-file#authentication-middleware-plugin)
+- To change the API key, you need to update the `apiKey` argument in the `apiKeyAuth` function in the `agent.yml` file. After that, you need to update the `REACT_APP_REMOTE_AGENT_API_KEY` in the `.env` file. Then, you need to restart the API server and the Explorer. Remmember remove the agent data on Explorer to load the new agent configuration.
