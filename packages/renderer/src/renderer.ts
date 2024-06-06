@@ -109,7 +109,7 @@ export class Renderer implements IAgentPlugin {
       );
       return { documents };
     } catch (error) {
-      console.error('Error rendering credential:', error);
+      // console.error('Error rendering credential:', error);
       throw error;
     }
   }
