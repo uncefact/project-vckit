@@ -18,10 +18,11 @@ The vckit is built on top of the [Veramo](https://veramo.io/) agent framework. V
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/en/) version 18.17.0
+- [Node.js](https://nodejs.org/en/) version 20.12.2
 - [pnpm](https://pnpm.io/) version 8.14.1
+- [yarn](https://yarnpkg.com/) version 1.22.22
 
-This project has been tested and optimized for Node.js version v18.17.0 and pnpm version 8.14.1. Please note that using a Node.js version later than v18.17.0 may result incorrect functionality and potential bugs. It is strongly recommended to use these specific versions for running and testing the project. Deviating from these versions may result in unforeseen compatibility issues or unexpected behavior.
+This project has been tested and optimized for Node.js version v20.12.2 and pnpm version 8.14.1. Please note that using a Node.js version later than v20.12.2 may result incorrect functionality and potential bugs. It is strongly recommended to use these specific versions for running and testing the project. Deviating from these versions may result in unforeseen compatibility issues or unexpected behavior.
 
 ## Installation and Setup
 
@@ -52,3 +53,60 @@ cd packages/demo-explorer && pnpm dev
 ```
 
 Now you can open the demo explorer at http://localhost:3000. And you can check the api documentation at http://localhost:3332/api-docs.
+
+## The containerized VCkit API
+
+This Dockerfile is optimized for deploying the VCkit API in production environments. It leverages Docker multi-stage builds to separate the build environment from the runtime environment, resulting in a smaller final image size and enhanced security.
+
+### Building the Docker image
+
+Run the following command in the directory containing the Dockerfile:
+
+```bash
+docker build -t vckit-api .
+```
+
+### Building the Docker Image with Custom Configuration
+
+You can customize the Docker image build process by specifying a custom configuration file path for the VCkit API.
+Ensure that you have the custom configuration file (`<config_path>`) ready. This file should contain the necessary settings and configurations for the VCkit API.
+Use the `--build-arg` flag to specify the `DATABASE_TYPE`, `DATABASE_USERNAME`, `DATABASE_PASSWORD`, `DATABASE_NAME`, `DATABASE_HOST`, `DATABASE_PORT`, `DATABASE_ENCRYPTION_KEY`, `PORT`, `PROTOCOL`, and `API_DOMAIN` build arguments when running the docker build command.
+
+```bash
+docker build \
+  --build-arg DATABASE_TYPE=postgres \
+  --build-arg DATABASE_USERNAME=postgres \
+  --build-arg DATABASE_PASSWORD=postgres \
+  --build-arg DATABASE_NAME=vckit \
+  --build-arg DATABASE_HOST=localhost \
+  --build-arg DATABASE_PORT=5432 \
+  --build-arg DATABASE_ENCRYPTION_KEY=29739248cad1bd1a0fc4d9b75cd4d2990de535baf5caadfdf8d8f86664aa830c \
+  --build-arg PORT=3332 \
+  --build-arg PROTOCOL=http \
+  --build-arg API_DOMAIN=localhost:3332 \
+  -t vckit-api .
+```
+
+Replace the values of the build arguments with your desired configurations.
+
+### Running the Docker container
+
+Execute the following command:
+
+```bash
+docker run -p 3332:3332 vckit-api
+```
+
+This will expose the VCkit API on port 3332 of your Docker host.
+
+### Running the Docker container with Docker Compose
+
+You can use Docker Compose to manage your VCkit API along with a PostgreSQL database. Docker Compose simplifies the process of orchestrating multiple containers and their dependencies.
+
+Run the following command to start the containers:
+
+```bash
+docker-compose up
+```
+
+This command will build the Docker images (if not already built) and start the containers defined in the `docker-compose.yaml` file. The VCkit API will be accessible at `http://localhost:3332`.

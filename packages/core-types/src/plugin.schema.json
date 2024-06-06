@@ -6345,6 +6345,29 @@
           "required": [
             "revocationVCIssuer"
           ]
+        },
+        "IRevocationStatus": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "revocationListIndex": {
+              "type": "number"
+            },
+            "revocationListCredential": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "revocationListIndex",
+            "revocationListCredential"
+          ]
         }
       },
       "methods": {
@@ -6357,22 +6380,13 @@
             "$ref": "#/components/schemas/CredentialStatus"
           }
         },
-        "checkStatus": {
+        "checkRevocationStatus": {
           "description": "",
           "arguments": {
             "$ref": "#/components/schemas/IHashCredentialArgs"
           },
           "returnType": {
             "$ref": "#/components/schemas/CredentialStatus"
-          }
-        },
-        "getRevocationData": {
-          "description": "",
-          "arguments": {
-            "$ref": "#/components/schemas/IRevocationListDataArgs"
-          },
-          "returnType": {
-            "type": "object"
           }
         },
         "getRevocationListVC": {
@@ -6382,6 +6396,15 @@
           },
           "returnType": {
             "type": "object"
+          }
+        },
+        "issueRevocationStatusList": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IRevocationListDataArgs"
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/IRevocationStatus"
           }
         },
         "revokeCredential": {
@@ -6735,6 +6758,235 @@
           },
           "returnType": {
             "$ref": "#/components/schemas/IVerifyResult"
+          }
+        }
+      }
+    }
+  },
+  "IBitstringStatusList": {
+    "components": {
+      "schemas": {
+        "ICheckBitstringStatusArgs": {
+          "type": "object",
+          "properties": {
+            "verifiableCredential": {
+              "$ref": "#/components/schemas/IVerifiableCredentialJSONOrJWT"
+            }
+          },
+          "required": [
+            "verifiableCredential"
+          ]
+        },
+        "IVerifiableCredentialJSONOrJWT": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "credentialStatus": {
+                  "$ref": "#/components/schemas/StatusEntry"
+                },
+                "issuer": {
+                  "$ref": "#/components/schemas/IssuerType"
+                }
+              },
+              "required": [
+                "credentialStatus",
+                "issuer"
+              ]
+            }
+          ]
+        },
+        "StatusEntry": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "id"
+          ],
+          "description": "Represents a status method entry that could be embedded in a W3C Verifiable Credential. Normally, only credentials that list a status method would need to be verified by it.\n\nex: ```json credentialStatus: {   type: \"EthrStatusRegistry2019\",   id: \"rinkeby:0xregistryAddress\" } ``` See https://www.w3.org/TR/vc-data-model/#status"
+        },
+        "IssuerType": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ]
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "The issuer of a  {@link  VerifiableCredential }  or the holder of a  {@link  VerifiablePresentation } .\n\nThe value of the issuer property MUST be either a URI or an object containing an id property. It is RECOMMENDED that the URI in the issuer or its id be one which, if de-referenced, results in a document containing machine-readable information about the issuer that can be used to verify the information expressed in the credential.\n\nSee  {@link https://www.w3.org/TR/vc-data-model/#issuer | Issuer data model }"
+        },
+        "CredentialStatus": {
+          "type": "object",
+          "properties": {
+            "revoked": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "revoked"
+          ],
+          "description": "Represents the result of a status check.\n\nImplementations MUST populate the `revoked` boolean property, but they can return additional metadata that is method specific."
+        },
+        "IIssueBitstringStatusListArgs": {
+          "type": "object",
+          "properties": {
+            "statusPurpose": {
+              "$ref": "#/components/schemas/StatusPurposeType"
+            },
+            "bitStringLength": {
+              "type": "number"
+            },
+            "bitstringStatusIssuer": {
+              "type": "string"
+            },
+            "statusSize": {
+              "type": "number"
+            },
+            "statusMessages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            },
+            "statusReference": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "statusPurpose",
+            "bitStringLength",
+            "bitstringStatusIssuer"
+          ]
+        },
+        "StatusPurposeType": {
+          "type": "string",
+          "enum": [
+            "revocation",
+            "suspension",
+            "message"
+          ]
+        },
+        "ISetBitstringStatusArgs": {
+          "type": "object",
+          "properties": {
+            "statusListCredential": {
+              "type": "string"
+            },
+            "statusListVCIssuer": {
+              "type": "string"
+            },
+            "statusPurpose": {
+              "type": "string"
+            },
+            "index": {
+              "type": "number"
+            },
+            "status": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "statusListCredential",
+            "statusListVCIssuer",
+            "statusPurpose",
+            "index",
+            "status"
+          ]
+        }
+      },
+      "methods": {
+        "checkBitstringStatus": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/ICheckBitstringStatusArgs"
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/CredentialStatus"
+          }
+        },
+        "getBitstringStatusListVC": {
+          "description": "",
+          "arguments": {
+            "type": "number"
+          },
+          "returnType": {
+            "type": "object"
+          }
+        },
+        "issueBitstringStatusList": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IIssueBitstringStatusListArgs"
+          },
+          "returnType": {
+            "type": "object"
+          }
+        },
+        "setBitstringStatus": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/ISetBitstringStatusArgs"
+          },
+          "returnType": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "ITools": {
+    "components": {
+      "schemas": {
+        "IToolsComputeHashArgs": {
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "content"
+          ]
+        }
+      },
+      "methods": {
+        "computeHash": {
+          "description": "",
+          "arguments": {
+            "$ref": "#/components/schemas/IToolsComputeHashArgs"
+          },
+          "returnType": {
+            "type": "string"
           }
         }
       }

@@ -38,7 +38,7 @@
     "@vckit/core-types": "workspace:^",
     "@vckit/credential-merkle-disclosure-proof": "workspace:^",
     "@vckit/credential-oa": "workspace:^",
-    "@veramo/credential-w3c": "5.5.3"
+    "@veramo/credential-w3c": "link:../../.tmp_npm/veramo/packages/credential-w3c"
   },
   "publishConfig": {
     "access": "public"

@@ -31,7 +31,9 @@
       "IRenderer": "./src/types/IRender.ts",
       "IEncryptedStorage": "./src/types/IEncryptedStorage.ts",
       "IRevocationList2020": "./src/types/IRevocationList2020.ts",
-      "ICredentialRouter": "./src/types/ICredentialRouter.ts"
+      "ICredentialRouter": "./src/types/ICredentialRouter.ts",
+      "IBitstringStatusList": "./src/types/IBitstringStatusList.ts",
+      "ITools": "./src/types/ITools.ts"
     }
   },
   "dependencies": {

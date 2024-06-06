@@ -10,8 +10,7 @@
   "types": "build/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "watch": "tsc -b --watch",
-    "generate-plugin-schema": "node ../cli/bin/vckit.js dev generate-plugin-schema"
+    "watch": "tsc -b --watch"
   },
   "veramo": {
     "pluginInterfaces": {
@@ -24,7 +23,7 @@
     "@transmute/json-web-signature": "0.7.0-unstable.82",
     "@transmute/merkle-proof": "0.7.0-unstable.82",
     "@vckit/core-types": "workspace:^",
-    "@veramo/credential-ld": "5.5.3",
+    "@veramo/credential-ld": "link:../../.tmp_npm/veramo/packages/credential-ld",
     "@veramo/utils": "5.5.3",
     "debug": "^4.3.4",
     "flat": "5.0.2",

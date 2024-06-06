@@ -7,6 +7,8 @@ import {
   VerifiableCredential,
   IDataStore,
   IHashCredentialArgs,
+  IRevocationStatus,
+  IIdentifier,
 } from '@vckit/core-types';
 import { OrPromise } from '@veramo/utils';
 import { DataSource } from 'typeorm';
@@ -37,56 +39,76 @@ export class RevocationStatus2020 implements IAgentPlugin {
 
     this.dbConnection = options.dbConnection;
     this.methods = {
-      getRevocationData: this.getRevocationData.bind(this),
+      issueRevocationStatusList: this.issueRevocationStatusList.bind(this),
       getRevocationListVC: this.getRevocationListVC.bind(this),
-      checkStatus: this.checkStatus.bind(this),
+      checkRevocationStatus: this.checkRevocationStatus.bind(this),
       revokeCredential: this.revokeCredential.bind(this),
       activateCredential: this.activateCredential.bind(this),
     };
   }
 
-  async getRevocationData(
-    args: IRevocationListDataArgs
-  ): Promise<{ revocationListFullUrl: string; indexCounter: number }> {
+  async issueRevocationStatusList(
+    args: IRevocationListDataArgs,
+    context: { agent?: any },
+  ): Promise<IRevocationStatus> {
     try {
+      let vcIdentifier: IIdentifier;
+      try {
+        vcIdentifier = (await context.agent?.execute('didManagerGet', {
+          did: args.revocationVCIssuer,
+        })) as IIdentifier;
+      } catch (e) {
+        console.error(e);
+        throw new Error(
+          `invalid_argument: credential.issuer must be a DID managed by this agent.`,
+        );
+      }
+
+      args.revocationVCIssuer = vcIdentifier.did;
       args.revocationListPath = this.revocationListPath;
       args.bitStringLength = this.bitStringLength;
+      args.req = context;
+
       let data: any;
       await this.store.runTransactionWithExponentialBackoff(
         async (transactionalEntityManager) => {
           data = await this.store.issueRevocationData(
             transactionalEntityManager,
-            args
+            args,
           );
-        }
+        },
       );
-
-      return data;
+      return {
+        id: `${data.revocationListFullUrl}#${data.indexCounter}`,
+        type: 'RevocationList2020Status',
+        revocationListIndex: data.indexCounter,
+        revocationListCredential: data.revocationListFullUrl,
+      };
     } catch (err) {
       throw err;
     }
   }
 
   async getRevocationListVC(
-    revocationListFullUrlPath: string
+    revocationListFullUrlPath: string,
   ): Promise<{ revocationList: RevocationList }> {
     const data = await this.store.getRevocationListVC(
-      revocationListFullUrlPath
+      revocationListFullUrlPath,
     );
 
     return data;
   }
 
-  async checkStatus(
+  async checkRevocationStatus(
     args: IHashCredentialArgs,
     context: {
       agent?: IAgent;
-    }
+    },
   ): Promise<CredentialStatus> {
     try {
       const credential = await context.agent?.execute(
         'dataStoreGetVerifiableCredential',
-        { hash: args.hash }
+        { hash: args.hash },
       );
 
       if (!credential) {
@@ -103,13 +125,13 @@ export class RevocationStatus2020 implements IAgentPlugin {
     args: IHashCredentialArgs,
     context: {
       agent?: IAgent;
-    }
+    },
   ): Promise<CredentialStatus> {
     await this.store.runTransactionWithExponentialBackoff(
       async (transactionalEntityManager) => {
         const credential = await context.agent?.execute(
           'dataStoreGetVerifiableCredential',
-          { hash: args.hash }
+          { hash: args.hash },
         );
 
         if (!credential) {
@@ -122,7 +144,7 @@ export class RevocationStatus2020 implements IAgentPlugin {
         }
 
         const revocationListFullUrlPath = (
-          credential.credentialStatus?.id as string
+          credential.credentialStatus?.revocationListCredential as string
         ).split(this.revocationListPath)[1];
         if (!revocationListFullUrlPath) {
           throw new Error('Revocation list not found');
@@ -134,7 +156,7 @@ export class RevocationStatus2020 implements IAgentPlugin {
 
         const revocationList = await this.store.getRevocationList(
           transactionalEntityManager,
-          revocationListFullUrlPath
+          revocationListFullUrlPath,
         );
 
         await this.store.updateRevocationListVC(transactionalEntityManager, {
@@ -143,7 +165,7 @@ export class RevocationStatus2020 implements IAgentPlugin {
           index: credential.credentialStatus?.revocationListIndex,
           revoked: true,
         });
-      }
+      },
     );
 
     const status: CredentialStatus = {
@@ -157,13 +179,13 @@ export class RevocationStatus2020 implements IAgentPlugin {
     args: IHashCredentialArgs,
     context: {
       agent?: IAgent;
-    }
+    },
   ): Promise<CredentialStatus> {
     await this.store.runTransactionWithExponentialBackoff(
       async (transactionalEntityManager) => {
         const credential = await context.agent?.execute(
           'dataStoreGetVerifiableCredential',
-          { hash: args.hash }
+          { hash: args.hash },
         );
 
         if (!credential) {
@@ -176,7 +198,7 @@ export class RevocationStatus2020 implements IAgentPlugin {
         }
 
         const revocationListFullUrlPath = (
-          credential.credentialStatus?.id as string
+          credential.credentialStatus?.revocationListCredential as string
         ).split(this.revocationListPath)[1];
         if (!revocationListFullUrlPath) {
           throw new Error('Revocation list not found');
@@ -188,7 +210,7 @@ export class RevocationStatus2020 implements IAgentPlugin {
 
         const revocationList = await this.store.getRevocationList(
           transactionalEntityManager,
-          revocationListFullUrlPath
+          revocationListFullUrlPath,
         );
 
         await this.store.updateRevocationListVC(transactionalEntityManager, {
@@ -197,7 +219,7 @@ export class RevocationStatus2020 implements IAgentPlugin {
           index: credential.credentialStatus?.revocationListIndex,
           revoked: false,
         });
-      }
+      },
     );
 
     const status: CredentialStatus = {

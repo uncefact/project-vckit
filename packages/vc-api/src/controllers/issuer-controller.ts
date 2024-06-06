@@ -9,6 +9,10 @@ export const issueCredential = async (req: RequestWithAgent, res: Response) => {
       throw Error('Agent not available');
     }
 
+    if (!req.body.credential.type.includes('VerifiableCredential')) {
+      throw new Error('"type" must include `VerifiableCredential`.');
+    }
+
     const payload = {
       credential: req.body.credential,
       ...DEFAULT_CONFIG,

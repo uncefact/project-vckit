@@ -20,8 +20,8 @@
     "@vckit/core-types": "workspace:^",
     "@vckit/credential-merkle-disclosure-proof": "workspace:^",
     "@veramo/core": "5.5.3",
-    "@veramo/credential-ld": "5.5.3",
-    "@veramo/credential-w3c": "5.5.3",
+    "@veramo/credential-ld": "link:../../.tmp_npm/veramo/packages/credential-ld",
+    "@veramo/credential-w3c": "link:../../.tmp_npm/veramo/packages/credential-w3c",
     "@veramo/data-store": "5.5.3",
     "@veramo/data-store-json": "5.5.3",
     "@veramo/did-comm": "5.5.3",
@@ -41,8 +41,8 @@
     "@veramo/utils": "5.5.3",
     "did-resolver": "^4.1.0",
     "ethr-did-resolver": "^10.1.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "web-did-resolver": "^2.0.27"
   },
   "devDependencies": {
