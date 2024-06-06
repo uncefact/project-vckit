@@ -8,8 +8,9 @@ sidebar_position: 1
 ## Prerequisites
 
 - Clone [VCKit](https://github.com/uncefact/project-vckit.git) repository
-- [Node.js](https://nodejs.org/en/) version 20.12.2.
-- [pnpm](https://pnpm.io/) version 8.14.1.
+- [Node.js](https://nodejs.org/en/) version 20.12.2
+- [pnpm](https://pnpm.io/) version 8.14.1
+- [yarn](https://yarnpkg.com/) version 1.22.22
 - Make sure you have the API server started on local. See how to do it [here](/docs/get-started/api-server-get-started/installation).
 
 This project has been tested and optimized for Node.js version v20.12.2 and pnpm version 8.14.1. Please note that using a Node.js version later than v20.12.2 may result incorrect functionality and potential bugs. It is strongly recommended to use these specific versions for running and testing the project. Deviating from these versions may result in unforeseen compatibility issues or unexpected behavior.
