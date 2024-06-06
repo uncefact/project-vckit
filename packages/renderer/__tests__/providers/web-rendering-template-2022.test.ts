@@ -26,7 +26,7 @@ describe('WebRenderingTemplate2022', () => {
         document,
       });
 
-      expect(renderedContent).toBe('<p>John Doe</p>');
+      expect(renderedContent).toStrictEqual({"renderedTemplate": "<p>John Doe</p>"});
     });
 
     it('should return an empty string if the template is empty', async () => {
@@ -47,7 +47,7 @@ describe('WebRenderingTemplate2022', () => {
         document,
       });
 
-      expect(renderedContent).toBe('');
+      expect(renderedContent).toStrictEqual({"renderedTemplate": "Error: invalid template provided"});
     });
 
     it('should return the template content if the template is random text', async () => {
@@ -67,7 +67,7 @@ describe('WebRenderingTemplate2022', () => {
         document,
       });
 
-      expect(renderedContent).toBe(template);
+      expect(renderedContent).toStrictEqual({"renderedTemplate": "Some random text"});
     });
 
     it('should return an empty string if the template contains only whitespace', async () => {
@@ -87,7 +87,7 @@ describe('WebRenderingTemplate2022', () => {
         document,
       });
 
-      expect(renderedContent).toBe('');
+      expect(renderedContent).toStrictEqual({"renderedTemplate": "Error: invalid template provided"});
     });
   });
 });

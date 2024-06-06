@@ -12,7 +12,7 @@ export class WebRenderingTemplate2022 implements IRendererProvider {
     const template = this.extractTemplate(data);
     if (!template?.trim()) {
       return {
-        errorMessages: 'Error: invalid template provided',
+        renderedTemplate: 'Error: invalid template provided',
       };
     }
     const compiledTemplate = handlebars.compile(template);

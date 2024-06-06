@@ -84,7 +84,7 @@ export class Renderer implements IAgentPlugin {
       const renderMethods: RenderMethodPayload[] | [] =
         extractRenderMethods(expandedDocument);
 
-      if (!Array.isArray(renderMethods)) {
+      if (!Array.isArray(renderMethods) || renderMethods.length === 0) {
         throw new Error('Render method not found in the verifiable credential');
       }
 

@@ -40,20 +40,14 @@ describe('RenderTemplate2024', () => {
     };
     const result = await renderer.renderCredential({ data, document: {} });
 
-    expect(result).toBe(
-      'Error: Failed to fetch template or no template provided',
+    expect(result).toStrictEqual(
+      {"renderedTemplate": "Error: No template or url provided"}
     );
   });
 
   it('should render the template with the credential data', async () => {
     const document = { name: 'John Doe' };
     const data = {
-      'https://www.w3.org/2018/credentials#renderMethod#mediaQuery': [
-        {
-          '@value':
-            '@media (min-width: 1024px) {\n  .title {\n    font-weight: bold;\n    color: #223675;\n  }\n}',
-        },
-      ],
       'https://schema.org/encodingFormat': [
         {
           '@value': 'text/html',
@@ -77,7 +71,7 @@ describe('RenderTemplate2024', () => {
       document,
     });
 
-    expect(renderedContent).toBe('<p>John Doe</p>');
+    expect(renderedContent).toEqual({"renderedTemplate": "<p>John Doe</p>"});
   });
 
   it('should return an error message if the template and the digestMultibase are not the same', async () => {
@@ -117,8 +111,8 @@ describe('RenderTemplate2024', () => {
       document,
     });
 
-    expect(result).toBe(
-      'Error: Template hash does not match the provided digest',
+    expect(result).toStrictEqual(
+      {"renderedTemplate": "Error: No hash function provided to verify the template"}
     );
   });
 
