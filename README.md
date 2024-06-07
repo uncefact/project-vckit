@@ -22,6 +22,8 @@ The vckit is built on top of the [Veramo](https://veramo.io/) agent framework. V
 - [pnpm](https://pnpm.io/) version 8.14.1
 - [yarn](https://yarnpkg.com/) version 1.22.22
 
+> :warning: **Notice**: You should install the pnpm package manager globally on your machine by using the npm package manager. You can install pnpm by running the following command: `npm install -g pnpm@8.14.1`. Using [Corepack](https://nodejs.org/api/corepack.html) to install pnpm that will have some conflicts with the project dependencies that are using yarn package manager to install and build.
+
 This project has been tested and optimized for Node.js version v20.12.2 and pnpm version 8.14.1. Please note that using a Node.js version later than v20.12.2 may result incorrect functionality and potential bugs. It is strongly recommended to use these specific versions for running and testing the project. Deviating from these versions may result in unforeseen compatibility issues or unexpected behavior.
 
 ## Installation and Setup

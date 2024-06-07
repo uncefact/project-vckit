@@ -27,9 +27,12 @@ const issueCredential = async (args: ICreateCredentialArgs) => {
     type,
     ...additionalProperties
   } = args
-  const credentialStatus = await issueBitstringStatus(agent, issuer)
+  const credentialStatus = await issueRevocationStatus(agent, issuer)
 
-  let context = ['https://www.w3.org/ns/credentials/v2']
+  let context = [
+    'https://www.w3.org/2018/credentials/v1',
+    'https://w3id.org/vc-revocation-list-2020/v1',
+  ]
   if (typeof customContext === 'string') {
     context = [...context, customContext]
   }
@@ -152,6 +155,17 @@ const issueBitstringStatus = async (agent: any, issuer: string) => {
     const credentialStatus = await agent?.issueBitstringStatusList({
       statusPurpose: 'revocation',
       bitstringStatusIssuer: issuer,
+    })
+
+    return credentialStatus
+  }
+  return null
+}
+
+const issueRevocationStatus = async (agent: any, issuer: string) => {
+  if (typeof agent.issueRevocationStatusList === 'function') {
+    const credentialStatus = await agent?.issueRevocationStatusList({
+      revocationVCIssuer: issuer,
     })
 
     return credentialStatus
