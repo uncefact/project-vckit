@@ -4,28 +4,39 @@ sidebar_position: 1
 ---
 
 # Installation
+
 ## Prerequisites
-- [Node.js](https://nodejs.org/en/) version 20.12.2.
-- [pnpm](https://pnpm.io/) version 8.14.1.
+
+- [Node.js](https://nodejs.org/en/) version 20.12.2
+- [pnpm](https://pnpm.io/) version 8.14.1
+- [yarn](https://yarnpkg.com/) version 1.22.22
 
 This project has been tested and optimized for Node.js version v20.12.2 and pnpm version 8.14.1. Please note that using a Node.js version later than v20.12.2 may result incorrect functionality and potential bugs. It is strongly recommended to use these specific versions for running and testing the project. Deviating from these versions may result in unforeseen compatibility issues or unexpected behavior.
 
 ## Clone vckit from github
+
 Let's start by cloning the VCKit repository at the URL below.
+
 ```bash
 https://github.com/uncefact/project-vckit.git
 ```
+
 ## Install dependencies
+
 Let's install the dependencies of this project by running this command.
+
 ```bash
 cd project-vckit & pnpm install
 ```
+
 ...then run this command to build the project
 
 ```bash
 pnpm build
 ```
+
 ## Initialize the agent configuration
+
 :::tip
 To understand more about the agent file structure and how to config it, read [here](/docs/agent-configuration/config-agent-file).
 :::
@@ -50,12 +61,15 @@ To create your own Infura Project ID, visit https://www.infura.io and follow the
 **2. Generate secret key**
 
 You need to generate an X25519 key, run this command in a terminal:
+
 ```bash
 veramo config gen-key
 ```
 
 ## Start the local server
+
 ```bash
 pnpm vckit server
 ```
+
 Now you can check the api documentation at [http://localhost:3332/api-docs](http://localhost:3332/api-docs)
