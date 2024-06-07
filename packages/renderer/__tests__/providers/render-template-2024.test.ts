@@ -1,4 +1,5 @@
 import { RenderTemplate2024 } from '../../src/providers/render-template-2024';
+import universityDegreeCredentialTemplate2024 from '../../fixtures/univerisity-degree-credential-template-2024.json';
 
 describe('RenderTemplate2024', () => {
   let renderer: RenderTemplate2024;
@@ -293,4 +294,57 @@ describe('RenderTemplate2024', () => {
     });
     expect(renderedContent).toEqual({"renderedTemplate": "<p>John Doe</p>"});
   });
+
+  it('should return error if the digestMultibase is provided but there is no context', async () => {
+    const document = universityDegreeCredentialTemplate2024;
+    const data = {
+      'https://w3id.org/security#digestMultibase': [
+        {
+          '@type': 'https://w3id.org/security#multibase',
+          '@value': 'abc123', // Replace with the actual hashed template value
+        },
+      ],
+      'https://www.w3.org/2018/credentials#renderMethod#mediaQuery': [
+        {
+          '@value':
+            '@media (min-width: 1024px) {\n  .title {\n    font-weight: bold;\n    color: #223675;\n  }\n}',
+        },
+      ],
+      'https://schema.org/encodingFormat': [
+        {
+          '@value': 'text/html',
+        },
+      ],
+      'https://www.w3.org/2018/credentials#renderMethod#template': [
+        {
+          '@value':
+            '<p>{{name}}</p>',
+        },
+      ],
+      'https://www.w3.org/2018/credentials#renderMethod#url': [
+        {
+          '@value': '',
+        },
+      ],
+    };
+    const result = await renderer.renderCredential({
+      data,
+      document,
+    });
+    expect(result).toEqual({"renderedTemplate": 'Error: No hash function provided to verify the template'});
+  });
+
+  it('should return error for unsupported media type', async () => {
+    const data = {
+      'https://schema.org/encodingFormat': [{ '@value': 'unsupported/type' }],
+    };
+    const result = await renderer.renderCredential({
+      data,
+      context: undefined,
+      document: {},
+    });
+    expect(result.renderedTemplate).toBe('Error: Unsupported media type');
+  });
+  
+
 });

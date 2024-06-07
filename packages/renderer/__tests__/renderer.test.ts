@@ -10,8 +10,6 @@ import {
 } from '@vckit/core-types';
 import universityDegreeCredential from '../fixtures/university-degree-credential.json';
 import universityDegreeCredentialTemplate2024 from '../fixtures/univerisity-degree-credential-template-2024.json';
-import { RenderTemplate2024 } from '../src/providers/render-template-2024';
-// import { extractRenderMethods } from '../src/renderer';
 
 describe('Renderer', () => {
   // Mock renderer provider
@@ -196,6 +194,114 @@ describe('Renderer', () => {
     ]);
   });
   
+  it('should render a verifiable credential with multiple render methods', async () => {
+    // Mock data
+    const args: IRenderCredentialArgs = {
+      credential: {
+        ...universityDegreeCredential,
+        render: [
+          {
+            template: 'template1',
+            '@type': 'WebRenderingTemplate2022',
+          },
+          {
+            template: 'template2',
+            '@type': 'WebRenderingTemplate2022',
+          },
+        ],
+      },
+    };
+    const context = {};
+    // Call the renderCredential method
+    const result: IRenderResult = await renderer.renderCredential(
+      args,
+      context as IRendererContext
+    );
+    // Verify the result
+    expect(result.documents).toEqual([
+      {
+        renderedTemplate: 'RXJyb3I6IGludmFsaWQgdGVtcGxhdGUgcHJvdmlkZWQ=',
+        type: 'WebRenderingTemplate2022',
+      },
+      {
+        renderedTemplate: 'RXJyb3I6IGludmFsaWQgdGVtcGxhdGUgcHJvdmlkZWQ=',
+        type: 'WebRenderingTemplate2022',
+      },
+    ]);
+  });
+
+  // it('should render a verifiable credential with no render methods', async () => {
+  //   // Mock data
+  //   const args: IRenderCredentialArgs = {
+  //     credential: universityDegreeCredential,
+  //   };
+  //   const context = {};
+  //   // Call the renderCredential method
+  //   const result: IRenderResult = await renderer.renderCredential(
+  //     args,
+  //     context as IRendererContext
+  //   );
+  //   // Verify the result
+  //   expect(result.documents).toEqual([]);
+  // });
+
+  // it('should render a verifiable credential with an empty credential object', async () => {
+  //   // Mock data
+  //   const args: IRenderCredentialArgs = {
+  //     credential: {},
+  //   };
+  //   const context = {};
+  //   // Call the renderCredential method
+  //   const result: IRenderResult = await renderer.renderCredential(
+  //     args,
+  //     context as IRendererContext
+  //   );
+  //   // Verify the result
+  //   expect(result.documents).toEqual([]);
+  // });
+
+  // it('should render a verifiable credential with an empty context object', async () => {
+  //   // Mock data
+  //   const args: IRenderCredentialArgs = {
+  //     credential: universityDegreeCredential,
+  //   };
+  //   const context = {};
+  //   // Call the renderCredential method
+  //   const result: IRenderResult = await renderer.renderCredential(
+  //     args,
+  //     context as IRendererContext
+  //   );
+  //   // Verify the result
+  //   expect(result.documents).toEqual([
+  //     {
+  //       renderedTemplate: 'RXJyb3I6IGludmFsaWQgdGVtcGxhdGUgcHJvdmlkZWQ=',
+  //       type: 'WebRenderingTemplate2022',
+  //     },
+  //   ]);
+  // });
   
+  it('should throw an error if there is no context file for renderer', async () => {
+    // Mock data
+    const args: IRenderCredentialArgs = {
+      credential: {
+        '@context': [
+          'https://www.w3.org/2018/credentials/v1',
+          'https://www.w3.org/2018/credentials/examples/v1',
+        ],
+        id: 'http://example.edu/credentials/3732',
+        type: ['VerifiableCredential', 'UniversityDegreeCredential'],
+        issuer: 'https://example.edu/issuers/565049',
+        issuanceDate: '2010-01-01T00:00:00Z',
+        credentialSubject: {
+          id: 'did:example:ebfeb1f712ebc6f1c276e12ec21',
+        },
+      },
+    };
+    const context = {};
+    // Call the renderCredential method
+    await expect(
+      renderer.renderCredential(args, context as IRendererContext)
+    ).rejects.toThrow();
+  });
   
 });
