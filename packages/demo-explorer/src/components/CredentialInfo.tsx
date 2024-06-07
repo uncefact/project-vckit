@@ -27,11 +27,6 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
   const [errorMessage, setErrorMessage] = useState<null | string>()
   const [proofFormat, setProofFormat] = useState<DocumentFormat | null>(null)
 
-  const fetchVCStatus = useCallback(async () => {
-    await checkVCStatus({ hash })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hash])
-
   useEffect(() => {
     setData([])
     for (const key in credentialData.credentialSubject) {
@@ -45,27 +40,40 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
       documentType === DocumentFormat.JWT ||
       documentType === DocumentFormat.JSONLD
     ) {
-      fetchVCStatus()
+      checkVCStatus()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [credentialData])
 
-  if (!credential || !hash) return null
+  const isAvailableCredentialStatus = useCallback(() => {
+    return (
+      (proofFormat === DocumentFormat.JWT ||
+        proofFormat === DocumentFormat.JSONLD) &&
+      credentialData.credentialStatus &&
+      ((credentialData.credentialStatus.type === 'RevocationList2020Status' &&
+        hash) ||
+        credentialData.credentialStatus.type === 'BitstringStatusListEntry')
+    )
+  }, [proofFormat, credentialData, hash])
 
   const revoke = async () => {
     setLoading(true)
     try {
-      let vcRevoked = false;
-      if (credentialData?.credentialStatus?.type === 'RevocationList2020Status') {
+      let vcRevoked = false
+      if (
+        credentialData?.credentialStatus?.type === 'RevocationList2020Status'
+      ) {
         const { revoked } = await agent?.revokeCredential({ hash })
-        vcRevoked = revoked;
+        vcRevoked = revoked
       }
-      if (credentialData?.credentialStatus?.type === 'BitstringStatusListEntry') {
-        const revoked = await setBitstringStatus(true);
-        vcRevoked = revoked;
+      if (
+        credentialData?.credentialStatus?.type === 'BitstringStatusListEntry'
+      ) {
+        const revoked = await setBitstringStatus(true)
+        vcRevoked = revoked
       }
-      
-      setRevoked(vcRevoked);
+
+      setRevoked(vcRevoked)
     } catch (e: any) {
       console.log(e)
       setErrorMessage(e.message + ' Please refresh the page and try again.')
@@ -77,16 +85,20 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
   const activate = async () => {
     setLoading(true)
     try {
-      let vcRevoked = false;
-      if (credentialData?.credentialStatus?.type === 'RevocationList2020Status') {
+      let vcRevoked = false
+      if (
+        credentialData?.credentialStatus?.type === 'RevocationList2020Status'
+      ) {
         const { revoked } = await agent?.activateCredential({ hash })
-        vcRevoked = revoked;
+        vcRevoked = revoked
       }
-      if (credentialData?.credentialStatus?.type === 'BitstringStatusListEntry') {
-        const revoked = await setBitstringStatus(false);
-        vcRevoked = revoked;
+      if (
+        credentialData?.credentialStatus?.type === 'BitstringStatusListEntry'
+      ) {
+        const revoked = await setBitstringStatus(false)
+        vcRevoked = revoked
       }
-    
+
       setRevoked(vcRevoked)
     } catch (e: any) {
       console.log(e)
@@ -96,19 +108,26 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
     }
   }
 
-  const checkVCStatus = async (args: { hash: string }) => {
+  const checkVCStatus = async () => {
     setLoading(true)
     try {
-      let vcRevoked = false;
-      if (credentialData?.credentialStatus?.type === 'RevocationList2020Status') {
-        const { revoked } = await agent?.checkRevocationStatus(args);
-        vcRevoked = revoked;
+      let vcRevoked = false
+      if (
+        credentialData?.credentialStatus?.type === 'RevocationList2020Status' &&
+        hash
+      ) {
+        const { revoked } = await agent?.checkRevocationStatus({ hash })
+        vcRevoked = revoked
       }
-      if (credentialData?.credentialStatus?.type === 'BitstringStatusListEntry') {
-        const { revoked } = await agent?.checkBitstringStatus({ verifiableCredential: credentialData });
-        vcRevoked = revoked;
+      if (
+        credentialData?.credentialStatus?.type === 'BitstringStatusListEntry'
+      ) {
+        const { revoked } = await agent?.checkBitstringStatus({
+          verifiableCredential: credentialData,
+        })
+        vcRevoked = revoked
       }
-    
+
       setRevoked(vcRevoked)
     } catch (e: any) {
       console.log(e)
@@ -120,15 +139,17 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
 
   const setBitstringStatus = async (bitstringStatus: boolean) => {
     const payload = {
-      statusListCredential: credentialData.credentialStatus?.statusListCredential,
+      statusListCredential:
+        credentialData.credentialStatus?.statusListCredential,
       statusListVCIssuer: credentialData.issuer?.id || credentialData.issuer,
-      statusPurpose: credentialData.credentialStatus?.statusPurpose || 'revocation',
+      statusPurpose:
+        credentialData.credentialStatus?.statusPurpose || 'revocation',
       index: credentialData.credentialStatus?.statusListIndex || 0,
-      status: bitstringStatus
+      status: bitstringStatus,
     }
 
     const { status } = await agent?.setBitstringStatus(payload)
-    return status;
+    return status
   }
 
   return (
@@ -167,16 +188,14 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
               {i.value}
             </Descriptions.Item>
           ))}
-          {proofFormat === DocumentFormat.JWT ||
-          proofFormat === DocumentFormat.JSONLD ? (
+          {isAvailableCredentialStatus() ? (
             <Descriptions.Item label="Status">
               {revoked ? 'Revoked' : 'Active'}
             </Descriptions.Item>
           ) : null}
         </Descriptions>
         <br />
-        {proofFormat === DocumentFormat.JWT ||
-        proofFormat === DocumentFormat.JSONLD ? (
+        {isAvailableCredentialStatus() ? (
           revoked ? (
             <Button
               type="primary"
