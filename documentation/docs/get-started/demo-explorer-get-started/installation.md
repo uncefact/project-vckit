@@ -52,7 +52,7 @@ Now you can see the VCKit Demo Explorer at [`http://localhost:3000`](http://loca
 ## Common cases
 
 :::warning
-**IMPORTANCE**: Every time you make changes to the agent configuration, you need to remove your agent data on Explorer by go to the `manage` on the top right corner and click `Remove Agent` on your agent, it will automatically remove and load the new agent configuration.
+**IMPORTANCE**: Every time you make changes to the agent configuration, you need to remove your agent data on Explorer by hovering on the `Agent` profile in the top right corner, then selecting `manage` and clicking `Remove Agent` on your agent, it will automatically remove and load the new agent configuration.
 
 ![Synchronize Agent Configuration](/img/sync-agent-config.png)
 :::

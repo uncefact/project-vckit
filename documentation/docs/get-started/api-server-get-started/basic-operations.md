@@ -9,7 +9,7 @@ Let's use the API docs at [`http://localhost:3332/api-docs`](http://localhost:33
 
 ## Authentication
 
-Based on your agent configuration, you may need to provide an API key to access the API, the configuration for authentication middleware plugin [here](/docs/agent-configuration/config-agent-file#authentication-middleware-plugin). If you have an API key, you can add it to the request header for every requests like this:
+Based on your agent configuration, you may need to provide an API key to access the API, the configuration for authentication middleware plugin [here](/docs/agent-configuration/config-agent-file#authentication-middleware-plugin). If you have an API key, you can add it to the request header for every request like this:
 
 ```curl
 curl 'http://localhost:3332/agent/didManagerFind' \
@@ -154,7 +154,7 @@ Copy the issuer id from last step, then replace the issuer.id in the request by 
   "credential": {
     "issuanceDate": "2024-04-19T03:24:09.927Z",
     "@context": ["https://www.w3.org/2018/credentials/v1", "https://www.w3.org/2018/credentials/v1", "https://www.w3.org/2018/credentials/examples/v1", "https://vckit-contexts.s3.ap-southeast-2.amazonaws.com/dev-render-method-context.json"],
-    "type": ["VerifiableCredential", "VerifiableCredential", "UniversityDegreeCredential"],
+    "type": ["VerifiableCredential", "UniversityDegreeCredential"],
     "credentialSubject": {
       "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
       "name": "Jane Smith",
