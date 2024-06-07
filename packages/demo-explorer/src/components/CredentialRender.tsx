@@ -41,6 +41,9 @@ const CredentialRender: React.FC<CredentialRenderProps> = ({
 
   const { data: encryptedCredentialData, isLoading: credentialLoading } =
     useQuery(['encryptedCredentialData', { hash }], () => {
+      if (!hash) {
+        return
+      }
       return agent?.fetchEncryptedDataByCredentialHash({ credentialHash: hash })
     })
 
