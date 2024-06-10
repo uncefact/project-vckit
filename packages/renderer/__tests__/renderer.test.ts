@@ -229,56 +229,6 @@ describe('Renderer', () => {
       },
     ]);
   });
-
-  // it('should render a verifiable credential with no render methods', async () => {
-  //   // Mock data
-  //   const args: IRenderCredentialArgs = {
-  //     credential: universityDegreeCredential,
-  //   };
-  //   const context = {};
-  //   // Call the renderCredential method
-  //   const result: IRenderResult = await renderer.renderCredential(
-  //     args,
-  //     context as IRendererContext
-  //   );
-  //   // Verify the result
-  //   expect(result.documents).toEqual([]);
-  // });
-
-  // it('should render a verifiable credential with an empty credential object', async () => {
-  //   // Mock data
-  //   const args: IRenderCredentialArgs = {
-  //     credential: {},
-  //   };
-  //   const context = {};
-  //   // Call the renderCredential method
-  //   const result: IRenderResult = await renderer.renderCredential(
-  //     args,
-  //     context as IRendererContext
-  //   );
-  //   // Verify the result
-  //   expect(result.documents).toEqual([]);
-  // });
-
-  // it('should render a verifiable credential with an empty context object', async () => {
-  //   // Mock data
-  //   const args: IRenderCredentialArgs = {
-  //     credential: universityDegreeCredential,
-  //   };
-  //   const context = {};
-  //   // Call the renderCredential method
-  //   const result: IRenderResult = await renderer.renderCredential(
-  //     args,
-  //     context as IRendererContext
-  //   );
-  //   // Verify the result
-  //   expect(result.documents).toEqual([
-  //     {
-  //       renderedTemplate: 'RXJyb3I6IGludmFsaWQgdGVtcGxhdGUgcHJvdmlkZWQ=',
-  //       type: 'WebRenderingTemplate2022',
-  //     },
-  //   ]);
-  // });
   
   it('should throw an error if there is no context file for renderer', async () => {
     // Mock data

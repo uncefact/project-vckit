@@ -1,5 +1,8 @@
 import { RenderTemplate2024 } from '../../src/providers/render-template-2024';
 import universityDegreeCredentialTemplate2024 from '../../fixtures/univerisity-degree-credential-template-2024.json';
+import { jest } from '@jest/globals';
+import { IRendererContext } from '@vckit/core-types';
+import { url } from 'inspector';
 
 describe('RenderTemplate2024', () => {
   let renderer: RenderTemplate2024;
@@ -345,6 +348,65 @@ describe('RenderTemplate2024', () => {
     });
     expect(result.renderedTemplate).toBe('Error: Unsupported media type');
   });
-  
+
+  it('should return empty string if it failed to fetch template from url', async () => {
+    const document = { name: 'John Doe', url: 'example.com'};
+    const data = {
+      'https://schema.org/encodingFormat': [
+        {
+          '@value': 'text/html',
+        },
+      ],
+      'https://www.w3.org/2018/credentials#renderMethod#template': [
+        {
+          '@value':
+            '',
+        },
+      ],
+      'https://www.w3.org/2018/credentials#renderMethod#url': [
+        {
+          '@value': 'example.com', // Replace with the actual URL
+        },
+      ],
+    };
+    const result = await renderer.renderCredential({
+      data,
+      document,
+    });
+    expect(result.renderedTemplate).toBe('');
+  });
+
+  it('should return template with style added', async () => {
+    const document = { name: 'John Doe', url: 'example.com'};
+    const data = {
+      'https://schema.org/encodingFormat': [
+        {
+          '@value': 'text/html',
+        },
+      ],
+      'https://www.w3.org/2018/credentials#renderMethod#template': [
+        {
+          '@value':
+            '',
+        },
+      ],
+      'https://www.w3.org/2018/credentials#renderMethod#mediaQuery': [
+        {
+          '@value':
+            '@media (min-width: 1024px) {\n  .title {\n    font-weight: bold;\n    color: #223675;\n  }\n}',
+        },
+      ],
+      'https://www.w3.org/2018/credentials#renderMethod#url': [
+        {
+          '@value': 'example.com', // Replace with the actual URL
+        },
+      ],
+    };
+    const result = await renderer.renderCredential({
+      data,
+      document,
+    });
+    expect(JSON.stringify(result.renderedTemplate)).toBe("\"<style>@media (min-width: 1024px) {\\n  .title {\\n    font-weight: bold;\\n    color: #223675;\\n  }\\n}</style>\"");
+  });
 
 });

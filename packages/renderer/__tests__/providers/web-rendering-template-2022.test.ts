@@ -89,5 +89,27 @@ describe('WebRenderingTemplate2022', () => {
 
       expect(renderedContent).toStrictEqual({"renderedTemplate": "Error: invalid template provided"});
     });
+
+    it('should throw an error if the template is not a valid handlebars template', async () => {
+      // const template = '<p>{{name}}</p>';
+      const document = { name: 'John Doe' };
+
+      const data = {
+        'https://www.w3.org/2018/credentials#renderMethod#template': [
+          {
+            '@value':
+              '<p>{{name}</p>',
+          },
+        ]
+      };
+
+      await expect(async () => {
+        await renderer.renderCredential({
+          data,
+          document,
+        });
+      }).rejects.toThrow();
+    });
+    
   });
 });
