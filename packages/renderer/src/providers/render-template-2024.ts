@@ -47,11 +47,12 @@ export class RenderTemplate2024 implements IRendererProvider {
           const response = await fetch(url);
           renderTemplate = await response.text();
         } catch (error) {
-          console.error(`Failed to fetch from ${url}:`, error);
+          renderTemplate = template;
+          console.log(`Failed to fetch from ${url}, trying to use the inline template instead`);
         }
-      }else if (template) {
+      } else if (template) {
         renderTemplate = template;
-      }else{
+      } else {
         return {
           renderedTemplate: 'Error: No template or url provided',
         };
