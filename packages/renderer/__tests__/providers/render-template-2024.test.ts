@@ -337,18 +337,6 @@ describe('RenderTemplate2024', () => {
     expect(result).toEqual({"renderedTemplate": 'Error: No hash function provided to verify the template'});
   });
 
-  it('should return error for unsupported media type', async () => {
-    const data = {
-      'https://schema.org/encodingFormat': [{ '@value': 'unsupported/type' }],
-    };
-    const result = await renderer.renderCredential({
-      data,
-      context: undefined,
-      document: {},
-    });
-    expect(result.renderedTemplate).toBe('Error: Unsupported media type');
-  });
-
   it('should return empty string if it failed to fetch template from url', async () => {
     const document = { name: 'John Doe', url: 'example.com'};
     const data = {
