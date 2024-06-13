@@ -23,13 +23,13 @@ A reference implementation of a verifiable credentials platform for digital trad
 
 VCkit aims to provide the tools to equip your existing business systems to issue your existing credentials as high integrity, standards-based, and interoperable VCs that your constituents (VC holders) can present to any party that needs to verify them.
 
-* Visit [Getting Started Page](http://localhost:3000/docs/) to get started with VCkit
+* Visit [Getting Started Page](/docs/) to get started with VCkit
 
 
 ## Documentation
 
 * [How to use agent config file](/docs/category/agent-configuration)
-* [Component Documentation](http://localhost:3000/docs/category/vckit-plugins)
+* [Component Documentation](/category/vckit-plugins)
 * [Produce Guides for Plugin Creation/Management](#)
 
 
