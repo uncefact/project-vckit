@@ -61,6 +61,7 @@ import VerifiableBusinessCard from './VerifiableBusinessCard.json' assert { type
 import VerifiablePostmanCollection from './VerifiablePostmanCollection.json' assert { type: 'json' };
 import VerifiableScorecard from './VerifiableScorecard.json' assert { type: 'json' };
 import UniversityDegreeCredential from './UniversityDegreeCredential.json' assert { type: 'json' };
+import UniversityDegreeCredentialNewRenderer from './UniversityDegreeCredentialNewRenderer.json' assert { type: 'json' };
 
 import TradeTrustInvoice from './TradeTrustInvoice.json' assert { type: 'json' };
 
@@ -752,6 +753,17 @@ export const credentialsIssueExamples = {
     value: JSON.stringify(
       {
         credential: UniversityDegreeCredential,
+        proofFormat: 'lds',
+      },
+      null,
+      2
+    ),
+  },
+  UniversityDegreeCredentialNewRenderer: {
+    description: 'UniversityDegreeCredentialNewRenderer',
+    value: JSON.stringify(
+      {
+        credential: UniversityDegreeCredentialNewRenderer,
         proofFormat: 'lds',
       },
       null,

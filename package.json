@@ -83,7 +83,7 @@
   },
   "resolutions": {
     "@types/eslint": "^8.4.6",
-    "jsonld": "npm:@digitalcredentials/jsonld@^5.2.1"
+    "jsonld": "npm:@digitalcredentials/jsonld@5.2.1"
   },
   "engines": {
     "node": "20.12.2"
