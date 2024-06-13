@@ -102,7 +102,7 @@ export class Renderer implements IAgentPlugin {
               ? convertToBase64(document.renderedTemplate)
               : '',
             name: document.name,
-            id: document.id
+            id: document.id,
           };
           return responseDocument;
         }),
