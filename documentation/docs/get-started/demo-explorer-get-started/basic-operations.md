@@ -51,7 +51,7 @@ Go to [**Credential**](http://localhost:3000/credentials) page to see the list o
 
 ![issue credential 3](/img/issue-credential-2.png)
 
-You can also see the details of the VC. At Rendered tab, you can see the rendered version of it, this is made by the [Renderer](https://www.npmjs.com/package/@vckit/renderer) plugin of VCKit.
+You can also see the details of the VC. At Rendered tab, you can see the rendered version of it, this is made by the [Renderer](https://www.npmjs.com/package/@vckit/renderer) plugin of VCkit.
 
 :::note
 The QR code won't work due to being on localhost, and it's not a result of rendering.

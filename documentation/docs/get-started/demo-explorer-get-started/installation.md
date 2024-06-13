@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ## Prerequisites
 
-- Clone [VCKit](https://github.com/uncefact/project-vckit.git) repository
+- Clone [VCkit](https://github.com/uncefact/project-vckit.git) repository
 - [Node.js](https://nodejs.org/en/) version 20.12.2
 - [pnpm](https://pnpm.io/) version 8.14.1
 - [yarn](https://yarnpkg.com/) version 1.22.22
@@ -45,13 +45,13 @@ cp packages/demo-explorer/.env.example packages/demo-explorer/.env
 
 ## Start the web server
 
-To start the VCKit Demo Exlorer on you local, run this command
+To start the VCkit Demo Exlorer on you local, run this command
 
 ```bash
 cd packages/demo-explorer && pnpm dev
 ```
 
-Now you can see the VCKit Demo Explorer at [`http://localhost:3000`](http://localhost:3000)
+Now you can see the VCkit Demo Explorer at [`http://localhost:3000`](http://localhost:3000)
 
 ## Common cases
 

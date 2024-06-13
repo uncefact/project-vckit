@@ -19,7 +19,7 @@ This project has been tested and optimized for Node.js version v20.12.2 and pnpm
 
 ## Clone vckit from github
 
-Let's start by cloning the VCKit repository at the URL below.
+Let's start by cloning the VCkit repository at the URL below.
 
 ```bash
 https://github.com/uncefact/project-vckit.git

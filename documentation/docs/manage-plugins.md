@@ -82,7 +82,7 @@ There're 2 properties of the class are required, both of them are from @vckit/co
 
 ## Manage plugin within agent file
 
-As you may know, working with VCKit is all about the agent. If you have your custom plugin and want to use it as an extended function then you need to add it to the agent. Here's how to do it.
+As you may know, working with VCkit is all about the agent. If you have your custom plugin and want to use it as an extended function then you need to add it to the agent. Here's how to do it.
 
 ### Step 1: Add the plugin to agent.yml
 Open the `agent.yml` file, and add this line `- $require: '@vckit/tools#MultibaseEncodedSHA256'` at the end of the **agent**. The updated agent will look like this.

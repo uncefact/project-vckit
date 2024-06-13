@@ -56,7 +56,7 @@ Run this command to gennerate a secret key and save it in a safe place for later
 npx @veramo/cli config create-secret-key
 ```
 
-## Install VCKit plugins
+## Install VCkit plugins
 
 ```bash
 npm install @vckit/core-types @vckit/renderer

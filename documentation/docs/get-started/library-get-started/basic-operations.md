@@ -204,7 +204,7 @@ Run this command to verify VC
 node --loader ts-node/esm ./src/verify-credential.ts  
 ```
 
-## Using VCKit renderer
+## Using VCkit renderer
 Create a new file in **`src/render-credential.ts`**, and add the following code.
 ```typescript
 import { agent } from './vckit/setup.js'

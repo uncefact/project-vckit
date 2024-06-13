@@ -9,7 +9,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'VCKit',
+  title: 'VCkit',
   tagline: 'UN/CEFACT Verifiable Credentials Toolkit',
   favicon: 'img/vckit-logo.svg',
 
@@ -67,9 +67,9 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'VCKit',
+        title: 'VCkit',
         logo: {
-          alt: 'VCKit Logo',
+          alt: 'VCkit Logo',
           src: 'img/vckit-logo.svg',
         },
         items: [
@@ -132,7 +132,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} VCKit. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} VCkit. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,
