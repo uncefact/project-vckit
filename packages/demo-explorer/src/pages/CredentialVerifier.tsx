@@ -75,11 +75,15 @@ const CredentialVerifier = () => {
           credential: JSON.parse(text),
           fetchRemoteContexts: true,
         })
-        setVerificationResult(result)
         if (result?.verified) {
           setVerificationResult((result) => {
             if (!result) return result
             return { ...result, verifiableCredential: JSON.parse(text) }
+          })
+        } else {
+          setVerificationResult({
+            verified: false,
+            error: { message: result?.error.errors[0].message },
           })
         }
       } catch (e: any) {
@@ -105,6 +109,7 @@ const CredentialVerifier = () => {
   )
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+  console.log({ verificationResult })
 
   return (
     <PageContainer title="Credential Verifier">
