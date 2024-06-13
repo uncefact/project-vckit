@@ -32,7 +32,7 @@ It is important to test your build locally before deploying it for production. D
 npm run serve
 ```
 
-By default, this will load your site at http://localhost:3000/.
+By default, this will load your site at http://localhost:3030/.
 
 ### Deployment
 [Docusaurus Deployment Guide](https://docusaurus.io/docs/deployment)
