@@ -109,7 +109,6 @@ const CredentialVerifier = () => {
   )
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
-  console.log({ verificationResult })
 
   return (
     <PageContainer title="Credential Verifier">
