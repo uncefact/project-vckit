@@ -9,7 +9,6 @@ describe('WebRenderingTemplate2022', () => {
 
   describe('renderCredential', () => {
     it('should render the template with the credential data', async () => {
-      // const template = '<p>{{name}}</p>';
       const document = { name: 'John Doe' };
 
       const data = {
@@ -30,7 +29,6 @@ describe('WebRenderingTemplate2022', () => {
     });
 
     it('should return an empty string if the template is empty', async () => {
-      // const template = '';
       const document = { name: 'John Doe' };
 
       const data = {
@@ -91,7 +89,6 @@ describe('WebRenderingTemplate2022', () => {
     });
 
     it('should throw an error if the template is not a valid handlebars template', async () => {
-      // const template = '<p>{{name}}</p>';
       const document = { name: 'John Doe' };
 
       const data = {
