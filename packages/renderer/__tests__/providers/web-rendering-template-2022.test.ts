@@ -47,7 +47,7 @@ describe('WebRenderingTemplate2022', () => {
         document,
       });
 
-      expect(renderedContent).toStrictEqual({"renderedTemplate": "Error: invalid template provided"});
+      expect(renderedContent).toStrictEqual({"renderedTemplate": ""});
     });
 
     it('should return the template content if the template is random text', async () => {
@@ -87,7 +87,7 @@ describe('WebRenderingTemplate2022', () => {
         document,
       });
 
-      expect(renderedContent).toStrictEqual({"renderedTemplate": "Error: invalid template provided"});
+      expect(renderedContent).toStrictEqual({"renderedTemplate": ""});
     });
 
     it('should throw an error if the template is not a valid handlebars template', async () => {
