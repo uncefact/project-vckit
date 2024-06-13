@@ -75,10 +75,11 @@ const CredentialVerifier = () => {
           credential: JSON.parse(text),
           fetchRemoteContexts: true,
         })
+
         if (result?.verified) {
-          setVerificationResult((result) => {
-            if (!result) return result
-            return { ...result, verifiableCredential: JSON.parse(text) }
+          setVerificationResult({
+            ...result,
+            verifiableCredential: JSON.parse(text),
           })
         } else {
           setVerificationResult({
