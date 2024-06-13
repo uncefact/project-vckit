@@ -1,4 +1,8 @@
-import { IRendererProvider, RenderDocument, IRenderedResult } from '@vckit/core-types';
+import {
+  IRendererProvider,
+  RenderDocument,
+  IRenderedResult,
+} from '@vckit/core-types';
 import handlebars from 'handlebars';
 import { RENDER_METHOD } from '../renderer.js';
 
@@ -7,9 +11,16 @@ import { RENDER_METHOD } from '../renderer.js';
  * @public
  */
 export class WebRenderingTemplate2022 implements IRendererProvider {
-  async renderCredential({ data, document }: { data: any, document: RenderDocument }): Promise<IRenderedResult> {
+  async renderCredential({
+    data,
+    document,
+  }: {
+    data: any;
+    document: RenderDocument;
+  }): Promise<IRenderedResult> {
+    const { template } = this.extractData(data);
+
     // Check if the template is empty or contains only whitespace
-    const template = this.extractTemplate(data);
     if (!template?.trim()) {
       return {
         renderedTemplate: '',
@@ -18,7 +29,6 @@ export class WebRenderingTemplate2022 implements IRendererProvider {
     const compiledTemplate = handlebars.compile(template);
 
     // Render the template with the document data
-   
     const renderedContent = compiledTemplate(document);
 
     return {
@@ -26,13 +36,12 @@ export class WebRenderingTemplate2022 implements IRendererProvider {
     };
   }
 
-  private extractTemplate(data: any) {
-    // const RENDER_METHOD = 'https://www.w3.org/2018/credentials#renderMethod';
+  extractData(data: any) {
     const template = data[`${RENDER_METHOD}#template`]
       ? (data[`${RENDER_METHOD}#template`] as { '@value': string }[])[0][
           '@value'
         ]
       : undefined;
-    return template;
+    return { template };
   }
 }

@@ -1,4 +1,4 @@
-import { IRendererContext } from "./IRender";
+import { IRendererContext } from './IRender';
 
 /**
  * The document to render.
@@ -21,13 +21,15 @@ export interface IRendererProvider {
    */
   renderCredential({
     data,
-    context, 
-    document
+    context,
+    document,
   }: {
     data: any;
     context?: IRendererContext;
     document: RenderDocument;
   }): Promise<IRenderedResult>;
+
+  extractData(data: any): { [k: string]: any };
 }
 /**
  * The result of rendering
@@ -39,4 +41,3 @@ export interface IRenderedResult {
   renderedTemplate?: string;
   errorMessages?: string;
 }
-

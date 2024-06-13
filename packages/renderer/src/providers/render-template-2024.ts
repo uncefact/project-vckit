@@ -7,6 +7,7 @@ import {
 import handlebars from 'handlebars';
 import { RENDER_METHOD } from '../renderer.js';
 /**
+ * RenderTemplate2024 class implements the IRendererProvider interface for rendering verifiable credentials using Handlebars templates.
  * @public
  */
 export class RenderTemplate2024 implements IRendererProvider {
@@ -16,14 +17,15 @@ export class RenderTemplate2024 implements IRendererProvider {
     'image/svg+xml',
     'text/xml',
   ];
+
   async renderCredential({
     data,
-    context,
     document,
+    context,
   }: {
     data: any;
-    context?: IRendererContext;
     document: RenderDocument;
+    context?: IRendererContext;
   }): Promise<IRenderedResult> {
     try {
       const { template, url, mediaType, digestMultibase, mediaQuery, name } =
@@ -41,26 +43,24 @@ export class RenderTemplate2024 implements IRendererProvider {
       }
 
       let renderTemplate: any = '';
-      //get the template
+      // Fetch the template from the url if provided
       if (url) {
         try {
           const response = await fetch(url);
           renderTemplate = await response.text();
         } catch (error) {
           renderTemplate = template;
-          console.log(`Failed to fetch from ${url}, trying to use the inline template instead`);
+          console.log(
+            `Failed to fetch from ${url}, trying to use the inline template instead`,
+          );
         }
-      } else if (template) {
-        renderTemplate = template;
       } else {
-        return {
-          renderedTemplate: 'Error: No template or url provided',
-        };
+        renderTemplate = template;
       }
-    
-      // verify the template
-      if (digestMultibase){
-        if(context && typeof context.agent.computeHash === 'function'){
+
+      // Verify the template hash if provided
+      if (digestMultibase) {
+        if (context && typeof context.agent?.computeHash === 'function') {
           const hashedTemplate = await context.agent.computeHash({
             content: renderTemplate,
           });
@@ -70,15 +70,15 @@ export class RenderTemplate2024 implements IRendererProvider {
                 'Error: Template hash does not match the provided digest',
             };
           }
-        }else{
+        } else {
           return {
             renderedTemplate:
               'Error: No hash function provided to verify the template',
           };
         }
-      } 
+      }
 
-      //insert media query into template for html template only
+      // Add media query to the template if it is html
       if (mediaType === 'text/html' && mediaQuery) {
         renderTemplate = `<style>${mediaQuery}</style>` + renderTemplate;
       }
@@ -96,9 +96,7 @@ export class RenderTemplate2024 implements IRendererProvider {
     }
   }
 
-  private extractData(data: any) {
-    // const RENDER_METHOD = 'https://www.w3.org/2018/credentials#renderMethod';
-
+  extractData(data: any) {
     const template = data[`${RENDER_METHOD}#template`]
       ? (data[`${RENDER_METHOD}#template`] as { '@value': string }[])[0][
           '@value'
