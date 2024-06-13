@@ -47,9 +47,9 @@ const result = await renderer.renderCredential(params, context);
 // The result will be the encoded base64 of the rendered HTML string.
 ```
 
-### With vckit
+### With VCkit
 
-Using the vckit CLI or API
+Using the VCkit CLI or API
 
 1. Override the default configuration file to agent.yml.
 

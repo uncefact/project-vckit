@@ -17,7 +17,7 @@ sidebar_position: 1
 
 This project has been tested and optimized for Node.js version v20.12.2 and pnpm version 8.14.1. Please note that using a Node.js version later than v20.12.2 may result incorrect functionality and potential bugs. It is strongly recommended to use these specific versions for running and testing the project. Deviating from these versions may result in unforeseen compatibility issues or unexpected behavior.
 
-## Clone vckit from github
+## Clone VCkit from github
 
 Let's start by cloning the VCkit repository at the URL below.
 

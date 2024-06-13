@@ -111,4 +111,4 @@ constants:
 
 ```
 
-Now you can build the project-vckit and start the vckit api server and test the new plugin. 
+Now you can build the project-vckit and start the VCkit api server and test the new plugin. 

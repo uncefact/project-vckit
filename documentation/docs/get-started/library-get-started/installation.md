@@ -64,7 +64,7 @@ npm install @vckit/core-types @vckit/renderer
 
 ## Install Veramo packages
 
-The vckit is built on top of the [Veramo](https://veramo.io/) agent framework. The vckit is a set of Veramo plugins that are configured to work together to provide a complete VC issuance and verification capability. That's why we need to install all the veramo core plugins first. To do it, run this command.
+The VCkit is built on top of the [Veramo](https://veramo.io/) agent framework. The VCkit is a set of Veramo plugins that are configured to work together to provide a complete VC issuance and verification capability. That's why we need to install all the veramo core plugins first. To do it, run this command.
 
 ```bash
 npm install @veramo/core @veramo/credential-w3c @veramo/credential-ld @veramo/did-resolver @veramo/did-manager @veramo/key-manager @veramo/did-provider-key @veramo/did-provider-pkh @veramo/did-provider-jwk @veramo/did-provider-ethr @veramo/did-provider-web @veramo/kms-local did-resolver @veramo/kms-web3 @veramo/data-store
