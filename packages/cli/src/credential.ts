@@ -181,7 +181,8 @@ credential
     }
     let parsedCredential: any
     try {
-      parsedCredential = json5.parse(raw)
+      parsedCredential = JSON.parse(raw)
+      console.log('Parsed credential:', JSON.stringify(parsedCredential, null, 2))
     } catch (e: any) {
       parsedCredential = raw
     }
@@ -190,6 +191,8 @@ credential
       if (result.verified === true) {
         console.log('Credential was verified successfully.')
       } else {
+        console.log('Log:',JSON.stringify(result, null, 2))
+        console.log('Credential:',JSON.stringify(parsedCredential, null, 2))
         console.error('Credential could not be verified.')
       }
     } catch (e) {

@@ -9,51 +9,99 @@ describe('WebRenderingTemplate2022', () => {
 
   describe('renderCredential', () => {
     it('should render the template with the credential data', async () => {
-      const template = '<p>{{name}}</p>';
       const document = { name: 'John Doe' };
 
-      const renderedContent = await renderer.renderCredential(
-        template,
-        document
-      );
+      const data = {
+        'https://www.w3.org/2018/credentials#renderMethod#template': [
+          {
+            '@value': '<p>{{name}}</p>',
+          },
+        ],
+      };
 
-      expect(renderedContent).toBe('<p>John Doe</p>');
+      const renderedContent = await renderer.renderCredential({
+        data,
+        document,
+      });
+
+      expect(renderedContent).toEqual({ renderedTemplate: '<p>John Doe</p>' });
     });
 
     it('should return an empty string if the template is empty', async () => {
-      const template = '';
       const document = { name: 'John Doe' };
 
-      const renderedContent = await renderer.renderCredential(
-        template,
-        document
-      );
+      const data = {
+        'https://www.w3.org/2018/credentials#renderMethod#template': [
+          {
+            '@value': '',
+          },
+        ],
+      };
 
-      expect(renderedContent).toBe('');
+      const renderedContent = await renderer.renderCredential({
+        data,
+        document,
+      });
+
+      expect(renderedContent).toEqual({ renderedTemplate: '' });
     });
 
     it('should return the template content if the template is random text', async () => {
-      const template = 'Some random text';
       const document = { name: 'John Doe' };
+      const data = {
+        'https://www.w3.org/2018/credentials#renderMethod#template': [
+          {
+            '@value': 'Some random text',
+          },
+        ],
+      };
 
-      const renderedContent = await renderer.renderCredential(
-        template,
-        document
-      );
+      const renderedContent = await renderer.renderCredential({
+        data,
+        document,
+      });
 
-      expect(renderedContent).toBe(template);
+      expect(renderedContent).toEqual({
+        renderedTemplate: 'Some random text',
+      });
     });
 
     it('should return an empty string if the template contains only whitespace', async () => {
       const template = '    \t\n   ';
       const document = { name: 'John Doe' };
+      const data = {
+        'https://www.w3.org/2018/credentials#renderMethod#template': [
+          {
+            '@value': '    \t\n   ',
+          },
+        ],
+      };
 
-      const renderedContent = await renderer.renderCredential(
-        template,
-        document
-      );
+      const renderedContent = await renderer.renderCredential({
+        data,
+        document,
+      });
 
-      expect(renderedContent).toBe('');
+      expect(renderedContent).toEqual({ renderedTemplate: '' });
+    });
+
+    it('should throw an error if the template is not a valid handlebars template', async () => {
+      const document = { name: 'John Doe' };
+
+      const data = {
+        'https://www.w3.org/2018/credentials#renderMethod#template': [
+          {
+            '@value': '<p>{{name}</p>',
+          },
+        ],
+      };
+
+      await expect(async () => {
+        await renderer.renderCredential({
+          data,
+          document,
+        });
+      }).rejects.toThrow();
     });
   });
 });

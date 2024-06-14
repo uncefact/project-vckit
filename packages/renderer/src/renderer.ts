@@ -13,6 +13,7 @@ import {
   UnsignedCredential,
   IRenderer,
 } from '@vckit/core-types';
+import { RenderDefaultContexts } from './render-default-contexts.js';
 import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
 
 export const RENDER_METHOD = 'https://www.w3.org/2018/credentials#renderMethod';
@@ -69,47 +70,46 @@ export class Renderer implements IAgentPlugin {
    */
   async renderCredential(
     args: IRenderCredentialArgs,
-    context?: IRendererContext
+    context?: IRendererContext,
   ): Promise<IRenderResult> {
     try {
-      const renderMethods: RenderMethodPayload[] | [] = [];
+      const [expandedDocument] = await expandVerifiableCredential(
+        args.credential,
+      );
 
-      // const [expandedDocument] = await expandVerifiableCredential(
-      //   args.credential
-      // );
-      // const renderMethods: RenderMethodPayload[] | [] =
-      //   extractRenderMethods(expandedDocument);
+      if (!expandedDocument) {
+        throw new Error('Error expanding the verifiable credential');
+      }
 
-      // TODO: There's an issue with W3 availability causing the fetching of some W3 context files to fail. Since we know the exact location of the template we can bypass the JSONLD expansion. This is a temporary workaround.
+      const renderMethods: RenderMethodPayload[] | [] =
+        extractRenderMethods(expandedDocument);
 
-      const render = args.credential.render;
-      if (!Array.isArray(render)) {
+      if (!Array.isArray(renderMethods) || renderMethods.length === 0) {
         throw new Error('Render method not found in the verifiable credential');
       }
 
-      const template = render[0]?.template;
-      const type = render[0]?.['@type'];
-      if (!template || !type) {
-        throw new Error('Render method must have template and @type.');
-      }
-
-      renderMethods[0] = {
-        template,
-        '@type': type,
-      };
-
       const documents = await Promise.all(
         renderMethods.map(async (renderMethod) => {
-          const rendererProvider = this.getProvider(renderMethod['@type']);
-          const document = await rendererProvider.renderCredential(
-            renderMethod.template,
-            args.credential
-          );
-          return convertToBase64(document);
-        })
+          const rendererProvider = this.getProvider(renderMethod.type);
+          const document = await rendererProvider.renderCredential({
+            data: renderMethod.data,
+            context,
+            document: args.credential,
+          });
+          const responseDocument = {
+            type: renderMethod.type,
+            renderedTemplate: document.renderedTemplate
+              ? convertToBase64(document.renderedTemplate)
+              : '',
+            name: document.name,
+            id: document.id,
+          };
+          return responseDocument;
+        }),
       );
       return { documents };
     } catch (error) {
+      // console.error('Error rendering credential:', error);
       throw error;
     }
   }
@@ -121,10 +121,13 @@ export class Renderer implements IAgentPlugin {
  * @returns The expanded document.
  */
 function expandVerifiableCredential(
-  credential: VerifiableCredential | UnsignedCredential
+  credential: VerifiableCredential | UnsignedCredential,
 ) {
   // base: null is used to prevent jsonld from resolving relative URLs.
-  return jsonld.expand(credential, { base: null });
+  return jsonld.expand(credential, {
+    base: null,
+    documentLoader: documentLoader,
+  });
 }
 
 /**
@@ -132,28 +135,33 @@ function expandVerifiableCredential(
  * @param expandedDocument - The expanded JSON-LD document.
  * @returns The array of render methods.
  */
+
 function extractRenderMethods(
-  expandedDocument: JsonLdObj
+  expandedDocument: JsonLdObj,
 ): RenderMethodPayload[] | [] {
-  const renders = ((expandedDocument[RENDER_METHOD] as JsonLdObj[]) || [])
-    .filter((render) => {
-      return render[`${RENDER_METHOD}#template`] && render['@type'];
-    })
-    .map((render) => {
-      // TODO: Handle @type as an array of strings with more than one element.
-      const type = Array.isArray(render['@type'])
-        ? render['@type'][0]
-        : render['@type'];
+  const result: RenderMethodPayload[] = [];
+  const renders = (
+    (expandedDocument[RENDER_METHOD] as JsonLdObj[]) || []
+  ).filter((render) => {
+    return render['@type'];
+  });
 
-      const template = (
-        render[`${RENDER_METHOD}#template`] as {
-          '@value': string;
-        }[]
-      )[0]['@value'];
-      return { template, '@type': type } as RenderMethodPayload;
-    });
+  renders.forEach((renderMethod: Record<string, any>) => {
+    let type = Array.isArray(renderMethod['@type'])
+      ? renderMethod['@type'][0]
+      : renderMethod['@type'];
 
-  return renders;
+    type = type?.split('#')[1] // Handle the case where the type is a URL.
+      ? type.split('#')[1]
+      : type;
+
+    const data = { ...renderMethod };
+    delete data['@type'];
+
+    result.push({ type, data });
+  });
+
+  return result;
 }
 
 /**
@@ -163,4 +171,25 @@ function extractRenderMethods(
  */
 function convertToBase64(content: string): string {
   return Buffer.from(content).toString('base64');
+}
+
+/**
+ * Custom document loader to handle default contexts.
+ * @param url - The URL of the document.
+ * @param options - The options for the document loader.
+ * @returns The document.
+ */
+function documentLoader(url: string, options: any) {
+  const documentLoaderFn = jsonld.documentLoaders?.xhr
+    ? jsonld.documentLoaders.xhr()
+    : jsonld.documentLoaders.node();
+  const contextValue = RenderDefaultContexts.get(url);
+  if (contextValue) {
+    return {
+      contextUrl: null,
+      document: contextValue,
+      documentUrl: url,
+    };
+  }
+  return documentLoaderFn(url);
 }
