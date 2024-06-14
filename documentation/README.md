@@ -22,6 +22,17 @@ This command starts a local development server and opens up a browser window. Mo
 $ npm run build
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+This command generates static content into the `build` directory and can be served using any static contents hosting service. 
 
+### Testing your Build Locally
 
+It is important to test your build locally before deploying it for production. Docusaurus provides a docusaurus serve command for that:
+
+```bash
+npm run serve
+```
+
+By default, this will load your site at http://localhost:3030/.
+
+### Deployment
+[Docusaurus Deployment Guide](https://docusaurus.io/docs/deployment)
