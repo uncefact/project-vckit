@@ -84,7 +84,7 @@ const CredentialVerifier = () => {
         } else {
           setVerificationResult({
             verified: false,
-            error: { message: result?.error.errors[0].message },
+            error: { message: JSON.stringify(result?.error, null, 2) },
           })
         }
       } catch (e: any) {
