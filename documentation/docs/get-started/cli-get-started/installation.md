@@ -17,25 +17,25 @@ sidebar_position: 1
 
 This project has been tested and optimized for Node.js version v20.12.2 and pnpm version 8.14.1. Please note that using a Node.js version later than v20.12.2 may result incorrect functionality and potential bugs. It is strongly recommended to use these specific versions for running and testing the project. Deviating from these versions may result in unforeseen compatibility issues or unexpected behavior.
 
-## Instal VCKit CLI
+## Instal VCkit CLI
 
-After cloned VCKit repository, go to `project-vckit/packages/cli` and run this command.
+After cloned VCkit repository, go to `project-vckit/packages/cli` and run this command.
 
 ```bash
 npm install -g .
 ```
 
-This command will install VCKit CLI globally.
+This command will install VCkit CLI globally.
 
 ## Start using the CLI
 
-Create a new folder, open a terminal, and run this command to check if the VCKit CLI has been installed successfully.
+Create a new folder, open a terminal, and run this command to check if the VCkit CLI has been installed successfully.
 
 ```bash
 vckit -v
 ```
 
-It's expected to show the version of VCKit CLI.
+It's expected to show the version of VCkit CLI.
 
 Next, run this command to create an **`agent.yml`** file.
 

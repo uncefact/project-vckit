@@ -4,9 +4,9 @@ sidebar_position: 2
 ---
 
 # Set up Agent
-To start using VCKit, we need to initialize an agent.
+To start using VCkit, we need to initialize an agent.
 ## Copy database file
-This tutorial will use the **did:web** method and we will need an available did:web identifier. To do that, we need to use the same database as the **VCKit API server** responsible for hosting the **did:web**.
+This tutorial will use the **did:web** method and we will need an available did:web identifier. To do that, we need to use the same database as the **VCkit API server** responsible for hosting the **did:web**.
 
 Please follow these steps below:
 1. Copy the **`database.sqlite`** from **PROJECT_VCKIT** folder at `/project_vckit/project-vckit/database.sqlite` to your root folder of this tutorial, in this case it's `/vckit/database.sqlite`.

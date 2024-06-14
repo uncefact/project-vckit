@@ -130,7 +130,7 @@ The authentication middleware plugin is added by attaching the `apiKeyAuth` func
 
 ## Plugins configuration
 
-Functionality in VCKit is added to the agent through a plugin system. Each plugin will have different arguments and required packages. However, this is basically how to declare a plugin.
+Functionality in VCkit is added to the agent through a plugin system. Each plugin will have different arguments and required packages. However, this is basically how to declare a plugin.
 
 **Example**
 

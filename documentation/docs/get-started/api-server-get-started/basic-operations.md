@@ -25,7 +25,7 @@ Or if you try with the API docs, you can add the API key to the [Authentication 
 
 ### [Optional] Using https for localhost by using ngrok
 
-To try this locally, you need to create a secure tunnel to your `localhost:3332`(the VCKit API server). You can use [**ngrok**](https://ngrok.com/) to do this. After you have installed and registered ngrok, you can run this command to create a secure tunnel to your localhost.
+To try this locally, you need to create a secure tunnel to your `localhost:3332`(the VCkit API server). You can use [**ngrok**](https://ngrok.com/) to do this. After you have installed and registered ngrok, you can run this command to create a secure tunnel to your localhost.
 
 ```bash
 ngrok http 3332
@@ -330,7 +330,7 @@ We use this [`/verifyCredential`](http://localhost:3332/api-docs/#post-/verifyCr
 
 ## Render a Vc
 
-This feature is handled by VCKit Renderer plugin, check it out in the npm [here](https://www.npmjs.com/package/@vckit/renderer).
+This feature is handled by VCkit Renderer plugin, check it out in the npm [here](https://www.npmjs.com/package/@vckit/renderer).
 
 To get the rendered VC, you can try this endpoint [`/renderCredential`](http://localhost:3332/api-docs/#post-/renderCredential).
 

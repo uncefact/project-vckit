@@ -8,7 +8,7 @@ const FeatureList = [
     Svg: require('@site/static/img/open-source.svg').default,
     description: (
       <>
-        vc-kit is open source software, meaning it's free to use, modify, and distribute. You can customize it to your needs, and it's constantly being improved by a community of developers.
+        VCkit is open source software, meaning it's free to use, modify, and distribute. You can customize it to your needs, and it's constantly being improved by a community of developers.
       </>
     ),
   },
@@ -26,7 +26,7 @@ const FeatureList = [
     Svg: require('@site/static/img/open-standards.svg').default,
     description: (
       <>
-        Built on open standards, vc-kit ensures compatibility with established technologies, protocols, and frameworks, enabling seamless integration, enhancing interoperability, and promoting innovation in the international trade ecosystem.
+        Built on open standards, VCkit ensures compatibility with established technologies, protocols, and frameworks, enabling seamless integration, enhancing interoperability, and promoting innovation in the international trade ecosystem.
       </>
     ),
   },
