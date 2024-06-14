@@ -1,9 +1,13 @@
 import { ProCard } from '@ant-design/pro-components'
 import { QrCodeDocumentWrapper } from '@vckit/react-components'
-import { Renderer, WebRenderingTemplate2022 } from '@vckit/renderer'
+import {
+  Renderer,
+  WebRenderingTemplate2022,
+  RenderTemplate2024,
+} from '@vckit/renderer'
 import { useVeramo } from '@veramo-community/veramo-react'
 import { VerifiableCredential } from '@veramo/core'
-import { Button, Spin } from 'antd'
+import { Button, Spin, Tabs } from 'antd'
 import html2canvas from 'html2canvas'
 import { CSSProperties, useCallback, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
@@ -33,7 +37,7 @@ const CredentialRender: React.FC<CredentialRenderProps> = ({
   hash,
 }) => {
   const { agent } = useVeramo()
-  const [documents, setDocuments] = useState<string[]>([])
+  const [documents, setDocuments] = useState<Array<any>>([])
   const [qrCodeValue, setQrCodeValue] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const encryptedEndpoint = process.env.REACT_APP_ENCRYPTED_ENDPOINT
@@ -60,18 +64,14 @@ const CredentialRender: React.FC<CredentialRenderProps> = ({
   const renderCredential = useCallback(async () => {
     setIsLoading(true)
     try {
-      const renderer = new Renderer({
-        providers: {
-          WebRenderingTemplate2022: new WebRenderingTemplate2022(),
-        },
-        defaultProvider: 'WebRenderingTemplate2022',
+      let documents = await agent?.renderCredential({credential})
+        
+      documents = documents.documents.map((doc: any) => {
+        return {
+          ...doc,
+          renderedTemplate: convertBase64ToString(doc.renderedTemplate),
+        }
       })
-
-      let { documents }: { documents: string[] } =
-        await renderer.renderCredential({
-          credential,
-        })
-      documents = documents.map((doc) => convertBase64ToString(doc))
       setDocuments(documents)
     } catch (e) {}
     setIsLoading(false)
@@ -116,29 +116,33 @@ const CredentialRender: React.FC<CredentialRenderProps> = ({
 
   return (
     <Spin tip="Loading..." spinning={isLoading || credentialLoading}>
-      <ProCard
-        style={proCardStyle}
-        title={<IdentifierProfile did={getIssuerDID(credential)} />}
-      >
-        <div id="render">
-          <QrCodeDocumentWrapper qrCodeValue={qrCodeValue}>
-            {!isLoading && !credentialLoading ? (
-              documents.length !== 0 ? (
-                documents.map((doc, i) => (
-                  <div key={i} dangerouslySetInnerHTML={{ __html: doc }}></div>
-                ))
-              ) : (
-                <pre style={jsonStyle}>
-                  {JSON.stringify(credential, null, 2)}
-                </pre>
-              )
-            ) : (
-              <></>
-            )}
-          </QrCodeDocumentWrapper>
-        </div>
-        <Button onClick={printdiv}>Print</Button>
-      </ProCard>
+      {!isLoading && !credentialLoading ? (
+        documents.length !== 0 ? (
+          <Tabs
+            items={documents.map((doc, i) => ({
+              key: i.toString(),
+              label: `${doc.type}`,
+              children: (
+                <ProCard
+                  style={proCardStyle}
+                  title={<IdentifierProfile did={getIssuerDID(credential)} />}
+                >
+                  <QrCodeDocumentWrapper qrCodeValue={qrCodeValue}>
+                    <div
+                      key={i}
+                      dangerouslySetInnerHTML={{ __html: doc.renderedTemplate }}
+                    ></div>
+                  </QrCodeDocumentWrapper>
+                </ProCard>
+              ),
+            }))}
+          />
+        ) : (
+          <pre style={jsonStyle}>{JSON.stringify(credential, null, 2)}</pre>
+        )
+      ) : (
+        <></>
+      )}
     </Spin>
   )
 }

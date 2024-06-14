@@ -13,8 +13,8 @@ services:
   vckit-api:
     build:
       context: .
-      args:
-        DATABASE_HOST: db
+    env_file:
+      - local.env
     ports:
       - 3332:3332
     depends_on:

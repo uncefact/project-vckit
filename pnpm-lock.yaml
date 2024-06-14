@@ -6,7 +6,7 @@ settings:
 
 overrides:
   '@types/eslint': ^8.4.6
-  jsonld: npm:@digitalcredentials/jsonld@^5.2.1
+  jsonld: npm:@digitalcredentials/jsonld@5.2.1
 
 importers:
 
@@ -513,8 +513,8 @@ importers:
         specifier: ^0.6.2
         version: 0.6.2
       jsonld:
-        specifier: npm:@digitalcredentials/jsonld@^5.2.1
-        version: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+        specifier: npm:@digitalcredentials/jsonld@5.2.1
+        version: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
       pako:
         specifier: ^2.1.0
         version: 2.1.0
@@ -544,8 +544,8 @@ importers:
   packages/credential-oa:
     dependencies:
       '@govtechsg/oa-verify':
-        specifier: 8.0.0
-        version: 8.0.0
+        specifier: ^9.0.0
+        version: 9.2.1
       '@govtechsg/open-attestation':
         specifier: 6.5.1
         version: 6.5.1
@@ -1234,8 +1234,8 @@ importers:
   packages/renderer:
     dependencies:
       '@digitalcredentials/jsonld':
-        specifier: ^6.0.0
-        version: 6.0.0(expo@51.0.5)(react-native@0.74.1)
+        specifier: 5.2.1
+        version: 5.2.1(expo@51.0.5)(react-native@0.74.1)
       '@vckit/core-types':
         specifier: workspace:^
         version: link:../core-types
@@ -3959,7 +3959,7 @@ packages:
     engines: {node: '>=14'}
     dependencies:
       credentials-context: 2.0.0
-      jsonld: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
       jsonld-signatures: 11.2.1(expo@51.0.5)(react-native@0.74.1)
     transitivePeerDependencies:
       - domexception
@@ -3973,7 +3973,7 @@ packages:
     engines: {node: '>=14'}
     dependencies:
       credentials-context: 2.0.0
-      jsonld: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
       jsonld-signatures: 11.2.1(expo@51.0.5)(react-native@0.74.1)
     transitivePeerDependencies:
       - domexception
@@ -4055,8 +4055,8 @@ packages:
       - web-streams-polyfill
     dev: false
 
-  /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1):
-    resolution: {integrity: sha512-hz7YR3kv6+8UUdgMyTGl1o8NjVKKwnMry/Rh/rWeAvwL+NqgoUHorWzI3rM+PW+MPFyDC0ieXStClt9n9D9SGA==}
+  /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1):
+    resolution: {integrity: sha512-pDiO1liw8xs+J/43qnMZsxyz0VOWOb7Q2yUlBt/tyjq6SlT9xPo+3716tJPbjGPnou2lQRw3H5/I++z+6oQ07w==}
     engines: {node: '>=12'}
     dependencies:
       '@digitalcredentials/http-client': 1.2.2
@@ -4119,7 +4119,7 @@ packages:
     resolution: {integrity: sha512-8Rxpn77JghJN7noBQdcMuzm/tB8vhDwPoFepr3oGd5w+CyJxOk2RnBlgIGlAAGA+mALFWECPv1rANfXno+hdjA==}
     engines: {node: '>=12'}
     dependencies:
-      '@digitalcredentials/jsonld': 5.2.2(expo@51.0.5)(react-native@0.74.1)
+      '@digitalcredentials/jsonld': 5.2.1(expo@51.0.5)(react-native@0.74.1)
       '@digitalcredentials/jsonld-signatures': 9.4.0(expo@51.0.5)(react-native@0.74.1)
       credentials-context: 2.0.0
     transitivePeerDependencies:
@@ -5498,10 +5498,6 @@ packages:
       - supports-color
     dev: false
 
-  /@govtechsg/document-store@2.6.1:
-    resolution: {integrity: sha512-Jr8dGyr8wBXMOSbUURoYfmz9jKiK2ntbjEYyI06pze6jzyiYLZXcepKVyjNk9PC/mLIlDCZgQWmre7ixBZWWjQ==}
-    dev: false
-
   /@govtechsg/jsonld@0.1.1:
     resolution: {integrity: sha512-G3mz6/ryS4tIWTV7FonallTuj4Oy2JjLkBdCn7wjKShb3AG3/PY6XCpNupz8+rpvDF5BGtYvptpW9HRArnjyMQ==}
     engines: {node: '>=12'}
@@ -5523,18 +5519,16 @@ packages:
       - supports-color
     dev: false
 
-  /@govtechsg/oa-verify@8.0.0:
-    resolution: {integrity: sha512-COXOypaQMXN3BCEV13Q9oD9SzaPIOf2M4cwiryIUS0CfNkkK3iCQyjM5REGdpk3jO8YRn4WjYLpNiAdr8xHxvA==}
+  /@govtechsg/oa-verify@9.2.1:
+    resolution: {integrity: sha512-AmaN4suTECo3qskSqq7aAK0Gu9D7oo+LpE0pQiDmiXHpD/UdjG6zayje6XYM7CEYeV8PhNG/VoctctBSEdHZeg==}
     dependencies:
       '@govtechsg/dnsprove': 2.7.1
-      '@govtechsg/document-store': 2.6.1
-      '@govtechsg/open-attestation': 6.5.1
-      '@govtechsg/token-registry': 2.6.1(ethers@5.7.2)
-      axios: 0.21.4(debug@4.3.4)
+      '@govtechsg/open-attestation': 6.9.2
+      axios: 1.6.8(debug@4.3.4)
       debug: 4.3.4(supports-color@6.1.0)
-      did-resolver: 3.2.2
+      did-resolver: 4.1.0
       ethers: 5.7.2
-      ethr-did-resolver: 4.3.5
+      ethr-did-resolver: 8.1.2
       node-cache: 5.1.2
       runtypes: 6.7.0
       web-did-resolver: 2.0.27
@@ -5569,13 +5563,26 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@govtechsg/token-registry@2.6.1(ethers@5.7.2):
-    resolution: {integrity: sha512-QnAIlYeGD4zHtYPiZ46SIe6hFc3HyMKvyBJIdlsFxHscMR4f8AENIyUS2AKhqJibCcN2beNJy/bPWlCAtHoT7w==}
+  /@govtechsg/open-attestation@6.9.2:
+    resolution: {integrity: sha512-E5qoN2dGFD08Fxp3Uu3KPe2IjsX7VeO2Mz65zHzAEQKMUXRLdFwi46r31k5BnpLSOGVYqV/S7ZC5Um8BeufpAA==}
     requiresBuild: true
-    peerDependencies:
-      ethers: '>=5.0.8'
     dependencies:
+      '@govtechsg/jsonld': 0.1.1
+      cross-fetch: 3.1.8
+      debug: 4.3.4(supports-color@6.1.0)
       ethers: 5.7.2
+      flatley: 5.2.0
+      js-base64: 3.7.7
+      js-sha3: 0.8.0
+      lodash: 4.17.21
+      runtypes: 6.7.0
+      uuid: 8.3.2
+      validator: 13.12.0
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
     dev: false
 
   /@graphql-typed-document-node/core@3.2.0(graphql@15.8.0):
@@ -6378,7 +6385,7 @@ packages:
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
     dependencies:
       '@json-rpc-tools/utils': 1.7.6
-      axios: 0.21.4(debug@4.3.4)
+      axios: 0.21.4
       safe-json-utils: 1.1.1
       ws: 7.5.9
     transitivePeerDependencies:
@@ -8716,24 +8723,6 @@ packages:
       nullthrows: 1.1.1
       react: 18.2.0
       react-native: 0.74.1(@babel/core@7.24.5)(@babel/preset-env@7.24.5)(@types/react@18.2.46)(react@18.2.0)
-    dev: true
-
-  /@react-native/virtualized-lists@0.74.83(react-native@0.74.1)(react@18.2.0):
-    resolution: {integrity: sha512-rmaLeE34rj7py4FxTod7iMTC7BAsm+HrGA8WxYmEJeyTV7WSaxAkosKoYBz8038mOiwnG9VwA/7FrB6bEQvn1A==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@types/react': ^18.2.6
-      react: '*'
-      react-native: '*'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      invariant: 2.2.4
-      nullthrows: 1.1.1
-      react: 18.2.0
-      react-native: 0.74.1(@babel/core@7.24.5)(@babel/preset-env@7.24.5)(react@18.2.0)
-    optional: true
 
   /@remix-run/router@1.14.1:
     resolution: {integrity: sha512-Qg4DMQsfPNAs88rb2xkdk03N3bjK4jgX5fR24eHCTR9q6PrhZQZ4UJBPzCHJkIpTRN1UKxx2DzjZmnC+7Lj0Ow==}
@@ -11702,7 +11691,7 @@ packages:
     engines: {node: '>=16'}
     dependencies:
       json-pointer: 0.6.2
-      jsonld: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
     transitivePeerDependencies:
       - domexception
       - expo
@@ -11724,7 +11713,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       '@transmute/security-context': 0.0.4-unstable.2
-      jsonld: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
       serialize-error: 7.0.1
     transitivePeerDependencies:
       - domexception
@@ -12279,6 +12268,7 @@ packages:
 
   /@types/minimatch@5.1.2:
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
+    requiresBuild: true
     dev: true
 
   /@types/minimist@1.2.5:
@@ -15082,12 +15072,13 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /axios@0.21.4(debug@4.3.4):
+  /axios@0.21.4:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
       follow-redirects: 1.15.6(debug@4.3.4)
     transitivePeerDependencies:
       - debug
+    dev: true
 
   /axios@0.26.1:
     resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
@@ -18669,10 +18660,6 @@ packages:
       multiformats: 9.9.0
       uint8arrays: 3.1.1
 
-  /did-resolver@3.2.2:
-    resolution: {integrity: sha512-Eeo2F524VM5N3W4GwglZrnul2y6TLTwMQP3In62JdG34NZoqihYyOZLk+5wUW8sSgvIYIcJM8Dlt3xsdKZZ3tg==}
-    dev: false
-
   /did-resolver@4.1.0:
     resolution: {integrity: sha512-S6fWHvCXkZg2IhS4RcVHxwuyVejPR7c+a4Go0xbQ9ps5kILa8viiYQgrM4gfTyeTjJ0ekgJH9gk/BawTpmkbZA==}
 
@@ -20207,10 +20194,6 @@ packages:
       is-hex-prefixed: 1.0.0
       strip-hex-prefix: 1.0.0
 
-  /ethr-did-registry@0.0.3:
-    resolution: {integrity: sha512-4BPvMGkxAK9vTduCq6D5b8ZqjteD2cvDIPPriXP6nnmPhWKFSxypo+AFvyQ0omJGa0cGTR+dkdI/8jiF7U/qaw==}
-    dev: false
-
   /ethr-did-resolver@10.1.5:
     resolution: {integrity: sha512-wVCKhF6qQo2IewH9ui4lRBixbvT/A6szZFQoJkfvjP6EU/3MSb4KOP5QNpM37zmFU/rQGjHNt7bF13fNcmZ6wQ==}
     dependencies:
@@ -20219,25 +20202,6 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-
-  /ethr-did-resolver@4.3.5:
-    resolution: {integrity: sha512-BQO7PQwuqqczK+4AWQhys/sgegDVIFr6+lSoSYXlIbG0oRH0l7PkSuf7VEFKclEJ3JlJ1t9kjDIdj7Ba7euTJg==}
-    dependencies:
-      '@ethersproject/abi': 5.7.0
-      '@ethersproject/abstract-signer': 5.7.0
-      '@ethersproject/address': 5.7.0
-      '@ethersproject/basex': 5.7.0
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/contracts': 5.7.0
-      '@ethersproject/providers': 5.7.2
-      '@ethersproject/transactions': 5.7.0
-      did-resolver: 3.2.2
-      ethr-did-registry: 0.0.3
-      querystring: 0.2.1
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-    dev: false
 
   /ethr-did-resolver@8.1.2:
     resolution: {integrity: sha512-dnbE3GItE1YHp/eavR11KbGDi8Il01H9GeH+wKgoSgE95pKBZufHyHYce/EK2k8VOmj6MJf8u/TIpPvxjCbK+A==}
@@ -21945,6 +21909,7 @@ packages:
 
   /glob@6.0.4:
     resolution: {integrity: sha512-MKZeRNyYZAVVVG1oZeLaWie1uweH40m9AZwIwxyPbTSX4hHrVYSzLg0Ro5Z5R7XKkIX+Cc6oD1rqeDJnwsB8/A==}
+    deprecated: Glob versions prior to v9 are no longer supported
     requiresBuild: true
     dependencies:
       inflight: 1.0.6
@@ -21956,6 +21921,7 @@ packages:
 
   /glob@7.1.6:
     resolution: {integrity: sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==}
+    deprecated: Glob versions prior to v9 are no longer supported
     dependencies:
       fs.realpath: 1.0.0
       inflight: 1.0.6
@@ -25981,7 +25947,7 @@ packages:
     resolution: {integrity: sha512-jclmnPRrm5SEpaIV6IiSTJxplRAqIWHduQLsUfrYpZM41Ng48m1RN2/aUyHze/ynfO0D2UhlJBt8SdObsH5GBw==}
     engines: {node: '>=10'}
     dependencies:
-      jsonld: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
       node-fetch: 2.7.0
     transitivePeerDependencies:
       - domexception
@@ -25996,7 +25962,7 @@ packages:
     engines: {node: '>=14'}
     dependencies:
       '@digitalbazaar/security-context': 1.0.1
-      jsonld: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
       serialize-error: 8.1.0
     transitivePeerDependencies:
       - domexception
@@ -32507,7 +32473,7 @@ packages:
       react-native: '*'
     dependencies:
       base64-js: 1.5.1
-      react-native: 0.74.1(@babel/core@7.24.5)(@babel/preset-env@7.24.5)(react@18.2.0)
+      react-native: 0.74.1(@babel/core@7.24.5)(@babel/preset-env@7.24.5)(@types/react@18.2.46)(react@18.2.0)
     optional: true
 
   /react-native@0.74.1(@babel/core@7.24.5)(@babel/preset-env@7.24.5)(@types/react@18.2.46)(react@18.2.0):
@@ -32567,65 +32533,6 @@ packages:
       - encoding
       - supports-color
       - utf-8-validate
-    dev: true
-
-  /react-native@0.74.1(@babel/core@7.24.5)(@babel/preset-env@7.24.5)(react@18.2.0):
-    resolution: {integrity: sha512-0H2XpmghwOtfPpM2LKqHIN7gxy+7G/r1hwJHKLV6uoyXGC/gCojRtoo5NqyKrWpFC8cqyT6wTYCLuG7CxEKilg==}
-    engines: {node: '>=18'}
-    hasBin: true
-    peerDependencies:
-      '@types/react': ^18.2.6
-      react: 18.2.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@jest/create-cache-key-function': 29.7.0
-      '@react-native-community/cli': 13.6.6
-      '@react-native-community/cli-platform-android': 13.6.6
-      '@react-native-community/cli-platform-ios': 13.6.6
-      '@react-native/assets-registry': 0.74.83
-      '@react-native/codegen': 0.74.83(@babel/preset-env@7.24.5)
-      '@react-native/community-cli-plugin': 0.74.83(@babel/core@7.24.5)(@babel/preset-env@7.24.5)
-      '@react-native/gradle-plugin': 0.74.83
-      '@react-native/js-polyfills': 0.74.83
-      '@react-native/normalize-colors': 0.74.83
-      '@react-native/virtualized-lists': 0.74.83(react-native@0.74.1)(react@18.2.0)
-      abort-controller: 3.0.0
-      anser: 1.4.10
-      ansi-regex: 5.0.1
-      base64-js: 1.5.1
-      chalk: 4.1.2
-      event-target-shim: 5.0.1
-      flow-enums-runtime: 0.0.6
-      invariant: 2.2.4
-      jest-environment-node: 29.7.0
-      jsc-android: 250231.0.0
-      memoize-one: 5.2.1
-      metro-runtime: 0.80.9
-      metro-source-map: 0.80.9
-      mkdirp: 0.5.6
-      nullthrows: 1.1.1
-      pretty-format: 26.6.2
-      promise: 8.3.0
-      react: 18.2.0
-      react-devtools-core: 5.2.0
-      react-refresh: 0.14.2
-      react-shallow-renderer: 16.15.0(react@18.2.0)
-      regenerator-runtime: 0.13.11
-      scheduler: 0.24.0-canary-efb381bbf-20230505
-      stacktrace-parser: 0.1.10
-      whatwg-fetch: 3.6.20
-      ws: 6.2.2
-      yargs: 17.7.2
-    transitivePeerDependencies:
-      - '@babel/core'
-      - '@babel/preset-env'
-      - bufferutil
-      - encoding
-      - supports-color
-      - utf-8-validate
-    optional: true
 
   /react-pdf@5.7.2(@types/react@16.14.60)(react-dom@16.14.0)(react@16.14.0)(webpack@4.41.2):
     resolution: {integrity: sha512-hdDwvf007V0i2rPCqQVS1fa70CXut17SN3laJYlRHzuqcu8sLLjEoeXihty6c0Ev5g1mw31b8OT8EwRw1s8C4g==}
@@ -33845,6 +33752,7 @@ packages:
 
   /rimraf@2.4.5:
     resolution: {integrity: sha512-J5xnxTyqaiw06JjMftq7L9ouA448dw/E7dKghkP9WpKNuwmARNNg+Gk8/u5ryb9N/Yo2+z3MCwuqFK/+qPOPfQ==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
     requiresBuild: true
     dependencies:
@@ -34916,9 +34824,6 @@ packages:
   /sqlite3@5.1.7:
     resolution: {integrity: sha512-GGIyOiFaG+TUra3JIfkI/zGP8yZYLPQ0pl1bH+ODjiX57sPhrLU5sQJn1y9bDKZUFYkX1crlrPfSYt0BKKdkog==}
     requiresBuild: true
-    peerDependenciesMeta:
-      node-gyp:
-        optional: true
     dependencies:
       bindings: 1.5.0
       node-addon-api: 7.1.0
@@ -39158,7 +39063,7 @@ packages:
       '@digitalbazaar/credentials-v2-context': github.com/digitalbazaar/credentials-v2-context/277d50b948ada35fedf63feb43de32b2483489e0
       credentials-context: 2.0.0
       ed25519-signature-2018-context: 1.1.0
-      jsonld: /@digitalcredentials/jsonld@5.2.2(expo@51.0.5)(react-native@0.74.1)
+      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
       jsonld-signatures: 11.2.1(expo@51.0.5)(react-native@0.74.1)
     transitivePeerDependencies:
       - domexception

@@ -6183,12 +6183,33 @@
             "documents": {
               "type": "array",
               "items": {
-                "type": "string"
+                "$ref": "#/components/schemas/IRenderDocument"
               }
             }
           },
           "required": [
             "documents"
+          ]
+        },
+        "IRenderDocument": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "renderedTemplate": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "renderedTemplate"
           ],
           "description": "Result of rendering a verifiable credential."
         }

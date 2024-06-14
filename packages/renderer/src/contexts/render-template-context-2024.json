@@ -1,0 +1,16 @@
+{
+    "@context": [
+      {
+        "@version": 1.1
+      },
+      "https://www.w3.org/ns/odrl.jsonld",
+      {
+        "ex": "https://www.w3.org/2018/credentials#renderMethod#",
+        "renderMethod": "https://www.w3.org/2018/credentials#renderMethod",
+        "template": "ex:template",
+        "url": "ex:url"
+      }
+    ]
+  }
+  
+  

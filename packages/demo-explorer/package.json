@@ -13,6 +13,7 @@
     "agent-explore": "./bin/bin.js"
   },
   "scripts": {
+    "postinstall": "pnpm add --ignore-scripts ../../.tmp_npm/veramo/packages/credential-w3c/",
     "dev": "craco start",
     "build": "pnpm run build:explorer",
     "build:explorer": "craco build",
