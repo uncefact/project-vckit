@@ -1,0 +1,57 @@
+name: Test Release Tagging
+
+on:
+  push:
+    branches:
+      - feat/release-tagging
+
+jobs:
+  tagging:
+    runs-on: ubuntu-latest
+    env:
+      EXCLUDED_PACKAGE_OA_RENDERERS: '!./packages/vckit-oa-renderers/'
+      EXCLUDED_PACKAGE_CREDENTIAL_OA: '!./packages/credential-oa/'
+      EXCLUDED_PACKAGE_EXPLORER: '!./packages/demo-explorer/'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install pnpm
+      run: npm i pnpm --global
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+      
+    - name: Install dependencies
+      run: pnpm i --filter ${{ env.EXCLUDED_PACKAGE_OA_RENDERERS }} --filter ${{ env.EXCLUDED_PACKAGE_CREDENTIAL_OA }} --filter ${{ env.EXCLUDED_PACKAGE_EXPLORER }} --no-frozen-lockfile
+
+    - name: Get version from package.json
+      id: get_version
+      run: |
+        version=$(jq -r '.version // empty' < package.json)
+        if [ -z "$version" ]; then
+          echo "No valid version found in package.json."
+          exit 1
+        fi
+        echo "::set-output name=version::$version"
+
+    - name: Check if tag already exists
+      id: check_tag
+      run: |
+        version=${{ steps.get_version.outputs.version }}
+        if git rev-parse "v$version" >/dev/null 2>&1; then
+          echo "Tag v$version already exists."
+          exit 0
+        fi
+      
+    - name: Create and push tag
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git tag -a "v${{ steps.get_version.outputs.version }}" -m "Release version ${{ steps.get_version.outputs.version }}"
+        git push origin "v${{ steps.get_version.outputs.version }}"
