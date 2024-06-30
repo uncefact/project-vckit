@@ -1,9 +1,9 @@
-name: Test Release Tagging
+name: Release Tagging
 
 on:
   push:
     branches:
-      - feat/release-tagging
+      - main
 
 jobs:
   tagging:
