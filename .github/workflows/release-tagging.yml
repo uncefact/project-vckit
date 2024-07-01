@@ -44,13 +44,11 @@ jobs:
         git push origin "v${{ steps.get_version.outputs.version }}"
     
     - name: Create GitHub Release
-      if: steps.check_tag.outputs.exists == 'false'
-      id: create_release
-      uses: actions/create-release@v1
+      uses: ncipollo/release-action@v1
       with:
-        tag_name: "v${{ steps.get_version.outputs.version }}"
-        release_name: "Release ${{ steps.get_version.outputs.version }}"
-        body: "Automatically generated release notes for version ${{ steps.get_version.outputs.version }}"
-        draft: false
+        tag: "v${{ steps.get_version.outputs.version }}"
+        name: "Release ${{ steps.get_version.outputs.version }}"
+        generateReleaseNotes: true
         prerelease: false
+
      
