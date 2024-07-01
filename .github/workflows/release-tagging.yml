@@ -3,7 +3,7 @@ name: Release Tagging
 on:
   push:
     branches:
-      - feat/release-tagging
+      - main
 
 jobs:
   tagging:
