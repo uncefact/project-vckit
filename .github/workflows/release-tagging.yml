@@ -3,27 +3,15 @@ name: Release Tagging
 on:
   push:
     branches:
-      - main
+      - feat/release-tagging
 
 jobs:
   tagging:
     runs-on: ubuntu-latest
-    env:
-      EXCLUDED_PACKAGE_OA_RENDERERS: '!./packages/vckit-oa-renderers/'
-      EXCLUDED_PACKAGE_CREDENTIAL_OA: '!./packages/credential-oa/'
-      EXCLUDED_PACKAGE_EXPLORER: '!./packages/demo-explorer/'
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Install pnpm
-      run: npm i pnpm --global
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
+      uses: actions/checkout@v4
 
     - name: Get version from package.json
       id: get_version
@@ -49,8 +37,6 @@ jobs:
       
     - name: Create and push tag
       if: steps.check_tag.outputs.exists == 'false'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -61,8 +47,6 @@ jobs:
       if: steps.check_tag.outputs.exists == 'false'
       id: create_release
       uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: "v${{ steps.get_version.outputs.version }}"
         release_name: "Release ${{ steps.get_version.outputs.version }}"
