@@ -17,7 +17,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      - name: Install agent
+        run: |
+          # Install dependencies
+          pnpm install
+  
+          # Copy the .env.example file to .env for the demo explorer
+          cp packages/demo-explorer/.env.example packages/demo-explorer/.env
+  
+          # Build
+          pnpm build
+  
+          # Initialize the agent configuration
+          pnpm vckit config
 
+          mv agent.yml agent.template.yml
       
       - name: docker meta details
         id: meta
