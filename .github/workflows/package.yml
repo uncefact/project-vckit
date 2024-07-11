@@ -30,6 +30,7 @@ jobs:
       - name: Install agent
         run: |
           npm install -g pnpm@8.14.0
+          npm install -g yarn@1.22.22
           # Install dependencies
           pnpm install
   
