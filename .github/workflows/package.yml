@@ -27,7 +27,7 @@ jobs:
           flavor: |
             latest=auto
           tags: |
-            type=latest,branch=main
+            type=edge,branch=next
             type=semver,pattern={{version}}
             type=sha
 
