@@ -20,6 +20,7 @@ jobs:
       
       - name: Install agent
         run: |
+          npm install -g pnpm@8.14.0
           # Install dependencies
           pnpm install
   
