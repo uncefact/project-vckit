@@ -34,7 +34,7 @@ jobs:
           flavor: |
             latest=auto
           tags: |
-            type=edge,branch=cd_ghcr-setup
+            type=edge,branch=next
             type=semver,pattern={{version}}
             type=sha
 
@@ -51,7 +51,7 @@ jobs:
       - name: Push Release
         uses: docker/build-push-action@v5
         with:
-          push: ${{ startsWith(github.ref, 'refs/tags/')  || github.ref == format('refs/heads/{0}', 'cd_ghcr-setup') }}
+          push: ${{ startsWith(github.ref, 'refs/tags/')  || github.ref == 'refs/heads/next' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           target: vckit-api
