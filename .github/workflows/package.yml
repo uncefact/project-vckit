@@ -26,11 +26,6 @@ jobs:
         with:
           node-version: 20.12.2
   
-      
-      - name: Install agent
-        run: |
-          cp packages/cli/default/agent.template.yml ./agent.template.yml
-      
       - name: docker meta details
         id: meta
         uses: docker/metadata-action@v5
