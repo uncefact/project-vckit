@@ -29,21 +29,7 @@ jobs:
       
       - name: Install agent
         run: |
-          npm install -g pnpm@8.14.0
-          npm install -g yarn@1.22.22
-          # Install dependencies
-          pnpm install
-  
-          # Copy the .env.example file to .env for the demo explorer
-          cp packages/demo-explorer/.env.example packages/demo-explorer/.env
-  
-          # Build
-          pnpm build
-  
-          # Initialize the agent configuration
-          pnpm vckit config
-
-          mv agent.yml agent.template.yml
+          cp packages/cli/default/agent.template.yml ./agent.template.yml
       
       - name: docker meta details
         id: meta
