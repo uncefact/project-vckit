@@ -108,7 +108,7 @@ export class VCkitEddsaRdfc2022 extends VeramoLdSignature {
       if (!credentialContextUrls.has(firstContext)) {
         throw new TypeError(
           "The document to be signed must contain this suite's @context, " +
-            `"${JSON.stringify(document['@context'], null, 2)}".`,
+            `${JSON.stringify(document['@context'], null, 2)}.`,
         );
       }
     };
