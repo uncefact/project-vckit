@@ -46,6 +46,8 @@
     "@transmute/vc-status-rl-2020": "0.7.0-unstable.82",
     "@vckit/core-types": "workspace:^",
     "@vckit/renderer": "workspace:^",
+    "@digitalbazaar/data-integrity": "^2.1.0",
+    "@digitalbazaar/eddsa-rdfc-2022-cryptosuite": "^1.0.1",
     "@veramo/credential-ld": "link:../../.tmp_npm/veramo/packages/credential-ld",
     "@veramo/data-store": "5.5.3",
     "@veramo/utils": "5.5.3",

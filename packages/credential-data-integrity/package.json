@@ -1,0 +1,46 @@
+{
+  "name": "@vckit/credential-data-integrity",
+  "description": "Veramo plugin for working with W3C JSON-LD Verifiable Credentials.",
+  "version": "1.0.0-beta.7",
+  "type": "module",
+  "main": "build/index.js",
+  "exports": {
+    ".": "./build/index.js"
+  },
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "generate-plugin-schema": "node ../cli/bin/veramo.js dev generate-plugin-schema"
+  },
+  "dependencies": {
+    "@digitalbazaar/data-integrity": "^2.1.0",
+    "@digitalbazaar/ed25519-multikey": "^1.1.0",
+    "@digitalbazaar/eddsa-rdfc-2022-cryptosuite": "^1.0.1",
+    "@vckit/revocationlist": "workspace:^",
+    "@veramo/core-types": "5.5.3",
+    "@veramo/utils": "5.5.3",
+    "@veramo/credential-ld": "link:../../.tmp_npm/veramo/packages/credential-ld"
+  },
+  "devDependencies": {
+    "typescript": "5.3.3"
+  },
+  "files": [
+    "build/**/*",
+    "src/**/*",
+    "contexts/**/*.json",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "Veramo",
+    "DID",
+    "Verifiable Credential",
+    "JSON-LD",
+    "Data Integrity",
+    "MultiKey",
+    "vc-ld-json",
+    "veramo-plugin"
+  ]
+}

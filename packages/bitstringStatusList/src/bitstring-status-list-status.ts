@@ -25,6 +25,7 @@ import {
 import { createAgent } from '@veramo/core';
 import { CredentialRouter } from '@vckit/credential-router';
 import { CredentialPlugin } from '@veramo/credential-w3c';
+import { VCkitEddsaRdfc2022 } from '@vckit/credential-data-integrity';
 
 const resolve = async (did: string) => {
   if (did.startsWith('did:key')) {
@@ -188,6 +189,7 @@ const verifyBitstringStatusListCredential = (
           new VeramoEd25519Signature2018(),
           new VeramoJsonWebSignature2020(),
           new VeramoEcdsaSecp256k1RecoverySignature2020(),
+          new VCkitEddsaRdfc2022(),
         ],
       }),
     ],

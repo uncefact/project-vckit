@@ -42,6 +42,7 @@
     "@vckit/bitstringStatusList": "workspace:^",
     "@vckit/core-types": "workspace:^",
     "@vckit/credential-merkle-disclosure-proof": "workspace:1.0.0-beta.7",
+    "@vckit/credential-data-integrity": "workspace:1.0.0-beta.7",
     "@vckit/credential-oa": "workspace:1.0.0-beta.7",
     "@vckit/credential-router": "workspace:^",
     "@vckit/encrypted-storage": "workspace:^",

@@ -10,6 +10,8 @@ import { CredentialStatus } from '@vckit/core-types';
 import { LdDefaultContexts } from '@veramo/credential-ld';
 import { RevocationListDefaultContexts } from './revocaltion-list-default-contexts.js';
 import { RenderDefaultContexts } from '@vckit/renderer';
+import { DataIntegrityProof } from '@digitalbazaar/data-integrity';
+import { cryptosuite as eddsaRdfc2022CryptoSuite } from '@digitalbazaar/eddsa-rdfc-2022-cryptosuite';
 
 const resolve = async (did: string) => {
   if (did.startsWith('did:key')) {
@@ -68,7 +70,11 @@ export async function checkStatus(credential: CredentialJwtOrJSON) {
   const result = await transmuteCheckStatus({
     credential,
     documentLoader,
-    suite: [new Ed25519Signature2018(), new JsonWebSignature()],
+    suite: [
+      new Ed25519Signature2018(),
+      new JsonWebSignature(),
+      new DataIntegrityProof({ cryptosuite: eddsaRdfc2022CryptoSuite }),
+    ],
   });
 
   const status: CredentialStatus = {
