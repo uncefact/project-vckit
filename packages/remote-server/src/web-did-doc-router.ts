@@ -135,7 +135,7 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
               return vm;
             case 'Multikey':
               contexts.add('https://w3id.org/security/multikey/v1');
-              // A Multibase-encoded Multikey value follows, which MUST consist of a binary value that starts with the two-byte prefix 0xed01
+              // The public key multibase must consist of a binary value that starts with the two-byte prefix 0xed01
               // https://www.w3.org/TR/vc-di-eddsa/#multikey
               const MULTICODEC_PUB_HEADER = new Uint8Array([0xed, 0x01]);
               vm.publicKeyMultibase = `z${bytesToBase58( new Uint8Array([...MULTICODEC_PUB_HEADER, ...hexToBytes(key.publicKeyHex)]))}`;
