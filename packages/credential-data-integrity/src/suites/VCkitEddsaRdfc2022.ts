@@ -151,21 +151,14 @@ export class VCkitEddsaRdfc2022 extends VeramoLdSignature {
       return didDoc;
     }
 
-    try {
-      // Get the DID component by controllerKeyID (e.g. didUrl is 'did:example:123#controllerKeyID')
-      const didComponent: any = await context.agent.getDIDComponentById({
-        didDocument: didDoc,
-        didUrl,
-      });
-      didComponent['@context'] = didDoc['@context'];
-
-      // return the DID component (Verification Method)
-      return didComponent;
-    } catch (e: any) {
-      console.log(
-        `document loader could not locate DID component by fragment: ${didUrl}. ${e}`,
-      );
-      return didDoc;
+    // Get the DID component by controllerKeyID (e.g. didUrl is 'did:example:123#controllerKeyID')
+    const didComponent: any = await context.agent.getDIDComponentById({ didDocument: didDoc, didUrl });
+    if (!didComponent) {
+      throw new Error(`DID component not found. The document loader could not locate DID component by fragment: ${didUrl}.`);
     }
+
+    // return the DID component (Verification Method)
+    didComponent['@context'] = didDoc['@context'];
+    return didComponent;
   }
 }
