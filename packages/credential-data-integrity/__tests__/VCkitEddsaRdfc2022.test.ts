@@ -62,7 +62,7 @@ describe('VCkitEddsaRdfc2022', () => {
     expect(suite.ensureSuiteContext).toBeDefined();
   });
 
-  test('should correctly call keyManagerSign with base64 encoded data', async () => {
+  test('should correctly call keyManagerSign with Uint8Array data', async () => {
     const suite = await vckitEddsa.getSuiteForSigning(mockKey, issuerDid, verificationMethodId, mockContext);
     // Call the signer function
     const signature = await suite.signer.sign({ data: new Uint8Array([13, 22, 36, 22, 212, 158, 219, 7, 140, 218, 113, 184]) });
@@ -120,10 +120,25 @@ describe('VCkitEddsaRdfc2022', () => {
     expect(result).toBe(mockDidDoc);
   });
 
+  test('should return the DID component when didUrl contains controllerKeyID', async () => {
+    // Mock the DID component to return the original DID Document
+    const mockDidUrl = 'did:example:123#123';
+    const mockDidDoc = { id: 'did:example:123', '@context': 'https://www.w3.org/ns/did/v1' };
+    const mockDidComponent = { id: 'did:example:123', type: 'Multikey', controller: 'did:example:123#123' };
+    // Mock the getDIDComponentById to return mockDidComponent
+    const mockContext = { agent: { getDIDComponentById: jest.fn(() => mockDidComponent)} } as any;
+
+    // Expect the function to return the DID component when the didUrl contains controllerKeyID
+    const result = await vckitEddsa.preDidResolutionModification(mockDidUrl, mockDidDoc, mockContext);
+  
+    // Check the result of the function call to match the expected DID component
+    expect(result).toEqual(mockDidComponent);
+  });
+
   test('should throw an error if the DID component is not found for a specified controllerKeyID', async () => {
     const mockDidUrl = 'did:example:123#controllerKeyID';
     const mockDidDoc = { id: 'did:example:123', '@context': 'https://www.w3.org/ns/did/v1' };
-    // Mock the DID component to return null
+    // Mock the getDIDComponentById to return null
     const mockContext = { 
       agent: { getDIDComponentById: jest.fn(() => null) } 
     } as any;

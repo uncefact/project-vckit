@@ -9,21 +9,23 @@ This package contains a plugin and a message handler for issuing and verifying c
 - Declare the plugin in your Veramo agent:
 
 ```yaml
-credentialIssuerMDP:
-  $require: '@vckit/credential-merkle-disclosure-proof#CredentialMerkleDisclosureProof'
+credentialIssuerLD:
+  $require: '@veramo/credential-ld#CredentialIssuerLD'
   $args:
     - suites:
-      # - $require: '@veramo/credential-ld#VeramoJsonWebSignature2020'
-      - $require: '@vckit/credential-data-integrity#VCkitEddsaRdfc2022' # Data Integrity Proof Plugin
-    contextMaps:
-      # The LdDefaultContext is a "catch-all" for now.
-      - $require: '@vckit/credential-data-integrity?t=object#contexts'
-      - $require: '@veramo/credential-ld?t=object#LdDefaultContexts'
-      - $require: '@transmute/credentials-context?t=object#contexts'
-      - $require: '@transmute/did-context?t=object#contexts'
-      - $require: '@vckit/renderer?t=object#RenderDefaultContexts'
-      - $require: '@vckit/revocationlist?t=object#RevocationListDefaultContexts'
-      #  Others should be included here.
+        # - $require: '@veramo/credential-ld#VeramoEd25519Signature2018'
+        # - $require: '@veramo/credential-ld#VeramoEd25519Signature2020'
+        # - $require: '@veramo/credential-ld#VeramoJsonWebSignature2020'
+        # - $require: '@veramo/credential-ld#VeramoEcdsaSecp256k1RecoverySignature2020'
+        - $require: '@vckit/credential-data-integrity#VCkitEddsaRdfc2022'
+      contextMaps:
+        - $require: '@vckit/credential-data-integrity?t=object#contexts'
+        - $require: '@veramo/credential-ld?t=object#LdDefaultContexts'
+        - $require: '@transmute/credentials-context?t=object#contexts'
+        - $require: '@transmute/did-context?t=object#contexts'
+        - $require: '@vckit/renderer?t=object#RenderDefaultContexts'
+        - $require: '@vckit/revocationlist?t=object#RevocationListDefaultContexts'
+        #  others should be included here
 ```
 
 ## Issue the Credential
