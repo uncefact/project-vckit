@@ -166,6 +166,20 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
               }
               return webKeys;
 
+            case 'JsonWebKey':
+              const webJWK = (await webKeysForIdentifier(identifier)).map(
+                (k) => {
+                  return {
+                    id: k.id,
+                    type: 'JsonWebKey',
+                    controller: k.controller,
+                    publicKeyJwk: k.publicKeyJwk,
+                  };
+                },
+              );
+
+              return webJWK;
+
             default:
               return vm;
           }

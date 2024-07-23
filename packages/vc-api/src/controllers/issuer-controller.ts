@@ -15,6 +15,7 @@ export const issueCredential = async (req: RequestWithAgent, res: Response) => {
 
     const payload = {
       credential: req.body.credential,
+      issueJWT: req.body.issueJWT ?? false,
       ...DEFAULT_CONFIG,
     };
 

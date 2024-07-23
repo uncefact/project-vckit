@@ -39,10 +39,11 @@ export class CredentialRouter implements IAgentPlugin {
     args: ICreateVerifiableCredentialArgs,
     context: IssuerAgentContext
   ): Promise<VerifiableCredential> {
-    const { proofFormat, credential } = args;
+    const {  credential } = args;
+    let customProofFormat = args.proofFormat
     try {
       let verifiableCredential: VerifiableCredential;
-      switch (proofFormat) {
+      switch (customProofFormat) {
         case 'OpenAttestationMerkleProofSignature2018':
           if (
             typeof context.agent.createVerifiableCredentialOA === 'function'
@@ -75,6 +76,9 @@ export class CredentialRouter implements IAgentPlugin {
           break;
         default:
           if (typeof context.agent.createVerifiableCredential === 'function') {
+            if (args.issueJWT) {
+              customProofFormat = 'EnvelopingProof';
+            }
             verifiableCredential =
               await context.agent.createVerifiableCredential({
                 ...args,
