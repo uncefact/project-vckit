@@ -19,6 +19,7 @@ constants:
     - keyManagerSharedSecret
     - keyManagerSignJWT
     - keyManagerSignEthTX
+    - keyManagerSignJOSE
     - didManagerGetProviders
     - didManagerFind
     - didManagerGet

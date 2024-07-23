@@ -925,6 +925,21 @@
             "data"
           ],
           "description": "Input arguments for  {@link IKeyManager.keyManagerSignJWT | keyManagerSignJWT }"
+        },
+        "IKeyManagerSignJOSE": {
+          "type": "object",
+          "properties": {
+            "kid": {
+              "type": "string",
+              "description": "Key ID"
+            },
+            "data": {
+              "type": "string",
+              "description": "Data to sign"
+            }
+          },
+          "required": ["kid", "data"],
+          "description": "Input arguments for  {@link IKeyManager.IKeyManagerSignJOSE | IKeyManagerSignJOSE }"
         }
       },
       "methods": {
@@ -1025,6 +1040,15 @@
           "description": "Signs JWT",
           "arguments": {
             "$ref": "#/components/schemas/IKeyManagerSignJWTArgs"
+          },
+          "returnType": {
+            "type": "string"
+          }
+        },
+        "keyManagerSignJOSE": {
+          "description": "Signs JOSE object",
+          "arguments": {
+            "$ref": "#/components/schemas/IKeyManagerSignJOSE"
           },
           "returnType": {
             "type": "string"
