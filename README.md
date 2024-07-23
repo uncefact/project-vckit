@@ -87,7 +87,7 @@ docker build -t vckit-api .
 
 You can customize the Docker image build process by specifying a custom configuration file path for the VCkit API.
 Ensure that you have the custom configuration file (`<config_path>`) ready. This file should contain the necessary settings and configurations for the VCkit API.
-Use the `--build-arg` flag to specify the `DATABASE_TYPE`, `DATABASE_USERNAME`, `DATABASE_PASSWORD`, `DATABASE_NAME`, `DATABASE_HOST`, `DATABASE_PORT`, `DATABASE_ENCRYPTION_KEY`, `PORT`, `PROTOCOL`, and `API_DOMAIN` build arguments when running the docker build command.
+Use the `--build-arg` flag to specify the `DATABASE_TYPE`, `DATABASE_USERNAME`, `DATABASE_PASSWORD`, `DATABASE_NAME`, `DATABASE_HOST`, `DATABASE_PORT`, `DATABASE_ENCRYPTION_KEY`, `PORT`, `PROTOCOL`, `API_DOMAIN`, and `API_KEY` build arguments when running the docker build command.
 
 ```bash
 docker build \
@@ -101,6 +101,7 @@ docker build \
   --build-arg PORT=3332 \
   --build-arg PROTOCOL=http \
   --build-arg API_DOMAIN=localhost:3332 \
+  --build-arg API_KEY=test123 \
   -t vckit-api .
 ```
 
