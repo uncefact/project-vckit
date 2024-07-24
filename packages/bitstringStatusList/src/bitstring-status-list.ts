@@ -45,7 +45,6 @@ export class BitstringStatusList implements IAgentPlugin {
           did: args.bitstringStatusIssuer,
         })) as IIdentifier;
       } catch (e) {
-        console.error(e);
         throw new Error(
           `invalid_argument: credential.issuer must be a DID managed by this agent.`,
         );
