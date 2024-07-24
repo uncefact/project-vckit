@@ -214,7 +214,7 @@ server:
     - - /agent
       - $require: '@vckit/remote-server?t=function#apiKeyAuth'
         $args:
-          - apiKey: test123
+          - apiKey: ${API_KEY}
 
       - $require: '@vckit/encrypted-storage?t=function#encryptedStoreMiddleware'
         $args:
