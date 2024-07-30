@@ -7,6 +7,7 @@ import {
 
 import { CredentialRouter } from '../src/action-handler';
 import {
+  ENVELOPING_PROOF_JOSE,
   RAW_CREDENTIAL,
   SIGNED_WRAPPED_DOCUMENT_JWT,
   SIGNED_WRAPPED_DOCUMENT_MERKLE_DISCLOSURE,
@@ -91,6 +92,30 @@ describe('CredentialRouter', () => {
       expect(result).toEqual(SIGNED_WRAPPED_DOCUMENT_JWT);
     });
 
+    it('should throw error when create a credential router with proofFormat is EnvelopingProof', async () => {
+      const mockIssuerAgentContext = {
+        agent: {
+          createVerifiableCredential: jest
+            .fn()
+            .mockReturnValue(ENVELOPING_PROOF_JOSE),
+        },
+      } as unknown as IssuerAgentContext;
+
+      const credentialPlugin = new CredentialRouter();
+      const args: ICreateVerifiableCredentialArgs = {
+        credential: RAW_CREDENTIAL,
+        proofFormat: 'EnvelopingProof',
+      };
+
+      const result = await credentialPlugin.routeCreationVerifiableCredential(
+        args,
+        mockIssuerAgentContext,
+      );
+
+      expect(result).not.toBeNull();
+      expect(result).toEqual(ENVELOPING_PROOF_JOSE);
+    });
+
     it(`should throw error when create a credential router with proofFormat is OpenAttestationMerkleProofSignature2018`, async () => {
       const mockIssuerAgentContext = {
         agent: {
@@ -148,6 +173,29 @@ describe('CredentialRouter', () => {
       const args: ICreateVerifiableCredentialArgs = {
         credential: RAW_CREDENTIAL,
         proofFormat: 'jwt',
+      };
+
+      await expect(
+        credentialPlugin.routeCreationVerifiableCredential(
+          args,
+          mockIssuerAgentContext,
+        ),
+      ).rejects.toThrow(
+        'invalid_setup: your agent does not seem to have CredentialW3c plugin installed',
+      );
+    });
+
+    it(`should throw error when create a credential router with proofFormat is EnvelopingProof`, async () => {
+      const mockIssuerAgentContext = {
+        agent: {
+          createVerifiableCredential: undefined,
+        },
+      } as unknown as IssuerAgentContext;
+
+      const credentialPlugin = new CredentialRouter();
+      const args: ICreateVerifiableCredentialArgs = {
+        credential: RAW_CREDENTIAL,
+        proofFormat: 'EnvelopingProof',
       };
 
       await expect(
