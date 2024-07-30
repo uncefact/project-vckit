@@ -1032,11 +1032,6 @@ components:
         proofFormat:
           type: string
           description: The format of the proof to be included in the credential.
-        issueJWT:
-          type: boolean
-          description: >-
-            If true, the credential will be issued as a JWT. If false, the
-            credential will be issued as a JSON-LD object.
     VerifyCredentialRequest:
       type: object
       properties:

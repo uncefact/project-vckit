@@ -74,11 +74,22 @@ export class CredentialRouter implements IAgentPlugin {
             );
           }
           break;
+
+        case 'EnvelopingProof':
+          if (typeof context.agent.createVerifiableCredential === 'function') {
+            verifiableCredential =
+              await context.agent.createVerifiableCredential({
+                ...args,
+                credential,
+              });
+          } else {
+            throw new Error(
+              'invalid_setup: your agent does not seem to have CredentialW3c plugin installed',
+            );
+          }
+           break;
         default:
           if (typeof context.agent.createVerifiableCredential === 'function') {
-            if (args.issueJWT) {
-              customProofFormat = 'EnvelopingProof';
-            }
             verifiableCredential =
               await context.agent.createVerifiableCredential({
                 ...args,

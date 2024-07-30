@@ -13,22 +13,10 @@ export const issueCredential = async (req: RequestWithAgent, res: Response) => {
       throw new Error('"type" must include `VerifiableCredential`.');
     }
 
-    let proofFormat;
-
-    // issueJWT field used for JOSE Enveloping Proof Format
-    if (req.body.options.issueJWT) {
-      proofFormat = 'jwt';
-    } else if (req.body.proofFormat) {
-      proofFormat = req.body.proofFormat;
-    } else {
-      proofFormat = DEFAULT_CONFIG.proofFormat;
-    }
-
     const payload = {
       ...DEFAULT_CONFIG,
       credential: req.body.credential,
-      issueJWT: req.body.options.issueJWT ?? false,
-      proofFormat: proofFormat,
+      proofFormat: req.body.options.proofFormat ?? DEFAULT_CONFIG.proofFormat,
     };
 
     const verifiableCredential = await req.agent.execute(
