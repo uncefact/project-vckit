@@ -24,7 +24,12 @@ import { VeramoLdSignature } from '@veramo/credential-ld';
  */
 export class VCkitJsonWebKey extends VeramoLdSignature {
   getSupportedVerificationType(): string[] {
-    return ['JsonWebKey', 'JsonWebKey2020'];
+    return [
+      'JsonWebKey',
+      'JsonWebKey2020',
+      'Ed25519VerificationKey2020',
+      'Ed25519Signature2020',
+    ];
   }
 
   getSupportedVeramoKeyType(): TKeyType {
@@ -37,7 +42,6 @@ export class VCkitJsonWebKey extends VeramoLdSignature {
     verificationMethodId: string,
     context: IAgentContext<IResolver & Pick<IKeyManager, 'keyManagerSign'>>,
   ): Promise<any> {
-    
     // return suite;
     const controller = issuerDid;
 
@@ -120,8 +124,9 @@ export class VCkitJsonWebKey extends VeramoLdSignature {
     }
 
     try {
-      const didDocJsonWebKey2020 = didDoc?.verificationMethod?.find(
-        (vm) => vm.type === 'JsonWebKey2020',
+      const supportedVerificationType = this.getSupportedVerificationType();
+      const didDocJsonWebKey2020 = didDoc?.verificationMethod?.find((vm) =>
+        supportedVerificationType.includes(vm.type),
       ) as DIDDocument;
 
       // If the DID Document has no JsonWebKey2020, return the DID Document

@@ -119,7 +119,7 @@ export class BitstringStatusListEntryStore {
         id: bitstringStatusListUrl,
         list,
         statusPurpose,
-        context: [VC_BSL_VC_V2_CONTEXT],
+        context: VC_BSL_VC_V2_CONTEXT,
       });
 
       // @ts-ignore
@@ -130,7 +130,7 @@ export class BitstringStatusListEntryStore {
         'createVerifiableCredential',
         {
           credential: credentialList,
-          proofFormat: 'jwt',
+          proofFormat: 'lds',
           fetchRemoteContexts: true,
         },
       );
