@@ -23,7 +23,7 @@ export type ProofFormat =
   | 'EthereumEip712Signature2021'
   | 'OpenAttestationMerkleProofSignature2018'
   | 'MerkleDisclosureProof2021'
-  | 'EnvelopingProof';
+  | 'EnvelopingProofJose';
 
 /**
  * Encapsulates the parameters required to create a
