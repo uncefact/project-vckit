@@ -42,6 +42,7 @@
     "@transmute/did-web": "0.7.0-unstable.82",
     "@transmute/vc-status-rl-2020": "0.7.0-unstable.82",
     "@vckit/core-types": "workspace:*",
+    "@vckit/credential-jwt-enveloping-proof": "workspace:1.0.0-beta.7",
     "@vckit/credential-router": "workspace:*",
     "@veramo/core": "5.5.3",
     "@veramo/credential-ld": "link:../../.tmp_npm/veramo/packages/credential-ld",

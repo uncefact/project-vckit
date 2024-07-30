@@ -172,7 +172,7 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
             {format(new Date(credentialData.issuanceDate), 'PPP')}
           </Descriptions.Item>
           <Descriptions.Item label="Proof type">
-            {credentialData.proof.type}
+            {credentialData?.proof?.type ?? ''}
           </Descriptions.Item>
           <Descriptions.Item label="Id">{credentialData.id}</Descriptions.Item>
         </Descriptions>

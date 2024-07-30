@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.settings.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "build",
+    "declarationDir": "build",
+    "skipLibCheck": true
+  },
+  "references": [
+    {
+      "path": "../core-types"
+    }
+  ],
+  "include": ["./**/*.ts", "./src/plugin.schema.json"],
+  "exclude": ["**/__tests__/**/*", "**/build/**/*", "**/__fixtures__/**/*"]
+}

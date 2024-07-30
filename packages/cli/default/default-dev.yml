@@ -152,7 +152,7 @@ server:
     - - $require: '@vckit/remote-server?t=function#WebDidDocRouter'
         $args:
           - keyMapping:
-              Ed25519: JsonWebKey # Ed25519VerificationKey2020 | JsonWebKey2020
+              Ed25519: JsonWebKey2020 # Ed25519VerificationKey2020 | JsonWebKey2020
 
     # VC API v1
     - - /v1

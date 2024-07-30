@@ -167,6 +167,7 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
               return webKeys;
 
             case 'JsonWebKey':
+              contexts.add('https://w3id.org/security/suites/ed25519-2020/v1');
               const webJWK = (await webKeysForIdentifier(identifier)).map(
                 (k) => {
                   return {
@@ -178,7 +179,22 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
                 },
               );
 
-              return webJWK;
+              const jsonWebKey2020 = (
+                await webKeysForIdentifier(identifier)
+              ).map((k) => {
+                return {
+                  id: k.id,
+                  type: 'JsonWebKey2020',
+                  controller: k.controller,
+                  publicKeyJwk: k.publicKeyJwk,
+                };
+              });
+
+              if (jsonWebKey2020.length > 0) {
+                contexts.add('https://w3id.org/security/suites/jws-2020/v1');
+              }
+
+              return [...webJWK, ...jsonWebKey2020];
 
             default:
               return vm;

@@ -13,15 +13,27 @@ export const issueCredential = async (req: RequestWithAgent, res: Response) => {
       throw new Error('"type" must include `VerifiableCredential`.');
     }
 
+    let proofFormat;
+
+    // issueJWT field used for JOSE Enveloping Proof Format
+    if (req.body.options.issueJWT) {
+      proofFormat = 'jwt';
+    } else if (req.body.proofFormat) {
+      proofFormat = req.body.proofFormat;
+    } else {
+      proofFormat = DEFAULT_CONFIG.proofFormat;
+    }
+
     const payload = {
-      credential: req.body.credential,
-      issueJWT: req.body.issueJWT ?? false,
       ...DEFAULT_CONFIG,
+      credential: req.body.credential,
+      issueJWT: req.body.options.issueJWT ?? false,
+      proofFormat: proofFormat,
     };
 
     const verifiableCredential = await req.agent.execute(
       'routeCreationVerifiableCredential',
-      payload
+      payload,
     );
     res.status(201).json(verifiableCredential);
   } catch (e) {
@@ -32,7 +44,7 @@ export const issueCredential = async (req: RequestWithAgent, res: Response) => {
 
 export const updateCredentialStatus = async (
   req: RequestWithAgent,
-  res: Response
+  res: Response,
 ) => {
   try {
     if (!req.agent) {

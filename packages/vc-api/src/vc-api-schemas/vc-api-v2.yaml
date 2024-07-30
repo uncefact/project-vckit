@@ -791,7 +791,6 @@ components:
         - created
         - verificationMethod
         - proofPurpose
-        - proofValue
       properties:
         type:
           type: string
@@ -827,7 +826,7 @@ components:
     VerifiableCredential:
       oneOf:
         - type: string
-          description: An Enveloping Proof Verifiable Credential. 
+          description: An Enveloping Proof Verifiable Credential.
         - type: object
           description: A JSON-LD Verifiable Credential with a proof.
           allOf:
@@ -1030,6 +1029,14 @@ components:
             type:
               type: string
               description: The type of credential status to issue the credential with
+        proofFormat:
+          type: string
+          description: The format of the proof to be included in the credential.
+        issueJWT:
+          type: boolean
+          description: >-
+            If true, the credential will be issued as a JWT. If false, the
+            credential will be issued as a JSON-LD object.
     VerifyCredentialRequest:
       type: object
       properties:

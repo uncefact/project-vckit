@@ -861,6 +861,24 @@
           ],
           "description": "Input arguments for  {@link IKeyManager.keyManagerSignEthTX | keyManagerSignEthTX }"
         },
+        "IKeyManagerSignJOSE": {
+          "type": "object",
+          "properties": {
+            "kid": {
+              "type": "string",
+              "description": "Key ID"
+            },
+            "data": {
+              "type": "string",
+              "description": "Data to sign"
+            }
+          },
+          "required": [
+            "kid",
+            "data"
+          ],
+          "description": "Input arguments for  {@link IKeyManager.IKeyManagerSignJOSE | IKeyManagerSignJOSE }"
+        },
         "IKeyManagerSignJWTArgs": {
           "type": "object",
           "properties": {
@@ -925,21 +943,6 @@
             "data"
           ],
           "description": "Input arguments for  {@link IKeyManager.keyManagerSignJWT | keyManagerSignJWT }"
-        },
-        "IKeyManagerSignJOSE": {
-          "type": "object",
-          "properties": {
-            "kid": {
-              "type": "string",
-              "description": "Key ID"
-            },
-            "data": {
-              "type": "string",
-              "description": "Data to sign"
-            }
-          },
-          "required": ["kid", "data"],
-          "description": "Input arguments for  {@link IKeyManager.IKeyManagerSignJOSE | IKeyManagerSignJOSE }"
         }
       },
       "methods": {
@@ -1036,19 +1039,19 @@
             "type": "string"
           }
         },
-        "keyManagerSignJWT": {
-          "description": "Signs JWT",
+        "keyManagerSignJOSE": {
+          "description": "Signs JOSE object",
           "arguments": {
-            "$ref": "#/components/schemas/IKeyManagerSignJWTArgs"
+            "$ref": "#/components/schemas/IKeyManagerSignJOSE"
           },
           "returnType": {
             "type": "string"
           }
         },
-        "keyManagerSignJOSE": {
-          "description": "Signs JOSE object",
+        "keyManagerSignJWT": {
+          "description": "Signs JWT",
           "arguments": {
-            "$ref": "#/components/schemas/IKeyManagerSignJOSE"
+            "$ref": "#/components/schemas/IKeyManagerSignJWTArgs"
           },
           "returnType": {
             "type": "string"
@@ -4362,7 +4365,8 @@
             "lds",
             "EthereumEip712Signature2021",
             "OpenAttestationMerkleProofSignature2018",
-            "MerkleDisclosureProof2021"
+            "MerkleDisclosureProof2021",
+            "EnvelopingProof"
           ],
           "description": "The type of encoding to be used for the Verifiable Credential or Presentation to be generated.\n\nOnly `jwt` , `lds` and `OpenAttestationMerkleProofSignature2018` are supported at the moment."
         },
@@ -5119,7 +5123,8 @@
             "lds",
             "EthereumEip712Signature2021",
             "OpenAttestationMerkleProofSignature2018",
-            "MerkleDisclosureProof2021"
+            "MerkleDisclosureProof2021",
+            "EnvelopingProof"
           ],
           "description": "The type of encoding to be used for the Verifiable Credential or Presentation to be generated.\n\nOnly `jwt` , `lds` and `OpenAttestationMerkleProofSignature2018` are supported at the moment."
         },
@@ -6620,7 +6625,8 @@
             "lds",
             "EthereumEip712Signature2021",
             "OpenAttestationMerkleProofSignature2018",
-            "MerkleDisclosureProof2021"
+            "MerkleDisclosureProof2021",
+            "EnvelopingProof"
           ],
           "description": "The type of encoding to be used for the Verifiable Credential or Presentation to be generated.\n\nOnly `jwt` , `lds` and `OpenAttestationMerkleProofSignature2018` are supported at the moment."
         },
