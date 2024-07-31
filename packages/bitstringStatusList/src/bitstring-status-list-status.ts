@@ -189,7 +189,6 @@ const verifyBitstringStatusListCredential = (
           new VeramoEd25519Signature2018(),
           new VeramoJsonWebSignature2020(),
           new VeramoEcdsaSecp256k1RecoverySignature2020(),
-          new VCkitEddsaRdfc2022(),
         ],
       }),
     ],

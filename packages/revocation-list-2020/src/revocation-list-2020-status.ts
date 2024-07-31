@@ -70,11 +70,7 @@ export async function checkStatus(credential: CredentialJwtOrJSON) {
   const result = await transmuteCheckStatus({
     credential,
     documentLoader,
-    suite: [
-      new Ed25519Signature2018(),
-      new JsonWebSignature(),
-      new DataIntegrityProof({ cryptosuite: eddsaRdfc2022CryptoSuite }),
-    ],
+    suite: [new Ed25519Signature2018(), new JsonWebSignature()],
   });
 
   const status: CredentialStatus = {

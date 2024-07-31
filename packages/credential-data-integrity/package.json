@@ -15,7 +15,7 @@
     "@digitalbazaar/data-integrity": "^2.1.0",
     "@digitalbazaar/ed25519-multikey": "^1.1.0",
     "@digitalbazaar/eddsa-rdfc-2022-cryptosuite": "^1.0.1",
-    "@veramo/core-types": "5.5.3",
+    "@vckit/core-types": "workspace:*",
     "@veramo/utils": "5.5.3",
     "@veramo/credential-ld": "link:../../.tmp_npm/veramo/packages/credential-ld"
   },
