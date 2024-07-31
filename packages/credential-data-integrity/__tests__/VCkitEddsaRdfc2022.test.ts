@@ -4,9 +4,9 @@ import {
   IAgentContext,
   IResolver,
   IKeyManager,
-} from '@veramo/core-types';
+} from '@vckit/core-types';
 import { DataIntegrityProof } from '@digitalbazaar/data-integrity';
-import { VCkitEddsaRdfc2022 } from '../src/suites/VCkitEddsaRdfc2022';
+import { VCkitEddsaRdfc2022 } from '../src';
 
 describe('VCkitEddsaRdfc2022', () => {
   // Define the variables used in the tests
@@ -81,9 +81,19 @@ describe('VCkitEddsaRdfc2022', () => {
     await expect(suite.signer.sign({ data: new Uint8Array([13, 22, 36, 22, 212]) })).rejects.toThrow('Signing failed');
   });
 
-  test('should include necessary context URLs in the suite context', async () => {
+  test('should include necessary context URLs in the suite context and the document @context is a string', async () => {
     const suite = await vckitEddsa.getSuiteForSigning(mockKey, issuerDid, verificationMethodId, mockContext);
     const document = { '@context': 'https://w3id.org/security/multikey/v1'};
+
+    // Expect the function will be called without throwing an error
+    expect(() => {
+      suite.ensureSuiteContext({ document, addSuiteContext: true });
+    }).not.toThrow();
+  });
+
+  test('should include necessary context URLs in the suite context and the document @context is an array', async () => {
+    const suite = await vckitEddsa.getSuiteForSigning(mockKey, issuerDid, verificationMethodId, mockContext);
+    const document = { '@context': ['https://w3id.org/security/multikey/v1']};
 
     // Expect the function will be called without throwing an error
     expect(() => {
@@ -110,6 +120,13 @@ describe('VCkitEddsaRdfc2022', () => {
     expect(suite.contextUrl).toBe('https://w3id.org/security/data-integrity/v2');
     expect(suite.cryptosuite).toBe('eddsa-rdfc-2022');
     expect(suite.requiredAlgorithm).toBe('Ed25519');
+  });
+
+  test('should call preSigningCredModification without errors', () => {
+    const credential = { id: '123', type: ['VerifiableCredential'], issuer: 'did:example:123' };
+    
+    // Call the preSigningCredModification function
+    expect(() => vckitEddsa.preSigningCredModification(credential)).not.toThrow();
   });
 
   test('should return the original DID Document when didUrl does not contain controllerKeyID', async () => {

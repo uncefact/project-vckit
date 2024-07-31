@@ -14,7 +14,7 @@ import {
   TKeyType,
   IResolver,
   IKeyManager,
-} from '@veramo/core-types';
+} from '@vckit/core-types';
 import * as Ed25519Multikey from '@digitalbazaar/ed25519-multikey';
 import { DataIntegrityProof } from '@digitalbazaar/data-integrity';
 import { cryptosuite as eddsaRdfc2022CryptoSuite } from '@digitalbazaar/eddsa-rdfc-2022-cryptosuite';
@@ -66,17 +66,23 @@ export class VCkitEddsaRdfc2022 extends VeramoLdSignature {
           keyRef: key.kid,
           data: messageString,
           encoding: 'base64',
-          algorithm: 'EdDSA',
         });
         return base64ToBytes(signature);
       },
     };
 
+    /**
+     * The public key multibase must consist of a binary value that starts with the two-byte prefix '0xed01'
+     * For details see: https://www.w3.org/TR/vc-di-eddsa/#multikey
+     */
+    const MULTICODEC_PUB_HEADER = new Uint8Array([0xed, 0x01]);
+    const publicKeyMultibase = `z${bytesToBase58(new Uint8Array([...MULTICODEC_PUB_HEADER, ...hexToBytes(key.publicKeyHex)]))}`;
+
     const verificationKey = await Ed25519Multikey.from({
       id: verificationMethodId,
       controller: issuerDid,
       type: this.getSupportedVerificationType(), // Multikey
-      publicKeyMultibase: `z${bytesToBase58(hexToBytes(key.publicKeyHex))}`,
+      publicKeyMultibase,
     });
 
     // overwrite the signer since we're not passing the private key
@@ -146,8 +152,14 @@ export class VCkitEddsaRdfc2022 extends VeramoLdSignature {
     didDoc: DIDDocument,
     context: IAgentContext<IResolver>,
   ): Promise<DIDDocument | DIDDocComponent> {
-    // When not have controllerKeyID in the didUrl, return the DID Document
-    if (!didUrl.includes('#') || didUrl === didDoc.id) {
+    // Check if the DID Document has Multikey verification method
+    const supportedVerificationType = this.getSupportedVerificationType(); // Multikey
+    const hasMultikey = didDoc?.verificationMethod?.some(vm => vm.type === supportedVerificationType);
+    const isOldVerificationMethodType = didUrl.match(/-key-[0-9]$/);
+
+    // If not have Multikey verification method, return the DID Document
+    // or if the didUrl does not contain controllerKeyID, return the DID Document
+    if (!hasMultikey || isOldVerificationMethodType || !didUrl.includes('#') || didUrl === didDoc.id) {
       return didDoc;
     }
 
