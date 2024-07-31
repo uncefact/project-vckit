@@ -36,7 +36,7 @@
     "url": "https://github.com/uncefact/project-vckit/issues"
   },
   "dependencies": {
-    "@digitalbazaar/vc-bitstring-status-list": "git@github.com:digitalbazaar/vc-bitstring-status-list-context.git",
+    "@digitalbazaar/vc-bitstring-status-list": "github:gs-gs/vc-bitstring-status-list",
     "@transmute/did-context": "0.7.0-unstable.82",
     "@transmute/did-key.js": "0.3.0-unstable.10",
     "@transmute/did-web": "0.7.0-unstable.82",

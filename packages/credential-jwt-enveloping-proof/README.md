@@ -1,3 +1,3 @@
 # Credential JWT Enveloping Proof
 
-This package provides a mechanism to create and verify JWTs that contain a credential as a claim.
+This package provides a suite for vc-ld format creating and verifying JWTs that contain a credential as a claim.
