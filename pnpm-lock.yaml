@@ -154,8 +154,8 @@ importers:
   packages/bitstringStatusList:
     dependencies:
       '@digitalbazaar/vc-bitstring-status-list':
-        specifier: github:gs-gs/vc-bitstring-status-list
-        version: github.com/gs-gs/vc-bitstring-status-list/eb093cb2ab9cec30fa343c5459cd5695facfbf81(expo@51.0.5)(react-native@0.74.1)
+        specifier: 1.0.0
+        version: 1.0.0(expo@51.0.5)(react-native@0.74.1)
       '@transmute/did-context':
         specifier: 0.7.0-unstable.82
         version: 0.7.0-unstable.82
@@ -3926,6 +3926,10 @@ packages:
       pako: 2.1.0
     dev: false
 
+  /@digitalbazaar/credentials-context@3.1.0:
+    resolution: {integrity: sha512-VKflyFbcid6xH3FJMrd8U9DeCjbYXa2aO3l8yy7MzP6O/0v0EZTV56hMfJT5fN6TSVtQmShv2R3oPCFqFbc2Tg==}
+    dev: false
+
   /@digitalbazaar/security-context@1.0.1:
     resolution: {integrity: sha512-0WZa6tPiTZZF8leBtQgYAfXQePFQp2z5ivpCEN/iZguYYZ0TB9qRmWtan5XH6mNFuusHtMcyIzAcReyE6rZPhA==}
     dev: false
@@ -3933,6 +3937,21 @@ packages:
   /@digitalbazaar/vc-bitstring-status-list-context@1.0.0:
     resolution: {integrity: sha512-9I+UBpM4aHif2y06i3U/ehBtmUnQMgJbns+/MGu0zKT+NcRAfimfT1/n8VBGvz+cdPKveDMrRLNZAaEH/dFa1Q==}
     engines: {node: '>=18'}
+    dev: false
+
+  /@digitalbazaar/vc-bitstring-status-list@1.0.0(expo@51.0.5)(react-native@0.74.1):
+    resolution: {integrity: sha512-iJTkuSR6o6fqzEa0D0ngMo6Ti0xCF59GjZyBF3+7dUjYVwnm26LetS7iOfWfzfZphNpt6/FwAz1pUVRkilH2/A==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@digitalbazaar/bitstring': 3.1.0
+      '@digitalbazaar/credentials-context': 3.1.0
+      '@digitalbazaar/vc': 7.0.0(expo@51.0.5)(react-native@0.74.1)
+      '@digitalbazaar/vc-bitstring-status-list-context': 1.0.0
+    transitivePeerDependencies:
+      - domexception
+      - expo
+      - react-native
+      - web-streams-polyfill
     dev: false
 
   /@digitalbazaar/vc-status-list-context@3.1.1:
@@ -3973,6 +3992,21 @@ packages:
     engines: {node: '>=14'}
     dependencies:
       credentials-context: 2.0.0
+      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
+      jsonld-signatures: 11.2.1(expo@51.0.5)(react-native@0.74.1)
+    transitivePeerDependencies:
+      - domexception
+      - expo
+      - react-native
+      - web-streams-polyfill
+    dev: false
+
+  /@digitalbazaar/vc@7.0.0(expo@51.0.5)(react-native@0.74.1):
+    resolution: {integrity: sha512-kYb3e/roISl+fSqPan/E0pIhqyN22QUKjTRXJA9q2vJaCz5VYC4lO45ILoVeDMR8/i2Qkybqlz7a6jt5rmKLGg==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@digitalbazaar/credentials-context': 3.1.0
+      ed25519-signature-2018-context: 1.1.0
       jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
       jsonld-signatures: 11.2.1(expo@51.0.5)(react-native@0.74.1)
     transitivePeerDependencies:
@@ -5612,10 +5646,12 @@ packages:
       react: 16.14.0
       scheduler: 0.19.1
     dev: false
+    bundledDependencies: false
 
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
     engines: {node: '>=10.10.0'}
+    deprecated: Use @eslint/config-array instead
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
       debug: 4.3.4(supports-color@6.1.0)
@@ -5631,6 +5667,7 @@ packages:
 
   /@humanwhocodes/object-schema@2.0.3:
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
+    deprecated: Use @eslint/object-schema instead
     dev: true
 
   /@hutson/parse-repository-url@3.0.2:
@@ -20193,6 +20230,7 @@ packages:
     dependencies:
       is-hex-prefixed: 1.0.0
       strip-hex-prefix: 1.0.0
+    bundledDependencies: false
 
   /ethr-did-resolver@10.1.5:
     resolution: {integrity: sha512-wVCKhF6qQo2IewH9ui4lRBixbvT/A6szZFQoJkfvjP6EU/3MSb4KOP5QNpM37zmFU/rQGjHNt7bF13fNcmZ6wQ==}
@@ -32295,6 +32333,7 @@ packages:
       prop-types: 15.8.1
       react: 16.14.0
       scheduler: 0.19.1
+    bundledDependencies: false
 
   /react-dom@18.2.0(react@18.2.0):
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
@@ -32984,6 +33023,7 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       prop-types: 15.8.1
+    bundledDependencies: false
 
   /react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
@@ -34824,6 +34864,9 @@ packages:
   /sqlite3@5.1.7:
     resolution: {integrity: sha512-GGIyOiFaG+TUra3JIfkI/zGP8yZYLPQ0pl1bH+ODjiX57sPhrLU5sQJn1y9bDKZUFYkX1crlrPfSYt0BKKdkog==}
     requiresBuild: true
+    peerDependenciesMeta:
+      node-gyp:
+        optional: true
     dependencies:
       bindings: 1.5.0
       node-addon-api: 7.1.0
@@ -39043,50 +39086,3 @@ packages:
   /zwitch@1.0.5:
     resolution: {integrity: sha512-V50KMwwzqJV0NpZIZFwfOD5/lyny3WlSzRiXgA0G7VUnRlqttta1L6UQIHzd6EuBY/cHGfwTIck7w1yH6Q5zUw==}
     dev: true
-
-  github.com/digitalbazaar/credentials-v2-context/277d50b948ada35fedf63feb43de32b2483489e0:
-    resolution: {tarball: https://codeload.github.com/digitalbazaar/credentials-v2-context/tar.gz/277d50b948ada35fedf63feb43de32b2483489e0}
-    name: '@digitalbazaar/credentials-v2-context'
-    version: 0.0.1-0
-    engines: {node: '>=18'}
-    prepare: true
-    requiresBuild: true
-    dev: false
-
-  github.com/digitalbazaar/vc/b78162e89ddb88c9ebaa26f6fd276a418a284a03(expo@51.0.5)(react-native@0.74.1):
-    resolution: {tarball: https://codeload.github.com/digitalbazaar/vc/tar.gz/b78162e89ddb88c9ebaa26f6fd276a418a284a03}
-    id: github.com/digitalbazaar/vc/b78162e89ddb88c9ebaa26f6fd276a418a284a03
-    name: '@digitalbazaar/vc'
-    version: 6.2.1-0
-    engines: {node: '>=18'}
-    dependencies:
-      '@digitalbazaar/credentials-v2-context': github.com/digitalbazaar/credentials-v2-context/277d50b948ada35fedf63feb43de32b2483489e0
-      credentials-context: 2.0.0
-      ed25519-signature-2018-context: 1.1.0
-      jsonld: /@digitalcredentials/jsonld@5.2.1(expo@51.0.5)(react-native@0.74.1)
-      jsonld-signatures: 11.2.1(expo@51.0.5)(react-native@0.74.1)
-    transitivePeerDependencies:
-      - domexception
-      - expo
-      - react-native
-      - web-streams-polyfill
-    dev: false
-
-  github.com/gs-gs/vc-bitstring-status-list/eb093cb2ab9cec30fa343c5459cd5695facfbf81(expo@51.0.5)(react-native@0.74.1):
-    resolution: {tarball: https://codeload.github.com/gs-gs/vc-bitstring-status-list/tar.gz/eb093cb2ab9cec30fa343c5459cd5695facfbf81}
-    id: github.com/gs-gs/vc-bitstring-status-list/eb093cb2ab9cec30fa343c5459cd5695facfbf81
-    name: '@digitalbazaar/vc-bitstring-status-list'
-    version: 0.0.1-0
-    engines: {node: '>=18'}
-    dependencies:
-      '@digitalbazaar/bitstring': 3.1.0
-      '@digitalbazaar/credentials-v2-context': github.com/digitalbazaar/credentials-v2-context/277d50b948ada35fedf63feb43de32b2483489e0
-      '@digitalbazaar/vc': github.com/digitalbazaar/vc/b78162e89ddb88c9ebaa26f6fd276a418a284a03(expo@51.0.5)(react-native@0.74.1)
-      '@digitalbazaar/vc-bitstring-status-list-context': 1.0.0
-      credentials-context: 2.0.0
-    transitivePeerDependencies:
-      - domexception
-      - expo
-      - react-native
-      - web-streams-polyfill
-    dev: false

@@ -45,7 +45,7 @@ To create an identifier, we use this [`/didManagerCreate`](http://localhost:3332
   "provider": "did:web", //you can use other providers, in this case we use did:web
   "kms": "local",
   "options": {
-    "type": "ed25519"
+    "keyType": "Ed25519"
   }
 }
 ```
@@ -58,7 +58,7 @@ The `alias` is the domain name that you will store a [DID document](/docs/get-st
   "provider": "did:web",
   "kms": "local",
   "options": {
-    "type": "ed25519"
+    "keyType": "Ed25519"
   }
 }
 ```
