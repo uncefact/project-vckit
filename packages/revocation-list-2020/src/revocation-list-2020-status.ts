@@ -10,8 +10,6 @@ import { CredentialStatus } from '@vckit/core-types';
 import { LdDefaultContexts } from '@veramo/credential-ld';
 import { RevocationListDefaultContexts } from './revocaltion-list-default-contexts.js';
 import { RenderDefaultContexts } from '@vckit/renderer';
-import { DataIntegrityProof } from '@digitalbazaar/data-integrity';
-import { cryptosuite as eddsaRdfc2022CryptoSuite } from '@digitalbazaar/eddsa-rdfc-2022-cryptosuite';
 
 const resolve = async (did: string) => {
   if (did.startsWith('did:key')) {
