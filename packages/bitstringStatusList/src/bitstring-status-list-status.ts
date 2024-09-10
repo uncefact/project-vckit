@@ -25,7 +25,6 @@ import {
 import { createAgent } from '@veramo/core';
 import { CredentialRouter } from '@vckit/credential-router';
 import { CredentialPlugin } from '@veramo/credential-w3c';
-import { VCkitEddsaRdfc2022 } from '@vckit/credential-data-integrity';
 
 const resolve = async (did: string) => {
   if (did.startsWith('did:key')) {
