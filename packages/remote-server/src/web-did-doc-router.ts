@@ -21,13 +21,13 @@ interface RequestWithAgentDIDManager extends Request {
  */
 export const didDocEndpoint = '/.well-known/did.json';
 
-const keyMapping: Record<TKeyType, string> = {
-  Secp256k1: 'EcdsaSecp256k1VerificationKey2019',
-  Secp256r1: 'EcdsaSecp256r1VerificationKey2019',
-  Ed25519: 'Ed25519VerificationKey2020',
-  X25519: 'X25519KeyAgreementKey2019',
-  Bls12381G1: 'Bls12381G1Key2020',
-  Bls12381G2: 'Bls12381G2Key2020',
+const defaultKeyMapping: Record<TKeyType, string[]> = {
+  Secp256k1: ['EcdsaSecp256k1VerificationKey2019'],
+  Secp256r1: ['EcdsaSecp256r1VerificationKey2019'],
+  Ed25519: ['Ed25519VerificationKey2020', 'JsonWebKey2020', 'JsonWebKey'],
+  X25519: ['X25519KeyAgreementKey2019'],
+  Bls12381G1: ['Bls12381G1Key2020'],
+  Bls12381G2: ['Bls12381G2Key2020'],
 };
 
 /**
@@ -61,7 +61,7 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
     const publicKeyBytes = hexToBytes(key.publicKeyHex);
     const publicKeyMultibase = bytesToMultibase(
       hexToBytes(key.publicKeyHex),
-      'Ed25519'
+      'Ed25519',
     );
 
     const controller = `did:key:${publicKeyMultibase}`;
@@ -85,121 +85,117 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
         wk.id = `${identifier.did}#${key.kid}-key-${i}`;
         wk.controller = identifier.did;
         return wk;
-      })
+      }),
     );
     return keys as JsonWebKey2020[];
   };
 
   const didDocForIdentifier = async (identifier: IIdentifier) => {
-    const km = options.keyMapping
-      ? { ...keyMapping, ...options.keyMapping }
-      : keyMapping;
     const contexts = new Set<string>();
 
     const allKeys: (VerificationMethod | VerificationMethod[])[] =
       await Promise.all(
-        identifier.keys.map(async (key: IKey) => {
-          const vm: VerificationMethod = {
-            id: identifier.did + '#' + key.kid,
-            type: km[key.type],
-            controller: identifier.did,
-            publicKeyHex: key.publicKeyHex,
-          };
+        identifier.keys.flatMap(async (key: IKey) => {
+          const supportedTypes = defaultKeyMapping[key.type] || [key.type]; // Get supported types for this key
+          const verificationMethods: VerificationMethod[] = [];
 
-          switch (vm.type) {
-            case 'EcdsaSecp256k1VerificationKey2019':
-            case 'EcdsaSecp256k1RecoveryMethod2020':
-              contexts.add('https://w3id.org/security/v2');
-              contexts.add(
-                'https://w3id.org/security/suites/secp256k1recovery-2020/v2'
-              );
-              return vm;
+          for (const type of supportedTypes) {
+            const vm: VerificationMethod = {
+              id: `${identifier.did}#${key.kid}`,
+              type: type,
+              controller: identifier.did,
+              publicKeyHex: key.publicKeyHex,
+            };
 
-            case 'Ed25519VerificationKey2018':
-              contexts.add('https://w3id.org/security/suites/ed25519-2018/v1');
-              vm.publicKeyBase58 = bytesToBase58(hexToBytes(key.publicKeyHex));
-              delete vm.publicKeyHex;
-              return vm;
-            case 'X25519KeyAgreementKey2019':
-              contexts.add('https://w3id.org/security/suites/x25519-2019/v1');
-              vm.publicKeyBase58 = bytesToBase58(hexToBytes(key.publicKeyHex));
-              delete vm.publicKeyHex;
-              return vm;
-            case 'Ed25519VerificationKey2020':
-              contexts.add('https://w3id.org/security/suites/ed25519-2020/v1');
-              vm.publicKeyMultibase = bytesToMultibase(
-                hexToBytes(key.publicKeyHex),
-                'Ed25519'
-              );
-              delete vm.publicKeyHex;
-              return vm;
-            case 'X25519KeyAgreementKey2020':
-              contexts.add('https://w3id.org/security/suites/x25519-2020/v1');
-              vm.publicKeyMultibase = bytesToMultibase(
-                hexToBytes(key.publicKeyHex),
-                'Ed25519'
-              );
-              delete vm.publicKeyHex;
-              return vm;
-            case 'EcdsaSecp256r1VerificationKey2019':
-              contexts.add('https://w3id.org/security/v2');
-              return vm;
-            case 'Bls12381G1Key2020':
-            case 'Bls12381G2Key2020':
-              contexts.add('https://w3id.org/security/bbs/v1');
-              return vm;
+            switch (type) {
+              case 'EcdsaSecp256k1VerificationKey2019':
+              case 'EcdsaSecp256k1RecoveryMethod2020':
+                contexts.add('https://w3id.org/security/v2');
+                contexts.add(
+                  'https://w3id.org/security/suites/secp256k1recovery-2020/v2',
+                );
+                verificationMethods.push(vm);
+                break;
 
-            case 'JsonWebKey2020':
-              const webKeys = (await webKeysForIdentifier(identifier)).map(
-                (k) => {
-                  return {
-                    id: k.id,
-                    type: k.type,
+              case 'Ed25519VerificationKey2018':
+                contexts.add(
+                  'https://w3id.org/security/suites/ed25519-2018/v1',
+                );
+                vm.publicKeyBase58 = bytesToBase58(
+                  hexToBytes(key.publicKeyHex),
+                );
+                delete vm.publicKeyHex;
+                verificationMethods.push(vm);
+                break;
+
+              case 'X25519KeyAgreementKey2019':
+                contexts.add('https://w3id.org/security/suites/x25519-2019/v1');
+                vm.publicKeyBase58 = bytesToBase58(
+                  hexToBytes(key.publicKeyHex),
+                );
+                delete vm.publicKeyHex;
+                verificationMethods.push(vm);
+                break;
+
+              case 'Ed25519VerificationKey2020':
+                contexts.add(
+                  'https://w3id.org/security/suites/ed25519-2020/v1',
+                );
+                vm.publicKeyMultibase = bytesToMultibase(
+                  hexToBytes(key.publicKeyHex),
+                  'Ed25519',
+                );
+                delete vm.publicKeyHex;
+                verificationMethods.push(vm);
+                break;
+
+              case 'X25519KeyAgreementKey2020':
+                contexts.add('https://w3id.org/security/suites/x25519-2020/v1');
+                vm.publicKeyMultibase = bytesToMultibase(
+                  hexToBytes(key.publicKeyHex),
+                  'Ed25519',
+                );
+                delete vm.publicKeyHex;
+                verificationMethods.push(vm);
+                break;
+
+              case 'EcdsaSecp256r1VerificationKey2019':
+                contexts.add('https://w3id.org/security/v2');
+                verificationMethods.push(vm);
+                break;
+
+              case 'Bls12381G1Key2020':
+              case 'Bls12381G2Key2020':
+                contexts.add('https://w3id.org/security/bbs/v1');
+                verificationMethods.push(vm);
+                break;
+
+              case 'JsonWebKey2020':
+              case 'JsonWebKey':
+                const webKeys = (await webKeysForIdentifier(identifier)).map(
+                  (k, i) => ({
+                    id: `${identifier.did}#${key.kid}-${type}-key-${i}`,
+                    type: type,
                     controller: k.controller,
                     publicKeyJwk: k.publicKeyJwk,
-                  } as VerificationMethod;
+                  }),
+                );
+
+                if (webKeys.length > 0) {
+                  contexts.add('https://w3id.org/security/suites/jws-2020/v1');
                 }
-              );
 
-              if (webKeys.length > 0) {
-                contexts.add('https://w3id.org/security/suites/jws-2020/v1');
-              }
-              return webKeys;
+                verificationMethods.push(...webKeys);
+                break;
 
-            case 'JsonWebKey':
-              contexts.add('https://w3id.org/security/suites/ed25519-2020/v1');
-              const webJWK = (await webKeysForIdentifier(identifier)).map(
-                (k) => {
-                  return {
-                    id: k.id,
-                    type: 'JsonWebKey',
-                    controller: k.controller,
-                    publicKeyJwk: k.publicKeyJwk,
-                  };
-                },
-              );
-
-              const jsonWebKey2020 = (
-                await webKeysForIdentifier(identifier)
-              ).map((k) => {
-                return {
-                  id: k.id,
-                  type: 'JsonWebKey2020',
-                  controller: k.controller,
-                  publicKeyJwk: k.publicKeyJwk,
-                };
-              });
-
-              if (jsonWebKey2020.length > 0) {
-                contexts.add('https://w3id.org/security/suites/jws-2020/v1');
-              }
-
-              return [...webJWK, ...jsonWebKey2020];
-
-            default:
-              return vm;
+              default:
+                verificationMethods.push(vm);
+                break;
+            }
           }
-        })
+
+          return verificationMethods;
+        }),
       );
 
     const flattenAllKeys: VerificationMethod[] = allKeys.flat();
@@ -208,8 +204,8 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
     const keyAgreementKeyIds = flattenAllKeys
       .filter((key) =>
         ['Ed25519VerificationKey2018', 'X25519KeyAgreementKey2019'].includes(
-          key.type
-        )
+          key.type,
+        ),
       )
       .map((key) => key.id);
     const signingKeyIds = flattenAllKeys
@@ -265,7 +261,7 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
           res.status(404).send(e);
         }
       }
-    }
+    },
   );
 
   router.get('/keys/:did', async (req: RequestWithAgentDIDManager, res) => {

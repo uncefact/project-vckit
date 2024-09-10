@@ -364,9 +364,8 @@ credentialIssuerLD:
     - suites:
         # - $require: '@veramo/credential-ld#VeramoEd25519Signature2018'
         # - $require: '@veramo/credential-ld#VeramoEd25519Signature2020'
-        # - $require: '@veramo/credential-ld#VeramoJsonWebSignature2020'
+        - $require: '@veramo/credential-ld#VeramoJsonWebSignature2020'
         # - $require: '@veramo/credential-ld#VeramoEcdsaSecp256k1RecoverySignature2020'
-        - $require: '@vckit/credential-jwt-enveloping-proof#VCkitJsonWebKey'
 
       contextMaps:
         # The LdDefaultContext is a "catch-all" for now.
