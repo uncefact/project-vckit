@@ -92,6 +92,30 @@ describe('CredentialRouter', () => {
       expect(result).toEqual(SIGNED_WRAPPED_DOCUMENT_JWT);
     });
 
+    it('should call createVerifiableCredential function when proofFormat is EnvelopingProofJose', async () => {
+      const mockIssuerAgentContext = {
+        agent: {
+          createVerifiableCredential: jest
+            .fn()
+            .mockReturnValue(ENVELOPING_PROOF_JOSE),
+        },
+      } as unknown as IssuerAgentContext;
+
+      const credentialPlugin = new CredentialRouter();
+      const args: ICreateVerifiableCredentialArgs = {
+        credential: RAW_CREDENTIAL,
+        proofFormat: 'EnvelopingProofJose',
+      };
+
+      const result = await credentialPlugin.routeCreationVerifiableCredential(
+        args,
+        mockIssuerAgentContext,
+      );
+
+      expect(result).not.toBeNull();
+      expect(result).toEqual(ENVELOPING_PROOF_JOSE);
+    });
+
     it('should throw error when create a credential router with proofFormat is EnvelopingProofJose', async () => {
       const mockIssuerAgentContext = {
         agent: {
