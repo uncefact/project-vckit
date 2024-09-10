@@ -43,7 +43,6 @@
     "@transmute/vc-status-rl-2020": "0.7.0-unstable.82",
     "@vckit/core-types": "workspace:*",
     "@vckit/credential-router": "workspace:*",
-    "@vckit/credential-data-integrity": "workspace:*",
     "@veramo/core": "5.5.3",
     "@veramo/credential-ld": "link:../../.tmp_npm/veramo/packages/credential-ld",
     "@veramo/credential-status": "link:../../.tmp_npm/veramo/packages/credential-status",
