@@ -15,7 +15,7 @@ credentialIssuerLD:
     - suites:
         - $require: '@veramo/credential-ld#VeramoJsonWebSignature2020'
         - $require: '@vckit/credential-data-integrity#VCkitEddsaRdfc2022'
-				#  others should be included here
+        #  others should be included here
       contextMaps:
         - $require: '@vckit/credential-data-integrity?t=object#contexts'
         - $require: '@veramo/credential-ld?t=object#LdDefaultContexts'

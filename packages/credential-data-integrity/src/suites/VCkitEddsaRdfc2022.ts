@@ -20,7 +20,7 @@ import { DataIntegrityProof } from '@digitalbazaar/data-integrity';
 import { cryptosuite as eddsaRdfc2022CryptoSuite } from '@digitalbazaar/eddsa-rdfc-2022-cryptosuite';
 
 /**
- * Veramo wrapper for the Ed25519Multikey suite by @digitalbazaar
+ * VCKit wrapper for the Ed25519Multikey suite by @digitalbazaar
  */
 export class VCkitEddsaRdfc2022 extends VeramoLdSignature {
   /**
@@ -56,9 +56,9 @@ export class VCkitEddsaRdfc2022 extends VeramoLdSignature {
   ) {
     // Custom signer for the suite
     const signer = {
-      // This field required for the DataIntegrityProof suite
+      // Required for the DataIntegrityProof
       id: verificationMethodId,
-      // This field required for the DataIntegrityProof suite
+      // Required for the DataIntegrityProof
       algorithm: this.getSupportedVeramoKeyType(), // Ed25519
       sign: async (args: { data: Uint8Array }): Promise<Uint8Array> => {
         const messageString = bytesToBase64(args.data);
