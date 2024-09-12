@@ -1,0 +1,19 @@
+{
+  "extends": "../tsconfig.settings.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "build",
+    "declarationDir": "build",
+    "resolveJsonModule": true
+  },
+  "references": [
+    {
+      "path": "../core-types"
+    }
+  ],
+  "include": [
+    "./**/*.ts",
+    "./src/plugin.schema.json",
+    "src/**/*.json",
+  ]
+}
