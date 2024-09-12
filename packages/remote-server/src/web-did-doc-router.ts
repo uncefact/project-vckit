@@ -21,13 +21,13 @@ interface RequestWithAgentDIDManager extends Request {
  */
 export const didDocEndpoint = '/.well-known/did.json';
 
-const defaultKeyMapping: Record<TKeyType, string[]> = {
-  Secp256k1: ['EcdsaSecp256k1VerificationKey2019'],
-  Secp256r1: ['EcdsaSecp256r1VerificationKey2019'],
-  Ed25519: ['Ed25519VerificationKey2020', 'JsonWebKey2020', 'Multikey'],
-  X25519: ['X25519KeyAgreementKey2019'],
-  Bls12381G1: ['Bls12381G1Key2020'],
-  Bls12381G2: ['Bls12381G2Key2020'],
+const keyMapping: Record<TKeyType, string> = {
+  Secp256k1: 'EcdsaSecp256k1VerificationKey2019',
+  Secp256r1: 'EcdsaSecp256r1VerificationKey2019',
+  Ed25519: 'Ed25519VerificationKey2020',
+  X25519: 'X25519KeyAgreementKey2019',
+  Bls12381G1: 'Bls12381G1Key2020',
+  Bls12381G2: 'Bls12381G2Key2020',
 };
 
 /**
@@ -91,137 +91,84 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
   };
 
   const didDocForIdentifier = async (identifier: IIdentifier) => {
+    const km = options.keyMapping
+      ? { ...keyMapping, ...options.keyMapping }
+      : keyMapping;
     const contexts = new Set<string>();
 
     const allKeys: (VerificationMethod | VerificationMethod[])[] =
       await Promise.all(
-        identifier.keys.flatMap(async (key: IKey) => {
-          const supportedTypes = defaultKeyMapping[key.type] || [key.type]; // Get supported types for this key
-          const verificationMethods: VerificationMethod[] = [];
+        identifier.keys.map(async (key: IKey) => {
+          const vm: VerificationMethod = {
+            id: identifier.did + '#' + key.kid,
+            type: km[key.type],
+            controller: identifier.did,
+            publicKeyHex: key.publicKeyHex,
+          };
 
-          for (const type of supportedTypes) {
-            const vm: VerificationMethod = {
-              id: `${identifier.did}#${key.kid}`,
-              type,
-              controller: identifier.did,
-              publicKeyHex: key.publicKeyHex,
-            };
+          switch (vm.type) {
+            case 'EcdsaSecp256k1VerificationKey2019':
+            case 'EcdsaSecp256k1RecoveryMethod2020':
+              contexts.add('https://w3id.org/security/v2');
+              contexts.add(
+                'https://w3id.org/security/suites/secp256k1recovery-2020/v2'
+              );
+              return vm;
 
-            switch (type) {
-              case 'EcdsaSecp256k1VerificationKey2019':
-              case 'EcdsaSecp256k1RecoveryMethod2020':
-                contexts.add('https://w3id.org/security/v2');
-                contexts.add(
-                  'https://w3id.org/security/suites/secp256k1recovery-2020/v2',
-                );
-                verificationMethods.push(vm);
-                break;
+            case 'Ed25519VerificationKey2018':
+              contexts.add('https://w3id.org/security/suites/ed25519-2018/v1');
+              vm.publicKeyBase58 = bytesToBase58(hexToBytes(key.publicKeyHex));
+              delete vm.publicKeyHex;
+              return vm;
+            case 'X25519KeyAgreementKey2019':
+              contexts.add('https://w3id.org/security/suites/x25519-2019/v1');
+              vm.publicKeyBase58 = bytesToBase58(hexToBytes(key.publicKeyHex));
+              delete vm.publicKeyHex;
+              return vm;
+            case 'Ed25519VerificationKey2020':
+              contexts.add('https://w3id.org/security/suites/ed25519-2020/v1');
+              vm.publicKeyMultibase = bytesToMultibase(
+                hexToBytes(key.publicKeyHex),
+                'Ed25519'
+              );
+              delete vm.publicKeyHex;
+              return vm;
+            case 'X25519KeyAgreementKey2020':
+              contexts.add('https://w3id.org/security/suites/x25519-2020/v1');
+              vm.publicKeyMultibase = bytesToMultibase(
+                hexToBytes(key.publicKeyHex),
+                'Ed25519'
+              );
+              delete vm.publicKeyHex;
+              return vm;
+            case 'EcdsaSecp256r1VerificationKey2019':
+              contexts.add('https://w3id.org/security/v2');
+              return vm;
+            case 'Bls12381G1Key2020':
+            case 'Bls12381G2Key2020':
+              contexts.add('https://w3id.org/security/bbs/v1');
+              return vm;
 
-              case 'Ed25519VerificationKey2018':
-                contexts.add(
-                  'https://w3id.org/security/suites/ed25519-2018/v1',
-                );
-                vm.publicKeyBase58 = bytesToBase58(
-                  hexToBytes(key.publicKeyHex),
-                );
-                delete vm.publicKeyHex;
-                verificationMethods.push(vm);
-                break;
-
-              case 'X25519KeyAgreementKey2019':
-                contexts.add('https://w3id.org/security/suites/x25519-2019/v1');
-                vm.publicKeyBase58 = bytesToBase58(
-                  hexToBytes(key.publicKeyHex),
-                );
-                delete vm.publicKeyHex;
-                verificationMethods.push(vm);
-                break;
-
-              case 'Ed25519VerificationKey2020':
-                contexts.add(
-                  'https://w3id.org/security/suites/ed25519-2020/v1',
-                );
-                vm.publicKeyMultibase = bytesToMultibase(
-                  hexToBytes(key.publicKeyHex),
-                  'Ed25519',
-                );
-                delete vm.publicKeyHex;
-                verificationMethods.push(vm);
-                break;
-
-              case 'X25519KeyAgreementKey2020':
-                contexts.add('https://w3id.org/security/suites/x25519-2020/v1');
-                vm.publicKeyMultibase = bytesToMultibase(
-                  hexToBytes(key.publicKeyHex),
-                  'Ed25519',
-                );
-                delete vm.publicKeyHex;
-                verificationMethods.push(vm);
-                break;
-
-              case 'EcdsaSecp256r1VerificationKey2019':
-                contexts.add('https://w3id.org/security/v2');
-                verificationMethods.push(vm);
-                break;
-
-              case 'Bls12381G1Key2020':
-              case 'Bls12381G2Key2020':
-                contexts.add('https://w3id.org/security/bbs/v1');
-                verificationMethods.push(vm);
-                break;
-
-              case 'JsonWebKey2020':
-                const webKeys = (await webKeysForIdentifier(identifier)).map(
-                  (k, i) => ({
-                    id: `${identifier.did}#${key.kid}-${type}-key-${i}`,
-                    type: type,
+            case 'JsonWebKey2020':
+              const webKeys = (await webKeysForIdentifier(identifier)).map(
+                (k) => {
+                  return {
+                    id: k.id,
+                    type: k.type,
                     controller: k.controller,
                     publicKeyJwk: k.publicKeyJwk,
-                  }),
-                );
-
-                if (webKeys.length > 0) {
-                  contexts.add('https://w3id.org/security/suites/jws-2020/v1');
+                  } as VerificationMethod;
                 }
+              );
 
-                verificationMethods.push(...webKeys);
-                break;
+              if (webKeys.length > 0) {
+                contexts.add('https://w3id.org/security/suites/jws-2020/v1');
+              }
+              return webKeys;
 
-              case 'Multikey':
-                // This context is required for the Multikey verification type
-                contexts.add('https://w3id.org/security/multikey/v1');
-
-                /**
-                 * The public key multibase must consist of a binary value that starts with the two-byte prefix '0xed01'
-                 * For details see: https://www.w3.org/TR/vc-di-eddsa/#multikey
-                 */
-                const MULTICODEC_PUB_HEADER = new Uint8Array([0xed, 0x01]);
-                const identifierWebKeys = (
-                  await webKeysForIdentifier(identifier)
-                ).map((k, i) => ({
-                  id: `${identifier.did}#${key.kid}-${type}-key-${i}`,
-                  type: type,
-                  controller: k.controller,
-                  publicKeyJwk: k.publicKeyJwk,
-                  publicKeyMultibase: `z${bytesToBase58(
-                    new Uint8Array([
-                      ...MULTICODEC_PUB_HEADER,
-                      ...hexToBytes(key.publicKeyHex),
-                    ]),
-                  )}`,
-                  publicKeyBase58: bytesToBase58(hexToBytes(key.publicKeyHex)),
-                }));
-
-                verificationMethods.push(...identifierWebKeys);
-                break;
-
-              default:
-                verificationMethods.push(vm);
-                break;
-            }
+            default:
+              return vm;
           }
-
-          return verificationMethods;
         })
       );
 
