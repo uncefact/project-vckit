@@ -40,6 +40,7 @@
     "@types/blessed": "^0.1.25",
     "@types/swagger-ui-express": "^4.1.6",
     "@vckit/bitstringStatusList": "workspace:^",
+    "@vckit/credential-data-integrity": "workspace:^",
     "@vckit/core-types": "workspace:^",
     "@vckit/credential-merkle-disclosure-proof": "workspace:1.0.0-beta.7",
     "@vckit/credential-oa": "workspace:1.0.0-beta.7",
