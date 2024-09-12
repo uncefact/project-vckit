@@ -1,10 +1,20 @@
-# Data Integrity Proof Plugin
+# Credential Data Integrity Plugin
 
-This package draws inspiration from [eddsa-rdfc-2022-cryptosuite](@digitalbazaar/eddsa-rdfc-2022-cryptosuite) and is implemented as a plugin for [Veramo](https://veramo.io/). It adheres to the [Data Integrity EdDSA Cryptosuites v1.0](https://www.w3.org/TR/vc-di-eddsa/) specification to generate a Data Integrity proof for credentials.
+This plugin draws inspiration from [eddsa-rdfc-2022-cryptosuite](@digitalbazaar/eddsa-rdfc-2022-cryptosuite) and is implemented as a plugin for [Veramo](https://veramo.io/). It adheres to the [Data Integrity EdDSA Cryptosuites v1.0](https://www.w3.org/TR/vc-di-eddsa/) specification to generate a Credential Data Integrity for credentials.
 
-This package contains a plugin and a message handler for issuing and verifying credentials that adhere to W3C standards.
+This plugin contains a message handler for issuing and verifying credentials that adhere to W3C standards.
+
+## Current state
+
+This plugin is in the early stages of development and is not yet ready for production use. It is not recommended to use this plugin in a production environment.
+
+Currently, this plugin cannot be used alongside other plugins due to limitations in the Veramo core plugins. We plan to update the plugin in the future to enable compatibility with other plugins.
 
 ## Setup
+
+If you want to try using the Credential Data Integrity plugin with a `did:web` DID, you can use the following example to create a Web DID Document router.
+
+- Create a Web DID Document router. You can use the following docs: [Set up Web DID Document Router](./web-did-doc-router-example.md)
 
 - Declare the plugin in your Veramo agent:
 
@@ -13,16 +23,10 @@ credentialIssuerLD:
   $require: '@veramo/credential-ld#CredentialIssuerLD'
   $args:
     - suites:
-        - $require: '@veramo/credential-ld#VeramoJsonWebSignature2020'
         - $require: '@vckit/credential-data-integrity#VCkitEddsaRdfc2022'
         #  others should be included here
       contextMaps:
         - $require: '@vckit/credential-data-integrity?t=object#contexts'
-        - $require: '@veramo/credential-ld?t=object#LdDefaultContexts'
-        - $require: '@transmute/credentials-context?t=object#contexts'
-        - $require: '@transmute/did-context?t=object#contexts'
-        - $require: '@vckit/renderer?t=object#RenderDefaultContexts'
-        - $require: '@vckit/revocationlist?t=object#RevocationListDefaultContexts'
         #  others should be included here
 ```
 
@@ -30,9 +34,9 @@ credentialIssuerLD:
 
 You can issue a new verifiable credential by using the `/agent/routeCreationVerifiableCredential` API endpoint with the proof format set to `lds`. The issuer can be a `did:web`.
 
-The example below shows how to issue a credential with the Data Integrity proof plugin. You can replace the `issuer` and `credentialSubject` with your own data.
+The example below shows how to issue a credential with the Data Integrity Integrity plugin. You can replace the `issuer` and `credentialSubject` with your own data.
 
-### Verifiable Credential Data Model V1 with Data Integrity Proof Request Payload
+### Verifiable Credential Data Model V1
 
 ```curl
 curl --request POST \
@@ -61,7 +65,7 @@ curl --request POST \
 }'
 ```
 
-### Verifiable credential data model V2 with Data Integrity proof request payload
+### Verifiable credential data model V2
 
 ```curl
 curl --request POST \
