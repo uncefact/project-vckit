@@ -365,10 +365,8 @@ credentialIssuerLD:
         # - $require: '@veramo/credential-ld#VeramoEd25519Signature2020'
         - $require: '@veramo/credential-ld#VeramoJsonWebSignature2020'
         # - $require: '@veramo/credential-ld#VeramoEcdsaSecp256k1RecoverySignature2020'
-        - $require: '@vckit/credential-data-integrity#VCkitEddsaRdfc2022'
       contextMaps:
         # The LdDefaultContext is a "catch-all" for now.
-        - $require: '@vckit/credential-data-integrity?t=object#contexts'
         - $require: '@veramo/credential-ld?t=object#LdDefaultContexts'
         - $require: '@transmute/credentials-context?t=object#contexts'
         - $require: '@transmute/did-context?t=object#contexts'
