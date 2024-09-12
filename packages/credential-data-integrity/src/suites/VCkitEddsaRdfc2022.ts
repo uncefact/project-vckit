@@ -152,25 +152,17 @@ export class VCkitEddsaRdfc2022 extends VeramoLdSignature {
     didDoc: DIDDocument,
     context: IAgentContext<IResolver>,
   ): Promise<DIDDocument | DIDDocComponent> {
-    // Check if the DID Document has Multikey verification method
-    const supportedVerificationType = this.getSupportedVerificationType(); // Multikey
-    const hasMultikey = didDoc?.verificationMethod?.some(vm => vm.type === supportedVerificationType);
-    const isOldVerificationMethodType = didUrl.match(/-key-[0-9]$/);
-
-    // If not have Multikey verification method, return the DID Document
-    // or if the didUrl does not contain controllerKeyID, return the DID Document
-    if (!hasMultikey || isOldVerificationMethodType || !didUrl.includes('#') || didUrl === didDoc.id) {
+    if (!didUrl.includes('#')) {
       return didDoc;
     }
 
     // Get the DID component by controllerKeyID (e.g. didUrl is 'did:example:123#controllerKeyID')
-    const didComponent: any = await context.agent.getDIDComponentById({ didDocument: didDoc, didUrl });
-    if (!didComponent) {
-      throw new Error(`DID component not found. The document loader could not locate DID component by fragment: ${didUrl}.`);
-    }
+    const didComponent: any = await context.agent.getDIDComponentById({
+      didDocument: didDoc,
+      didUrl,
+    });
 
-    // return the DID component (Verification Method)
     didComponent['@context'] = didDoc['@context'];
-    return didComponent;
+    return didComponent; // return the DID component (Verification Method)
   }
 }
