@@ -16,7 +16,17 @@ If you want to try using the Credential Data Integrity plugin with a `did:web` D
 
 - Create a Web DID Document router. You can use the following docs: [Set up Web DID Document Router](./web-did-doc-router-example.md)
 
-- Declare the plugin in your Veramo agent:
+- Add `Multikey` to the key mapping in the DID Document configuration in your Veramo [agent](../../agent.yml):
+
+```yaml
+    # DID Documents
+    - - $require: '@vckit/remote-server?t=function#WebDidDocRouter'
+        $args:
+          - keyMapping:
+              Ed25519: Multikey # Ed25519VerificationKey2020 | JsonWebKey2020 | Multikey
+```
+
+- Declare the plugin in your Veramo [agent](../../agent.yml):
 
 ```yaml
 credentialIssuerLD:
@@ -43,25 +53,25 @@ curl --request POST \
   --url http://localhost:3332/agent/routeCreationVerifiableCredential \
   --header 'Content-Type: application/json' \
   --data '{
-	"credential": {
-		"@context": [
-			"https://www.w3.org/2018/credentials/v1",
-			"https://w3id.org/security/multikey/v1",
-			"https://w3id.org/security/data-integrity/v2"
-		],
-		"type": [
-			"VerifiableCredential"
-		],
-		"issuer": "did:web:example.com",
-		"issuanceDate": "2021-01-01T19:23:24Z",
-		"credentialSubject": {
-			"id": "did:example:456",
-			"name": "John Doe"
-		}
-	},
-	"proofFormat": "lds",
-	"save": true,
-	"fetchRemoteContexts": true
+  "credential": {
+    "@context": [
+      "https://www.w3.org/2018/credentials/v1",
+      "https://w3id.org/security/multikey/v1",
+      "https://w3id.org/security/data-integrity/v2"
+    ],
+    "type": [
+      "VerifiableCredential"
+    ],
+    "issuer": "did:web:example.com",
+    "issuanceDate": "2021-01-01T19:23:24Z",
+    "credentialSubject": {
+      "id": "did:example:456",
+      "name": "John Doe"
+    }
+  },
+  "proofFormat": "lds",
+  "save": true,
+  "fetchRemoteContexts": true
 }'
 ```
 
@@ -72,34 +82,34 @@ curl --request POST \
   --url http://localhost:3332/agent/routeCreationVerifiableCredential \
   --header 'Content-Type: application/json' \
   --data '{
-	"credential": {
-		"@context": [
-			"https://www.w3.org/ns/credentials/v2",
-			"https://w3id.org/security/multikey/v1",
-			"https://w3id.org/security/data-integrity/v2"
-		],
-		"id": "http://university.example/credentials/1872",
-		"type": [
-			"VerifiableCredential",
-			"ExampleAlumniCredential"
-		],
-		"issuer": "did:web:bb32-115-79-32-109.ngrok-free.app",
-		"validFrom": "2010-01-01T19:23:24Z",
-		"credentialSchema": {
-			"id": "https://example.org/examples/degree.json",
-			"type": "JsonSchema"
-		},
-		"credentialSubject": {
-			"id": "did:example:123",
-			"degree": {
-				"type": "BachelorDegree",
-				"name": "Bachelor of Science and Arts"
-			}
-		}
-	},
-	"proofFormat": "lds",
-	"save": true,
-	"fetchRemoteContexts": true
+  "credential": {
+    "@context": [
+      "https://www.w3.org/ns/credentials/v2",
+      "https://w3id.org/security/multikey/v1",
+      "https://w3id.org/security/data-integrity/v2"
+    ],
+    "id": "http://university.example/credentials/1872",
+    "type": [
+      "VerifiableCredential",
+      "ExampleAlumniCredential"
+    ],
+    "issuer": "did:web:bb32-115-79-32-109.ngrok-free.app",
+    "validFrom": "2010-01-01T19:23:24Z",
+    "credentialSchema": {
+      "id": "https://example.org/examples/degree.json",
+      "type": "JsonSchema"
+    },
+    "credentialSubject": {
+      "id": "did:example:123",
+      "degree": {
+        "type": "BachelorDegree",
+        "name": "Bachelor of Science and Arts"
+      }
+    }
+  },
+  "proofFormat": "lds",
+  "save": true,
+  "fetchRemoteContexts": true
 }'
 ```
 
@@ -116,31 +126,31 @@ curl --request POST \
   --url http://localhost:3332/agent/routeVerificationCredential \
   --header 'Content-Type: application/json' \
   --data '{
-	"credential":  {
-		"@context": [
-			"https://www.w3.org/2018/credentials/v1",
-			"https://w3id.org/security/multikey/v1",
-			"https://w3id.org/security/data-integrity/v2"
-		],
-		"type": [
-			"VerifiableCredential"
-		],
-		"issuer": "did:web:bb32-115-79-32-109.ngrok-free.app",
-		"issuanceDate": "2021-01-01T19:23:24Z",
-		"credentialSubject": {
-			"id": "did:example:456",
-			"name": "John Doe"
-		},
-		"proof": {
-			"type": "DataIntegrityProof",
-			"created": "2024-07-21T15:39:40Z",
-			"verificationMethod": "did:web:bb32-115-79-32-109.ngrok-free.app#14fe3440c6d669edd8a63dc92b571fb0973fd4b832444014e69bcf8cebd38853",
-			"cryptosuite": "eddsa-rdfc-2022",
-			"proofPurpose": "assertionMethod",
-			"proofValue": "z2S6qW6k6M6eXuqGkX5vdydqveSNVBSZf46MxxjY5ukv8gL741pos3yywT9mGTjKJzdjxQvaCSSVtCAngoAWQzNnq"
-		}
-	},
-	"fetchRemoteContexts": true
+  "credential":  {
+    "@context": [
+      "https://www.w3.org/2018/credentials/v1",
+      "https://w3id.org/security/multikey/v1",
+      "https://w3id.org/security/data-integrity/v2"
+    ],
+    "type": [
+      "VerifiableCredential"
+    ],
+    "issuer": "did:web:bb32-115-79-32-109.ngrok-free.app",
+    "issuanceDate": "2021-01-01T19:23:24Z",
+    "credentialSubject": {
+      "id": "did:example:456",
+      "name": "John Doe"
+    },
+    "proof": {
+      "type": "DataIntegrityProof",
+      "created": "2024-07-21T15:39:40Z",
+      "verificationMethod": "did:web:bb32-115-79-32-109.ngrok-free.app#14fe3440c6d669edd8a63dc92b571fb0973fd4b832444014e69bcf8cebd38853",
+      "cryptosuite": "eddsa-rdfc-2022",
+      "proofPurpose": "assertionMethod",
+      "proofValue": "z2S6qW6k6M6eXuqGkX5vdydqveSNVBSZf46MxxjY5ukv8gL741pos3yywT9mGTjKJzdjxQvaCSSVtCAngoAWQzNnq"
+    }
+  },
+  "fetchRemoteContexts": true
 }'
 ```
 
@@ -153,40 +163,40 @@ curl --request POST \
   --header 'Content-Type: application/json' \
   --header 'User-Agent: insomnia/8.6.1' \
   --data '{
-	"credential": {
-		"@context": [
-			"https://www.w3.org/ns/credentials/v2",
-			"https://w3id.org/security/multikey/v1",
-			"https://w3id.org/security/data-integrity/v2"
-		],
-		"id": "http://university.example/credentials/1872",
-		"type": [
-			"VerifiableCredential",
-			"ExampleAlumniCredential"
-		],
-		"issuer": "did:web:bb32-115-79-32-109.ngrok-free.app",
-		"validFrom": "2010-01-01T19:23:24Z",
-		"credentialSchema": {
-			"id": "https://example.org/examples/degree.json",
-			"type": "JsonSchema"
-		},
-		"credentialSubject": {
-			"id": "did:example:123",
-			"degree": {
-				"type": "BachelorDegree",
-				"name": "Bachelor of Science and Arts"
-			}
-		},
-		"issuanceDate": "2024-07-25T09:25:22.788Z",
-		"proof": {
-			"type": "DataIntegrityProof",
-			"created": "2024-07-25T09:25:23Z",
-			"verificationMethod": "did:web:bb32-115-79-32-109.ngrok-free.app#a0b90e4ec2c9fbc63c50f230b98ea8335af1da5bba9472684519ae7da11273d6",
-			"cryptosuite": "eddsa-rdfc-2022",
-			"proofPurpose": "assertionMethod",
-			"proofValue": "zbS3i4uaUzAw1J7Eb544Tgqfo8azhJkx3jGS5wtk4WCBe2CkAZyLEnX7Au7n3anEtTWaG9f283NF2rzJEsxFKjPE"
-		}
-	},
-	"fetchRemoteContexts": true
+  "credential": {
+    "@context": [
+      "https://www.w3.org/ns/credentials/v2",
+      "https://w3id.org/security/multikey/v1",
+      "https://w3id.org/security/data-integrity/v2"
+    ],
+    "id": "http://university.example/credentials/1872",
+    "type": [
+      "VerifiableCredential",
+      "ExampleAlumniCredential"
+    ],
+    "issuer": "did:web:bb32-115-79-32-109.ngrok-free.app",
+    "validFrom": "2010-01-01T19:23:24Z",
+    "credentialSchema": {
+      "id": "https://example.org/examples/degree.json",
+      "type": "JsonSchema"
+    },
+    "credentialSubject": {
+      "id": "did:example:123",
+      "degree": {
+        "type": "BachelorDegree",
+        "name": "Bachelor of Science and Arts"
+      }
+    },
+    "issuanceDate": "2024-07-25T09:25:22.788Z",
+    "proof": {
+      "type": "DataIntegrityProof",
+      "created": "2024-07-25T09:25:23Z",
+      "verificationMethod": "did:web:bb32-115-79-32-109.ngrok-free.app#a0b90e4ec2c9fbc63c50f230b98ea8335af1da5bba9472684519ae7da11273d6",
+      "cryptosuite": "eddsa-rdfc-2022",
+      "proofPurpose": "assertionMethod",
+      "proofValue": "zbS3i4uaUzAw1J7Eb544Tgqfo8azhJkx3jGS5wtk4WCBe2CkAZyLEnX7Au7n3anEtTWaG9f283NF2rzJEsxFKjPE"
+    }
+  },
+  "fetchRemoteContexts": true
 }'
 ```

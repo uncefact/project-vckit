@@ -35,7 +35,7 @@ export const didDocEndpoint = '/.well-known/did.json';
 const defaultKeyMapping: Record<TKeyType, string[]> = {
   Secp256k1: ['EcdsaSecp256k1VerificationKey2019'],
   Secp256r1: ['EcdsaSecp256r1VerificationKey2019'],
-  Ed25519: ['Ed25519VerificationKey2020', 'JsonWebKey2020', 'Multikey'],
+  Ed25519: ['Multikey'],
   X25519: ['X25519KeyAgreementKey2019'],
   Bls12381G1: ['Bls12381G1Key2020'],
   Bls12381G2: ['Bls12381G2Key2020'],
