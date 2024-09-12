@@ -24,12 +24,7 @@ export const didDocEndpoint = '/.well-known/did.json';
 const defaultKeyMapping: Record<TKeyType, string[]> = {
   Secp256k1: ['EcdsaSecp256k1VerificationKey2019'],
   Secp256r1: ['EcdsaSecp256r1VerificationKey2019'],
-  Ed25519: [
-    'Ed25519VerificationKey2020',
-    'JsonWebKey2020',
-    'JsonWebKey',
-    'Multikey',
-  ],
+  Ed25519: ['Ed25519VerificationKey2020', 'JsonWebKey2020', 'Multikey'],
   X25519: ['X25519KeyAgreementKey2019'],
   Bls12381G1: ['Bls12381G1Key2020'],
   Bls12381G2: ['Bls12381G2Key2020'],
@@ -176,7 +171,6 @@ export const WebDidDocRouter = (options: WebDidDocRouterOptions): Router => {
                 break;
 
               case 'JsonWebKey2020':
-              case 'JsonWebKey':
                 const webKeys = (await webKeysForIdentifier(identifier)).map(
                   (k, i) => ({
                     id: `${identifier.did}#${key.kid}-${type}-key-${i}`,
