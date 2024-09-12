@@ -2,9 +2,9 @@
 
 If you want to try using the `credential-data-integrity` plugin with a `did:web` DID, you can use the following example to create a Web DID Document router.
 
-This example will use the `Multikey` for Data Integrity proof.
+This example will use the `Multikey` key type for Data Integrity proof.
 
-You need to replace entire content of your [web-did-doc-router.ts](../remote-server/src/web-did-doc-router.ts) file with the following code:
+You need to replace entire content of your [web-did-doc-router.ts](../remote-server/src/web-did-doc-router.ts) file with the following code and then rebuild the `remote-server` package.
 
 ```ts
 // web-did-doc-router.ts
