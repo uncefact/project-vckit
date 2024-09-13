@@ -2,6 +2,9 @@ import { IAgent, IEncrypteAndStoreDataResult } from '@vckit/core-types';
 import { NextFunction, Request, Response, Router } from 'express';
 import interceptor from 'express-interceptor';
 import { RequestWithAgent } from './encrypted-store-router.js';
+import Debug from 'debug';
+
+const debug = Debug('vckit:encrypted-storage');
 
 /**
  *
@@ -14,7 +17,7 @@ export function encryptedStoreMiddleware(args: {
 
   const intercept = interceptor(function (
     req: RequestWithAgent,
-    res: Response
+    res: Response,
   ) {
     return {
       isInterceptable: function () {
@@ -32,7 +35,7 @@ export function encryptedStoreMiddleware(args: {
           ) {
             updatedBody = await encryptAndStoreData(
               req.agent,
-              JSON.parse(body)
+              JSON.parse(body),
             );
           }
 
@@ -50,12 +53,17 @@ export function encryptedStoreMiddleware(args: {
 }
 
 async function encryptAndStoreData(agent: IAgent, payload: object) {
-  const { id, key }: IEncrypteAndStoreDataResult = await agent.execute(
-    'encryptAndStoreData',
-    {
-      data: payload,
-    }
-  );
+  try {
+    const { id, key }: IEncrypteAndStoreDataResult = await agent.execute(
+      'encryptAndStoreData',
+      {
+        data: payload,
+      },
+    );
 
-  return JSON.stringify({ id, key, credential: payload });
+    return JSON.stringify({ id, key, credential: payload });
+  } catch (error) {
+    debug(error);
+    return JSON.stringify({ credential: payload });
+  }
 }
