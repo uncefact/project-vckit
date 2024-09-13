@@ -87,5 +87,8 @@
   },
   "engines": {
     "node": "20.12.2"
+  },
+  "dependencies": {
+    "debug": "^4.3.7"
   }
 }

@@ -791,7 +791,6 @@ components:
         - created
         - verificationMethod
         - proofPurpose
-        - proofValue
       properties:
         type:
           type: string
@@ -825,16 +824,19 @@ components:
           type: string
           description: Value of the Linked Data proof.
     VerifiableCredential:
-      type: object
-      description: A JSON-LD Verifiable Credential with a proof.
-      allOf:
-        - $ref: '#/components/schemas/Credential'
+      oneOf:
+        - type: string
+          description: An Enveloping Proof Verifiable Credential.
         - type: object
-          required:
-            - proof
-          properties:
-            proof:
-              $ref: '#/components/schemas/LinkedDataProof'
+          description: A JSON-LD Verifiable Credential with a proof.
+          allOf:
+            - $ref: '#/components/schemas/Credential'
+            - type: object
+              required:
+                - proof
+              properties:
+                proof:
+                  $ref: '#/components/schemas/LinkedDataProof'
     DeriveCredentialOptions:
       type: object
       additionalProperties: false
@@ -1027,6 +1029,9 @@ components:
             type:
               type: string
               description: The type of credential status to issue the credential with
+        proofFormat:
+          type: string
+          description: The format of the proof to be included in the credential.
     VerifyCredentialRequest:
       type: object
       properties:

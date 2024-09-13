@@ -40,6 +40,7 @@
     "@vckit/core-types": "workspace:^",
     "@veramo/data-store": "5.5.3",
     "@veramo/utils": "5.5.3",
+    "debug": "^4.3.7",
     "dotenv": "^16.3.1",
     "express-interceptor": "^1.2.0",
     "typeorm": "^0.3.19",
@@ -47,5 +48,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.12"
   }
 }

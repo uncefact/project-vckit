@@ -37,7 +37,7 @@ export class CredentialRouter implements IAgentPlugin {
 
   async routeCreationVerifiableCredential(
     args: ICreateVerifiableCredentialArgs,
-    context: IssuerAgentContext
+    context: IssuerAgentContext,
   ): Promise<VerifiableCredential> {
     const { proofFormat, credential } = args;
     try {
@@ -54,7 +54,7 @@ export class CredentialRouter implements IAgentPlugin {
               });
           } else {
             throw new Error(
-              'invalid_setup: your agent does not seem to have CredentialOA plugin installed'
+              'invalid_setup: your agent does not seem to have CredentialOA plugin installed',
             );
           }
           break;
@@ -69,10 +69,11 @@ export class CredentialRouter implements IAgentPlugin {
               });
           } else {
             throw new Error(
-              'invalid_setup: your agent does not seem to have CredentialMDP plugin installed'
+              'invalid_setup: your agent does not seem to have CredentialMDP plugin installed',
             );
           }
           break;
+
         default:
           if (typeof context.agent.createVerifiableCredential === 'function') {
             verifiableCredential =
@@ -82,7 +83,7 @@ export class CredentialRouter implements IAgentPlugin {
               });
           } else {
             throw new Error(
-              'invalid_setup: your agent does not seem to have CredentialW3c plugin installed'
+              'invalid_setup: your agent does not seem to have CredentialW3c plugin installed',
             );
           }
           break;
@@ -95,7 +96,7 @@ export class CredentialRouter implements IAgentPlugin {
 
   async routeVerificationCredential(
     args: IVerifyCredentialArgs,
-    context: VerifierAgentContext
+    context: VerifierAgentContext,
   ): Promise<IVerifyResult> {
     const { credential } = args;
 
@@ -107,7 +108,7 @@ export class CredentialRouter implements IAgentPlugin {
             return await context.agent.verifyCredentialOA(args);
           } else {
             throw new Error(
-              'invalid_setup: your agent does not seem to have CredentialOA plugin installed'
+              'invalid_setup: your agent does not seem to have CredentialOA plugin installed',
             );
           }
         case DocumentFormat.MerkleDisclosureProof2021:
@@ -115,7 +116,7 @@ export class CredentialRouter implements IAgentPlugin {
             return await context.agent.verifyCredentialMDP(args);
           } else {
             throw new Error(
-              'invalid_setup: your agent does not seem to have CredentialMerkleDisclosureProof plugin installed'
+              'invalid_setup: your agent does not seem to have CredentialMerkleDisclosureProof plugin installed',
             );
           }
         default:
@@ -123,7 +124,7 @@ export class CredentialRouter implements IAgentPlugin {
             return await context.agent.verifyCredential(args);
           } else {
             throw new Error(
-              'invalid_setup: your agent does not seem to have CredentialW3c plugin installed'
+              'invalid_setup: your agent does not seem to have CredentialW3c plugin installed',
             );
           }
       }
@@ -134,7 +135,7 @@ export class CredentialRouter implements IAgentPlugin {
 }
 
 function detectDocumentType(
-  document: W3CVerifiableCredential | W3CVerifiablePresentation
+  document: W3CVerifiableCredential | W3CVerifiablePresentation,
 ): DocumentFormat {
   if (
     typeof document === 'string' ||

@@ -19,6 +19,7 @@ constants:
     - keyManagerSharedSecret
     - keyManagerSignJWT
     - keyManagerSignEthTX
+    - keyManagerSignJOSE
     - didManagerGetProviders
     - didManagerFind
     - didManagerGet
@@ -149,9 +150,6 @@ server:
 
     # DID Documents
     - - $require: '@vckit/remote-server?t=function#WebDidDocRouter'
-        $args:
-          - keyMapping:
-              Ed25519: JsonWebKey2020 # Ed25519VerificationKey2020 | JsonWebKey2020
 
     # VC API v1
     - - /v1
@@ -365,6 +363,7 @@ credentialIssuerLD:
         # - $require: '@veramo/credential-ld#VeramoEd25519Signature2020'
         - $require: '@veramo/credential-ld#VeramoJsonWebSignature2020'
         # - $require: '@veramo/credential-ld#VeramoEcdsaSecp256k1RecoverySignature2020'
+
       contextMaps:
         # The LdDefaultContext is a "catch-all" for now.
         - $require: '@veramo/credential-ld?t=object#LdDefaultContexts'

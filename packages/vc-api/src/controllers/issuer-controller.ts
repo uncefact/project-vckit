@@ -14,13 +14,14 @@ export const issueCredential = async (req: RequestWithAgent, res: Response) => {
     }
 
     const payload = {
-      credential: req.body.credential,
       ...DEFAULT_CONFIG,
+      credential: req.body.credential,
+      proofFormat: req.body.options.proofFormat ?? DEFAULT_CONFIG.proofFormat,
     };
 
     const verifiableCredential = await req.agent.execute(
       'routeCreationVerifiableCredential',
-      payload
+      payload,
     );
     res.status(201).json(verifiableCredential);
   } catch (e) {
@@ -31,7 +32,7 @@ export const issueCredential = async (req: RequestWithAgent, res: Response) => {
 
 export const updateCredentialStatus = async (
   req: RequestWithAgent,
-  res: Response
+  res: Response,
 ) => {
   try {
     if (!req.agent) {
