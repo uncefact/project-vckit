@@ -7,7 +7,6 @@ import {
 
 import { CredentialRouter } from '../src/action-handler';
 import {
-  ENVELOPING_PROOF_JOSE,
   RAW_CREDENTIAL,
   SIGNED_WRAPPED_DOCUMENT_JWT,
   SIGNED_WRAPPED_DOCUMENT_MERKLE_DISCLOSURE,
