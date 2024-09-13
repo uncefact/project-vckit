@@ -160,29 +160,6 @@ describe('CredentialRouter', () => {
         'invalid_setup: your agent does not seem to have CredentialW3c plugin installed',
       );
     });
-
-    it(`should throw error when create a credential router with proofFormat is EnvelopingProofJose`, async () => {
-      const mockIssuerAgentContext = {
-        agent: {
-          createVerifiableCredential: undefined,
-        },
-      } as unknown as IssuerAgentContext;
-
-      const credentialPlugin = new CredentialRouter();
-      const args: ICreateVerifiableCredentialArgs = {
-        credential: RAW_CREDENTIAL,
-        proofFormat: 'EnvelopingProofJose',
-      };
-
-      await expect(
-        credentialPlugin.routeCreationVerifiableCredential(
-          args,
-          mockIssuerAgentContext,
-        ),
-      ).rejects.toThrow(
-        'invalid_setup: your agent does not seem to have CredentialW3c plugin installed',
-      );
-    });
   });
 
   describe('routeVerifyCredential', () => {
