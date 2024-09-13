@@ -1073,6 +1073,9 @@ importers:
       '@veramo/utils':
         specifier: 5.5.3
         version: 5.5.3
+      debug:
+        specifier: ^4.3.7
+        version: 4.3.7(supports-color@6.1.0)
       dotenv:
         specifier: ^16.3.1
         version: 16.4.5
@@ -1085,6 +1088,10 @@ importers:
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
+    devDependencies:
+      '@types/debug':
+        specifier: ^4.1.12
+        version: 4.1.12
 
   packages/example-documents:
     devDependencies:
