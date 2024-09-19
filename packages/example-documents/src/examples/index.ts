@@ -60,575 +60,714 @@ import USMCACertificationOfOrigin from './USMCACertificationOfOrigin.json' asser
 import VerifiableBusinessCard from './VerifiableBusinessCard.json' assert { type: 'json' };
 import VerifiablePostmanCollection from './VerifiablePostmanCollection.json' assert { type: 'json' };
 import VerifiableScorecard from './VerifiableScorecard.json' assert { type: 'json' };
+import UniversityDegreeCredential from './UniversityDegreeCredential.json' assert { type: 'json' };
+import UniversityDegreeCredentialNewRenderer from './UniversityDegreeCredentialNewRenderer.json' assert { type: 'json' };
 
 import TradeTrustInvoice from './TradeTrustInvoice.json' assert { type: 'json' };
 
 export const credentialsIssueExamples = {
-  BankAccountCredential: {
-    description: 'BankAccountCredential',
-    value: JSON.stringify({
-      credential: BankAccountCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
-  },
   BillOfLadingCredential: {
     description: 'BillOfLadingCredential',
-    value: JSON.stringify({
-      credential: BillOfLadingCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: BillOfLadingCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   CBP3461ImmediateDeliveryCredential: {
     description: 'CBP3461ImmediateDeliveryCredential',
-    value: JSON.stringify({
-      credential: CBP3461ImmediateDeliveryCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: CBP3461ImmediateDeliveryCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   CBP7501EntrySummaryCredential: {
     description: 'CBP7501EntrySummaryCredential',
-    value: JSON.stringify({
-      credential: CBP7501EntrySummaryCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: CBP7501EntrySummaryCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   CTPATCertificate: {
     description: 'CTPATCertificate',
-    value: JSON.stringify({
-      credential: CTPATCertificate,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: CTPATCertificate,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   CTPATEIPApplicationCredential: {
     description: 'CTPATEIPApplicationCredential',
-    value: JSON.stringify({
-      credential: CTPATEIPApplicationCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: CTPATEIPApplicationCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   CTPATEIPFulfillmentCredential: {
     description: 'CTPATEIPFulfillmentCredential',
-    value: JSON.stringify({
-      credential: CTPATEIPFulfillmentCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: CTPATEIPFulfillmentCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   CTPATEIPMarketplaceCredential: {
     description: 'CTPATEIPMarketplaceCredential',
-    value: JSON.stringify({
-      credential: CTPATEIPMarketplaceCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: CTPATEIPMarketplaceCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   CTPATEIPSellerCredential: {
     description: 'CTPATEIPSellerCredential',
-    value: JSON.stringify({
-      credential: CTPATEIPSellerCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: CTPATEIPSellerCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   CertificationOfOrigin: {
     description: 'CertificationOfOrigin',
-    value: JSON.stringify({
-      credential: CertificationOfOrigin,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: CertificationOfOrigin,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   CommercialInvoiceCredential: {
     description: 'CommercialInvoiceCredential',
-    value: JSON.stringify({
-      credential: CommercialInvoiceCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: CommercialInvoiceCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   CrudeOilProductCredential: {
     description: 'CrudeOilProductCredential',
-    value: JSON.stringify({
-      credential: CrudeOilProductCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: CrudeOilProductCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   DCSAShippingInstructionCredential: {
     description: 'DCSAShippingInstructionCredential',
-    value: JSON.stringify({
-      credential: DCSAShippingInstructionCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: DCSAShippingInstructionCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   DCSATransportDocumentCredential: {
     description: 'DCSATransportDocumentCredential',
-    value: JSON.stringify({
-      credential: DCSATransportDocumentCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: DCSATransportDocumentCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   DeMinimisShipmentCredential: {
     description: 'DeMinimisShipmentCredential',
-    value: JSON.stringify({
-      credential: DeMinimisShipmentCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: DeMinimisShipmentCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   EventCredential: {
     description: 'EventCredential',
-    value: JSON.stringify({
-      credential: EventCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: EventCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   FSMACreatingCTECredential: {
     description: 'FSMACreatingCTECredential',
-    value: JSON.stringify({
-      credential: FSMACreatingCTECredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: FSMACreatingCTECredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   FSMAFirstReceiverDataCredential: {
     description: 'FSMAFirstReceiverDataCredential',
-    value: JSON.stringify({
-      credential: FSMAFirstReceiverDataCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: FSMAFirstReceiverDataCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   FSMAGrowingCTECredential: {
     description: 'FSMAGrowingCTECredential',
-    value: JSON.stringify({
-      credential: FSMAGrowingCTECredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: FSMAGrowingCTECredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   FSMAReceivingCTECredential: {
     description: 'FSMAReceivingCTECredential',
-    value: JSON.stringify({
-      credential: FSMAReceivingCTECredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: FSMAReceivingCTECredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   FSMAShippingCTECredential: {
     description: 'FSMAShippingCTECredential',
-    value: JSON.stringify({
-      credential: FSMAShippingCTECredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: FSMAShippingCTECredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   FSMATransformingCTECredential: {
     description: 'FSMATransformingCTECredential',
-    value: JSON.stringify({
-      credential: FSMATransformingCTECredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: FSMATransformingCTECredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   FoodDefenseInspectionCredential: {
     description: 'FoodDefenseInspectionCredential',
-    value: JSON.stringify({
-      credential: FoodDefenseInspectionCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: FoodDefenseInspectionCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   FoodGradeInspectionCredential: {
     description: 'FoodGradeInspectionCredential',
-    value: JSON.stringify({
-      credential: FoodGradeInspectionCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: FoodGradeInspectionCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   FreightManifestCredential: {
     description: 'FreightManifestCredential',
-    value: JSON.stringify({
-      credential: FreightManifestCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: FreightManifestCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   FulfillmentRegistrationCredential: {
     description: 'FulfillmentRegistrationCredential',
-    value: JSON.stringify({
-      credential: FulfillmentRegistrationCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: FulfillmentRegistrationCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   GAPInspectionCredential: {
     description: 'GAPInspectionCredential',
-    value: JSON.stringify({
-      credential: GAPInspectionCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: GAPInspectionCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   GS18PrefixLicenseCredential: {
     description: 'GS18PrefixLicenseCredential',
-    value: JSON.stringify({
-      credential: GS18PrefixLicenseCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: GS18PrefixLicenseCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   GS1CompanyPrefixLicenseCredential: {
     description: 'GS1CompanyPrefixLicenseCredential',
-    value: JSON.stringify({
-      credential: GS1CompanyPrefixLicenseCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: GS1CompanyPrefixLicenseCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   GS1DataCredential: {
     description: 'GS1DataCredential',
-    value: JSON.stringify({
-      credential: GS1DataCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: GS1DataCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   GS1DelegationCredential: {
     description: 'GS1DelegationCredential',
-    value: JSON.stringify({
-      credential: GS1DelegationCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: GS1DelegationCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   GS1IdentificationKeyLicenseCredential: {
     description: 'GS1IdentificationKeyLicenseCredential',
-    value: JSON.stringify({
-      credential: GS1IdentificationKeyLicenseCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: GS1IdentificationKeyLicenseCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   GS1KeyCredential: {
     description: 'GS1KeyCredential',
-    value: JSON.stringify({
-      credential: GS1KeyCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: GS1KeyCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   GS1PrefixLicenseCredential: {
     description: 'GS1PrefixLicenseCredential',
-    value: JSON.stringify({
-      credential: GS1PrefixLicenseCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: GS1PrefixLicenseCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   HouseBillOfLadingCredential: {
     description: 'HouseBillOfLadingCredential',
-    value: JSON.stringify({
-      credential: HouseBillOfLadingCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: HouseBillOfLadingCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   IATAAirWaybillCredential: {
     description: 'IATAAirWaybillCredential',
-    value: JSON.stringify({
-      credential: IATAAirWaybillCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: IATAAirWaybillCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   ImporterSecurityFilingCredential: {
     description: 'ImporterSecurityFilingCredential',
-    value: JSON.stringify({
-      credential: ImporterSecurityFilingCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: ImporterSecurityFilingCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   IntellectualPropertyRightsCredential: {
     description: 'IntellectualPropertyRightsCredential',
-    value: JSON.stringify({
-      credential: IntellectualPropertyRightsCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: IntellectualPropertyRightsCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   IntentToImportCredential: {
     description: 'IntentToImportCredential',
-    value: JSON.stringify({
-      credential: IntentToImportCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: IntentToImportCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   InventoryRegistrationCredential: {
     description: 'InventoryRegistrationCredential',
-    value: JSON.stringify({
-      credential: InventoryRegistrationCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: InventoryRegistrationCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   MasterBillOfLadingCredential: {
     description: 'MasterBillOfLadingCredential',
-    value: JSON.stringify({
-      credential: MasterBillOfLadingCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: MasterBillOfLadingCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   MillTestReportCredential: {
     description: 'MillTestReportCredential',
-    value: JSON.stringify({
-      credential: MillTestReportCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: MillTestReportCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   MultiModalBillOfLadingCredential: {
     description: 'MultiModalBillOfLadingCredential',
-    value: JSON.stringify({
-      credential: MultiModalBillOfLadingCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: MultiModalBillOfLadingCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   NaturalGasProductCredential: {
     description: 'NaturalGasProductCredential',
-    value: JSON.stringify({
-      credential: NaturalGasProductCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: NaturalGasProductCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   OrderConfirmationCredential: {
     description: 'OrderConfirmationCredential',
-    value: JSON.stringify({
-      credential: OrderConfirmationCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: OrderConfirmationCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   OrganicCertificateCredential: {
     description: 'OrganicCertificateCredential',
-    value: JSON.stringify({
-      credential: OrganicCertificateCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: OrganicCertificateCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   PGAShipmentStatusCredential: {
     description: 'PGAShipmentStatusCredential',
-    value: JSON.stringify({
-      credential: PGAShipmentStatusCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: PGAShipmentStatusCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   PackingListCredential: {
     description: 'PackingListCredential',
-    value: JSON.stringify({
-      credential: PackingListCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: PackingListCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   PlantSystemsInspectionCredential: {
     description: 'PlantSystemsInspectionCredential',
-    value: JSON.stringify({
-      credential: PlantSystemsInspectionCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: PlantSystemsInspectionCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   ProductRegistrationCredential: {
     description: 'ProductRegistrationCredential',
-    value: JSON.stringify({
-      credential: ProductRegistrationCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: ProductRegistrationCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   ProformaInvoiceCredential: {
     description: 'ProformaInvoiceCredential',
-    value: JSON.stringify({
-      credential: ProformaInvoiceCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: ProformaInvoiceCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   PurchaseOrderCredential: {
     description: 'PurchaseOrderCredential',
-    value: JSON.stringify({
-      credential: PurchaseOrderCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: PurchaseOrderCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   SIMASteelImportLicenseApplicationCredential: {
     description: 'SIMASteelImportLicenseApplicationCredential',
-    value: JSON.stringify({
-      credential: SIMASteelImportLicenseApplicationCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: SIMASteelImportLicenseApplicationCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   SIMASteelImportLicenseCredential: {
     description: 'SIMASteelImportLicenseCredential',
-    value: JSON.stringify({
-      credential: SIMASteelImportLicenseCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: SIMASteelImportLicenseCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   SeaCargoManifestCredential: {
     description: 'SeaCargoManifestCredential',
-    value: JSON.stringify({
-      credential: SeaCargoManifestCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: SeaCargoManifestCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   SellerRegistrationCredential: {
     description: 'SellerRegistrationCredential',
-    value: JSON.stringify({
-      credential: SellerRegistrationCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: SellerRegistrationCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   ShippingInstructionsCredential: {
     description: 'ShippingInstructionsCredential',
-    value: JSON.stringify({
-      credential: ShippingInstructionsCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: ShippingInstructionsCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   SoftwareBillofMaterialsCredential: {
     description: 'SoftwareBillofMaterialsCredential',
-    value: JSON.stringify({
-      credential: SoftwareBillofMaterialsCredential,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: SoftwareBillofMaterialsCredential,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   USMCACertificationOfOrigin: {
     description: 'USMCACertificationOfOrigin',
-    value: JSON.stringify({
-      credential: USMCACertificationOfOrigin,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: USMCACertificationOfOrigin,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   VerifiableBusinessCard: {
     description: 'VerifiableBusinessCard',
-    value: JSON.stringify({
-      credential: VerifiableBusinessCard,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: VerifiableBusinessCard,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   VerifiablePostmanCollection: {
     description: 'VerifiablePostmanCollection',
-    value: JSON.stringify({
-      credential: VerifiablePostmanCollection,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: VerifiablePostmanCollection,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   VerifiableScorecard: {
     description: 'VerifiableScorecard',
-    value: JSON.stringify({
-      credential: VerifiableScorecard,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: VerifiableScorecard,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
   },
   TradeTrustInvoice: {
     description: 'TradeTrustInvoice',
-    value: JSON.stringify({
-      credential: TradeTrustInvoice,
-      proofFormat: 'OpenAttestationMerkleProofSignature2018',
-      }, null, 2
-    )
-    
+    value: JSON.stringify(
+      {
+        credential: TradeTrustInvoice,
+        proofFormat: 'OpenAttestationMerkleProofSignature2018',
+      },
+      null,
+      2
+    ),
+  },
+  UniversityDegreeCredential: {
+    description: 'UniversityDegreeCredential',
+    value: JSON.stringify(
+      {
+        credential: UniversityDegreeCredential,
+        proofFormat: 'lds',
+      },
+      null,
+      2
+    ),
+  },
+  UniversityDegreeCredentialNewRenderer: {
+    description: 'UniversityDegreeCredentialNewRenderer',
+    value: JSON.stringify(
+      {
+        credential: UniversityDegreeCredentialNewRenderer,
+        proofFormat: 'lds',
+      },
+      null,
+      2
+    ),
   },
 };

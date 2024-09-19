@@ -1,6 +1,6 @@
-import { Router } from 'express'
-import { getOpenApiSchema } from '@vckit/remote-client'
-import { RequestWithAgent } from './request-agent-router.js'
+import { Router } from 'express';
+import { getOpenApiSchema } from '@veramo/remote-client';
+import { RequestWithAgent } from './request-agent-router.js';
 
 /**
  * @public
@@ -9,12 +9,12 @@ export interface ApiSchemaRouterOptions {
   /**
    * List of exposed methods
    */
-  exposedMethods?: Array<string>
+  exposedMethods?: Array<string>;
 
   /**
    * Base path
    */
-  basePath: string
+  basePath: string;
 
   /**
    * Security scheme
@@ -23,21 +23,21 @@ export interface ApiSchemaRouterOptions {
    * 'bearer'
    * ```
    */
-  securityScheme?: string
+  securityScheme?: string;
 
   /**
    * Name used in OpenAPI schema
    */
-  apiName?: string
+  apiName?: string;
 
   /**
    * Version used in OpenAPI schema
    */
-  apiVersion?: string
+  apiVersion?: string;
 }
 
 /**
- * Creates a router that exposes {@link @vckit/core#Agent} OpenAPI schema
+ * Creates a router that exposes {@link @veramo/core#Agent} OpenAPI schema
  *
  * @param options - Initialization option
  * @returns Expressjs router
@@ -45,7 +45,7 @@ export interface ApiSchemaRouterOptions {
  * @public
  */
 export const ApiSchemaRouter = (options: ApiSchemaRouterOptions): Router => {
-  const router = Router()
+  const router = Router();
 
   router.get('/', (req: RequestWithAgent, res) => {
     if (req.agent) {
@@ -54,23 +54,27 @@ export const ApiSchemaRouter = (options: ApiSchemaRouterOptions): Router => {
         '',
         options.exposedMethods || req.agent?.availableMethods(),
         options.apiName,
-        options.apiVersion,
-      )
-      const url = (req.headers['x-forwarded-proto'] || req.protocol) + '://' + req.hostname + options.basePath
-      openApiSchema.servers = [{ url }]
+        options.apiVersion
+      );
+      const url =
+        (req.headers['x-forwarded-proto'] || req.protocol) +
+        '://' +
+        req.hostname +
+        options.basePath;
+      openApiSchema.servers = [{ url }];
 
       if (options.securityScheme && openApiSchema.components) {
         openApiSchema.components.securitySchemes = {
           auth: { type: 'http', scheme: options.securityScheme },
-        }
-        openApiSchema.security = [{ auth: [] }]
+        };
+        openApiSchema.security = [{ auth: [] }];
       }
 
-      res.json(openApiSchema)
+      res.json(openApiSchema);
     } else {
-      res.status(500).json({ error: 'Agent not available' })
+      res.status(500).json({ error: 'Agent not available' });
     }
-  })
+  });
 
-  return router
-}
+  return router;
+};

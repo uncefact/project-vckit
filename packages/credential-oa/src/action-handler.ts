@@ -27,7 +27,16 @@ import {
 
 import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
 
-import { isValid, verify } from '@govtechsg/oa-verify';
+import {
+  isValid,
+  openAttestationDidIdentityProof,
+  openAttestationDidSignedDocumentStatus,
+  openAttestationDnsDidIdentityProof,
+  openAttestationDnsTxtIdentityProof,
+  openAttestationHash,
+  verificationBuilder,
+  utils as oaVerifyUtils,
+} from '@govtechsg/oa-verify';
 
 const OA_MANDATORY_CREDENTIAL_CONTEXT =
   'https://schemata.openattestation.com/com/openattestation/1.0/OpenAttestation.v3.json';
@@ -38,7 +47,7 @@ const OA_MANDATORY_CREDENTIAL_TYPES = 'VerifiableCredential';
  
  * @public
  */
-export class CredentialIssuerOA implements IAgentPlugin {
+export class CredentialOA implements IAgentPlugin {
   readonly methods: IOACredentialPlugin;
   readonly schema = {
     components: {
@@ -62,23 +71,25 @@ export class CredentialIssuerOA implements IAgentPlugin {
   /** {@inheritdoc @veramo/core-types#ICredentialIssuer.createVerifiableCredential} */
   async createVerifiableCredentialOA(
     args: ICreateVerifiableCredentialArgs,
-    context: IssuerAgentContext
+    context: IssuerAgentContext,
   ): Promise<VerifiableCredential> {
-    const { credential: credentialInput } = args;
+    const { credential: credentialInput, save } = args;
 
     const credentialContext = processEntryToArray(
       credentialInput['@context'],
-      MANDATORY_CREDENTIAL_CONTEXT
+      MANDATORY_CREDENTIAL_CONTEXT,
     );
 
     const credentialType = processEntryToArray(
       credentialInput.type,
-      OA_MANDATORY_CREDENTIAL_TYPES
+      OA_MANDATORY_CREDENTIAL_TYPES,
     );
 
     const credential = {
       ...credentialInput,
-      '@context': [...credentialContext, OA_MANDATORY_CREDENTIAL_CONTEXT],
+      '@context': [
+        ...new Set([...credentialContext, OA_MANDATORY_CREDENTIAL_CONTEXT]),
+      ],
       type: credentialType,
     };
 
@@ -89,7 +100,7 @@ export class CredentialIssuerOA implements IAgentPlugin {
         await __unsafe__use__it__at__your__own__risks__wrapDocument(credential);
     } catch (e) {
       throw new Error(
-        `invalid_argument: credential is not a valid OpenAttestation document`
+        `invalid_argument: credential is not a valid OpenAttestation document`,
       );
     }
 
@@ -120,28 +131,54 @@ export class CredentialIssuerOA implements IAgentPlugin {
       },
     };
 
+    if (save) {
+      await context.agent.dataStoreSaveVerifiableCredential({
+        verifiableCredential,
+      });
+    }
+
     return verifiableCredential;
   }
 
   /** {@inheritdoc @veramo/core-types#ICredentialVerifier.verifyCredential} */
   async verifyCredentialOA(
     args: IVerifyCredentialArgs,
-    context: VerifierAgentContext
+    context: VerifierAgentContext,
   ): Promise<IVerifyResult> {
     try {
       const { credential } = args;
 
       if (!utils.isSignedWrappedV3Document(credential)) {
         throw new Error(
-          'invalid_argument: credential must be a signed wrapped v3 document'
+          'invalid_argument: credential must be a signed wrapped v3 document',
         );
       }
 
-      const fragments = await verify(credential);
+      const ethProvider = oaVerifyUtils.generateProvider({
+        // TODO: remove hardcoded eth testnet config for OA verifier
+        network: 'goerli',
+      });
 
-      return {
-        verified: isValid(fragments),
+      const oaVerifiersToRun = [
+        openAttestationHash,
+        openAttestationDidSignedDocumentStatus,
+        openAttestationDnsTxtIdentityProof,
+        openAttestationDnsDidIdentityProof,
+        openAttestationDidIdentityProof,
+      ];
+
+      const builtVerifier = verificationBuilder(oaVerifiersToRun, {
+        provider: ethProvider,
+      });
+      const fragments = await builtVerifier(credential);
+
+      const verified = isValid(fragments);
+      const verificationResult = {
+        verified,
+        ...(verified && { verifiableCredential: credential }),
       };
+
+      return verificationResult;
     } catch (error) {
       return {
         verified: false,
@@ -154,7 +191,7 @@ export class CredentialIssuerOA implements IAgentPlugin {
 const wrapSigner = (
   context: IAgentContext<Pick<IKeyManager, 'keyManagerSign'>>,
   key: IKey,
-  algorithm?: string
+  algorithm?: string,
 ) => {
   return (data: string | Uint8Array): Promise<string> =>
     context.agent.keyManagerSign({

@@ -3,6 +3,86 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.7](https://github.com/uncefact/project-vckit/compare/v1.0.0-beta.2...v1.0.0-beta.7) (2023-10-11)
+
+
+### Bug Fixes
+
+* add correct api-doc router to default config ([df23ed4](https://github.com/uncefact/project-vckit/commit/df23ed46636e64fc9595a5856abb7e5342f738cc))
+* add missing plugin schema ([#97](https://github.com/uncefact/project-vckit/issues/97)) ([78cd8fa](https://github.com/uncefact/project-vckit/commit/78cd8faeeb959afc469b7fbfd7cdb09391f71033))
+* cd script ([#155](https://github.com/uncefact/project-vckit/issues/155)) ([4345d98](https://github.com/uncefact/project-vckit/commit/4345d98091f7e5dd6a6295b11bf856210cca7bda)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* disable openattestation until metadata is configured ([#151](https://github.com/uncefact/project-vckit/issues/151)) ([96de874](https://github.com/uncefact/project-vckit/commit/96de87479c6ab3a10c69463236ed4c94d940d8c8)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* get correct information for issuer for OA document ([e019a5b](https://github.com/uncefact/project-vckit/commit/e019a5bcef088ce3e71377cac7b8713f31c96751))
+* minor issues ([#153](https://github.com/uncefact/project-vckit/issues/153)) ([cf8c801](https://github.com/uncefact/project-vckit/commit/cf8c8015f75b50d408dd97fefa3e6e3a6e8f7565)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* remove openattestation field update for input change ([#152](https://github.com/uncefact/project-vckit/issues/152)) ([660be5b](https://github.com/uncefact/project-vckit/commit/660be5b3715c3dbbafc8fb2d08c5e27934ae1bfb)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* renderer expand jsonld incorrectly ([#133](https://github.com/uncefact/project-vckit/issues/133)) ([d6fd38f](https://github.com/uncefact/project-vckit/commit/d6fd38fb9943aea124ce748bcf9ea19cfa6eaf2f)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* rendering issue ([#148](https://github.com/uncefact/project-vckit/issues/148)) ([c8bb087](https://github.com/uncefact/project-vckit/commit/c8bb0870a2fdede9976eb8b47ef5db80015bae11)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* resolves discrepancy between config and installed packages ([3c65cb6](https://github.com/uncefact/project-vckit/commit/3c65cb62051d8a85d57acca7e3e6f1e019a0162c))
+* update config for credential oa plugin ([100b35d](https://github.com/uncefact/project-vckit/commit/100b35dba3299e71cf3c09b1de6d8247cd649161))
+* update config for renderer plugin ([ca1a03e](https://github.com/uncefact/project-vckit/commit/ca1a03e24487a3fb2a3702c354140b28bf83ecc0))
+* update migration index ([#149](https://github.com/uncefact/project-vckit/issues/149)) ([caf7455](https://github.com/uncefact/project-vckit/commit/caf7455228896eff0794c38ceec4a89c7e0645cf)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+
+
+### Features
+
+* adds traceability interop default context ([a5418e4](https://github.com/uncefact/project-vckit/commit/a5418e4ab74ab811079a72effe6036093d4c4403))
+* credential router ([#139](https://github.com/uncefact/project-vckit/issues/139)) ([c5e9f1c](https://github.com/uncefact/project-vckit/commit/c5e9f1c3a44480c8734ef2b61e232d179ef78889)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* demo agent explorer ui ([2abcce1](https://github.com/uncefact/project-vckit/commit/2abcce1c8ba29dccad85f7d40abe832d02326b63))
+* implement credential oa plugin ([354e38d](https://github.com/uncefact/project-vckit/commit/354e38dd608a3dc0ce83d02334bec2616e8036a2))
+* implement OAuth middleware for express API ([93613f7](https://github.com/uncefact/project-vckit/commit/93613f719fed03892ab8ec1eb4a6113e525c383d))
+* implement renderer plugin ([d50fa4a](https://github.com/uncefact/project-vckit/commit/d50fa4a67912643c1e904b79206e703340f63ffc))
+* implement svg template for OA renderer ([01277f3](https://github.com/uncefact/project-vckit/commit/01277f370b7aae99e4e0bcae92a6b332b958e8cd))
+* implement the encrypted storage plugin ([#135](https://github.com/uncefact/project-vckit/issues/135)) ([3f4b03e](https://github.com/uncefact/project-vckit/commit/3f4b03e3b6c72666f93f12046472c79ccf9149b1)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* implement WebRenderingTemplate2022 renderer provider ([93d1399](https://github.com/uncefact/project-vckit/commit/93d139999139bd4aa9a52e202e1e9c32f3a79b69))
+* include credential in response from agent ([117634e](https://github.com/uncefact/project-vckit/commit/117634e91b0383ba93ed3b143c3c8770666b50c9))
+* react components package, QR code component ([#134](https://github.com/uncefact/project-vckit/issues/134)) ([3b9e3de](https://github.com/uncefact/project-vckit/commit/3b9e3de1a26977ab51c63628556121743620c0d3)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* vc api for the holder and the verifier ([#107](https://github.com/uncefact/project-vckit/issues/107)) ([022fb56](https://github.com/uncefact/project-vckit/commit/022fb56da58eff6b46258dbda0e8a2f9dd708331)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* vc-api issuer interfaces ([#98](https://github.com/uncefact/project-vckit/issues/98)) ([eddb0c9](https://github.com/uncefact/project-vckit/commit/eddb0c931a55c69efeae8aa52d841127b7c15b3e)), closes [#92](https://github.com/uncefact/project-vckit/issues/92)
+
+
+
+
+
+# [1.0.0-beta.6](https://github.com/uncefact/project-vckit/compare/v1.0.0-beta.2...v1.0.0-beta.6) (2023-10-09)
+
+
+### Bug Fixes
+
+* add correct api-doc router to default config ([df23ed4](https://github.com/uncefact/project-vckit/commit/df23ed46636e64fc9595a5856abb7e5342f738cc))
+* add missing plugin schema ([#97](https://github.com/uncefact/project-vckit/issues/97)) ([78cd8fa](https://github.com/uncefact/project-vckit/commit/78cd8faeeb959afc469b7fbfd7cdb09391f71033))
+* cd script ([#155](https://github.com/uncefact/project-vckit/issues/155)) ([4345d98](https://github.com/uncefact/project-vckit/commit/4345d98091f7e5dd6a6295b11bf856210cca7bda)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* disable openattestation until metadata is configured ([#151](https://github.com/uncefact/project-vckit/issues/151)) ([96de874](https://github.com/uncefact/project-vckit/commit/96de87479c6ab3a10c69463236ed4c94d940d8c8)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* get correct information for issuer for OA document ([e019a5b](https://github.com/uncefact/project-vckit/commit/e019a5bcef088ce3e71377cac7b8713f31c96751))
+* minor issues ([#153](https://github.com/uncefact/project-vckit/issues/153)) ([cf8c801](https://github.com/uncefact/project-vckit/commit/cf8c8015f75b50d408dd97fefa3e6e3a6e8f7565)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* remove openattestation field update for input change ([#152](https://github.com/uncefact/project-vckit/issues/152)) ([660be5b](https://github.com/uncefact/project-vckit/commit/660be5b3715c3dbbafc8fb2d08c5e27934ae1bfb)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* renderer expand jsonld incorrectly ([#133](https://github.com/uncefact/project-vckit/issues/133)) ([d6fd38f](https://github.com/uncefact/project-vckit/commit/d6fd38fb9943aea124ce748bcf9ea19cfa6eaf2f)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* rendering issue ([#148](https://github.com/uncefact/project-vckit/issues/148)) ([c8bb087](https://github.com/uncefact/project-vckit/commit/c8bb0870a2fdede9976eb8b47ef5db80015bae11)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* resolves discrepancy between config and installed packages ([3c65cb6](https://github.com/uncefact/project-vckit/commit/3c65cb62051d8a85d57acca7e3e6f1e019a0162c))
+* update config for credential oa plugin ([100b35d](https://github.com/uncefact/project-vckit/commit/100b35dba3299e71cf3c09b1de6d8247cd649161))
+* update config for renderer plugin ([ca1a03e](https://github.com/uncefact/project-vckit/commit/ca1a03e24487a3fb2a3702c354140b28bf83ecc0))
+* update migration index ([#149](https://github.com/uncefact/project-vckit/issues/149)) ([caf7455](https://github.com/uncefact/project-vckit/commit/caf7455228896eff0794c38ceec4a89c7e0645cf)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+
+
+### Features
+
+* adds traceability interop default context ([a5418e4](https://github.com/uncefact/project-vckit/commit/a5418e4ab74ab811079a72effe6036093d4c4403))
+* credential router ([#139](https://github.com/uncefact/project-vckit/issues/139)) ([c5e9f1c](https://github.com/uncefact/project-vckit/commit/c5e9f1c3a44480c8734ef2b61e232d179ef78889)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* demo agent explorer ui ([2abcce1](https://github.com/uncefact/project-vckit/commit/2abcce1c8ba29dccad85f7d40abe832d02326b63))
+* implement credential oa plugin ([354e38d](https://github.com/uncefact/project-vckit/commit/354e38dd608a3dc0ce83d02334bec2616e8036a2))
+* implement OAuth middleware for express API ([93613f7](https://github.com/uncefact/project-vckit/commit/93613f719fed03892ab8ec1eb4a6113e525c383d))
+* implement renderer plugin ([d50fa4a](https://github.com/uncefact/project-vckit/commit/d50fa4a67912643c1e904b79206e703340f63ffc))
+* implement svg template for OA renderer ([01277f3](https://github.com/uncefact/project-vckit/commit/01277f370b7aae99e4e0bcae92a6b332b958e8cd))
+* implement the encrypted storage plugin ([#135](https://github.com/uncefact/project-vckit/issues/135)) ([3f4b03e](https://github.com/uncefact/project-vckit/commit/3f4b03e3b6c72666f93f12046472c79ccf9149b1)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* implement WebRenderingTemplate2022 renderer provider ([93d1399](https://github.com/uncefact/project-vckit/commit/93d139999139bd4aa9a52e202e1e9c32f3a79b69))
+* include credential in response from agent ([117634e](https://github.com/uncefact/project-vckit/commit/117634e91b0383ba93ed3b143c3c8770666b50c9))
+* react components package, QR code component ([#134](https://github.com/uncefact/project-vckit/issues/134)) ([3b9e3de](https://github.com/uncefact/project-vckit/commit/3b9e3de1a26977ab51c63628556121743620c0d3)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* vc api for the holder and the verifier ([#107](https://github.com/uncefact/project-vckit/issues/107)) ([022fb56](https://github.com/uncefact/project-vckit/commit/022fb56da58eff6b46258dbda0e8a2f9dd708331)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+* vc-api issuer interfaces ([#98](https://github.com/uncefact/project-vckit/issues/98)) ([eddb0c9](https://github.com/uncefact/project-vckit/commit/eddb0c931a55c69efeae8aa52d841127b7c15b3e)), closes [#92](https://github.com/uncefact/project-vckit/issues/92)
+
+
+
+
+
 # [1.0.0-beta.5](https://github.com/uncefact/project-vckit/compare/v1.0.0-beta.2...v1.0.0-beta.5) (2023-06-22)
 
 ### Bug Fixes

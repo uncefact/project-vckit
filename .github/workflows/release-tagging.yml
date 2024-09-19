@@ -1,0 +1,54 @@
+name: Release Tagging
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tagging:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Get version from package.json
+      id: get_version
+      run: |
+        version=$(jq -r '.version // empty' < package.json)
+        if [ -z "$version" ]; then
+          echo "No valid version found in package.json."
+          exit 1
+        fi
+        echo "::set-output name=version::$version"
+
+    - name: Check if tag already exists
+      id: check_tag
+      run: |
+        version=${{ steps.get_version.outputs.version }}
+        if git rev-parse "v$version" >/dev/null 2>&1; then
+          echo "Tag v$version already exists."
+          echo "::set-output name=exists::true"
+          exit 0
+        else
+          echo "::set-output name=exists::false"
+        fi
+      
+    - name: Create and push tag
+      if: steps.check_tag.outputs.exists == 'false'
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git tag -a "v${{ steps.get_version.outputs.version }}" -m "Release version ${{ steps.get_version.outputs.version }}"
+        git push origin "v${{ steps.get_version.outputs.version }}"
+    
+    - name: Create GitHub Release
+      uses: ncipollo/release-action@v1
+      with:
+        tag: "v${{ steps.get_version.outputs.version }}"
+        name: "Release ${{ steps.get_version.outputs.version }}"
+        generateReleaseNotes: true
+        prerelease: false
+
+     

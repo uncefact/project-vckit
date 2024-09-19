@@ -1,14 +1,14 @@
-import { IAgentContext, IPluginMethodMap } from './IAgent.js'
+import { IAgentContext, IPluginMethodMap } from './IAgent.js';
 import {
   CredentialPayload,
   PresentationPayload,
   VerifiableCredential,
   VerifiablePresentation,
-} from './vc-data-model.js'
-import { IResolver } from './IResolver.js'
-import { IDIDManager } from './IDIDManager.js'
-import { IDataStore } from './IDataStore.js'
-import { IKeyManager } from './IKeyManager.js'
+} from './vc-data-model.js';
+import { IResolver } from './IResolver.js';
+import { IDIDManager } from './IDIDManager.js';
+import { IDataStore } from './IDataStore.js';
+import { IKeyManager } from './IKeyManager.js';
 
 /**
  * The type of encoding to be used for the Verifiable Credential or Presentation to be generated.
@@ -17,7 +17,13 @@ import { IKeyManager } from './IKeyManager.js'
  *
  * @public
  */
-export type ProofFormat = 'jwt' | 'lds' | 'EthereumEip712Signature2021' | 'OpenAttestationMerkleProofSignature2018'
+export type ProofFormat =
+  | 'jwt'
+  | 'lds'
+  | 'EthereumEip712Signature2021'
+  | 'OpenAttestationMerkleProofSignature2018'
+  | 'MerkleDisclosureProof2021'
+  | 'EnvelopingProofJose';
 
 /**
  * Encapsulates the parameters required to create a
@@ -35,7 +41,7 @@ export interface ICreateVerifiablePresentationArgs {
    *
    * `@context`, `type` and `issuanceDate` will be added automatically if omitted
    */
-  presentation: PresentationPayload
+  presentation: PresentationPayload;
 
   /**
    * If this parameter is true, the resulting VerifiablePresentation is sent to the
@@ -45,35 +51,35 @@ export interface ICreateVerifiablePresentationArgs {
    *   {@link @veramo/core-types#IDataStore.dataStoreSaveVerifiablePresentation | dataStoreSaveVerifiablePresentation()} to
    *   save the credential after creating it.
    */
-  save?: boolean
+  save?: boolean;
 
   /**
    * Optional (only JWT) string challenge parameter to add to the verifiable presentation.
    */
-  challenge?: string
+  challenge?: string;
 
   /**
    * Optional string domain parameter to add to the verifiable presentation.
    */
-  domain?: string
+  domain?: string;
 
   /**
    * The desired format for the VerifiablePresentation to be created.
    * Currently, only JWT is supported
    */
-  proofFormat: ProofFormat
+  proofFormat: ProofFormat;
 
   /**
    * Remove payload members during JWT-JSON transformation. Defaults to `true`.
    * See https://www.w3.org/TR/vc-data-model/#jwt-encoding
    */
-  removeOriginalFields?: boolean
+  removeOriginalFields?: boolean;
 
   /**
    * [Optional] The ID of the key that should sign this presentation.
    * If this is not specified, the first matching key will be used.
    */
-  keyRef?: string
+  keyRef?: string;
 
   /**
    * When dealing with JSON-LD you also MUST provide the proper contexts.
@@ -82,12 +88,12 @@ export interface ICreateVerifiablePresentationArgs {
    *
    * Defaults to `false`
    */
-  fetchRemoteContexts?: boolean
+  fetchRemoteContexts?: boolean;
 
   /**
    * Any other options that can be forwarded to the lower level libraries
    */
-  [x: string]: any
+  [x: string]: any;
 }
 
 /**
@@ -106,7 +112,7 @@ export interface ICreateVerifiableCredentialArgs {
    *
    * `@context`, `type` and `issuanceDate` will be added automatically if omitted
    */
-  credential: CredentialPayload
+  credential: CredentialPayload;
 
   /**
    * If this parameter is true, the resulting VerifiablePresentation is sent to the
@@ -116,24 +122,24 @@ export interface ICreateVerifiableCredentialArgs {
    *   {@link @veramo/core-types#IDataStore.dataStoreSaveVerifiableCredential | dataStoreSaveVerifiableCredential()} to save
    *   the credential after creating it.
    */
-  save?: boolean
+  save?: boolean;
 
   /**
    * The desired format for the VerifiablePresentation to be created.
    */
-  proofFormat: ProofFormat
+  proofFormat: ProofFormat;
 
   /**
    * Remove payload members during JWT-JSON transformation. Defaults to `true`.
    * See https://www.w3.org/TR/vc-data-model/#jwt-encoding
    */
-  removeOriginalFields?: boolean
+  removeOriginalFields?: boolean;
 
   /**
    * [Optional] The ID of the key that should sign this credential.
    * If this is not specified, the first matching key will be used.
    */
-  keyRef?: string
+  keyRef?: string;
 
   /**
    * When dealing with JSON-LD you also MUST provide the proper contexts.
@@ -142,12 +148,12 @@ export interface ICreateVerifiableCredentialArgs {
    *
    * Defaults to `false`
    */
-  fetchRemoteContexts?: boolean
+  fetchRemoteContexts?: boolean;
 
   /**
    * Any other options that can be forwarded to the lower level libraries
    */
-  [x: string]: any
+  [x: string]: any;
 }
 
 /**
@@ -160,7 +166,7 @@ export interface ICreateVerifiableCredentialArgs {
 /**
  * The interface definition for a plugin that can generate Verifiable Credentials and Presentations
  *
- * @see {@link @vckit/credential-w3c#CredentialPlugin} for an implementation.
+ * @see {@link @veramo/credential-w3c#CredentialPlugin} for an implementation.
  * @remarks Please see {@link https://www.w3.org/TR/vc-data-model | W3C Verifiable Credentials data model}
  *
  * @public
@@ -181,8 +187,8 @@ export interface ICredentialIssuer extends IPluginMethodMap {
    */
   createVerifiablePresentation(
     args: ICreateVerifiablePresentationArgs,
-    context: IssuerAgentContext,
-  ): Promise<VerifiablePresentation>
+    context: IssuerAgentContext
+  ): Promise<VerifiablePresentation>;
 
   /**
    * Creates a Verifiable Credential.
@@ -213,6 +219,10 @@ export interface ICredentialIssuer extends IPluginMethodMap {
 export type IssuerAgentContext = IAgentContext<
   IResolver &
     Pick<IDIDManager, 'didManagerGet' | 'didManagerFind'> &
-    Pick<IDataStore, 'dataStoreSaveVerifiablePresentation' | 'dataStoreSaveVerifiableCredential'> &
+    Pick<
+      IDataStore,
+      | 'dataStoreSaveVerifiablePresentation'
+      | 'dataStoreSaveVerifiableCredential'
+    > &
     Pick<IKeyManager, 'keyManagerGet' | 'keyManagerSign'>
->
+>;

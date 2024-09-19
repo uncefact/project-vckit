@@ -59,10 +59,12 @@ website/node_modules
 **/build/
 **/*.log
 /packages/*/build/
+/packages/*/lib/
 /packages/*/api/*.api.json
 /packages/*/api/*.api.md
 /packages/*/coverage/
 /packages/*/node_modules/
+/packages/*/.tmp_npm/
 coverage
 
 .npmrc
@@ -88,3 +90,7 @@ data
 local-database*.json
 
 /scratch
+
+# logs
+/logs
+.tmp_npm

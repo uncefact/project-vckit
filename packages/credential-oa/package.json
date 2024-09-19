@@ -1,7 +1,7 @@
 {
   "name": "@vckit/credential-oa",
   "description": "vckit plugin for working with OpenAttestation Verifiable Credentials & Presentations.",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-beta.7",
   "main": "build/index.js",
   "exports": {
     ".": "./build/index.js",
@@ -14,16 +14,15 @@
     "extract-api": "node ../cli/bin/vckit.js dev extract-api"
   },
   "dependencies": {
-    "@govtechsg/oa-verify": "^8.0.0",
-    "@govtechsg/open-attestation": "^6.6.0",
-    "@vckit/core-types": "^1.0.0-beta.5",
-    "@veramo/message-handler": "^5.1.2",
-    "@veramo/utils": "^5.1.2"
+    "@govtechsg/oa-verify": "^9.0.0",
+    "@govtechsg/open-attestation": "6.5.1",
+    "@vckit/core-types": "workspace:^",
+    "@veramo/utils": "5.5.3"
   },
   "devDependencies": {
-    "@types/debug": "4.1.7",
-    "@types/uuid": "9.0.0",
-    "typescript": "4.9.4"
+    "@types/debug": "4.1.12",
+    "@types/uuid": "9.0.7",
+    "typescript": "5.1.6"
   },
   "files": [
     "build/**/*",

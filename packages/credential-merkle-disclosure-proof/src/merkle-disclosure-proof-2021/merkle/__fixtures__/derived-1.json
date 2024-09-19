@@ -1,0 +1,15 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    { "alsoKnownAs": "https://www.w3.org/ns/activitystreams#alsoKnownAs" }
+  ],
+  "id": "http://example.edu/credentials/3732",
+  "type": ["VerifiableCredential"],
+  "issuer": "https://example.edu/issuers/14",
+  "issuanceDate": "2010-01-01T19:23:24Z",
+  "proof": {
+    "type": "MerkleDisclosureProof2021",
+    "root": "33170bdec9d6ccfa756c98316ad3b520577e03effe81d9424296c1cf67f004a9",
+    "proofs": "eJy908uO6kYQBuB3mS1Hom/uS3Y2BmNuZjyGsYmy6K7uZriNgcHMMVHePc4qG3ZRzrbUKunrv/7f/3yxuy841l/OLupPcC+/vThimeRKYiQQtUITioQzjloINAOPlDPgrLBeO+KkBEeJFBQBQ4gyDf7lx787l9e69t3OsDhYPlxe0/DU9rfkodxis/Nm1s7lK0TXLLJjOh9deoT4fbgGva7q/h6+0k1x3brPXS73plKQXsafmfSI9/ZhLz9EmzYspv2Teb1f8mRk+mVVxbhB82Uy0Hpyvijctr3r4NZePrbf7ctfP55otRPGGSmsYZpaRamXxDqktVfcEkwN59IiBpRy5YRgjHtluMYMCwfG6qfa+XFbHC4RPZTp8i2pZj7IZYnPtEoPm2BYJfMaxmZ7ZhCPf60WgeGKKt5lK5S0WgmrBcJaKczASG8pUU5aGljkkFeIemtIYBjmijgl1VPtepLeo7Ko21J+tX1WuDMZrR9ybV20m8WvgyaOCsRXj/0Oh8ngtlpMmwrExxDnKLvdN7vr6Pvg1XZeZ+ksQMn2lDYbN33/71ohGVjqtcBM6g4ivcLgjQdMsZOcCMSBM90FiQxlknnDQYG1kpLukg16qo0OKF2ATOPkGJ3xanXhU/J+WaKsHpJRs6Xj+c/xISiLj2Txa7UUWNdUGnglpVHBP5EZ54UgtguQa0MJx6DBGoUVQZoY7zQYoEgb8MTxp9qyCFVyOwVaq/Obd+kejfNhdSy5vpd7HPs8u9WDvpi8Pcpw3QyDWg3KDzIZL480jX2ctJtp86lFFcusgSa/Bjlbivg9jPvm/Pa+F+15lG1ehyv7mE/mWS/8PjTQ08UFNipZLmFW5PS5NgBmsNRdWQEEUV1TPWecMGykYohTSgiIQHuiiUKo+wfpPAevdPfOgBZPtdNtH5/caN7kdTft+UUWXUVxmylHAxoP0Ez+7BdeH5P7+f/T/vE3Np3HOQ=="
+  }
+}

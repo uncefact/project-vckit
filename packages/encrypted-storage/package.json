@@ -1,0 +1,55 @@
+{
+  "name": "@vckit/encrypted-storage",
+  "version": "1.0.0-beta.7",
+  "description": "To encrypt the data and store to the database.",
+  "author": "Nam Hoang <hoangxuannam160493@gmail.com>",
+  "homepage": "https://github.com/uncefact/project-vckit#readme",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "exports": {
+    ".": "./build/index.js",
+    "./build/plugin.schema.json": "./build/plugin.schema.json"
+  },
+  "scripts": {
+    "build": "tsc",
+    "extract-api": "node ../cli/bin/vckit.js dev extract-api",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js  -d ./build/data-source.js"
+  },
+  "license": "Apache-2.0",
+  "keywords": [],
+  "type": "module",
+  "moduleDirectories": [
+    "node_modules",
+    "src"
+  ],
+  "files": [
+    "build/**/*",
+    "src/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uncefact/project-vckit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/uncefact/project-vckit/issues"
+  },
+  "dependencies": {
+    "@govtechsg/oa-encryption": "^1.3.5",
+    "@vckit/core-types": "workspace:^",
+    "@veramo/data-store": "5.5.3",
+    "@veramo/utils": "5.5.3",
+    "debug": "^4.3.7",
+    "dotenv": "^16.3.1",
+    "express-interceptor": "^1.2.0",
+    "typeorm": "^0.3.19",
+    "uuid": "^9.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.12"
+  }
+}

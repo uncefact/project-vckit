@@ -1,19 +1,23 @@
-import { IPluginMethodMap } from './IAgent.js'
-import { TKeyType, IKey, KeyMetadata } from './IIdentifier.js'
+import { IPluginMethodMap } from './IAgent.js';
+import { TKeyType, IKey, KeyMetadata } from './IIdentifier.js';
 
 /**
  * Represents an object type where a subset of keys are required and everything else is optional.
  *
  * @public
  */
-export type RequireOnly<T, K extends keyof T> = Required<Pick<T, K>> & Partial<T>
+export type RequireOnly<T, K extends keyof T> = Required<Pick<T, K>> &
+  Partial<T>;
 
 /**
  * Represents the properties required to import a key.
  *
  * @public
  */
-export type MinimalImportableKey = RequireOnly<IKey, 'privateKeyHex' | 'type' | 'kms'>
+export type MinimalImportableKey = RequireOnly<
+  IKey,
+  'privateKeyHex' | 'type' | 'kms'
+>;
 
 /**
  * Represents information about a managed key.
@@ -21,7 +25,7 @@ export type MinimalImportableKey = RequireOnly<IKey, 'privateKeyHex' | 'type' | 
  *
  * @public
  */
-export type ManagedKeyInfo = Omit<IKey, 'privateKeyHex'>
+export type ManagedKeyInfo = Omit<IKey, 'privateKeyHex'>;
 
 /**
  * Input arguments for {@link IKeyManager.keyManagerCreate | keyManagerCreate}
@@ -31,17 +35,17 @@ export interface IKeyManagerCreateArgs {
   /**
    * Key type
    */
-  type: TKeyType
+  type: TKeyType;
 
   /**
    * Key Management System
    */
-  kms: string
+  kms: string;
 
   /**
    * Optional. Key meta data
    */
-  meta?: KeyMetadata
+  meta?: KeyMetadata;
 }
 
 /**
@@ -52,7 +56,7 @@ export interface IKeyManagerGetArgs {
   /**
    * Key ID
    */
-  kid: string
+  kid: string;
 }
 
 /**
@@ -63,7 +67,7 @@ export interface IKeyManagerDeleteArgs {
   /**
    * Key ID
    */
-  kid: string
+  kid: string;
 }
 
 /**
@@ -74,17 +78,17 @@ export interface IKeyManagerEncryptJWEArgs {
   /**
    * Key ID to use for encryption
    */
-  kid: string
+  kid: string;
 
   /**
    * Recipient key object
    */
-  to: Omit<IKey, 'kms'>
+  to: Omit<IKey, 'kms'>;
 
   /**
    * Data to encrypt
    */
-  data: string
+  data: string;
 }
 
 /**
@@ -95,12 +99,12 @@ export interface IKeyManagerDecryptJWEArgs {
   /**
    * Key ID
    */
-  kid: string
+  kid: string;
 
   /**
    * Encrypted data
    */
-  data: string
+  data: string;
 }
 
 /**
@@ -111,7 +115,7 @@ export interface IKeyManagerSignArgs {
   /**
    * The key handle, as returned during `keyManagerCreateKey`
    */
-  keyRef: string
+  keyRef: string;
 
   /**
    * The algorithm to use for signing.
@@ -119,19 +123,19 @@ export interface IKeyManagerSignArgs {
    *
    * The algorithm used here should match one of the names listed in `IKey.meta.algorithms`
    */
-  algorithm?: string
+  algorithm?: string;
 
   /**
    * Data to sign
    */
-  data: string
+  data: string;
 
   /**
    * If the data is a "string" then you can specify which encoding is used. Default is "utf-8"
    */
-  encoding?: 'utf-8' | 'base16' | 'base64' | 'hex'
+  encoding?: 'utf-8' | 'base16' | 'base64' | 'hex';
 
-  [x: string]: any
+  [x: string]: any;
 }
 
 /**
@@ -143,13 +147,13 @@ export interface IKeyManagerSharedSecretArgs {
    * The secret key handle (`kid`)
    * as returned by {@link IKeyManager.keyManagerCreate | keyManagerCreate}
    */
-  secretKeyRef: string
+  secretKeyRef: string;
 
   /**
    * The public key of the other party.
    * The `type` of key MUST be compatible with the type referenced by `secretKeyRef`
    */
-  publicKey: Pick<IKey, 'publicKeyHex' | 'type'>
+  publicKey: Pick<IKey, 'publicKeyHex' | 'type'>;
 }
 
 /**
@@ -160,12 +164,12 @@ export interface IKeyManagerSignJWTArgs {
   /**
    * Key ID
    */
-  kid: string
+  kid: string;
 
   /**
    * Data to sign
    */
-  data: string | Uint8Array
+  data: string | Uint8Array;
 }
 
 /**
@@ -176,12 +180,28 @@ export interface IKeyManagerSignEthTXArgs {
   /**
    * Key ID
    */
-  kid: string
+  kid: string;
 
   /**
    * Ethereum transaction object
    */
-  transaction: object
+  transaction: object;
+}
+
+/**
+ * Input arguments for {@link IKeyManager.IKeyManagerSignJOSE | IKeyManagerSignJOSE}
+ * @public
+ */
+export interface IKeyManagerSignJOSE {
+  /**
+   * Key ID
+   */
+  kid: string;
+
+  /**
+   * Data to sign
+   */
+  data: string;
 }
 
 /**
@@ -194,7 +214,7 @@ export interface IKeyManagerSignEthTXArgs {
  *
  * The methods of this plugin are used automatically by other plugins, such as
  * {@link @veramo/did-manager#DIDManager | DIDManager},
- * {@link @vckit/credential-w3c#CredentialPlugin | CredentialPlugin}, or {@link @veramo/did-comm#DIDComm | DIDComm} to
+ * {@link @veramo/credential-w3c#CredentialPlugin | CredentialPlugin}, or {@link @veramo/did-comm#DIDComm | DIDComm} to
  * perform their required cryptographic operations using the managed keys.
  *
  * @public
@@ -203,27 +223,27 @@ export interface IKeyManager extends IPluginMethodMap {
   /**
    * Lists available key management systems
    */
-  keyManagerGetKeyManagementSystems(): Promise<Array<string>>
+  keyManagerGetKeyManagementSystems(): Promise<Array<string>>;
 
   /**
    * Creates and returns a new key
    */
-  keyManagerCreate(args: IKeyManagerCreateArgs): Promise<ManagedKeyInfo>
+  keyManagerCreate(args: IKeyManagerCreateArgs): Promise<ManagedKeyInfo>;
 
   /**
    * Returns an existing key
    */
-  keyManagerGet(args: IKeyManagerGetArgs): Promise<IKey>
+  keyManagerGet(args: IKeyManagerGetArgs): Promise<IKey>;
 
   /**
    * Deletes a key
    */
-  keyManagerDelete(args: IKeyManagerDeleteArgs): Promise<boolean>
+  keyManagerDelete(args: IKeyManagerDeleteArgs): Promise<boolean>;
 
   /**
    * Imports a created key
    */
-  keyManagerImport(args: MinimalImportableKey): Promise<ManagedKeyInfo>
+  keyManagerImport(args: MinimalImportableKey): Promise<ManagedKeyInfo>;
 
   /**
    * Generates a signature according to the algorithm specified.
@@ -231,7 +251,7 @@ export interface IKeyManager extends IPluginMethodMap {
    *   algorithm.
    * @param args - The input to the signing method, including data to be signed, key reference and algorithm to use.
    */
-  keyManagerSign(args: IKeyManagerSignArgs): Promise<string>
+  keyManagerSign(args: IKeyManagerSignArgs): Promise<string>;
 
   /**
    * Compute a shared secret with the public key of another party.
@@ -242,25 +262,28 @@ export interface IKeyManager extends IPluginMethodMap {
    * @param args - The input to compute the shared secret, including the local key reference and remote key details.
    * @returns a `Promise` that resolves to a hex encoded shared secret
    */
-  keyManagerSharedSecret(args: IKeyManagerSharedSecretArgs): Promise<string>
+  keyManagerSharedSecret(args: IKeyManagerSharedSecretArgs): Promise<string>;
 
   /**
    * Encrypts data
    * @beta This API may change without a BREAKING CHANGE notice.
    */
-  keyManagerEncryptJWE(args: IKeyManagerEncryptJWEArgs): Promise<string>
+  keyManagerEncryptJWE(args: IKeyManagerEncryptJWEArgs): Promise<string>;
 
   /**
    * Decrypts data
    * @beta This API may change without a BREAKING CHANGE notice.
    */
-  keyManagerDecryptJWE(args: IKeyManagerDecryptJWEArgs): Promise<string>
+  keyManagerDecryptJWE(args: IKeyManagerDecryptJWEArgs): Promise<string>;
 
   /**
    * Signs JWT
    */
-  keyManagerSignJWT(args: IKeyManagerSignJWTArgs): Promise<string>
+  keyManagerSignJWT(args: IKeyManagerSignJWTArgs): Promise<string>;
 
   /** Signs Ethereum transaction */
-  keyManagerSignEthTX(args: IKeyManagerSignEthTXArgs): Promise<string>
+  keyManagerSignEthTX(args: IKeyManagerSignEthTXArgs): Promise<string>;
+
+  /** Signs JOSE object */
+  keyManagerSignJOSE(args: IKeyManagerSignJOSE): Promise<string>;
 }

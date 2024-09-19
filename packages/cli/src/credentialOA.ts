@@ -32,7 +32,7 @@ credentialOA
       const proofFormat = 'OpenAttestationMerkleProofSignature2018';
 
       if (identifiers.length === 0) {
-        console.error('No dids');
+        console.error('No did ethrs');
         process.exit();
       }
       const answers = await inquirer.prompt([

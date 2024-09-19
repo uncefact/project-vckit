@@ -1,5 +1,5 @@
-import credentialW3c from '../__tests__/credentialW3c.js';
-import { getAgent } from '../src/vckit/setup.js';
+import credentialW3c from '../__tests__/credentialW3c';
+import { getAgent } from '../src/vckit/setup';
 
 import { jest } from '@jest/globals';
 

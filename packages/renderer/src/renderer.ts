@@ -1,5 +1,6 @@
 import jsonld from '@digitalcredentials/jsonld';
 import { JsonLdObj } from 'jsonld/jsonld-spec';
+import { Buffer } from 'buffer';
 
 import {
   VerifiableCredential,
@@ -12,6 +13,7 @@ import {
   UnsignedCredential,
   IRenderer,
 } from '@vckit/core-types';
+import { RenderDefaultContexts } from './render-default-contexts.js';
 import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
 
 export const RENDER_METHOD = 'https://www.w3.org/2018/credentials#renderMethod';
@@ -68,30 +70,46 @@ export class Renderer implements IAgentPlugin {
    */
   async renderCredential(
     args: IRenderCredentialArgs,
-    context: IRendererContext
+    context?: IRendererContext,
   ): Promise<IRenderResult> {
     try {
       const [expandedDocument] = await expandVerifiableCredential(
-        args.credential
+        args.credential,
       );
+
+      if (!expandedDocument) {
+        throw new Error('Error expanding the verifiable credential');
+      }
+
       const renderMethods: RenderMethodPayload[] | [] =
         extractRenderMethods(expandedDocument);
-      if (!renderMethods.length) {
+
+      if (!Array.isArray(renderMethods) || renderMethods.length === 0) {
         throw new Error('Render method not found in the verifiable credential');
       }
 
       const documents = await Promise.all(
         renderMethods.map(async (renderMethod) => {
-          const rendererProvider = this.getProvider(renderMethod['@type']);
-          const document = await rendererProvider.renderCredential(
-            renderMethod['@id'],
-            args.credential
-          );
-          return convertToBase64(document);
-        })
+          const rendererProvider = this.getProvider(renderMethod.type);
+          const document = await rendererProvider.renderCredential({
+            data: renderMethod.data,
+            context,
+            document: args.credential,
+          });
+          const responseDocument = {
+            type: renderMethod.type,
+            renderedTemplate: document.renderedTemplate
+              ? convertToBase64(document.renderedTemplate)
+              : '',
+            name: document.name,
+            id: document.id,
+          };
+          return responseDocument;
+        }),
       );
       return { documents };
     } catch (error) {
+      // console.error('Error rendering credential:', error);
       throw error;
     }
   }
@@ -103,9 +121,13 @@ export class Renderer implements IAgentPlugin {
  * @returns The expanded document.
  */
 function expandVerifiableCredential(
-  credential: VerifiableCredential | UnsignedCredential
+  credential: VerifiableCredential | UnsignedCredential,
 ) {
-  return jsonld.expand(credential);
+  // base: null is used to prevent jsonld from resolving relative URLs.
+  return jsonld.expand(credential, {
+    base: null,
+    documentLoader: documentLoader,
+  });
 }
 
 /**
@@ -113,23 +135,33 @@ function expandVerifiableCredential(
  * @param expandedDocument - The expanded JSON-LD document.
  * @returns The array of render methods.
  */
+
 function extractRenderMethods(
-  expandedDocument: JsonLdObj
+  expandedDocument: JsonLdObj,
 ): RenderMethodPayload[] | [] {
-  const renders = ((expandedDocument[RENDER_METHOD] as JsonLdObj[]) || [])
-    .filter((render) => {
-      return render['@id'] && render['@type'];
-    })
-    .map((render) => {
-      // TODO: Handle @type as an array of strings with more than one element.
-      const type = Array.isArray(render['@type'])
-        ? render['@type'][0]
-        : render['@type'];
+  const result: RenderMethodPayload[] = [];
+  const renders = (
+    (expandedDocument[RENDER_METHOD] as JsonLdObj[]) || []
+  ).filter((render) => {
+    return render['@type'];
+  });
 
-      return { ...render, '@type': type } as RenderMethodPayload;
-    });
+  renders.forEach((renderMethod: Record<string, any>) => {
+    let type = Array.isArray(renderMethod['@type'])
+      ? renderMethod['@type'][0]
+      : renderMethod['@type'];
 
-  return renders;
+    type = type?.split('#')[1] // Handle the case where the type is a URL.
+      ? type.split('#')[1]
+      : type;
+
+    const data = { ...renderMethod };
+    delete data['@type'];
+
+    result.push({ type, data });
+  });
+
+  return result;
 }
 
 /**
@@ -139,4 +171,25 @@ function extractRenderMethods(
  */
 function convertToBase64(content: string): string {
   return Buffer.from(content).toString('base64');
+}
+
+/**
+ * Custom document loader to handle default contexts.
+ * @param url - The URL of the document.
+ * @param options - The options for the document loader.
+ * @returns The document.
+ */
+function documentLoader(url: string, options: any) {
+  const documentLoaderFn = jsonld.documentLoaders?.xhr
+    ? jsonld.documentLoaders.xhr()
+    : jsonld.documentLoaders.node();
+  const contextValue = RenderDefaultContexts.get(url);
+  if (contextValue) {
+    return {
+      contextUrl: null,
+      document: contextValue,
+      documentUrl: url,
+    };
+  }
+  return documentLoaderFn(url);
 }

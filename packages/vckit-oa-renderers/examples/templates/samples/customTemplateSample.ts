@@ -21,7 +21,7 @@ export const customTemplateCertificate: CustomTemplateCertificate = {
     type: v2.TemplateType.EmbeddedRenderer,
     url: "http://localhost:3000"
   },
-  foo: {
+  foo: { 
     title: "Bar is awesome"
   }
 };

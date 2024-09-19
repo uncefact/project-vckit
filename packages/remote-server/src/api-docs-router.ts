@@ -1,8 +1,8 @@
-import { Router } from 'express'
-import { RequestWithAgent } from './request-agent-router.js'
+import { Router } from 'express';
+import { RequestWithAgent } from './request-agent-router.js';
 
 /**
- * Creates a router that exposes {@link @vckit/core#Agent} open api documentation browser
+ * Creates a router that exposes {@link @veramo/core#Agent} open api documentation browser
  *
  * @param options - Initialization option
  * @returns Expressjs router
@@ -10,7 +10,7 @@ import { RequestWithAgent } from './request-agent-router.js'
  * @public
  */
 export const ApiDocsRouter = (): Router => {
-  const router = Router()
+  const router = Router();
   const rapidoc = `<!doctype html>
   <html>
     <head>
@@ -20,7 +20,7 @@ export const ApiDocsRouter = (): Router => {
     </head>
     <body>
       <rapi-doc
-          spec-url="../open-api.json"
+          spec-url="/open-api.json"
           theme="light"
           primary-color="#006ba4"
           render-style="read"
@@ -30,12 +30,12 @@ export const ApiDocsRouter = (): Router => {
       </rapi-doc>
     </body>
   </html>
-  `
+  `;
   router.get('/', (req: RequestWithAgent, res) => {
-    res.status(200)
+    res.status(200);
     res.set('Content-Type', 'text/html');
     res.send(Buffer.from(rapidoc));
-  })
+  });
 
-  return router
-}
+  return router;
+};
