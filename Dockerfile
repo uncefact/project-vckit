@@ -16,6 +16,7 @@ COPY packages/tsconfig.settings.json packages/
 
 # Copy package.json for each package
 COPY packages/bitstringStatusList/package.json packages/bitstringStatusList/
+COPY packages/credential-data-integrity/package.json packages/credential-data-integrity/
 COPY packages/cli/package.json packages/cli/
 COPY packages/core-types/package.json packages/core-types/
 COPY packages/credential-merkle-disclosure-proof/package.json packages/credential-merkle-disclosure-proof/
@@ -37,6 +38,7 @@ RUN pnpm install
 
 # Copy the source code of each package
 COPY packages/bitstringStatusList/ packages/bitstringStatusList/
+COPY packages/credential-data-integrity/ packages/credential-data-integrity/
 COPY packages/cli/ packages/cli/
 COPY packages/core-types/ packages/core-types/
 COPY packages/credential-merkle-disclosure-proof/ packages/credential-merkle-disclosure-proof/
@@ -75,6 +77,10 @@ COPY --from=build /app/.tmp_npm ./.tmp_npm
 COPY --from=build /app/packages/bitstringStatusList/build/ packages/bitstringStatusList/build/
 COPY --from=build /app/packages/bitstringStatusList/node_modules/ packages/bitstringStatusList/node_modules/
 COPY --from=build /app/packages/bitstringStatusList/package.json packages/bitstringStatusList/package.json
+
+COPY --from=build /app/packages/credential-data-integrity/build/ packages/credential-data-integrity/build/
+COPY --from=build /app/packages/credential-data-integrity/node_modules/ packages/credential-data-integrity/node_modules/
+COPY --from=build /app/packages/credential-data-integrity/package.json packages/credential-data-integrity/package.json
 
 COPY --from=build /app/packages/cli/build/ packages/cli/build/
 COPY --from=build /app/packages/cli/node_modules/ packages/cli/node_modules/

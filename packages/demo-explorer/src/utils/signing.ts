@@ -29,10 +29,7 @@ const issueCredential = async (args: ICreateCredentialArgs) => {
   } = args
   const credentialStatus = await issueRevocationStatus(agent, issuer)
 
-  let context = [
-    'https://www.w3.org/2018/credentials/v1',
-    'https://w3id.org/vc-revocation-list-2020/v1',
-  ]
+  let context: string[] = []
   if (typeof customContext === 'string') {
     context = [...context, customContext]
   }

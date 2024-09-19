@@ -4,10 +4,11 @@ on:
   push:
     branches:
       - dev
-    tags:        
-      - '*' 
+    tags:
+      - '*'
+  workflow_dispatch:
 
-env: 
+env:
   environment: ${{ startsWith(github.ref, 'refs/tags/v') && 'UN' || 'dev' }}
 
 jobs:
@@ -98,7 +99,7 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_GITHUB_ACTION_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
-      
+
       - name: Configure AWS Credentials
         if: ${{ env.environment == 'UN' }}
         uses: aws-actions/configure-aws-credentials@v3
