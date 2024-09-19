@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.8](https://github.com/uncefact/project-vckit/compare/v1.0.0-beta.2...v1.0.0-beta.8) (2024-09-19)
+
+
+### Bug Fixes
+
+* using revocation list on explorer and handle no hash ([#192](https://github.com/uncefact/project-vckit/issues/192)) ([95ba80e](https://github.com/uncefact/project-vckit/commit/95ba80eb2bb61cf97f1ef0b06357937165ab48f1)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+
+
+### Features
+
+* bitstring status list entry  ([0d1149f](https://github.com/uncefact/project-vckit/commit/0d1149f048f8e853bfd6bda4b0c99871ef76d8ed))
+* implement renderer 2024 provider ([#177](https://github.com/uncefact/project-vckit/issues/177)) ([7bcbde3](https://github.com/uncefact/project-vckit/commit/7bcbde3b8f32cd85d94873799938df4cbc4098b4))
+
+
+
+
+
 # [1.0.0-beta.7](https://github.com/uncefact/project-vckit/compare/v1.0.0-beta.2...v1.0.0-beta.7) (2023-10-11)
 
 **Note:** Version bump only for package @vckit/example-documents

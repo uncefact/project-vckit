@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0-beta.8",
   "npmClient": "pnpm",
   "changelog": {
     "repo": "uncefact/project-vckit",
@@ -7,7 +7,10 @@
   },
   "command": {
     "publish": {
-      "allowBranch": ["main", "next"],
+      "allowBranch": [
+        "main",
+        "next"
+      ],
       "conventionalCommits": true,
       "gitRemote": "origin",
       "message": "chore(release): %s [skip ci]"

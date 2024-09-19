@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.8](https://github.com/uncefact/project-vckit/compare/v1.0.0-beta.2...v1.0.0-beta.8) (2024-09-19)
+
+
+### Bug Fixes
+
+* add missing plugin schema ([#97](https://github.com/uncefact/project-vckit/issues/97)) ([78cd8fa](https://github.com/uncefact/project-vckit/commit/78cd8faeeb959afc469b7fbfd7cdb09391f71033))
+
+
+### Features
+
+* enveloping proof ([#207](https://github.com/uncefact/project-vckit/issues/207)) ([998356b](https://github.com/uncefact/project-vckit/commit/998356b0823610f95b557910a3bcb04567f25a15)), closes [3332/credentials/status/bitstring-status-list/5#0](https://github.com/3332/credentials/status/bitstring-status-list/5/issues/0) [#123](https://github.com/uncefact/project-vckit/issues/123)
+* vc api for the holder and the verifier ([#107](https://github.com/uncefact/project-vckit/issues/107)) ([022fb56](https://github.com/uncefact/project-vckit/commit/022fb56da58eff6b46258dbda0e8a2f9dd708331)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
+
+
+
+
+
 # [1.0.0-beta.7](https://github.com/uncefact/project-vckit/compare/v1.0.0-beta.2...v1.0.0-beta.7) (2023-10-11)
 
 
