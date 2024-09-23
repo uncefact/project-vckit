@@ -39,10 +39,10 @@ export class BitstringStatusListEntry extends BaseEntity {
   @Column({ default: 1 })
   statusSize!: number;
 
-  @Column()
+  @Column({ nullable: true })
   statusListCredential?: string;
 
-  @Column()
+  @Column({ nullable: true })
   verifiableCredential?: string;
 
   @Column({ default: '[{"status":0},{"status":1}]' })
