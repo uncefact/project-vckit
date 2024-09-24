@@ -182,12 +182,14 @@ server:
       - $require: '@vckit/vc-api?t=function#V1VcRouter'
         $args:
           - basePath: :${PORT}
+            apiKey: ${API_KEY}
 
     # VC API v2
     - - /v2
       - $require: '@vckit/vc-api?t=function#V2VcRouter'
         $args:
           - basePath: :${PORT}
+            apiKey: ${API_KEY}
 
     # API base path
     - - /messaging
