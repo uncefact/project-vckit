@@ -90,7 +90,7 @@ export class BitstringStatusListEntryStore {
     try {
       await transactionalEntityManager
         .getRepository(BitstringStatusListEntry)
-        .createQueryBuilder()
+        .createQueryBuilder('bsl')
         .setLock('pessimistic_read')
         .where(query, params)
         .getExists();
@@ -249,26 +249,25 @@ export class BitstringStatusListEntryStore {
       const {
         bitstringDomainURL,
         bitstringStatusIssuer,
-        bitstringLength,
+        bitstringLength = 131072,
         statusPurpose,
-        statusSize,
-        statusMessages,
+        statusSize = 1,
+        statusMessages = [{ status: 0 }, { status: 1 }],
         statusReference,
         context,
       } = args;
 
       const queryParams = {
-        bitstringLength: bitstringLength || 131072,
+        bitstringLength: bitstringLength,
         statusPurpose: statusPurpose.toString(),
         statusListVCIssuer: bitstringStatusIssuer,
-        statusSize: statusSize || 1,
-        statusMessages:
-          JSON.stringify(statusMessages) || '[{"status":0},{"status":1}]',
+        statusSize: statusSize,
+        statusMessages: JSON.stringify(statusMessages),
       };
 
       this.lockBitstringStatusListEntry(
         transactionalEntityManager,
-        'bsl.statusListVCIssuer = :statusListVCIssuer AND bsl.statusPurpose = :statusPurpose AND bsl.lastStatusIndex < bitstringLength AND bsl.bitstringLength = :bitstringLength AND bsl.statusSize = :statusSize AND bsl.statusMessages = :statusMessages',
+        'bsl.statusListVCIssuer = :statusListVCIssuer AND bsl.statusPurpose = :statusPurpose AND bsl.lastStatusIndex < bsl.bitstringLength AND bsl.bitstringLength = :bitstringLength AND bsl.statusSize = :statusSize AND bsl.statusMessages = :statusMessages',
         queryParams,
       );
 
@@ -278,7 +277,7 @@ export class BitstringStatusListEntryStore {
         .getRepository(BitstringStatusListEntry)
         .createQueryBuilder('bsl')
         .where(
-          'bsl.statusListVCIssuer = :statusListVCIssuer AND bsl.statusPurpose = :statusPurpose AND bsl.lastStatusIndex < bitstringLength AND bsl.bitstringLength = :bitstringLength AND bsl.statusSize = :statusSize AND bsl.statusMessages = :statusMessages',
+          'bsl.statusListVCIssuer = :statusListVCIssuer AND bsl.statusPurpose = :statusPurpose AND bsl.lastStatusIndex < bsl.bitstringLength AND bsl.bitstringLength = :bitstringLength AND bsl.statusSize = :statusSize AND bsl.statusMessages = :statusMessages',
           queryParams,
         )
         .getOne();
