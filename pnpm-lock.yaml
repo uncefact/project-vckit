@@ -242,10 +242,10 @@ importers:
         specifier: workspace:^
         version: link:../credential-data-integrity
       '@vckit/credential-merkle-disclosure-proof':
-        specifier: workspace:1.0.0-beta.7
+        specifier: workspace:1.0.0-beta.8
         version: link:../credential-merkle-disclosure-proof
       '@vckit/credential-oa':
-        specifier: workspace:1.0.0-beta.7
+        specifier: workspace:1.0.0-beta.8
         version: link:../credential-oa
       '@vckit/credential-router':
         specifier: workspace:^
@@ -254,13 +254,13 @@ importers:
         specifier: workspace:^
         version: link:../encrypted-storage
       '@vckit/example-documents':
-        specifier: workspace:1.0.0-beta.7
+        specifier: workspace:1.0.0-beta.8
         version: link:../example-documents
       '@vckit/remote-server':
-        specifier: workspace:1.0.0-beta.7
+        specifier: workspace:1.0.0-beta.8
         version: link:../remote-server
       '@vckit/renderer':
-        specifier: workspace:1.0.0-beta.7
+        specifier: workspace:1.0.0-beta.8
         version: link:../renderer
       '@vckit/revocationlist':
         specifier: workspace:^
@@ -272,7 +272,7 @@ importers:
         specifier: workspace:^
         version: link:../utils
       '@vckit/vc-api':
-        specifier: workspace:1.0.0-beta.7
+        specifier: workspace:1.0.0-beta.8
         version: link:../vc-api
       '@veramo/core':
         specifier: link:../../.tmp_npm/veramo/packages/core
@@ -1352,7 +1352,7 @@ importers:
   packages/tools:
     dependencies:
       '@vckit/core-types':
-        specifier: workspace:1.0.0-beta.7
+        specifier: workspace:1.0.0-beta.8
         version: link:../core-types
       multiformats:
         specifier: ^13.1.0
@@ -1375,6 +1375,9 @@ importers:
       '@vckit/core-types':
         specifier: workspace:^
         version: link:../core-types
+      '@vckit/remote-server':
+        specifier: workspace:^
+        version: link:../remote-server
       debug:
         specifier: ^4.3.4
         version: 4.3.4
