@@ -156,12 +156,14 @@ server:
       - $require: '@vckit/vc-api?t=function#V1VcRouter'
         $args:
           - basePath: :3332
+            apiKey: ${API_KEY}
 
     # VC API v2
     - - /v2
       - $require: '@vckit/vc-api?t=function#V2VcRouter'
         $args:
           - basePath: :3332
+            apiKey: ${API_KEY}
 
     # API base path
     - - /messaging

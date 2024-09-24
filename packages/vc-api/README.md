@@ -12,12 +12,14 @@ The router follows the `veramo` architecture, allowing you to configure it using
   - $require: '@vckit/vc-api?t=function#V1VcRouter'
     $args:
       - basePath: :3332
+        apiKey: test123
 
 # VC API v2
 - - /v2
   - $require: '@vckit/vc-api?t=function#V2VcRouter'
     $args:
       - basePath: :3332
+        apiKey: test123
 
 ## Test with test-suite
 

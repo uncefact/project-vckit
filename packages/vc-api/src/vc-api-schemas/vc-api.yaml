@@ -29,8 +29,6 @@ paths:
     get:
       tags:
         - holder_Credentials
-      security:
-        - oAuth2: []
       summary: Gets a credential or verifiable credential by ID
       operationId: getCredential
       parameters:
@@ -63,8 +61,6 @@ paths:
     delete:
       tags:
         - holder_Credentials
-      security:
-        - oAuth2: []
       summary: Deletes a credential or verifiable credential by ID
       operationId: deleteCredential
       parameters:
@@ -90,8 +86,6 @@ paths:
     get:
       tags:
         - holder_Credentials
-      security:
-        - oAuth2: []
       summary: Gets list of credentials or verifiable credentials
       operationId: getCredentials
       parameters:
@@ -128,8 +122,6 @@ paths:
     post:
       tags:
         - holder_Credentials
-      security:
-        - oAuth2: []
       summary: Derives a credential and returns it in the response body.
       operationId: deriveCredential
       description: Derives a credential and returns it in the response body.
@@ -157,8 +149,6 @@ paths:
       tags:
         - holder_Presentations
       summary: Gets a presentation or verifiable presentation by ID
-      security:
-        - oAuth2: []
       operationId: getPresentation
       parameters:
         - $ref: '#/components/parameters/ObjectId'
@@ -187,8 +177,6 @@ paths:
       tags:
         - holder_Presentations
       summary: Deletes a presentation or verifiable presentation by ID
-      security:
-        - oAuth2: []
       operationId: deletePresentation
       parameters:
         - $ref: '#/components/parameters/ObjectId'
@@ -214,8 +202,6 @@ paths:
       tags:
         - holder_Presentations
       summary: Gets list of presentations or verifiable presentations
-      security:
-        - oAuth2: []
       operationId: getPresentations
       parameters:
         - in: query
@@ -252,8 +238,6 @@ paths:
       summary: Proves a presentation and returns it in the response body.
       tags:
         - holder_Presentations
-      security:
-        - oAuth2: []
       operationId: provePresentation
       description: Proves a presentation and returns it in the response body.
       requestBody:
@@ -280,8 +264,6 @@ paths:
         endpoint.
       tags:
         - holder_Exchanges
-      security:
-        - oAuth2: []
       operationId: discoverExchanges
       description: >-
         This endpoint returns an array of the exchange-ids (path endpoints)
@@ -367,8 +349,6 @@ paths:
       summary: Initiates an exchange of information.
       tags:
         - holder_Exchanges
-      security:
-        - oAuth2: []
       operationId: initiateExchange
       description: >-
         A client can use this endpoint to initiate an exchange of a particular
@@ -411,8 +391,6 @@ paths:
       summary: Receives information related to an existing exchange.
       tags:
         - holder_Exchanges
-      security:
-        - oAuth2: []
       operationId: receiveExchangeData
       description: >-
         A client can use this endpoint to continue the exchange of information
@@ -453,8 +431,6 @@ paths:
       summary: Issues a credential and returns it in the response body.
       tags:
         - issuer_Credentials
-      security:
-        - oAuth2: []
       operationId: issueCredential
       description: Issues a credential and returns it in the response body.
       requestBody:
@@ -479,10 +455,6 @@ paths:
       summary: Updates the status of an issued credential
       tags:
         - issuer_Credentials
-      security:
-        - networkAuth: []
-        - oAuth2: []
-        - zCap: []
       operationId: updateCredentialStatus
       description: Updates the status of an issued credential.
       requestBody:
@@ -507,10 +479,6 @@ paths:
         response body.
       tags:
         - verifier_Credentials
-      security:
-        - networkAuth: []
-        - oAuth2: []
-        - zCap: []
       operationId: verifyCredential
       description: >-
         Verifies a verifiableCredential and returns a verificationResult in the
@@ -539,10 +507,6 @@ paths:
         verificationResult in the response body.
       tags:
         - verifier_Presentations
-      security:
-        - networkAuth: []
-        - oAuth2: []
-        - zCap: []
       operationId: verifyPresentation
       description: >-
         Verifies a verifiablePresentation and returns a verificationResult in
@@ -575,11 +539,10 @@ paths:
         '500':
           description: Internal Server Error
 components:
-  # securitySchemes:
-  #   oAuth2:
-  #     type: http
-  #     scheme: bearer
-  #     bearerFormat: VcapiOauth2
+  securitySchemes:
+    auth:
+      type: http
+      scheme: bearer
   schemas:
     DeriveCredentialRequest:
       type: object
@@ -1046,6 +1009,8 @@ components:
             pattern: z[1-9A-HJ-NP-Za-km-z]{21,22}
           - type: string
             pattern: u[a-zA-Z0-9_-]{22,23}
+security:
+  - auth: []
 x-tagGroups:
   - name: holder
     tags:
