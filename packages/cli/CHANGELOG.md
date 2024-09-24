@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.9](https://github.com/uport-project/veramo/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2024-09-24)
+
+
+### Features
+
+* implement authenticate for vc api ([#215](https://github.com/uport-project/veramo/issues/215)) ([9b08b2c](https://github.com/uport-project/veramo/commit/9b08b2c4014da72cd97a67a7a22170614e6331ba)), closes [#123](https://github.com/uport-project/veramo/issues/123)
+
+
+
+
+
 # [1.0.0-beta.8](https://github.com/uport-project/veramo/compare/v1.0.0-beta.2...v1.0.0-beta.8) (2024-09-19)
 
 
