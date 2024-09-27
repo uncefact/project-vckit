@@ -5,18 +5,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [1.0.0-beta.9](https://github.com/uncefact/project-vckit/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2024-09-24)
 
-
 ### Bug Fixes
 
-* adjust bitstring status list model ([#214](https://github.com/uncefact/project-vckit/issues/214)) ([0f2b1c9](https://github.com/uncefact/project-vckit/commit/0f2b1c9f1ea6e5cdb3ec3109e97eb47a730d0d70)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
-
-
-
-
+- adjust bitstring status list model ([#214](https://github.com/uncefact/project-vckit/issues/214)) ([0f2b1c9](https://github.com/uncefact/project-vckit/commit/0f2b1c9f1ea6e5cdb3ec3109e97eb47a730d0d70)), closes [#123](https://github.com/uncefact/project-vckit/issues/123)
 
 # [1.0.0-beta.8](https://github.com/uncefact/project-vckit/compare/v1.0.0-beta.2...v1.0.0-beta.8) (2024-09-19)
 
-
 ### Features
 
-* bitstring status list entry  ([0d1149f](https://github.com/uncefact/project-vckit/commit/0d1149f048f8e853bfd6bda4b0c99871ef76d8ed))
+- bitstring status list entry ([0d1149f](https://github.com/uncefact/project-vckit/commit/0d1149f048f8e853bfd6bda4b0c99871ef76d8ed))
