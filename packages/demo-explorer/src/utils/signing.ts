@@ -27,9 +27,13 @@ const issueCredential = async (args: ICreateCredentialArgs) => {
     type,
     ...additionalProperties
   } = args
-  const credentialStatus = await issueRevocationStatus(agent, issuer)
-
   let context: string[] = []
+  let credentialStatus
+  if (customContext.includes('https://www.w3.org/2018/credentials/v1')) {
+    credentialStatus = await issueRevocationStatus(agent, issuer)
+    context = ['https://w3id.org/vc-revocation-list-2020/v1']
+  }
+
   if (typeof customContext === 'string') {
     context = [...context, customContext]
   }
