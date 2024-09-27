@@ -126,6 +126,9 @@ COPY --from=build /app/packages/vc-api/package.json packages/vc-api/package.json
 COPY --from=build /app/packages/vc-api/src/vc-api-schemas/vc-api.yaml packages/vc-api/src/vc-api-schemas/vc-api.yaml
 COPY --from=build /app/packages/vc-api/src/vc-api-schemas/vc-api-v2.yaml packages/vc-api/src/vc-api-schemas/vc-api-v2.yaml
 
+# Add the DID Web Identifier
+COPY development/did-web-identifier .
+
 # Add an entrypoint script to the image
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh

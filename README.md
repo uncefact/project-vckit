@@ -54,6 +54,8 @@ This document is built and served using Docusaurus.
 A seed-identifier script is available to seed the identifier into the vckit instance.
 This script runs the `vckit did import` command and uses a predefined identifier file located at `/development/did-web-identifier`.
 
+The predefined did:web used for seeding is: `did:web:uncefact.github.io:project-vckit:test-and-development`
+
 ```bash
 # Seed identifier
 pnpm seed-identifier
