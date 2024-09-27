@@ -1,0 +1,39 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:uncefact.github.io:project-vckit:test-and-development",
+  "verificationMethod": [
+    {
+      "id": "did:web:uncefact.github.io:project-vckit:test-and-development#bd3a7c525d86c18fa91f2a8f0354231b85aa0f7f269cc2a7914b6cca4087f0ae-key-0",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:uncefact.github.io:project-vckit:test-and-development",
+      "publicKeyJwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "vTp8Ul2GwY-pHyqPA1QjG4WqD38mnMKnkUtsykCH8K4"
+      }
+    },
+    {
+      "id": "did:web:uncefact.github.io:project-vckit:test-and-development#bd3a7c525d86c18fa91f2a8f0354231b85aa0f7f269cc2a7914b6cca4087f0ae-key-1",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:uncefact.github.io:project-vckit:test-and-development",
+      "publicKeyJwk": {
+        "kty": "OKP",
+        "crv": "X25519",
+        "x": "AwZiNBENogJY0RnHwlUkOJmECGgF_VFe9msKGlLJR1c"
+      }
+    }
+  ],
+  "authentication": [
+    "did:web:uncefact.github.io:project-vckit:test-and-development#bd3a7c525d86c18fa91f2a8f0354231b85aa0f7f269cc2a7914b6cca4087f0ae-key-0",
+    "did:web:uncefact.github.io:project-vckit:test-and-development#bd3a7c525d86c18fa91f2a8f0354231b85aa0f7f269cc2a7914b6cca4087f0ae-key-1"
+  ],
+  "assertionMethod": [
+    "did:web:uncefact.github.io:project-vckit:test-and-development#bd3a7c525d86c18fa91f2a8f0354231b85aa0f7f269cc2a7914b6cca4087f0ae-key-0",
+    "did:web:uncefact.github.io:project-vckit:test-and-development#bd3a7c525d86c18fa91f2a8f0354231b85aa0f7f269cc2a7914b6cca4087f0ae-key-1"
+  ],
+  "keyAgreement": [],
+  "service": []
+}
