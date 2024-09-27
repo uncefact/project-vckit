@@ -130,7 +130,7 @@ export class BitstringStatusListEntryStore {
         'createVerifiableCredential',
         {
           credential: credentialList,
-          proofFormat: 'lds',
+          proofFormat: 'EnvelopingProofJose',
           fetchRemoteContexts: true,
         },
       );

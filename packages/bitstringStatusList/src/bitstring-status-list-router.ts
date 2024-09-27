@@ -20,8 +20,11 @@ export function bitstringStatusListRouter(): Router {
 
     try {
       const result = await agent.execute('getBitstringStatusListVC', id);
-
-      res.status(200).json({ ...result });
+      if (typeof result === 'string') {
+        res.status(200).send(result);
+      } else {
+        res.status(200).json({ ...result });
+      }
     } catch (e: any) {
       res.status(500).json({ error: e.message });
     }

@@ -13,6 +13,7 @@ import {
   IVerifiableCredentialJSONOrJWT,
   IssuerType,
   VerifiableCredential,
+  W3CVerifiableCredential,
 } from '@vckit/core-types';
 import { decodeList } from '@digitalbazaar/vc-bitstring-status-list';
 import {
@@ -55,7 +56,16 @@ const documentLoader: DocumentLoader = async (iri: string) => {
     }
 
     if (iri.startsWith('http')) {
-      const document = await fetch(iri).then((res) => res.json());
+      const document = await fetch(iri).then(async (res) => {
+        const contentType = res.headers.get('content-type');
+
+        if (contentType && contentType.includes('application/json')) {
+          return res.json();
+        } else {
+          return res.text();
+        }
+      });
+
       return { documentUrl: iri, document };
     }
   }
@@ -73,7 +83,8 @@ export async function checkStatus(credential: IVerifiableCredentialJSONOrJWT) {
   let issuer: IssuerType | undefined = undefined;
 
   if (typeof credential === 'string') {
-    ({ statusEntry, issuer } = _getStatusEntryAndIssuerFromJWT(credential));
+    ({ statusEntry, issuer } =
+      _getCredentialSubjectStatusEntryAndIssuerFromJWT(credential));
   } else {
     statusEntry = credential.credentialStatus;
     issuer = credential.issuer;
@@ -98,9 +109,12 @@ export async function checkStatus(credential: IVerifiableCredentialJSONOrJWT) {
   return _checkStatuses(issuer, statusEntryArray);
 }
 
-const _getStatusEntryAndIssuerFromJWT = (credential: string) => {
+const _getCredentialSubjectStatusEntryAndIssuerFromJWT = (
+  credential: string,
+) => {
   let statusEntry: StatusEntry | undefined = undefined;
   let issuer: IssuerType | undefined = undefined;
+  let credentialSubject: any = undefined;
   try {
     const decoded = decodeJWT(credential);
     statusEntry =
@@ -111,18 +125,23 @@ const _getStatusEntryAndIssuerFromJWT = (credential: string) => {
       decoded?.payload?.vc?.issuer || // JWT Verifiable Credential payload
       decoded?.payload?.vp?.issuer || // JWT Verifiable Presentation payload
       decoded?.payload?.issuer; // legacy JWT payload
+    credentialSubject =
+      decoded?.payload?.vc?.credentialSubject || // JWT Verifiable Credential payload
+      decoded?.payload?.vp?.credentialSubject || // JWT Verifiable Presentation payload
+      decoded?.payload?.credentialSubject; // legacy JWT payload
   } catch (e1: unknown) {
     // not a JWT credential or presentation
     try {
       const decoded = JSON.parse(credential);
       statusEntry = decoded?.credentialStatus;
       issuer = decoded?.issuer;
+      credentialSubject = decoded?.credentialSubject;
     } catch (e2: unknown) {
       // not a JSON either.
     }
   }
 
-  return { statusEntry, issuer };
+  return { credentialSubject, statusEntry, issuer };
 };
 
 const _validateStatusEntry = (statusEntry: StatusEntry | StatusEntry[]) => {
@@ -170,7 +189,7 @@ const _checkStatuses = async (
 };
 
 const verifyBitstringStatusListCredential = (
-  credential: VerifiableCredential,
+  credential: W3CVerifiableCredential,
 ) => {
   const agent = createAgent<ICredentialRouter>({
     plugins: [
@@ -206,10 +225,10 @@ const _checkStatus = async (
   const { statusListIndex } = statusEntry;
   const index = parseInt(statusListIndex, 10);
   // retrieve SL VC
-  let slCredential: VerifiableCredential;
+  let slCredential: W3CVerifiableCredential;
   try {
     const { document } = await documentLoader(statusEntry.statusListCredential);
-    slCredential = document as VerifiableCredential;
+    slCredential = document as W3CVerifiableCredential;
   } catch (e) {
     return {
       revoked: true,
@@ -224,9 +243,33 @@ const _checkStatus = async (
     };
   }
 
+  // verify SL VC
+  const verifyResult = await verifyBitstringStatusListCredential(slCredential);
+  if (!verifyResult.verified) {
+    return {
+      revoked: true,
+      errors: [
+        {
+          id: statusEntry.id,
+          message: verifyResult.error?.message || 'Unknown error',
+        },
+      ],
+    };
+  }
+
+  let slCredentialSubject: any | undefined = undefined;
+  let slIssuer: IssuerType | undefined = undefined;
+
+  if (typeof slCredential === 'string') {
+    ({ credentialSubject: slCredentialSubject, issuer: slIssuer } =
+      _getCredentialSubjectStatusEntryAndIssuerFromJWT(slCredential));
+  } else {
+    slCredentialSubject = slCredential.credentialSubject;
+    slIssuer = slCredential.issuer;
+  }
+
   const { statusPurpose: credentialStatusPurpose } = statusEntry;
-  const { statusPurpose: slCredentialStatusPurpose } =
-    slCredential.credentialSubject;
+  const { statusPurpose: slCredentialStatusPurpose } = slCredentialSubject;
   if (slCredentialStatusPurpose !== credentialStatusPurpose) {
     return {
       revoked: true,
@@ -240,51 +283,32 @@ const _checkStatus = async (
     };
   }
 
-  // verify SL VC
-  const verifyResult = await verifyBitstringStatusListCredential(slCredential);
-  if (verifyResult.verified) {
-    // ensure that the issuer of the verifiable credential matches
-    // the issuer of the statusListCredential
+  // ensure that the issuer of the verifiable credential matches
+  // the issuer of the statusListCredential
 
-    const credentialIssuer = typeof issuer === 'object' ? issuer.id : issuer;
-    const statusListCredentialIssuer =
-      typeof slCredential.issuer === 'object'
-        ? slCredential.issuer.id
-        : slCredential.issuer;
+  const credentialIssuer = typeof issuer === 'object' ? issuer.id : issuer;
+  const statusListCredentialIssuer =
+    typeof slIssuer === 'object' ? slIssuer.id : slIssuer;
 
-    if (
-      !(credentialIssuer && statusListCredentialIssuer) ||
-      credentialIssuer !== statusListCredentialIssuer
-    ) {
-      return {
-        revoked: true,
-        errors: [
-          {
-            id: statusEntry.id,
-            message:
-              'The issuer of the credential does not match the issuer of the status list credential.',
-          },
-        ],
-      };
-    }
-
-    // get JSON BitstringStatusList
-    const { credentialSubject: sl } = slCredential;
-
-    // decode list from SL VC
-    const { encodedList } = sl;
-    const list = await decodeList({ encodedList });
-
-    return { revoked: list.getStatus(index) };
-  } else {
+  if (
+    !(credentialIssuer && statusListCredentialIssuer) ||
+    credentialIssuer !== statusListCredentialIssuer
+  ) {
     return {
       revoked: true,
       errors: [
         {
           id: statusEntry.id,
-          message: verifyResult.error?.message || 'Unknown error',
+          message:
+            'The issuer of the credential does not match the issuer of the status list credential.',
         },
       ],
     };
   }
+
+  // decode list from SL VC
+  const { encodedList } = slCredentialSubject;
+  const list = await decodeList({ encodedList });
+
+  return { revoked: list.getStatus(index) };
 };
