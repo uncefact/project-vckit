@@ -335,4 +335,29 @@ describe('Renderer', () => {
       },
     ]);
   });
+
+  it('should render a verifiable credential with JWT - Enveloping Proof Jose', async () => {
+    // Mock data
+    const args: IRenderCredentialArgs = {
+      credential:
+        'eyJhbGciOiJFZERTQSIsImlzcyI6ImRpZDp3ZWI6ZDVmNi0xMTYtMTA2LTE5Mi0yMTUubmdyb2stZnJlZS5hcHAiLCJ0eXAiOiJ2Yy1sZCtqd3QifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiLCJodHRwczovL2Rldi1yZW5kZXItbWV0aG9kLWNvbnRleHQuczMuYXAtc291dGhlYXN0LTEuYW1hem9uYXdzLmNvbS9kZXYtcmVuZGVyLW1ldGhvZC1jb250ZXh0Lmpzb24iXSwiaWQiOiJodHRwOi8vdW5pdmVyc2l0eS5leGFtcGxlL2NyZWRlbnRpYWxzLzE4NzIiLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwiRXhhbXBsZUFsdW1uaUNyZWRlbnRpYWwiXSwiaXNzdWVyIjoiZGlkOndlYjpkNWY2LTExNi0xMDYtMTkyLTIxNS5uZ3Jvay1mcmVlLmFwcCIsInZhbGlkRnJvbSI6IjIwMTAtMDEtMDFUMTk6MjM6MjRaIiwiY3JlZGVudGlhbFNjaGVtYSI6eyJpZCI6Imh0dHBzOi8vZXhhbXBsZS5vcmcvZXhhbXBsZXMvZGVncmVlLmpzb24iLCJ0eXBlIjoiSnNvblNjaGVtYSJ9LCJjcmVkZW50aWFsU3ViamVjdCI6eyJpZCI6ImRpZDpleGFtcGxlOjEyMyIsImRlZ3JlZSI6eyJ0eXBlIjoiQmFjaGVsb3JEZWdyZWUiLCJuYW1lIjoiQmFjaGVsb3Igb2YgU2NpZW5jZSBhbmQgQXJ0cyJ9fSwicmVuZGVyIjpbeyJ0ZW1wbGF0ZSI6IlBHUnBkaUJ6ZEhsc1pUMGlkMmxrZEdnNk16QXdjSGc3SUdobGFXZG9kRG94TURCd2VEc2dZbTl5WkdWeU9pQXljSGdnYzI5c2FXUWdZbXhoWTJzN0lIUmxlSFF0WVd4cFoyNDZZMlZ1ZEdWeUlqNEtJQ0E4WkdsMlBnb2dJQ0FnVkdocGN5QkNZV05vWld4dmNpQnZaaUJUWTJsbGJtTmxJR0Z1WkNCQmNuUnpJR2x6SUdOdmJtWmxjbkpsWkNCMGJ3b2dJRHd2WkdsMlBnb2dJRHh6ZEhKdmJtY2djM1I1YkdVOUltWnZiblF0YzJsNlpUb2dNVFp3ZUNJK0NpQWdJQ0JLWVc1bElGTnRhWFJvQ2lBZ1BDOXpkSEp2Ym1jK0NpQWdQR1JwZGo0S0lDQWdJR0o1SUVWNFlXMXdiR1VnVlc1cGRtVnljMmwwZVM0S0lDQThMMlJwZGo0S1BDOWthWFkrIiwiQHR5cGUiOiJXZWJSZW5kZXJpbmdUZW1wbGF0ZTIwMjIifV0sImlzc3VhbmNlRGF0ZSI6IjIwMjQtMDktMzBUMDg6MzE6MTYuODg4WiJ9.UFC7Zxk3sAqef5Rs7oJxDwv304TTNPQHV1xBr2sgWg-xpZBAfmFpXcxoYvxEf80I__c3TwI95GnFH9C7qJzIAg',
+    };
+
+    const context = {};
+
+    // Call the renderCredential method
+    const result: IRenderResult = await renderer.renderCredential(
+      args,
+      context as IRendererContext,
+    );
+
+    // Verify the result
+    expect(result.documents).toEqual([
+      {
+        renderedTemplate:
+          'UEdScGRpQnpkSGxzWlQwaWQybGtkR2c2TXpBd2NIZzdJR2hsYVdkb2REb3hNREJ3ZURzZ1ltOXlaR1Z5T2lBeWNIZ2djMjlzYVdRZ1lteGhZMnM3SUhSbGVIUXRZV3hwWjI0NlkyVnVkR1Z5SWo0S0lDQThaR2wyUGdvZ0lDQWdWR2hwY3lCQ1lXTm9aV3h2Y2lCdlppQlRZMmxsYm1ObElHRnVaQ0JCY25SeklHbHpJR052Ym1abGNuSmxaQ0IwYndvZ0lEd3ZaR2wyUGdvZ0lEeHpkSEp2Ym1jZ2MzUjViR1U5SW1admJuUXRjMmw2WlRvZ01UWndlQ0krQ2lBZ0lDQktZVzVsSUZOdGFYUm9DaUFnUEM5emRISnZibWMrQ2lBZ1BHUnBkajRLSUNBZ0lHSjVJRVY0WVcxd2JHVWdWVzVwZG1WeWMybDBlUzRLSUNBOEwyUnBkajRLUEM5a2FYWSs=',
+        type: 'WebRenderingTemplate2022',
+      },
+    ]);
+  });
 });
