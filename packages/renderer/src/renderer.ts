@@ -10,7 +10,7 @@ import {
   IRenderResult,
   UnsignedCredential,
   IRenderer,
-  W3CVerifiableCredential,
+  VerifiableCredential,
 } from '@vckit/core-types';
 import { RenderDefaultContexts } from './render-default-contexts.js';
 import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
@@ -73,12 +73,13 @@ export class Renderer implements IAgentPlugin {
     context?: IRendererContext,
   ): Promise<IRenderResult> {
     try {
-      let credential = args.credential;
-      if (typeof credential === 'string') {
-        credential = decodeJWTJose(credential);
+      if (typeof args.credential === 'string') {
+        args.credential = { ...decodeJWTJose(args.credential) };
       }
 
-      const [expandedDocument] = await expandVerifiableCredential(credential);
+      const [expandedDocument] = await expandVerifiableCredential(
+        args.credential,
+      );
 
       if (!expandedDocument) {
         throw new Error('Error expanding the verifiable credential');
@@ -97,7 +98,7 @@ export class Renderer implements IAgentPlugin {
           const document = await rendererProvider.renderCredential({
             data: renderMethod.data,
             context,
-            document: credential as Record<string, any>,
+            document: args.credential as Record<string, any>,
           });
           const responseDocument = {
             type: renderMethod.type,
@@ -124,7 +125,7 @@ export class Renderer implements IAgentPlugin {
  * @returns The expanded document.
  */
 function expandVerifiableCredential(
-  credential: W3CVerifiableCredential | UnsignedCredential,
+  credential: VerifiableCredential | UnsignedCredential,
 ) {
   // base: null is used to prevent jsonld from resolving relative URLs.
   return jsonld.expand(credential, {
@@ -197,6 +198,6 @@ function documentLoader(url: string, options: any) {
   return documentLoaderFn(url);
 }
 
-function decodeJWTJose(jwt: string): W3CVerifiableCredential {
+function decodeJWTJose(jwt: string): UnsignedCredential {
   return jose.decodeJwt(jwt);
 }
