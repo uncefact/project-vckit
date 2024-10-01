@@ -73,13 +73,14 @@ export class Renderer implements IAgentPlugin {
     context?: IRendererContext,
   ): Promise<IRenderResult> {
     try {
+      let credential: VerifiableCredential | UnsignedCredential;
       if (typeof args.credential === 'string') {
-        args.credential = { ...decodeJWTJose(args.credential) };
+        credential = decodeJWTJose(args.credential);
+      } else {
+        credential = { ...args.credential };
       }
 
-      const [expandedDocument] = await expandVerifiableCredential(
-        args.credential,
-      );
+      const [expandedDocument] = await expandVerifiableCredential(credential);
 
       if (!expandedDocument) {
         throw new Error('Error expanding the verifiable credential');
@@ -98,7 +99,7 @@ export class Renderer implements IAgentPlugin {
           const document = await rendererProvider.renderCredential({
             data: renderMethod.data,
             context,
-            document: args.credential as Record<string, any>,
+            document: credential,
           });
           const responseDocument = {
             type: renderMethod.type,
