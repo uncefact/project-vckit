@@ -1,5 +1,6 @@
 import express from 'express'
 import { Command } from 'commander'
+import bodyParser from 'body-parser'
 import { getConfig } from './setup.js'
 import { createObjects } from './lib/objectCreator.js'
 
@@ -8,6 +9,8 @@ const server = new Command('server')
   .option('-p, --port <number>', 'Optionally set port to override config')
   .action(async (opts: { port: number }, cmd: Command) => {
     const app = express()
+        app.use(bodyParser.json({ limit: '50mb' }));
+        app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
     let server: any
 

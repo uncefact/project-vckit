@@ -3,14 +3,14 @@ import { IDIDManager } from './IDIDManager';
 import { IDataStore } from './IDataStore';
 import { IKeyManager } from './IKeyManager';
 import { IResolver } from './IResolver';
-import { UnsignedCredential, VerifiableCredential } from './vc-data-model';
+import { UnsignedCredential, W3CVerifiableCredential } from './vc-data-model';
 
 /**
  * Arguments for rendering a verifiable credential.
  * @public
  */
 export interface IRenderCredentialArgs {
-  credential: VerifiableCredential | UnsignedCredential;
+  credential: W3CVerifiableCredential | UnsignedCredential;
 }
 
 /**
@@ -32,7 +32,7 @@ export type IRendererContext = IAgentContext<
  * Result of rendering a verifiable credential.
  * @beta
  */
-export interface IRenderDocument{
+export interface IRenderDocument {
   type: string;
   renderedTemplate: string;
   name?: string;
