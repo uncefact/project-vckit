@@ -186,7 +186,6 @@ export class BitstringStatusListEntryStore {
         unsignedVC = { ...vc };
         delete unsignedVC.proof;
       }
-      unsignedVC.issuanceDate = new Date().toISOString();
 
       const list = await decodeList({
         encodedList: credentialSubject.encodedList,
