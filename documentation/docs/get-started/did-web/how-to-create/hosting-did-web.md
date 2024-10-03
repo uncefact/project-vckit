@@ -132,7 +132,7 @@ curl --location 'localhost:3332/.well-known/did.json' \
 Once generated, the DID document needs to be placed at the following path:
 
 - **For domain**: `https://example.com/.well-known/did.json`
-- **For Ngrok:** VCKit automatically serves the document at 1https://e3a8-42-117-186-253.ngrok-free.app/.well-known/did.json`, so there’s no need to manually place it.
+- **For Ngrok:** VCKit automatically serves the DID document at `http://localhost:3332/.well-known/did.json`. Since Ngrok points to your local server, you can access the DID document at `https://e3a8-42-117-186-253.ngrok-free.app/.well-known/did.json` for external testing. VCKit retrieves the domain from the Host header to determine which did:web to resolve, ensuring the correct DID document is served for your domain or Ngrok URL.
 
 :::important
 If you are using an additional path in your DID (e.g., did:web:example.com:subpath), you must not use /.well-known. Instead, host the DID document directly at the additional path, like so: `https://example.com/subpath/did.json`
