@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'Creating and Hosting a did:web Identifier'
+sidebar_label: 'Using Your Own Domain or Ngrok'
 sidebar_position: 2
 ---
 
