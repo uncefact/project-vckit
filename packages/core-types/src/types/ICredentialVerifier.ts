@@ -1,6 +1,7 @@
 import { IAgentContext, IPluginMethodMap } from './IAgent.js';
 import { IVerifyResult } from './IVerifyResult.js';
 import {
+  EnvelopedVerifiableCredential,
   W3CVerifiableCredential,
   W3CVerifiablePresentation,
 } from './vc-data-model.js';
@@ -22,7 +23,7 @@ export interface IVerifyCredentialArgs {
    * of the `credential` or the `iss` property of the JWT payload respectively
    *
    */
-  credential: W3CVerifiableCredential;
+  credential: W3CVerifiableCredential | EnvelopedVerifiableCredential;
 
   /**
    * When dealing with JSON-LD you also MUST provide the proper contexts.
@@ -161,7 +162,7 @@ export interface ICredentialVerifier extends IPluginMethodMap {
    */
   verifyCredential(
     args: IVerifyCredentialArgs,
-    context: VerifierAgentContext
+    context: VerifierAgentContext,
   ): Promise<IVerifyResult>;
 
   /**
@@ -177,7 +178,7 @@ export interface ICredentialVerifier extends IPluginMethodMap {
    */
   verifyPresentation(
     args: IVerifyPresentationArgs,
-    context: VerifierAgentContext
+    context: VerifierAgentContext,
   ): Promise<IVerifyResult>;
 }
 

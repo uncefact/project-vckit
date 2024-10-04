@@ -11,6 +11,7 @@ import {
   UnsignedCredential,
   IRenderer,
   VerifiableCredential,
+  EnvelopedVerifiableCredential,
 } from '@vckit/core-types';
 import { RenderDefaultContexts } from './render-default-contexts.js';
 import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
@@ -74,10 +75,16 @@ export class Renderer implements IAgentPlugin {
   ): Promise<IRenderResult> {
     try {
       let credential: VerifiableCredential | UnsignedCredential;
-      if (typeof args.credential === 'string') {
-        credential = decodeJWTJose(args.credential);
+      const { credential: credentialArg } = args;
+      if ((<EnvelopedVerifiableCredential>credentialArg).type === 'string') {
+        const jwt = (<EnvelopedVerifiableCredential>credentialArg).id.split(
+          ',',
+        )[1];
+        credential = decodeJWTJose(jwt);
       } else {
-        credential = { ...args.credential };
+        credential = {
+          ...(<VerifiableCredential | UnsignedCredential>credentialArg),
+        };
       }
 
       const [expandedDocument] = await expandVerifiableCredential(credential);
