@@ -10,7 +10,7 @@ export function V2VcRouter(options: any): Router {
   router.use(VCApiSchemaRouter(options));
   if (options.apiKey) {
     console.log('Using API key auth');
-    router.use(apiKeyAuth(options.apiKey));
+    router.use(apiKeyAuth(options));
   }
   router.use(VCRouter());
 
