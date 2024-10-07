@@ -175,25 +175,29 @@ export class BitstringStatusListEntryStore {
         JSON.parse(bitstringStatusList.verifiableCredential!);
       let unsignedVC: UnsignedCredential;
       let credentialSubject: CredentialSubject;
-      const getCredentialSubjectFromJWT = (vc: string) => {
+      const getUnsignedVCAndCredentialSubjectFromJWT = (vc: string) => {
         const decoded = decodeJWT(vc);
-        unsignedVC = decoded?.payload as UnsignedCredential;
+        const unsignedVC = decoded?.payload as UnsignedCredential;
 
-        return (
-          decoded?.payload?.vc?.credentialSubject ||
-          decoded?.payload?.credentialSubject
-        );
+        return {
+          unsignedVC,
+          credentialSubject:
+            decoded?.payload?.vc?.credentialSubject ||
+            decoded?.payload?.credentialSubject,
+        };
       };
 
       if (typeof vc === 'string') {
-        credentialSubject = getCredentialSubjectFromJWT(vc);
+        ({ unsignedVC, credentialSubject } =
+          getUnsignedVCAndCredentialSubjectFromJWT(vc));
       }
       if (
         (<EnvelopedVerifiableCredential>vc).type ===
         'EnvelopedVerifiableCredential'
       ) {
         const jwt = (<EnvelopedVerifiableCredential>vc).id.split(',')[1];
-        credentialSubject = getCredentialSubjectFromJWT(jwt);
+        ({ unsignedVC, credentialSubject } =
+          getUnsignedVCAndCredentialSubjectFromJWT(jwt));
       } else {
         credentialSubject = (<VerifiableCredential>vc).credentialSubject;
         unsignedVC = { ...(<VerifiableCredential>vc) };
