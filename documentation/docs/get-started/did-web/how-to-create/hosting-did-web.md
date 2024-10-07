@@ -25,11 +25,11 @@ Once your domain is set up with HTTPS, you can proceed to create and host your `
 
 #### Alternative: Testing with Ngrok (Without a Domain)
 
-If you don't have a domain but want to test the process locally, you can use **ngrok** to create a secure HTTPS tunnel to your localhost. Ngrok temporarily exposes your local server to the internet, giving you a unique URL for testing.
+If you don't have a domain but want to test the process locally, you can use [**ngrok**](https://ngrok.com/download) to create a secure HTTPS tunnel to your localhost. Ngrok temporarily exposes your local server to the internet, giving you a unique URL for testing.
 
 **Steps to Use Ngrok:**
 
-1. Install and register **ngrok**.
+1. Install and register [**ngrok**](https://ngrok.com/download).
 2. Run the following command to create a secure tunnel to your `localhost:3332` (VCkit API server):
 
    ```bash
