@@ -14,6 +14,8 @@ import {
   W3CVerifiableCredential,
   CredentialSubject,
   UnsignedCredential,
+  EnvelopedVerifiableCredential,
+  VerifiableCredential,
 } from '@vckit/core-types';
 import { OrPromise } from '@veramo/utils';
 import {
@@ -169,21 +171,36 @@ export class BitstringStatusListEntryStore {
         throw new Error('Bitstring Status List not found');
       }
 
-      const vc: W3CVerifiableCredential = JSON.parse(
-        bitstringStatusList.verifiableCredential!,
-      );
+      const vc: W3CVerifiableCredential | EnvelopedVerifiableCredential =
+        JSON.parse(bitstringStatusList.verifiableCredential!);
       let unsignedVC: UnsignedCredential;
       let credentialSubject: CredentialSubject;
-      if (typeof vc === 'string') {
+      const getUnsignedVCAndCredentialSubjectFromJWT = (vc: string) => {
         const decoded = decodeJWT(vc);
-        unsignedVC = decoded?.payload as UnsignedCredential;
+        const unsignedVC = decoded?.payload as UnsignedCredential;
 
-        credentialSubject =
-          decoded?.payload?.vc?.credentialSubject ||
-          decoded?.payload?.credentialSubject;
+        return {
+          unsignedVC,
+          credentialSubject:
+            decoded?.payload?.vc?.credentialSubject ||
+            decoded?.payload?.credentialSubject,
+        };
+      };
+
+      if (typeof vc === 'string') {
+        ({ unsignedVC, credentialSubject } =
+          getUnsignedVCAndCredentialSubjectFromJWT(vc));
+      }
+      if (
+        (<EnvelopedVerifiableCredential>vc).type ===
+        'EnvelopedVerifiableCredential'
+      ) {
+        const jwt = (<EnvelopedVerifiableCredential>vc).id.split(',')[1];
+        ({ unsignedVC, credentialSubject } =
+          getUnsignedVCAndCredentialSubjectFromJWT(jwt));
       } else {
-        credentialSubject = vc.credentialSubject;
-        unsignedVC = { ...vc };
+        credentialSubject = (<VerifiableCredential>vc).credentialSubject;
+        unsignedVC = { ...(<VerifiableCredential>vc) };
         delete unsignedVC.proof;
       }
 

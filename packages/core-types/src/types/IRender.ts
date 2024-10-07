@@ -3,14 +3,21 @@ import { IDIDManager } from './IDIDManager';
 import { IDataStore } from './IDataStore';
 import { IKeyManager } from './IKeyManager';
 import { IResolver } from './IResolver';
-import { UnsignedCredential, W3CVerifiableCredential } from './vc-data-model';
+import {
+  EnvelopedVerifiableCredential,
+  UnsignedCredential,
+  W3CVerifiableCredential,
+} from './vc-data-model';
 
 /**
  * Arguments for rendering a verifiable credential.
  * @public
  */
 export interface IRenderCredentialArgs {
-  credential: W3CVerifiableCredential | UnsignedCredential;
+  credential:
+    | W3CVerifiableCredential
+    | UnsignedCredential
+    | EnvelopedVerifiableCredential;
 }
 
 /**
@@ -55,6 +62,6 @@ export interface IRenderer extends IPluginMethodMap {
    */
   renderCredential(
     args: IRenderCredentialArgs,
-    context: IRendererContext
+    context: IRendererContext,
   ): Promise<IRenderResult>;
 }

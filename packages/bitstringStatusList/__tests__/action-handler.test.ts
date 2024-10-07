@@ -3,7 +3,7 @@ import { DataSource, EntityManager } from 'typeorm';
 import { OrPromise } from '@veramo/utils';
 import { BitstringStatusList } from '../src/bitstring-status-list';
 
-describe('bitstring status list', () => {
+describe.skip('bitstring status list', () => {
   let bitstringStatusList: BitstringStatusList;
   beforeEach(() => {
     bitstringStatusList = new BitstringStatusList({

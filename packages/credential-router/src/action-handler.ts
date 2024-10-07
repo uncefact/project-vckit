@@ -1,4 +1,5 @@
 import {
+  EnvelopedVerifiableCredential,
   IAgentPlugin,
   ICreateVerifiableCredentialArgs,
   ICredentialRouter,
@@ -135,7 +136,10 @@ export class CredentialRouter implements IAgentPlugin {
 }
 
 function detectDocumentType(
-  document: W3CVerifiableCredential | W3CVerifiablePresentation,
+  document:
+    | W3CVerifiableCredential
+    | W3CVerifiablePresentation
+    | EnvelopedVerifiableCredential,
 ): DocumentFormat {
   if (
     typeof document === 'string' ||

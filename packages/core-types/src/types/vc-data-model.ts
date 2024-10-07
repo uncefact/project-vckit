@@ -4,7 +4,7 @@
  *
  * @beta This API may change without a BREAKING CHANGE notice.
  */
-export type CompactJWT = string
+export type CompactJWT = string;
 
 /**
  * The issuer of a {@link VerifiableCredential} or the holder of a {@link VerifiablePresentation }.
@@ -18,7 +18,7 @@ export type CompactJWT = string
  *
  * @beta This API may change without a BREAKING CHANGE notice.
  */
-export type IssuerType = { id: string; [x: string]: any } | string
+export type IssuerType = { id: string; [x: string]: any } | string;
 
 /**
  * The value of the credentialSubject property is defined as a set of objects that contain one or more properties that
@@ -30,9 +30,9 @@ export type IssuerType = { id: string; [x: string]: any } | string
  * @beta This API may change without a BREAKING CHANGE notice.
  */
 export type CredentialSubject = {
-  id?: string
-  [x: string]: any
-}
+  id?: string;
+  [x: string]: any;
+};
 
 /**
  * Used for the discovery of information about the current status of a verifiable credential, such as whether it is
@@ -45,10 +45,10 @@ export type CredentialSubject = {
  * @beta This API may change without a BREAKING CHANGE notice.
  */
 export type CredentialStatusReference = {
-  id: string
-  type: string
-  [x: string]: any
-}
+  id: string;
+  type: string;
+  [x: string]: any;
+};
 
 /**
  * Represents the result of a status check.
@@ -61,9 +61,9 @@ export type CredentialStatusReference = {
  * @beta This API may change without a BREAKING CHANGE notice.
  */
 export type CredentialStatus = {
-  revoked: boolean
-  [x: string]: any
-}
+  revoked: boolean;
+  [x: string]: any;
+};
 
 /**
  * A proof property of a {@link VerifiableCredential} or {@link VerifiablePresentation}
@@ -71,9 +71,9 @@ export type CredentialStatus = {
  * @beta This API may change without a BREAKING CHANGE notice.
  */
 export interface ProofType {
-  type?: string
+  type?: string;
 
-  [x: string]: any
+  [x: string]: any;
 }
 
 /**
@@ -81,7 +81,10 @@ export interface ProofType {
  *
  * @beta This API may change without a BREAKING CHANGE notice.
  */
-export type ContextType = string | Record<string, any> | (string | Record<string, any>)[]
+export type ContextType =
+  | string
+  | Record<string, any>
+  | (string | Record<string, any>)[];
 
 /**
  * Represents an unsigned W3C Credential payload.
@@ -90,16 +93,27 @@ export type ContextType = string | Record<string, any> | (string | Record<string
  * @beta This API may change without a BREAKING CHANGE notice.
  */
 export interface UnsignedCredential {
-  issuer: IssuerType
-  credentialSubject: CredentialSubject
-  type?: string[] | string
-  '@context': ContextType
-  issuanceDate: string
-  expirationDate?: string
-  credentialStatus?: CredentialStatusReference
-  id?: string
+  issuer: IssuerType;
+  credentialSubject: CredentialSubject;
+  type?: string[] | string;
+  '@context': ContextType;
+  issuanceDate: string;
+  expirationDate?: string;
+  credentialStatus?: CredentialStatusReference;
+  id?: string;
 
-  [x: string]: any
+  [x: string]: any;
+}
+
+/**
+ * Represents an enveloped Verifiable Credential, which is a JSON object that contains a Verifiable Credential.
+ * See {@link https://w3c.github.io/vc-data-model/#enveloped-verifiable-credentials | VC data model}
+ * @beta This API may change without a BREAKING CHANGE notice.
+ */
+export interface EnvelopedVerifiableCredential {
+  '@context': ContextType;
+  type: string;
+  id: string;
 }
 
 /**
@@ -108,7 +122,7 @@ export interface UnsignedCredential {
  *
  * @beta This API may change without a BREAKING CHANGE notice.
  */
-export type VerifiableCredential = UnsignedCredential & { proof: ProofType }
+export type VerifiableCredential = UnsignedCredential & { proof: ProofType };
 
 /**
  * Represents a signed Verifiable Credential (includes proof), in either JSON or compact JWT format.
@@ -117,7 +131,7 @@ export type VerifiableCredential = UnsignedCredential & { proof: ProofType }
  *
  * @beta This API may change without a BREAKING CHANGE notice.
  */
-export type W3CVerifiableCredential = VerifiableCredential | CompactJWT
+export type W3CVerifiableCredential = VerifiableCredential | CompactJWT;
 
 /**
  * Represents an unsigned W3C Presentation payload.
@@ -125,16 +139,16 @@ export type W3CVerifiableCredential = VerifiableCredential | CompactJWT
  * @public
  */
 export interface UnsignedPresentation {
-  holder: string
-  verifiableCredential?: W3CVerifiableCredential[]
-  type?: string[] | string
-  '@context': ContextType
-  verifier?: string[]
-  issuanceDate?: string
-  expirationDate?: string
-  id?: string
+  holder: string;
+  verifiableCredential?: W3CVerifiableCredential[];
+  type?: string[] | string;
+  '@context': ContextType;
+  verifier?: string[];
+  issuanceDate?: string;
+  expirationDate?: string;
+  id?: string;
 
-  [x: string]: any
+  [x: string]: any;
 }
 
 /**
@@ -142,7 +156,9 @@ export interface UnsignedPresentation {
  * See {@link https://www.w3.org/TR/vc-data-model/#presentations | VP data model}
  * @public
  */
-export type VerifiablePresentation = UnsignedPresentation & { proof: ProofType }
+export type VerifiablePresentation = UnsignedPresentation & {
+  proof: ProofType;
+};
 
 /**
  * Represents a signed Verifiable Presentation (includes proof) in either JSON or compact JWT format.
@@ -150,7 +166,7 @@ export type VerifiablePresentation = UnsignedPresentation & { proof: ProofType }
  *
  * @public
  */
-export type W3CVerifiablePresentation = VerifiablePresentation | CompactJWT
+export type W3CVerifiablePresentation = VerifiablePresentation | CompactJWT;
 
 /**
  * Represents an issuance or expiration date for Credentials / Presentations.
@@ -158,7 +174,7 @@ export type W3CVerifiablePresentation = VerifiablePresentation | CompactJWT
  *
  * @beta This API may change without prior notice.
  */
-export type DateType = string | Date
+export type DateType = string | Date;
 
 /**
  * Used as input when creating Verifiable Credentials
@@ -166,16 +182,16 @@ export type DateType = string | Date
  * @beta This API may change without prior notice.
  */
 export interface CredentialPayload {
-  issuer: IssuerType
-  credentialSubject?: CredentialSubject
-  type?: string[]
-  '@context'?: ContextType
-  issuanceDate?: DateType
-  expirationDate?: DateType
-  credentialStatus?: CredentialStatusReference
-  id?: string
+  issuer: IssuerType;
+  credentialSubject?: CredentialSubject;
+  type?: string[];
+  '@context'?: ContextType;
+  issuanceDate?: DateType;
+  expirationDate?: DateType;
+  credentialStatus?: CredentialStatusReference;
+  id?: string;
 
-  [x: string]: any
+  [x: string]: any;
 }
 
 /**
@@ -184,16 +200,16 @@ export interface CredentialPayload {
  * @beta This API may change without prior notice.
  */
 export interface PresentationPayload {
-  holder: string
-  verifiableCredential?: W3CVerifiableCredential[]
-  type?: string[]
-  '@context'?: ContextType
-  verifier?: string[]
-  issuanceDate?: DateType
-  expirationDate?: DateType
-  id?: string
+  holder: string;
+  verifiableCredential?: W3CVerifiableCredential[];
+  type?: string[];
+  '@context'?: ContextType;
+  verifier?: string[];
+  issuanceDate?: DateType;
+  expirationDate?: DateType;
+  id?: string;
 
-  [x: string]: any
+  [x: string]: any;
 }
 
 /**
