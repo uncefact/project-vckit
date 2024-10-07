@@ -8,7 +8,10 @@ export function V2VcRouter(options: any): Router {
   const router = Router();
   router.use(VCApiDocsRouter());
   router.use(VCApiSchemaRouter(options));
-  router.use(apiKeyAuth(options.apiKey));
+  if (options.apiKey) {
+    console.log('Using API key auth');
+    router.use(apiKeyAuth(options.apiKey));
+  }
   router.use(VCRouter());
 
   return router;

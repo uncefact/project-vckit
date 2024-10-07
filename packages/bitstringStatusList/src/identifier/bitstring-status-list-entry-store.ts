@@ -14,6 +14,8 @@ import {
   W3CVerifiableCredential,
   CredentialSubject,
   UnsignedCredential,
+  EnvelopedVerifiableCredential,
+  VerifiableCredential,
 } from '@vckit/core-types';
 import { OrPromise } from '@veramo/utils';
 import {
@@ -169,21 +171,32 @@ export class BitstringStatusListEntryStore {
         throw new Error('Bitstring Status List not found');
       }
 
-      const vc: W3CVerifiableCredential = JSON.parse(
-        bitstringStatusList.verifiableCredential!,
-      );
+      const vc: W3CVerifiableCredential | EnvelopedVerifiableCredential =
+        JSON.parse(bitstringStatusList.verifiableCredential!);
       let unsignedVC: UnsignedCredential;
       let credentialSubject: CredentialSubject;
-      if (typeof vc === 'string') {
+      const getCredentialSubjectFromJWT = (vc: string) => {
         const decoded = decodeJWT(vc);
         unsignedVC = decoded?.payload as UnsignedCredential;
 
-        credentialSubject =
+        return (
           decoded?.payload?.vc?.credentialSubject ||
-          decoded?.payload?.credentialSubject;
+          decoded?.payload?.credentialSubject
+        );
+      };
+
+      if (typeof vc === 'string') {
+        credentialSubject = getCredentialSubjectFromJWT(vc);
+      }
+      if (
+        (<EnvelopedVerifiableCredential>vc).type ===
+        'EnvelopedVerifiableCredential'
+      ) {
+        const jwt = (<EnvelopedVerifiableCredential>vc).id.split(',')[1];
+        credentialSubject = getCredentialSubjectFromJWT(jwt);
       } else {
-        credentialSubject = vc.credentialSubject;
-        unsignedVC = { ...vc };
+        credentialSubject = (<VerifiableCredential>vc).credentialSubject;
+        unsignedVC = { ...(<VerifiableCredential>vc) };
         delete unsignedVC.proof;
       }
 

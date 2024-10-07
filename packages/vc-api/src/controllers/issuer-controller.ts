@@ -23,7 +23,7 @@ export const issueCredential = async (req: RequestWithAgent, res: Response) => {
       'routeCreationVerifiableCredential',
       payload,
     );
-    res.status(201).json(verifiableCredential);
+    res.status(201).json({ verifiableCredential });
   } catch (e) {
     const error = errorHandler(e);
     res.status(error.code).json({ error: error.message });
