@@ -16,7 +16,7 @@ export const issueCredential = async (req: RequestWithAgent, res: Response) => {
     const payload = {
       ...DEFAULT_CONFIG,
       credential: req.body.credential,
-      proofFormat: req.body.options.proofFormat ?? DEFAULT_CONFIG.proofFormat,
+      proofFormat: req.body?.options?.proofFormat ?? DEFAULT_CONFIG.proofFormat,
     };
 
     const verifiableCredential = await req.agent.execute(
