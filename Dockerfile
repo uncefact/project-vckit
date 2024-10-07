@@ -127,7 +127,7 @@ COPY --from=build /app/packages/vc-api/src/vc-api-schemas/vc-api.yaml packages/v
 COPY --from=build /app/packages/vc-api/src/vc-api-schemas/vc-api-v2.yaml packages/vc-api/src/vc-api-schemas/vc-api-v2.yaml
 
 # Add the DID Web Identifier
-COPY development/did-web-identifier .
+COPY development/did-web-identifier.json .
 
 # Add an entrypoint script to the image
 COPY entrypoint.sh .
