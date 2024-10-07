@@ -76,7 +76,10 @@ export class Renderer implements IAgentPlugin {
     try {
       let credential: VerifiableCredential | UnsignedCredential;
       const { credential: credentialArg } = args;
-      if ((<EnvelopedVerifiableCredential>credentialArg).type === 'string') {
+      if (
+        (<EnvelopedVerifiableCredential>credentialArg).type ===
+        'EnvelopedVerifiableCredential'
+      ) {
         const jwt = (<EnvelopedVerifiableCredential>credentialArg).id.split(
           ',',
         )[1];
