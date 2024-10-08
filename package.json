@@ -4,7 +4,7 @@
   "scripts": {
     "postinstall": "mkdir .tmp_npm; cd .tmp_npm; mkdir veramo; cd veramo; git init; git remote add -f origin https://github.com/gs-gs/veramo.git; git pull --depth=1 origin vc-v2; pnpm install; pnpm build;",
     "build": "pnpm build:agent && pnpm build:explorer",
-    "build:agent": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --experimental-json-modules\" pnpm build:js && pnpm build:api && pnpm build:schema",
+    "build:agent": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --experimental-json-modules\" pnpm build:js && pnpm --ignore-scripts build:api && pnpm build:schema",
     "build:js": "pnpm -r --stream --filter !./packages/vckit-oa-renderers/ --filter !./packages/credential-oa/ --filter !./packages/demo-explorer/ build",
     "build:api": "pnpm --package=@vckit/cli -c dlx \"pnpm -r --stream --filter !./packages/vckit-oa-renderers/ --filter !./packages/credential-oa/ --filter !./packages/demo-explorer/ extract-api\"",
     "build:schema": "pnpm --package=@vckit/cli -c dlx \"pnpm -r --stream generate-plugin-schema\"",
