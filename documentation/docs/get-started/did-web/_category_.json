@@ -1,0 +1,8 @@
+{
+  "label": "DIDs and did:web",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn about Decentralised Identifiers (DIDs), how they enable self-sovereign digital identities, and how to create, manage, and host a DID:web identifier using VCkit."
+  }
+}
