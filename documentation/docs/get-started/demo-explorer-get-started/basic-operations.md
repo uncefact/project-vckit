@@ -3,11 +3,11 @@ sidebar_label: 'Basic Operations'
 sidebar_position: 3
 ---
 
+import Disclaimer from './../../\_disclaimer.mdx';
+
 # Basic Operations
 
-:::info
-To try this locally, you need to create a secure tunnel to your `localhost:3332`. You can use [**ngrok**](/docs/get-started/api-server-get-started/basic-operations#optional-using-https-for-localhost-by-using-ngrok) to do this.
-:::
+<Disclaimer />
 
 ## Create an identifier
 

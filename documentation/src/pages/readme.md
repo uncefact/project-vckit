@@ -29,24 +29,14 @@ VCkit aims to provide the tools to equip your existing business systems to issue
 ## Documentation
 
 * [How to use agent config file](/docs/category/agent-configuration)
-* [Component Documentation](/category/vckit-plugins)
-* [Produce Guides for Plugin Creation/Management](#)
+* [Component Documentation](/docs/category/vckit-plugins)
+* [Produce Guides for Plugin Creation/Management](/docs/manage-plugins)
 
 
 
 ## Contributing
 
 Contributions are always welcome!
-
-
-## Hall Of Fame
-Here we honor VCkit's biggest contributors
-* [Steven Capell](https://github.com/onthebreeze)
-* [Zach Zeus](https://github.com/zachzeus)
-* [Hoa Ngo](https://github.com/hoa-ngo-gs)
-* [Nam Hoang](https://github.com/namhoang1604)
-* [Yen Le](https://github.com/ldhyen99)
-
 
 ## Good First Issues
 We have a [list of good first issues](https://github.com/uncefact/project-vckit/issues/) that contain bugs that have a relatively limited scope. This is a great place for newcomers and beginners alike to get started, gain experience, and get familiar with our contribution process.

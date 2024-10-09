@@ -1,4 +1,8 @@
+import Disclaimer from './../\_disclaimer.mdx';
+
 # Credential Router
+
+<Disclaimer />
 
 This plugin is used to route for issuing and verifying verifiable credential that will navigate to the correct plugin based on the proof format of the credential.
 

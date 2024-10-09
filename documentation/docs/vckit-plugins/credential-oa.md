@@ -1,4 +1,8 @@
+import Disclaimer from './../\_disclaimer.mdx';
+
 # Credential OpenAttestation Plugin
+
+<Disclaimer />
 
 - This plugin is used for issuing and verifying verifiable credential that adhere to OpenAttestation framework
 

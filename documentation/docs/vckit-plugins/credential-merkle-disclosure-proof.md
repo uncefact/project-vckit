@@ -1,4 +1,8 @@
+import Disclaimer from './../\_disclaimer.mdx';
+
 # Credential Merkle Disclosure Proof
+
+<Disclaimer />
 
 This package get idea from [merkle-disclosure-proof-2021](https://github.com/transmute-industries/merkle-disclosure-proof-2021) and implement to be a plugin for [Veramo](https://veramo.io/). It follows the proposal [Credential Merkle Disclosure Proof](https://w3c-ccg.github.io/Merkle-Disclosure-2021) to generate a Merkle proof from a credential.
 

@@ -3,11 +3,11 @@ sidebar_label: 'Basic Operations'
 sidebar_position: 3
 ---
 
+import Disclaimer from './../../\_disclaimer.mdx';
+
 # Basic Operations
 
-:::info
-Please note that this content is still under development
-:::
+<Disclaimer />
 
 ## Create an identifer
 

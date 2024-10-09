@@ -3,11 +3,12 @@ sidebar_position: 1
 slug: /
 
 ---
+
+import Disclaimer from './\_disclaimer.mdx';
+
 # Introduction
-![Logo](/img/vckit-logo.svg)
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-
+<Disclaimer />
 
 ## What is VCkit
 
@@ -46,15 +47,6 @@ VCkit aims to provide the tools to equip your existing business systems to issue
 ## Contributing
 
 Contributions are always welcome!
-
-
-## Hall Of Fame
-Here we honor VCkit's biggest contributors
-* [Steven Capell](https://github.com/onthebreeze)
-* [Zach Zeus](https://github.com/zachzeus)
-* [Hoa Ngo](https://github.com/hoa-ngo-gs)
-* [Nam Hoang](https://github.com/namhoang1604)
-* [Yen Le](https://github.com/ldhyen99)
 
 
 ## Good First Issues

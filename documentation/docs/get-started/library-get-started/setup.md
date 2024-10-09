@@ -3,7 +3,12 @@ sidebar_label: 'Set Up'
 sidebar_position: 2
 ---
 
+import Disclaimer from './../../\_disclaimer.mdx';
+
 # Set up Agent
+
+<Disclaimer />
+
 To start using VCkit, we need to initialize an agent.
 ## Copy database file
 This tutorial will use the **did:web** method and we will need an available did:web identifier. To do that, we need to use the same database as the **VCkit API server** responsible for hosting the **did:web**.

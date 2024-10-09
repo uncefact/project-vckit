@@ -3,13 +3,11 @@ sidebar_label: 'Installation'
 sidebar_position: 1
 ---
 
-:::info
-You can find the complete source code of this tutorial [here](#)
-:::
-
-<!-- todo: update the github link of the example code -->
+import Disclaimer from './../../\_disclaimer.mdx';
 
 # Installation
+
+<Disclaimer />
 
 ## Prerequisites
 

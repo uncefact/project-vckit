@@ -3,7 +3,11 @@ sidebar_position: 1
 slug: /get-started
 ---
 
+import Disclaimer from './../\_disclaimer.mdx';
+
 # Intro
+
+<Disclaimer />
 
 Let's discover **VCkit in less than 10 minutes**.
 
