@@ -7,5 +7,10 @@ envsubst '${DATABASE_TYPE},${DATABASE_NAME},${DATABASE_HOST},${DATABASE_PORT},${
 
 echo "Agent.yml updated."
 
+# Seed test identifier 
+echo "Seeding test identifier..."
+cat did-web-identifier.json| node packages/cli/build/cli.js did import
+echo "Test identifier seeded."
+
 # Execute the Docker CMD
 exec "$@"
