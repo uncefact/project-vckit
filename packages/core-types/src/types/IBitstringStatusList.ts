@@ -2,6 +2,7 @@ import { StatusEntry } from 'credential-status';
 import { IPluginMethodMap, IAgent } from './IAgent.js';
 import {
   CredentialStatus,
+  EnvelopedVerifiableCredential,
   IssuerType,
   VerifiableCredential,
 } from './vc-data-model.js';
@@ -52,9 +53,18 @@ export type IIssueBitstringStatusListArgs = Omit<
 /**
  * @public
  */
+export type CredentialStatusIssuerObject = {
+  credentialStatus: StatusEntry;
+  issuer: IssuerType;
+};
+
+/**
+ * @public
+ */
 export type IVerifiableCredentialJSONOrJWT =
   | string
-  | { credentialStatus: StatusEntry; issuer: IssuerType };
+  | CredentialStatusIssuerObject
+  | EnvelopedVerifiableCredential;
 
 /**
  * @public

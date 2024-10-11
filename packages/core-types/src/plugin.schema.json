@@ -4616,7 +4616,14 @@
           "type": "object",
           "properties": {
             "credential": {
-              "$ref": "#/components/schemas/W3CVerifiableCredential",
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/W3CVerifiableCredential"
+                },
+                {
+                  "$ref": "#/components/schemas/EnvelopedVerifiableCredential"
+                }
+              ],
               "description": "The Verifiable Credential object according to the  {@link https://www.w3.org/TR/vc-data-model/#credentials | canonical model }  or the JWT representation.\n\nThe signer of the Credential is verified based on the `issuer.id` property of the `credential` or the `iss` property of the JWT payload respectively"
             },
             "fetchRemoteContexts": {
@@ -4777,6 +4784,26 @@
         "CompactJWT": {
           "type": "string",
           "description": "Represents a Json Web Token in compact form. \"header.payload.signature\""
+        },
+        "EnvelopedVerifiableCredential": {
+          "type": "object",
+          "properties": {
+            "@context": {
+              "$ref": "#/components/schemas/ContextType"
+            },
+            "type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@context",
+            "type",
+            "id"
+          ],
+          "description": "Represents an enveloped Verifiable Credential, which is a JSON object that contains a Verifiable Credential. See  {@link https://w3c.github.io/vc-data-model/#enveloped-verifiable-credentials | VC data model }"
         },
         "VerificationPolicies": {
           "type": "object",
@@ -5191,7 +5218,14 @@
           "type": "object",
           "properties": {
             "credential": {
-              "$ref": "#/components/schemas/W3CVerifiableCredential",
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/W3CVerifiableCredential"
+                },
+                {
+                  "$ref": "#/components/schemas/EnvelopedVerifiableCredential"
+                }
+              ],
               "description": "The Verifiable Credential object according to the  {@link https://www.w3.org/TR/vc-data-model/#credentials | canonical model }  or the JWT representation.\n\nThe signer of the Credential is verified based on the `issuer.id` property of the `credential` or the `iss` property of the JWT payload respectively"
             },
             "fetchRemoteContexts": {
@@ -5225,6 +5259,26 @@
         "CompactJWT": {
           "type": "string",
           "description": "Represents a Json Web Token in compact form. \"header.payload.signature\""
+        },
+        "EnvelopedVerifiableCredential": {
+          "type": "object",
+          "properties": {
+            "@context": {
+              "$ref": "#/components/schemas/ContextType"
+            },
+            "type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@context",
+            "type",
+            "id"
+          ],
+          "description": "Represents an enveloped Verifiable Credential, which is a JSON object that contains a Verifiable Credential. See  {@link https://w3c.github.io/vc-data-model/#enveloped-verifiable-credentials | VC data model }"
         },
         "VerificationPolicies": {
           "type": "object",
@@ -6020,10 +6074,13 @@
             "credential": {
               "anyOf": [
                 {
-                  "$ref": "#/components/schemas/VerifiableCredential"
+                  "$ref": "#/components/schemas/W3CVerifiableCredential"
                 },
                 {
                   "$ref": "#/components/schemas/UnsignedCredential"
+                },
+                {
+                  "$ref": "#/components/schemas/EnvelopedVerifiableCredential"
                 }
               ]
             }
@@ -6032,6 +6089,17 @@
             "credential"
           ],
           "description": "Arguments for rendering a verifiable credential."
+        },
+        "W3CVerifiableCredential": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/VerifiableCredential"
+            },
+            {
+              "$ref": "#/components/schemas/CompactJWT"
+            }
+          ],
+          "description": "Represents a signed Verifiable Credential (includes proof), in either JSON or compact JWT format. See  {@link https://www.w3.org/TR/vc-data-model/#credentials | VC data model }  See  {@link https://www.w3.org/TR/vc-data-model/#proof-formats | proof formats }"
         },
         "VerifiableCredential": {
           "type": "object",
@@ -6160,6 +6228,10 @@
           ],
           "description": "Used for the discovery of information about the current status of a verifiable credential, such as whether it is suspended or revoked. The precise contents of the credential status information is determined by the specific `credentialStatus` type definition, and varies depending on factors such as whether it is simple to implement or if it is privacy-enhancing.\n\nSee  {@link https://www.w3.org/TR/vc-data-model/#status | Credential Status }"
         },
+        "CompactJWT": {
+          "type": "string",
+          "description": "Represents a Json Web Token in compact form. \"header.payload.signature\""
+        },
         "UnsignedCredential": {
           "type": "object",
           "properties": {
@@ -6205,6 +6277,26 @@
             "issuanceDate"
           ],
           "description": "Represents an unsigned W3C Credential payload. See  {@link https://www.w3.org/TR/vc-data-model/#credentials | VC data model }"
+        },
+        "EnvelopedVerifiableCredential": {
+          "type": "object",
+          "properties": {
+            "@context": {
+              "$ref": "#/components/schemas/ContextType"
+            },
+            "type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@context",
+            "type",
+            "id"
+          ],
+          "description": "Represents an enveloped Verifiable Credential, which is a JSON object that contains a Verifiable Credential. See  {@link https://w3c.github.io/vc-data-model/#enveloped-verifiable-credentials | VC data model }"
         },
         "IRenderResult": {
           "type": "object",
@@ -6693,7 +6785,14 @@
           "type": "object",
           "properties": {
             "credential": {
-              "$ref": "#/components/schemas/W3CVerifiableCredential",
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/W3CVerifiableCredential"
+                },
+                {
+                  "$ref": "#/components/schemas/EnvelopedVerifiableCredential"
+                }
+              ],
               "description": "The Verifiable Credential object according to the  {@link https://www.w3.org/TR/vc-data-model/#credentials | canonical model }  or the JWT representation.\n\nThe signer of the Credential is verified based on the `issuer.id` property of the `credential` or the `iss` property of the JWT payload respectively"
             },
             "fetchRemoteContexts": {
@@ -6727,6 +6826,26 @@
         "CompactJWT": {
           "type": "string",
           "description": "Represents a Json Web Token in compact form. \"header.payload.signature\""
+        },
+        "EnvelopedVerifiableCredential": {
+          "type": "object",
+          "properties": {
+            "@context": {
+              "$ref": "#/components/schemas/ContextType"
+            },
+            "type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@context",
+            "type",
+            "id"
+          ],
+          "description": "Represents an enveloped Verifiable Credential, which is a JSON object that contains a Verifiable Credential. See  {@link https://w3c.github.io/vc-data-model/#enveloped-verifiable-credentials | VC data model }"
         },
         "VerificationPolicies": {
           "type": "object",
@@ -6834,20 +6953,26 @@
               "type": "string"
             },
             {
-              "type": "object",
-              "properties": {
-                "credentialStatus": {
-                  "$ref": "#/components/schemas/StatusEntry"
-                },
-                "issuer": {
-                  "$ref": "#/components/schemas/IssuerType"
-                }
-              },
-              "required": [
-                "credentialStatus",
-                "issuer"
-              ]
+              "$ref": "#/components/schemas/CredentialStatusIssuerObject"
+            },
+            {
+              "$ref": "#/components/schemas/EnvelopedVerifiableCredential"
             }
+          ]
+        },
+        "CredentialStatusIssuerObject": {
+          "type": "object",
+          "properties": {
+            "credentialStatus": {
+              "$ref": "#/components/schemas/StatusEntry"
+            },
+            "issuer": {
+              "$ref": "#/components/schemas/IssuerType"
+            }
+          },
+          "required": [
+            "credentialStatus",
+            "issuer"
           ]
         },
         "StatusEntry": {
@@ -6884,6 +7009,50 @@
             }
           ],
           "description": "The issuer of a  {@link  VerifiableCredential }  or the holder of a  {@link  VerifiablePresentation } .\n\nThe value of the issuer property MUST be either a URI or an object containing an id property. It is RECOMMENDED that the URI in the issuer or its id be one which, if de-referenced, results in a document containing machine-readable information about the issuer that can be used to verify the information expressed in the credential.\n\nSee  {@link https://www.w3.org/TR/vc-data-model/#issuer | Issuer data model }"
+        },
+        "EnvelopedVerifiableCredential": {
+          "type": "object",
+          "properties": {
+            "@context": {
+              "$ref": "#/components/schemas/ContextType"
+            },
+            "type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@context",
+            "type",
+            "id"
+          ],
+          "description": "Represents an enveloped Verifiable Credential, which is a JSON object that contains a Verifiable Credential. See  {@link https://w3c.github.io/vc-data-model/#enveloped-verifiable-credentials | VC data model }"
+        },
+        "ContextType": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object"
+                  }
+                ]
+              }
+            }
+          ],
+          "description": "The data type for `@context` properties of credentials, presentations, etc."
         },
         "CredentialStatus": {
           "type": "object",

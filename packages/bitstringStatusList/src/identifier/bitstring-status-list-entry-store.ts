@@ -11,6 +11,11 @@ import {
   IBitstringStatusListArgs,
   IBitstringStatusListEntry,
   ISetBitstringStatusArgs,
+  W3CVerifiableCredential,
+  CredentialSubject,
+  UnsignedCredential,
+  EnvelopedVerifiableCredential,
+  VerifiableCredential,
 } from '@vckit/core-types';
 import { OrPromise } from '@veramo/utils';
 import {
@@ -21,6 +26,7 @@ import {
 } from 'typeorm';
 import { BitstringStatusListEntry } from '../entities/bitstring-status-list-entry-data.js';
 import { getConnectedDb } from '../utils.js';
+import { decodeJWT } from 'did-jwt';
 
 const DB_ERRORS = ['serialize', 'deadlock'];
 
@@ -165,22 +171,52 @@ export class BitstringStatusListEntryStore {
         throw new Error('Bitstring Status List not found');
       }
 
-      const vc = JSON.parse(bitstringStatusList.verifiableCredential!);
+      const vc: W3CVerifiableCredential | EnvelopedVerifiableCredential =
+        JSON.parse(bitstringStatusList.verifiableCredential!);
+      let unsignedVC: UnsignedCredential;
+      let credentialSubject: CredentialSubject;
+      const getUnsignedVCAndCredentialSubjectFromJWT = (vc: string) => {
+        const decoded = decodeJWT(vc);
+        const unsignedVC = decoded?.payload as UnsignedCredential;
+
+        return {
+          unsignedVC,
+          credentialSubject:
+            decoded?.payload?.vc?.credentialSubject ||
+            decoded?.payload?.credentialSubject,
+        };
+      };
+
+      if (typeof vc === 'string') {
+        ({ unsignedVC, credentialSubject } =
+          getUnsignedVCAndCredentialSubjectFromJWT(vc));
+      }
+      if (
+        (<EnvelopedVerifiableCredential>vc).type ===
+        'EnvelopedVerifiableCredential'
+      ) {
+        const jwt = (<EnvelopedVerifiableCredential>vc).id.split(',')[1];
+        ({ unsignedVC, credentialSubject } =
+          getUnsignedVCAndCredentialSubjectFromJWT(jwt));
+      } else {
+        credentialSubject = (<VerifiableCredential>vc).credentialSubject;
+        unsignedVC = { ...(<VerifiableCredential>vc) };
+        delete unsignedVC.proof;
+      }
+
       const list = await decodeList({
-        encodedList: vc.credentialSubject.encodedList,
+        encodedList: credentialSubject.encodedList,
       });
 
       list.setStatus(args.index, args.status);
 
-      vc.credentialSubject.encodedList = await list.encode();
-      delete vc.proof;
-      delete vc.issuanceDate;
+      credentialSubject.encodedList = await list.encode();
 
       const bitstringStatusListVC = await args.context.agent.execute(
         'createVerifiableCredential',
         {
-          credential: vc,
-          proofFormat: 'lds',
+          credential: unsignedVC,
+          proofFormat: 'EnvelopingProofJose',
           fetchRemoteContexts: true,
         },
       );

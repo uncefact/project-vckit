@@ -539,10 +539,10 @@ paths:
         '500':
           description: Internal Server Error
 components:
-  securitySchemes:
-    auth:
-      type: http
-      scheme: bearer
+  # securitySchemes:
+  #   auth:
+  #     type: http
+  #     scheme: bearer
   schemas:
     DeriveCredentialRequest:
       type: object
@@ -976,47 +976,47 @@ components:
           $ref: '#/components/schemas/IssueCredentialOptions'
     IssueCredentialResponse:
       oneOf:
-      - type: object
-        title: Embedded VC
-        description: Response for issuing a credential.
-        properties:
-          '@context':
-            type: array
-            items:
-              type: string
-          id:
-            type: string
-          type:
-            type: array
-            items:
-              type: string
-          issuer:
-            type: object
-            properties:
-              id:
+        - type: object
+          title: Embedded VC
+          description: Response for issuing a credential.
+          properties:
+            '@context':
+              type: array
+              items:
                 type: string
-          issuanceDate:
-            type: string
-          expirationDate:
-            type: string
-          credentialSubject:
-            type: object
-            description: The subject
-          proof:
-            $ref: '#/components/schemas/DataIntegrityProof'
-      - type: object
-        title: Enveloped VC
-        description: Response for issuing a credential.
-        properties:
-          '@context':
-            type: array
-            items:
+            id:
               type: string
-          id:
-            type: string
-          type:
-            type: string
-            example: 'EnvelopedVerifiableCredential'
+            type:
+              type: array
+              items:
+                type: string
+            issuer:
+              type: object
+              properties:
+                id:
+                  type: string
+            issuanceDate:
+              type: string
+            expirationDate:
+              type: string
+            credentialSubject:
+              type: object
+              description: The subject
+            proof:
+              $ref: '#/components/schemas/DataIntegrityProof'
+        - type: object
+          title: Enveloped VC
+          description: Response for issuing a credential.
+          properties:
+            '@context':
+              type: array
+              items:
+                type: string
+            id:
+              type: string
+            type:
+              type: string
+              example: 'EnvelopedVerifiableCredential'
 
     UpdateCredentialStatus:
       type: object
