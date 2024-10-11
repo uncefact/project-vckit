@@ -18,6 +18,7 @@
     "migrate:db": "pnpm -r --stream typeorm migration:run",
     "rollback:db": "pnpm -r --stream typeorm migration:revert",
     "watch": "pnpm -r exec --if-present 'pnpm run watch'",
+    "seed-identifier": "cat development/did-web-identifier.json | pnpm vckit did import",
     "vckit": "cross-env NODE_NO_WARNINGS=1 ./packages/cli/bin/vckit.js",
     "prettier": "prettier --write \"{packages,docs,__tests__,!build}/**/*.{ts,js,json,md,yml}\"",
     "publish:latest": "lerna publish --conventional-commits --include-merged-tags --create-release github --yes --dist-tag beta --registry \"https://registry.npmjs.org/:_authToken=${NPM_TOKEN}\"",

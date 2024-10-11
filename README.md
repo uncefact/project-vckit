@@ -44,6 +44,25 @@ pnpm vckit config
 
 The `pnpm vckit config` command will create a `agent.yml` file in the root of the project. This file contains the configuration for the Veramo agent. You can edit this file to configure the agent to your needs. The default configuration is sufficient to get started.
 
+## Seed Identifier
+
+This feature automates the process of seeding a predefined DID document for use in development environments.
+
+The DID document is located at `documentation/static/test-and-development/did.json`.
+This document is built and served using Docusaurus.
+
+A seed-identifier script is available to seed the identifier into the vckit instance.
+This script runs the `vckit did import` command and uses a predefined identifier file located at `/development/did-web-identifier.json`.
+
+The predefined did:web used for seeding is: `did:web:uncefact.github.io:project-vckit:test-and-development`
+
+```bash
+# Seed identifier
+pnpm seed-identifier
+```
+
+The Docker Compose entrypoint includes a shell command to run the seed-identifier script automatically.
+
 ## Start the server on local
 
 ```bash
