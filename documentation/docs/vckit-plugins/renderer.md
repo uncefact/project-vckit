@@ -26,7 +26,7 @@ renderer:
 
 ### Standalone
 
-#### Verifiable credential data with proof type is "lds"
+#### Verifiable credential data that uses the proof type 'lds'
 
 ```typescript
 import { WebRenderingTemplate2022 } from '@vckit/renderer';
