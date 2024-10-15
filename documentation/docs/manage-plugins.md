@@ -2,7 +2,11 @@
 sidebar_position: 6
 ---
 
+import Disclaimer from './\_disclaimer.mdx';
+
 # How to create and manage plugins
+
+<Disclaimer />
 
 ## Create a new plugin
 

@@ -1,4 +1,8 @@
+import Disclaimer from './../\_disclaimer.mdx';
+
 # Revocation list 2020
+
+<Disclaimer />
 
 The revocation list 2020 plugin is used to revoke and verify the verify credential based on the revocation list 2020 https://w3c-ccg.github.io/vc-status-rl-2020/
 

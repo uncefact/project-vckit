@@ -1,4 +1,8 @@
+import Disclaimer from './../\_disclaimer.mdx';
+
 # Encrypted Storage
+
+<Disclaimer />
 
 The encrypted storage plugin provides a secure storage for the agent. It is used to store the verifiable credentials that issued when call the `routeCreationVerifiableCredential` method.
 

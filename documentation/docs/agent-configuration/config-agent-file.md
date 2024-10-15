@@ -1,4 +1,8 @@
+import Disclaimer from './../\_disclaimer.mdx';
+
 # Config Agent File
+
+<Disclaimer />
 
 This guide explains the structure and options available within the agent config file. Use cases illustrating how to customise the config file for different scenarios are included.
 

@@ -2,7 +2,13 @@
 sidebar_position: 1
 slug: /vckit-plugins
 ---
+
+import Disclaimer from './../\_disclaimer.mdx';
+
 # Introduction
+
+<Disclaimer />
+
 VCkit is built on top of Veramo - a Javascript agent framework - to provide a structured and modular approach to building decentralized identity and credentialing solutions.
 ## Plugins system
 
