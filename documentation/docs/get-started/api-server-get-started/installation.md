@@ -3,7 +3,11 @@ sidebar_label: 'Installation'
 sidebar_position: 1
 ---
 
+import Disclaimer from './../../\_disclaimer.mdx';
+
 # Installation
+
+<Disclaimer />
 
 ## Prerequisites
 

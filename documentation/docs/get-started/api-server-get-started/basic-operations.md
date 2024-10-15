@@ -3,7 +3,11 @@ sidebar_label: 'Basic Operations'
 sidebar_position: 3
 ---
 
+import Disclaimer from './../../\_disclaimer.mdx';
+
 # Basic Operations
+
+<Disclaimer />
 
 Let's use the API docs at [`http://localhost:3332/api-docs`](http://localhost:3332/api-docs) to try some basic functions.
 
