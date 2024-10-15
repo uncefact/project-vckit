@@ -30,12 +30,64 @@ renderer:
 
 ### Standalone
 
+#### Verifiable credential data that uses the proof type 'lds'
+
+```typescript
+import { WebRenderingTemplate2022 } from '@vckit/renderer';
+
+// Example credential data
+const params = {
+  credential: {
+    '@context': ['https://www.w3.org/ns/credentials/v2', 'https://www.w3.org/ns/credentials/examples/v2', 'https://dev-render-method-context.s3.ap-southeast-1.amazonaws.com/dev-render-method-context.json'],
+    id: 'http://example.gov/credentials/3732',
+    type: ['VerifiableCredential', 'ExampleDegreeCredential'],
+    issuer: 'did:example:6fb1f712ebe12c27cc26eebfe11',
+    validFrom: '2010-01-01T19:23:24Z',
+    credentialSubject: {
+      id: 'https://subject.example/subject/3921',
+      degree: {
+        type: 'ExampleBachelorDegree',
+        name: 'Bachelor of Science and Arts',
+      },
+    },
+    render: [
+      {
+        template: '<div>Template</div>',
+      },
+    ],
+    proof: {
+      type: 'DataIntegrityProof',
+      cryptosuite: 'eddsa-rdfc-2022',
+      created: '2021-11-13T18:19:39Z',
+      verificationMethod: 'did:web:example.com#key',
+      proofPurpose: 'assertionMethod',
+      proofValue: 'z58DAdFfa9SkqZMVPxAQp...jQCrfFPP2oumHKtz',
+    },
+  },
+};
+
+const WebRenderingTemplate2022 = new WebRenderingTemplate2022();
+const renderer = new Renderer({
+  providers: {
+    WebRenderingTemplate2022,
+  },
+  defaultProvider: 'WebRenderingTemplate2022',
+});
+const context = {};
+const result = await renderer.renderCredential(params, context);
+// The result will be the encoded base64 of the rendered HTML string.
+```
+
+#### Verifiable credential data with EnvelopedVerifiableCredential
+
 ```typescript
 import { WebRenderingTemplate2022 } from '@vckit/renderer';
 
 const params = {
   credential: {
-    // Verifiable credential data...
+    '@context': ['https://www.w3.org/ns/credentials/v2', 'https://www.w3.org/ns/credentials/examples/v2'],
+    id: 'data:application/vc-ld+jwt,eyJhbGciOiJFZERTQSIsIm...', // The JWT should contain render field with the template.
+    type: 'EnvelopedVerifiableCredential',
   },
 };
 
@@ -86,4 +138,5 @@ curl -X 'POST' \
 ### With VCkit Library
 
 You can try VCkit Renderer plugin by follow this get started guide.
-* [VCkit Library Get Started](/docs/get-started/library-get-started/installation).
+
+- [VCkit Library Get Started](/docs/get-started/library-get-started/installation).
