@@ -386,3 +386,55 @@ To get the rendered VC, you can try this endpoint [`/renderCredential`](http://l
 :::tip
 The document value is a string which is a encoded HTML string. You can use any online [Base64](https://www.base64decode.org/) tool out there to decode it. Good luck!
 :::
+
+## Revoke a VC
+
+To revoke a VC, you will use the following API endpoint in the VCKit API: [`/agent/setBitstringStatus`](http://localhost:3332/agent/setBitstringStatus).
+
+### Request body:
+
+The request payload for updating the status of a VC should look like this:
+
+```json
+{
+  "statusListCredential": "http://localhost:3332/credentials/status/bitstring-status-list/26", // replace by your status list credential
+  "statusListVCIssuer": "did:web:example.com", // replace by your issuer
+  "statusPurpose": "revocation",
+  "index": 0, // replace by your index
+  "status": true // set to true to revoke
+}
+```
+
+### Expected response:
+
+```json
+{
+  "status": true
+}
+```
+
+## Activate a VC
+
+To activate a VC, you will use the following API endpoint in the VCKit API: [`/agent/setBitstringStatus`](http://localhost:3332/agent/setBitstringStatus).
+
+### Request body:
+
+The request payload for updating the status of a VC should look like this:
+
+```json
+{
+  "statusListCredential": "http://localhost:3332/credentials/status/bitstring-status-list/26", // replace by your status list credential
+  "statusListVCIssuer": "did:web:example.com", // replace by your issuer
+  "statusPurpose": "revocation",
+  "index": 0, // replace by your index
+  "status": false // set to false to activate
+}
+```
+
+### Expected response:
+
+```json
+{
+  "status": false
+}
+```
