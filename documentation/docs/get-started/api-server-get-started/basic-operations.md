@@ -270,3 +270,51 @@ To get the rendered VC, you can try this endpoint [`/renderCredential`](http://l
 :::tip
 The document value is a string which is a encoded HTML string. You can use any online [Base64](https://www.base64decode.org/) tool out there to decode it. Good luck!
 :::
+
+## Revoking a VC
+
+To revoke a VC, use the following VCKit API endpoint: [/agent/setBitstringStatus](http://localhost:3332/agent/setBitstringStatus).
+
+### Request body:
+
+```json
+{
+  "statusListCredential": "http://localhost:3332/credentials/status/bitstring-status-list/26",
+  "statusListVCIssuer": "did:web:example.com",
+  "statusPurpose": "revocation",
+  "index": 0,
+  "status": true
+}
+```
+
+### Expected response:
+
+```json
+{
+  "status": true
+}
+```
+
+## Activating a VC
+
+To activate a VC, use the following VCKit API endpoint: [/agent/setBitstringStatus](http://localhost:3332/agent/setBitstringStatus).
+
+### Request body:
+
+```json
+{
+  "statusListCredential": "http://localhost:3332/credentials/status/bitstring-status-list/26",
+  "statusListVCIssuer": "did:web:example.com",
+  "statusPurpose": "revocation",
+  "index": 0,
+  "status": false
+}
+```
+
+### Expected response:
+
+```json
+{
+  "status": false
+}
+```
