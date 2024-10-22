@@ -271,6 +271,33 @@ To get the rendered VC, you can try this endpoint [`/renderCredential`](http://l
 The document value is a string which is a encoded HTML string. You can use any online [Base64](https://www.base64decode.org/) tool out there to decode it. Good luck!
 :::
 
+## Issuing a status VC
+
+To issue a status VC, use the following VCKit API endpoint: [/agent/issueBitstringStatusList](http://localhost:3332/agent/issueBitstringStatusList).
+
+Once you have the status VC, you can inject it into the issuing VC payload. After issuing a VC with a status VC, the VC can now be revoked or activated, and its status is managed by the VC issuer.
+
+### Request body:
+
+```json
+{
+	"statusPurpose": "revocation",
+	"bitstringStatusIssuer": "did:web:example.com"
+}
+```
+
+### Expected response:
+
+```json
+{
+	"id": "http://localhost:3332/credentials/status/bitstring-status-list/26#0",
+	"type": "BitstringStatusListEntry",
+	"statusPurpose": "revocation",
+	"statusListIndex": 0,
+	"statusListCredential": "http://localhost:3332/credentials/status/bitstring-status-list/26"
+}
+```
+
 ## Revoking a VC
 
 To revoke a VC, use the following VCKit API endpoint: [/agent/setBitstringStatus](http://localhost:3332/agent/setBitstringStatus).
