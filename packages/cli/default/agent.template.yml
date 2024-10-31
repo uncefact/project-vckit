@@ -410,6 +410,8 @@ renderer:
           $require: '@vckit/renderer#WebRenderingTemplate2022'
         SvgRenderingHint2022:
           $require: '@vckit/renderer#WebRenderingTemplate2022'
+        RenderTemplate2024:
+          $require: '@vckit/renderer#RenderTemplate2024'
 
 bitstringStatusList:
   $require: '@vckit/bitstringStatusList#BitstringStatusList'
