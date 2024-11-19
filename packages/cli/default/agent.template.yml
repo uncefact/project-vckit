@@ -416,7 +416,8 @@ renderer:
 bitstringStatusList:
   $require: '@vckit/bitstringStatusList#BitstringStatusList'
   $args:
-    - bitstringDomainURL: http://localhost:3332
+    - bitstringDomainURL:
+        $ref: /constants/baseUrl
       dbConnection:
         $ref: /dbConnectionBitstringStatusList
 
