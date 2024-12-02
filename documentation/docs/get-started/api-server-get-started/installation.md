@@ -66,13 +66,38 @@ Currently, the `infuraProjectId` and `dbEncryptionKey` are set to the default va
 
 To create your own Infura Project ID, visit https://www.infura.io and follow the instruction.
 
-**2. Generate secret key**
+**2. Database Encryption Key**
 
-You need to generate an X25519 key, run this command in a terminal:
+The Database Encryption Key is used to encrypt private key material while at rest or in memory. This ensures that sensitive data is protected even if the storage medium is compromised.
 
-```bash
-veramo config gen-key
-```
+### Key Type
+
+This key type is an X25519 key.
+
+### Usage
+
+- If you want to generate a new key, you can use the following command:
+
+  ```bash
+  pnpm vckit config gen-key
+  ```
+
+  The result for example:
+
+  > X25519 raw private key (hex encoded): </br>
+  > 4ae7b7d37d82998a759c5d6241e602de5784a05c11be3812c3d31cb854e9be21 </br>
+  > You can use this key with @veramo/kms-local#SecretBox or replace the default agent.yml 'dbEncryptionKey' constant </br>
+
+- Update the `dbEncryptionKey` in the `agent.yml` file with the generated key.
+
+  ```yaml
+  dbEncryptionKey: 4ae7b7d37d82998a759c5d6241e602de5784a05c11be3812c3d31cb854e9be21
+  ```
+
+> **_WARNING_**: </br>
+>
+> - The `dbEncryptionKey` is a sensitive value. Do not share it with anyone. If you lose the key, you will not be able to decrypt the data stored in the database. </br>
+> - In a production environment, please do not use the default key in a production environment.
 
 ## Start the local server
 
