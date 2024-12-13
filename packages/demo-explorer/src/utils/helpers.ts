@@ -1,4 +1,5 @@
 import { Buffer } from 'buffer'
+import { VerifiableCredential, UnsignedCredential } from '@veramo/core'
 
 export function dropFields(data: any, fields: string[]) {
   const _data = { ...data }
@@ -29,4 +30,11 @@ export function detectDocumentType(document: any): DocumentFormat {
   if (document?.proof?.type === 'OpenAttestationMerkleProofSignature2018')
     return DocumentFormat.OA
   return DocumentFormat.JSONLD
+}
+
+export function getCredentialDate(
+  credential: VerifiableCredential | UnsignedCredential,
+): Date {
+  const dateString = credential.issuanceDate ?? credential.validFrom
+  return dateString ? new Date(dateString) : new Date()
 }

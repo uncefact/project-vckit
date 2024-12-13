@@ -11,6 +11,7 @@ import { formatRelative } from 'date-fns'
 import { ProCard } from '@ant-design/pro-components'
 import CredentialActionsDropdown from './CredentialActionsDropdown'
 import CredentialRender from './CredentialRender'
+import { getCredentialDate } from '../utils/helpers'
 
 interface CredentialTabsProps {
   credential: Vcred
@@ -33,10 +34,7 @@ const CredentialTabs: React.FC<CredentialTabsProps> = ({
               extra={
                 <Row align={'middle'}>
                   <div>
-                    {formatRelative(
-                      new Date(credential.issuanceDate),
-                      new Date(),
-                    )}
+                    {formatRelative(getCredentialDate(credential), new Date())}
                   </div>{' '}
                   <CredentialActionsDropdown credential={credential}>
                     <Button type="text">

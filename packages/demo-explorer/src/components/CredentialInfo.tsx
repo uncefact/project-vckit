@@ -3,7 +3,11 @@ import { Alert, Button, Descriptions, Spin } from 'antd'
 import { VerifiableCredential } from '@veramo/core'
 import { format } from 'date-fns'
 import { useVeramo } from '@veramo-community/veramo-react'
-import { DocumentFormat, detectDocumentType } from '../utils/helpers'
+import {
+  DocumentFormat,
+  detectDocumentType,
+  getCredentialDate,
+} from '../utils/helpers'
 
 interface CredentialInfoProps {
   credential: VerifiableCredential
@@ -169,7 +173,7 @@ const CredentialInfo: React.FC<CredentialInfoProps> = ({
             {(credentialData.issuer as { id: string }).id as string}
           </Descriptions.Item>
           <Descriptions.Item label="Issuance date">
-            {format(new Date(credentialData.issuanceDate), 'PPP')}
+            {format(getCredentialDate(credentialData), 'PPP')}
           </Descriptions.Item>
           <Descriptions.Item label="Proof type">
             {credentialData?.proof?.type ?? ''}

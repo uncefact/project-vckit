@@ -79,7 +79,7 @@ const CredentialVerifier = () => {
         if (result?.verified) {
           setVerificationResult({
             ...result,
-            verifiableCredential: JSON.parse(text),
+            verifiableCredential: result?.document || JSON.parse(text),
           })
         } else {
           setVerificationResult({
