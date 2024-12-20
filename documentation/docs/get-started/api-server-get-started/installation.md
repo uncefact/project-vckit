@@ -85,8 +85,8 @@ This key type is an X25519 key.
   The result for example:
 
 > X25519 raw private key (hex encoded):  
-> 4ae7b7d37d82998a759c5d6241e602de5784a05c11be3812c3d31cb854e9be21  
-> You can use this key with @veramo/kms-local#SecretBox or replace the default agent.yml 'dbEncryptionKey' constant
+- 4ae7b7d37d82998a759c5d6241e602de5784a05c11be3812c3d31cb854e9be21  
+- You can use this key with @veramo/kms-local#SecretBox or replace the default agent.yml 'dbEncryptionKey' constant
 
 - Update the `dbEncryptionKey` in the `agent.yml` file with the generated key.
 
@@ -95,8 +95,8 @@ This key type is an X25519 key.
   ```
 
 > **_WARNING_**:  
-> The `dbEncryptionKey` is a sensitive value. Do not share it with anyone. If you lose the key, you will not be able to decrypt the data stored in the database.  
-> In a production environment, please do not use the default key in a production environment.
+- The `dbEncryptionKey` is a sensitive value. Do not share it with anyone. If you lose the key, you will not be able to decrypt the data stored in the database.  
+- In a production environment, please do not use the default key in a production environment.
 
 ## Start the local server
 
