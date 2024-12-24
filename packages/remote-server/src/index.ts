@@ -49,3 +49,4 @@ export { MessagingRouter } from './messaging-router.js';
 export { ApiDocsRouter } from './api-docs-router.js';
 export { createDefaultDid } from './default-did.js';
 export { QRCodeRouter } from './qr-code-router.js';
+export { ApiRouter } from './api-router.js';
