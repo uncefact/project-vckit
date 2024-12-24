@@ -68,6 +68,9 @@ const config = {
             position: 'left',
             label: 'Documentation',
           },
+          {
+            type: 'docsVersionDropdown',
+          },
           // {
           //   type: 'docSidebar',
           //   sidebarId: 'documentSidebar',

@@ -147,3 +147,20 @@ docker-compose up
 ```
 
 This command will build the Docker images (if not already built) and start the containers defined in the `docker-compose.yaml` file. The VCkit API will be accessible at `http://localhost:3332`.
+
+## Documentation Versioning
+
+The project uses Docusaurus for documentation management. Documentation versions are managed through a release script and automated pipeline.
+
+### Release Script
+
+The `scripts/release-doc.js` script automates the process of creating new documentation versions:
+
+- Reads the documentation version from `version.json`
+- Creates Docusaurus version using `docVersion` value from `version.json` file
+  To manually create a new documentation version:
+
+```bash
+# Run the release script
+pnpm release:doc
+```
