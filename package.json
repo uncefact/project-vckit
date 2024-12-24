@@ -26,8 +26,7 @@
     "build-clean": "rimraf --glob ./packages/*/build ./packages/*/api ./packages/*/node_modules ./packages/*/tsconfig.tsbuildinfo ./temp ./tmp && jest --clearCache",
     "upgrade:packages": "pnpm -r --stream upgrade --latest",
     "version": "lerna version",
-    "version:doc": "node ./scripts/versioning/sync-docs-version.js",
-    "version:doc:patch": "node ./scripts/versioning/update-docs-patch-version.js"
+    "release:doc": "node scripts/release-doc.js"
   },
   "devDependencies": {
     "@ethersproject/contracts": "^5.7.0",
