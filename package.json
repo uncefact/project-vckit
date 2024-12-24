@@ -25,7 +25,8 @@
     "publish:next": "lerna publish --conventional-prerelease --force-publish --canary --no-git-tag-version --include-merged-tags --preid next --pre-dist-tag next --yes --registry \"https://registry.npmjs.org/:_authToken=${NPM_TOKEN}\"",
     "build-clean": "rimraf --glob ./packages/*/build ./packages/*/api ./packages/*/node_modules ./packages/*/tsconfig.tsbuildinfo ./temp ./tmp && jest --clearCache",
     "upgrade:packages": "pnpm -r --stream upgrade --latest",
-    "version": "lerna version"
+    "version": "lerna version",
+    "release:doc": "node scripts/release-doc.js"
   },
   "devDependencies": {
     "@ethersproject/contracts": "^5.7.0",
