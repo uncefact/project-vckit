@@ -210,7 +210,7 @@ server:
     - - /credentials/status/bitstring-status-list
       - $require: '@vckit/bitstringStatusList?t=function#bitstringStatusListRouter'
 
-    # API base path
+    # Agent API base path
     - - /agent
       - $require: '@vckit/remote-server?t=function#apiKeyAuth'
         $args:
@@ -225,6 +225,13 @@ server:
         $args:
           - exposedMethods:
               $ref: /constants/methods
+
+    # API base path
+    - - /api
+      - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+        $args:
+          - apiKey: ${API_KEY}
+      - $require: '@vckit/remote-server?t=function#ApiRouter'
 
     # Open API schema
     - - /open-api.json
