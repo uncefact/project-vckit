@@ -200,13 +200,6 @@ server:
           - exposedMethods:
               $ref: /constants/methods
 
-    # API base path
-    - - /api
-      - $require: '@vckit/remote-server?t=function#apiKeyAuth'
-        $args:
-          - apiKey: kh14g04piduv
-      - $require: '@vckit/remote-server?t=function#ApiRouter'
-
     # Open API schema
     - - /open-api.json
       - $require: '@vckit/remote-server?t=function#ApiSchemaRouter'
@@ -219,8 +212,21 @@ server:
               $ref: /constants/methods
 
     # rapidoc docs
-    - - /api-docs
+    - - /agent-api-docs
       - $require: '@vckit/remote-server?t=function#ApiDocsRouter'
+
+    # API base path
+    - - /api
+      - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+        $args:
+          - apiKey: kh14g04piduv
+      - $require: '@vckit/remote-server?t=function#ApiRouter'
+
+    - - /api-docs
+      - $require: '@vckit/remote-server?t=function#SwaggerApiDocsRouter'
+
+    - - /swagger-api.json
+      - $require: '@vckit/remote-server?t=function#SwaggerApiSchemaRouter'
 
   # Execute during server initialization
   # init:

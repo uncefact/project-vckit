@@ -1,0 +1,1103 @@
+{
+  "paths": {
+    "/didManagerGetProviders": {
+      "post": {
+        "operationId": "didManagerGetProviders",
+        "description": "Returns a list of available identifier providers",
+        "requestBody": {
+          "content": { "application/json": { "schema": { "type": "object" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns a list of available identifier providers",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/didManagerFind": {
+      "post": {
+        "operationId": "didManagerFind",
+        "description": "Returns a list of managed identifiers",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/IDIDManagerFindArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns a list of managed identifiers",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "./components/schemas.json#/components/schemas/IIdentifier"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/didManagerGet": {
+      "post": {
+        "operationId": "didManagerGet",
+        "description": "Returns a specific identifier",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/IDIDManagerGetArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns a specific identifier",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "./components/schemas.json#/components/schemas/IIdentifier"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/didManagerCreate": {
+      "post": {
+        "operationId": "didManagerCreate",
+        "description": "Creates and returns a new identifier",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/IDIDManagerCreateArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Creates and returns a new identifier",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "./components/schemas.json#/components/schemas/IIdentifier"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/didManagerDelete": {
+      "post": {
+        "operationId": "didManagerDelete",
+        "description": "Deletes identifier",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/IDIDManagerDeleteArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Deletes identifier",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": { "type": "boolean" }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dataStoreGetVerifiableCredential": {
+      "post": {
+        "operationId": "dataStoreGetVerifiableCredential",
+        "description": "Gets verifiable credential from the data store",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/IDataStoreGetVerifiableCredentialArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Gets verifiable credential from the data store",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "./components/schemas.json#/components/schemas/VerifiableCredential"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dataStoreORMGetIdentifiersCount": {
+      "post": {
+        "operationId": "dataStoreORMGetIdentifiersCount",
+        "description": "Tries to obtain a count of ",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/FindIdentifiersArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tries to obtain a count of ",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": { "type": "number" }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dataStoreORMGetVerifiableCredentials": {
+      "post": {
+        "operationId": "dataStoreORMGetVerifiableCredentials",
+        "description": "Returns a list of ",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/FindCredentialsArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns a list of ",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "./components/schemas.json#/components/schemas/UniqueVerifiableCredential"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dataStoreORMGetVerifiableCredentialsCount": {
+      "post": {
+        "operationId": "dataStoreORMGetVerifiableCredentialsCount",
+        "description": "Returns a count of ",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/FindCredentialsArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns a count of ",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": { "type": "number" }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/renderCredential": {
+      "post": {
+        "operationId": "renderCredential",
+        "description": "Renders a verifiable credential.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/IRenderCredentialArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Renders a verifiable credential.",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "./components/schemas.json#/components/schemas/IRenderResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fetchEncryptedDataByCredentialHash": {
+      "post": {
+        "operationId": "fetchEncryptedDataByCredentialHash",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/IFetchEncryptedDataByCredentialHashArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "./components/schemas.json#/components/schemas/IFetchEncryptedDataByCredentialHashResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/issueRevocationStatusList": {
+      "post": {
+        "operationId": "issueRevocationStatusList",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/IRevocationListDataArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "./components/schemas.json#/components/schemas/IRevocationStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/revokeCredential": {
+      "post": {
+        "operationId": "revokeCredential",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/IHashCredentialArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "./components/schemas.json#/components/schemas/CredentialStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/activateCredential": {
+      "post": {
+        "operationId": "activateCredential",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/IHashCredentialArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "./components/schemas.json#/components/schemas/CredentialStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/checkRevocationStatus": {
+      "post": {
+        "operationId": "checkRevocationStatus",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/IHashCredentialArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "./components/schemas.json#/components/schemas/CredentialStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/routeCreationVerifiableCredential": {
+      "post": {
+        "operationId": "routeCreationVerifiableCredential",
+        "description": "Creates a Verifiable Credential. The payload, signer and format are chosen based on the ",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/ICreateVerifiableCredentialArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Creates a Verifiable Credential. The payload, signer and format are chosen based on the ",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "./components/schemas.json#/components/schemas/VerifiableCredential"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/routeVerificationCredential": {
+      "post": {
+        "operationId": "routeVerificationCredential",
+        "description": "Verifies a Verifiable Credential JWT, LDS Format, EIP712 or OA.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/IVerifyCredentialArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Verifies a Verifiable Credential JWT, LDS Format, EIP712 or OA.",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "./components/schemas.json#/components/schemas/IVerifyResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/issueBitstringStatusList": {
+      "post": {
+        "operationId": "issueBitstringStatusList",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/IIssueBitstringStatusListArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": { "type": "object" }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/checkBitstringStatus": {
+      "post": {
+        "operationId": "checkBitstringStatus",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/ICheckBitstringStatusArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "./components/schemas.json#/components/schemas/CredentialStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/setBitstringStatus": {
+      "post": {
+        "operationId": "setBitstringStatus",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/ISetBitstringStatusArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": { "type": "object" }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/computeHash": {
+      "post": {
+        "operationId": "computeHash",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./components/schemas.json#/components/schemas/IToolsComputeHashArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": { "type": "string" }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string", "description": "Error name" },
+                    "method": { "type": "string", "description": "Method" },
+                    "message": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "path": { "type": "string", "description": "Error path" },
+                    "code": { "type": "string", "description": "Error code" },
+                    "description": {
+                      "type": "string",
+                      "description": "Error description"
+                    }
+                  },
+                  "required": ["didUrl"],
+                  "description": "Agent method arguments validation error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
