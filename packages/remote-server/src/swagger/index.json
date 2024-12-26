@@ -18,6 +18,7 @@
       "$ref": "./components/schemas.json#/components/schemas"
     }
   },
+  "x-methods": { "$ref": "./x-methods.json#/x-methods" },
   "security": [
     {
       "bearerAuth": []

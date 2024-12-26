@@ -1,0 +1,202 @@
+{
+  "x-methods": {
+    "didManagerGetProviders": {
+      "description": "Returns a list of available identifier providers",
+      "arguments": {
+        "type": "object"
+      },
+      "returnType": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "didManagerFind": {
+      "description": "Returns a list of managed identifiers",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IDIDManagerFindArgs"
+      },
+      "returnType": {
+        "type": "array",
+        "items": {
+          "$ref": "./components/schemas.json#/components/schemas/IIdentifier"
+        }
+      }
+    },
+    "didManagerGet": {
+      "description": "Returns a specific identifier",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IDIDManagerGetArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IIdentifier"
+      }
+    },
+    "didManagerCreate": {
+      "description": "Creates and returns a new identifier",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IDIDManagerCreateArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IIdentifier"
+      }
+    },
+    "didManagerDelete": {
+      "description": "Deletes identifier",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IDIDManagerDeleteArgs"
+      },
+      "returnType": {
+        "type": "boolean"
+      }
+    },
+    "dataStoreGetVerifiableCredential": {
+      "description": "Gets verifiable credential from the data store",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IDataStoreGetVerifiableCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/VerifiableCredential"
+      }
+    },
+    "dataStoreORMGetIdentifiersCount": {
+      "description": "Tries to obtain a count of ",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/FindIdentifiersArgs"
+      },
+      "returnType": {
+        "type": "number"
+      }
+    },
+    "dataStoreORMGetVerifiableCredentials": {
+      "description": "Returns a list of ",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/FindCredentialsArgs"
+      },
+      "returnType": {
+        "type": "array",
+        "items": {
+          "$ref": "./components/schemas.json#/components/schemas/UniqueVerifiableCredential"
+        }
+      }
+    },
+    "dataStoreORMGetVerifiableCredentialsCount": {
+      "description": "Returns a count of ",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/FindCredentialsArgs"
+      },
+      "returnType": {
+        "type": "number"
+      }
+    },
+    "renderCredential": {
+      "description": "Renders a verifiable credential.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IRenderCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IRenderResult"
+      }
+    },
+    "fetchEncryptedDataByCredentialHash": {
+      "description": "",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IFetchEncryptedDataByCredentialHashArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IFetchEncryptedDataByCredentialHashResult"
+      }
+    },
+    "issueRevocationStatusList": {
+      "description": "",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IRevocationListDataArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IRevocationStatus"
+      }
+    },
+    "revokeCredential": {
+      "description": "",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IHashCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/CredentialStatus"
+      }
+    },
+    "activateCredential": {
+      "description": "",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IHashCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/CredentialStatus"
+      }
+    },
+    "checkRevocationStatus": {
+      "description": "",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IHashCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/CredentialStatus"
+      }
+    },
+    "routeCreationVerifiableCredential": {
+      "description": "Creates a Verifiable Credential. The payload, signer and format are chosen based on the ",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/ICreateVerifiableCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/VerifiableCredential"
+      }
+    },
+    "routeVerificationCredential": {
+      "description": "Verifies a Verifiable Credential JWT, LDS Format, EIP712 or OA.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IVerifyCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IVerifyResult"
+      }
+    },
+    "issueBitstringStatusList": {
+      "description": "",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IIssueBitstringStatusListArgs"
+      },
+      "returnType": {
+        "type": "object"
+      }
+    },
+    "checkBitstringStatus": {
+      "description": "",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/ICheckBitstringStatusArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/CredentialStatus"
+      }
+    },
+    "setBitstringStatus": {
+      "description": "",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/ISetBitstringStatusArgs"
+      },
+      "returnType": {
+        "type": "object"
+      }
+    },
+    "computeHash": {
+      "description": "",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IToolsComputeHashArgs"
+      },
+      "returnType": {
+        "type": "string"
+      }
+    }
+  }
+}
