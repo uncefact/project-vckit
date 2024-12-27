@@ -1,0 +1,71 @@
+name: Create Changelog
+
+on:
+  push:
+    branches:
+      - release/*
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  check-skip:
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.check.outputs.should_skip }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      # Check if the commit is a release PR and skip the job
+      - name: Check if the commit is a release PR
+        id: check
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          if [[ $COMMIT_MSG == *"Merge pull request"* && $COMMIT_MSG == *"release-please--branches"* ]]; then
+            echo "should_skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  create-changelog:
+    runs-on: ubuntu-latest
+    needs: check-skip
+    if: needs.check-skip.outputs.should_skip != 'true'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Get the version from version.json file and store it in the output file
+      - name: Get version from version.json
+        id: retrieve_version
+        run: |
+          new_version=$(jq -r '.version' version.json)
+          if [ -z "$new_version" ]; then
+            echo "Error: version field is empty or not found in version.json!"
+            exit 1
+          fi
+          echo "new_version=$new_version" >> "$GITHUB_OUTPUT"
+
+      # Set release version for changelog
+      - name: Set release version for changelog
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git commit --allow-empty -m "chore: release ${{ steps.retrieve_version.outputs.new_version }}" -m "Release-As: ${{ steps.retrieve_version.outputs.new_version }}"
+          git push
+
+      # Create release changelog
+      - name: Create release changelog
+        id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          target-branch: ${{ github.ref_name }}
+          config-file: .github/workflows/release-please-config.json
+          manifest-file: .github/workflows/.release-please-manifest-rc.json
