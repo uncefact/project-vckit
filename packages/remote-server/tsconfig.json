@@ -5,6 +5,10 @@
     "outDir": "build",
     "declarationDir": "build"
   },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.json"
+  ],
   "references": [
     {
       "path": "../core-types"

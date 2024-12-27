@@ -1,0 +1,5193 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "VCKit API"
+  },
+  "servers": [],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/didManagerGetProviders": {
+      "post": {
+        "operationId": "didManagerGetProviders",
+        "description": "Retrieves a list of all available DID (Decentralized Identifier) providers supported by the system. These providers can be used for creating and managing decentralized identifiers.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the list of available DID providers",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/didManagerFind": {
+      "post": {
+        "operationId": "didManagerFind",
+        "description": "Searches and retrieves a list of managed identifiers based on specified criteria. Supports filtering by provider, alias, and other attributes to help locate specific identifiers in the system.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDIDManagerFindArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the list of matching identifiers",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IIdentifier"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/didManagerGet": {
+      "post": {
+        "operationId": "didManagerGet",
+        "description": "Retrieves detailed information about a specific identifier using its DID. Returns the complete identifier object including associated keys and services.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDIDManagerGetArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the identifier details",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/IIdentifier"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/didManagerCreate": {
+      "post": {
+        "operationId": "didManagerCreate",
+        "description": "Creates a new decentralized identifier (DID) using the specified provider and options. Returns the newly created identifier with its associated keys and services.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDIDManagerCreateArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created a new identifier",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/IIdentifier"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/didManagerDelete": {
+      "post": {
+        "operationId": "didManagerDelete",
+        "description": "Removes a managed identifier from the system. This operation may not delete the DID from its respective registry, but rather removes it from local management.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDIDManagerDeleteArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully deleted the identifier from local management",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/dataStoreGetVerifiableCredential": {
+      "post": {
+        "operationId": "dataStoreGetVerifiableCredential",
+        "description": "Retrieves a specific verifiable credential from the data store using its unique hash. Returns the complete credential including its proof.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDataStoreGetVerifiableCredentialArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the verifiable credential",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifiableCredential"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/dataStoreORMGetIdentifiersCount": {
+      "post": {
+        "operationId": "dataStoreORMGetIdentifiersCount",
+        "description": "Returns the total count of identifiers in the system that match the specified filter criteria. Useful for pagination and statistics.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindArgs-TIdentifiersColumns"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the count of matching identifiers",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/dataStoreORMGetVerifiableCredentials": {
+      "post": {
+        "operationId": "dataStoreORMGetVerifiableCredentials",
+        "description": "Retrieves a list of verifiable credentials from the data store based on specified search criteria. Supports filtering and pagination options.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindArgs-TCredentialColumns"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the list of verifiable credentials",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UniqueVerifiableCredential"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/dataStoreORMGetVerifiableCredentialsCount": {
+      "post": {
+        "operationId": "dataStoreORMGetVerifiableCredentialsCount",
+        "description": "Returns the total count of verifiable credentials in the system that match the specified filter criteria. Useful for pagination and statistics.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindArgs-TCredentialColumns"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the count of matching verifiable credentials",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/renderCredential": {
+      "post": {
+        "operationId": "renderCredential",
+        "description": "Generates a human-readable or formatted representation of a verifiable credential. Useful for displaying credentials in user interfaces.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IRenderCredentialArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully rendered the credential",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/IRenderResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/fetchEncryptedDataByCredentialHash": {
+      "post": {
+        "operationId": "fetchEncryptedDataByCredentialHash",
+        "description": "Retrieves encrypted data associated with a specific credential using its hash. Returns both the encrypted data and the necessary decryption information.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IFetchEncryptedDataByCredentialHashArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the encrypted data",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/IFetchEncryptedDataByCredentialHashResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/issueRevocationStatusList": {
+      "post": {
+        "operationId": "issueRevocationStatusList",
+        "description": "Creates and issues a new revocation status list for verifiable credentials. This list can be used to track and verify the revocation status of credentials.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IRevocationListDataArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created the revocation status list",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/IRevocationStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/revokeCredential": {
+      "post": {
+        "operationId": "revokeCredential",
+        "description": "Marks a specific verifiable credential as revoked in the system. This affects the credential's validity status.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IHashCredentialArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully revoked the credential",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredentialStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/activateCredential": {
+      "post": {
+        "operationId": "activateCredential",
+        "description": "Activates a previously revoked or suspended verifiable credential, making it valid again in the system.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IHashCredentialArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully activated the credential",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredentialStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/checkRevocationStatus": {
+      "post": {
+        "operationId": "checkRevocationStatus",
+        "description": "Checks whether a specific verifiable credential has been revoked. Returns the current status of the credential.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IHashCredentialArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the credential's revocation status",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredentialStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/routeCreationVerifiableCredential": {
+      "post": {
+        "operationId": "routeCreationVerifiableCredential",
+        "description": "Creates a new verifiable credential with specified payload, signer, and format. Supports various credential formats and signing methods.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICreateVerifiableCredentialArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created the verifiable credential",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifiableCredential"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/routeVerificationCredential": {
+      "post": {
+        "operationId": "routeVerificationCredential",
+        "description": "Verifies a verifiable credential's authenticity and validity. Supports multiple formats including JWT, LDS, EIP712, and OA.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IVerifyCredentialArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully verified the credential",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/IVerifyResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/issueBitstringStatusList": {
+      "post": {
+        "operationId": "issueBitstringStatusList",
+        "description": "Creates and issues a new bitstring-based status list for verifiable credentials, providing an efficient way to track credential statuses.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IIssueBitstringStatusListArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created the bitstring status list",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/checkBitstringStatus": {
+      "post": {
+        "operationId": "checkBitstringStatus",
+        "description": "Checks the status of a credential using the bitstring-based status list system. Returns the current status of the specified credential.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICheckBitstringStatusArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the credential's bitstring status",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredentialStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/setBitstringStatus": {
+      "post": {
+        "operationId": "setBitstringStatus",
+        "description": "Updates the status of a credential in the bitstring-based status list. Allows for efficient status updates in the credential system.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISetBitstringStatusArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated the credential's bitstring status",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/computeHash": {
+      "post": {
+        "operationId": "computeHash",
+        "description": "Calculates a cryptographic hash of the provided input data. Used for generating unique identifiers and verification purposes.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IToolsComputeHashArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully computed the hash",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "IDIDManagerFindArgs": {
+        "type": "object",
+        "properties": {
+          "alias": {
+            "type": "string",
+            "description": "Optional. Alias"
+          },
+          "provider": {
+            "type": "string",
+            "description": "Optional. Provider"
+          }
+        },
+        "description": "Input arguments for  {@link IDIDManager.didManagerFind | didManagerFind }"
+      },
+      "TKeyType": {
+        "type": "string",
+        "enum": [
+          "Ed25519",
+          "Secp256k1",
+          "Secp256r1",
+          "X25519",
+          "Bls12381G1",
+          "Bls12381G2"
+        ],
+        "description": "Cryptographic key type."
+      },
+      "TAlg": {
+        "type": "string",
+        "description": "Known algorithms supported by some of the above key types defined by  {@link  TKeyType } .\n\nActual implementations of  {@link  @veramo/key-manager#AbstractKeyManagementSystem | Key Management Systems }  can support more. One should check the  {@link  IKey.meta.algorithms  }  property to see what is possible for a particular managed key."
+      },
+      "KeyMetadata": {
+        "type": "object",
+        "properties": {
+          "algorithms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TAlg"
+            }
+          }
+        },
+        "description": "This encapsulates data about a key.\n\nImplementations of  {@link  @veramo/key-manager#AbstractKeyManagementSystem | AbstractKeyManagementSystem }  should populate this object, for each key, with the algorithms that can be performed using it.\n\nThis can also be used to add various tags to the keys under management."
+      },
+      "IKey": {
+        "type": "object",
+        "properties": {
+          "kid": {
+            "type": "string",
+            "description": "Key ID"
+          },
+          "kms": {
+            "type": "string",
+            "description": "Key Management System"
+          },
+          "type": {
+            "$ref": "#/components/schemas/TKeyType",
+            "description": "Key type"
+          },
+          "publicKeyHex": {
+            "type": "string",
+            "description": "Public key"
+          },
+          "privateKeyHex": {
+            "type": "string",
+            "description": "Optional. Private key"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/KeyMetadata"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional. Key metadata. This should be used to determine which algorithms are supported."
+          }
+        },
+        "required": [
+          "kid",
+          "kms",
+          "type",
+          "publicKeyHex"
+        ],
+        "description": "Cryptographic key, usually managed by the current Veramo instance."
+      },
+      "IServiceEndpoint": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object"
+          }
+        ],
+        "description": "Represents a service endpoint URL or a map of URLs"
+      },
+      "IService": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID"
+          },
+          "type": {
+            "type": "string",
+            "description": "Service type"
+          },
+          "serviceEndpoint": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/IServiceEndpoint"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IServiceEndpoint"
+                }
+              }
+            ],
+            "description": "Endpoint URL"
+          },
+          "description": {
+            "type": "string",
+            "description": "Optional. Description"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "serviceEndpoint"
+        ],
+        "description": "Identifier service"
+      },
+      "IIdentifier": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string",
+            "description": "Decentralized identifier"
+          },
+          "alias": {
+            "type": "string",
+            "description": "Optional. Identifier alias. Can be used to reference an object in an external system"
+          },
+          "provider": {
+            "type": "string",
+            "description": "Identifier provider name"
+          },
+          "controllerKeyId": {
+            "type": "string",
+            "description": "Controller key id"
+          },
+          "keys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IKey"
+            },
+            "description": "Array of managed keys"
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IService"
+            },
+            "description": "Array of services"
+          }
+        },
+        "required": [
+          "did",
+          "provider",
+          "keys",
+          "services"
+        ],
+        "description": "Identifier interface"
+      },
+      "IDIDManagerGetArgs": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string",
+            "description": "DID"
+          }
+        },
+        "required": [
+          "did"
+        ],
+        "description": "Input arguments for  {@link IDIDManager.didManagerGet | didManagerGet }"
+      },
+      "IDIDManagerCreateArgs": {
+        "type": "object",
+        "properties": {
+          "alias": {
+            "type": "string",
+            "description": "Optional. Identifier alias. Can be used to reference an object in an external system"
+          },
+          "provider": {
+            "type": "string",
+            "description": "Optional. Identifier provider"
+          },
+          "kms": {
+            "type": "string",
+            "description": "Optional. Key Management System"
+          },
+          "options": {
+            "type": "object",
+            "description": "Optional. Identifier provider specific options"
+          }
+        },
+        "description": "Input arguments for  {@link IDIDManager.didManagerCreate | didManagerCreate }"
+      },
+      "IDIDManagerDeleteArgs": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string",
+            "description": "DID"
+          }
+        },
+        "required": [
+          "did"
+        ],
+        "description": "Input arguments for  {@link IDIDManager.didManagerDelete | didManagerDelete }"
+      },
+      "IDataStoreGetVerifiableCredentialArgs": {
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string",
+            "description": "Required. VerifiableCredential hash"
+          }
+        },
+        "required": [
+          "hash"
+        ],
+        "description": "Input arguments for  {@link IDataStore.dataStoreGetVerifiableCredential | dataStoreGetVerifiableCredential }"
+      },
+      "ProofType": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          }
+        },
+        "description": "A proof property of a  {@link  VerifiableCredential }  or  {@link  VerifiablePresentation }"
+      },
+      "IssuerType": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "description": "The issuer of a  {@link  VerifiableCredential }  or the holder of a  {@link  VerifiablePresentation } .\n\nThe value of the issuer property MUST be either a URI or an object containing an id property. It is RECOMMENDED that the URI in the issuer or its id be one which, if de-referenced, results in a document containing machine-readable information about the issuer that can be used to verify the information expressed in the credential.\n\nSee  {@link https://www.w3.org/TR/vc-data-model/#issuer | Issuer data model }"
+      },
+      "CredentialSubject": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "description": "The value of the credentialSubject property is defined as a set of objects that contain one or more properties that are each related to a subject of the verifiable credential. Each object MAY contain an id.\n\nSee  {@link https://www.w3.org/TR/vc-data-model/#credential-subject | Credential Subject }"
+      },
+      "ContextType": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object"
+          },
+          {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object"
+                }
+              ]
+            }
+          }
+        ],
+        "description": "The data type for `@context` properties of credentials, presentations, etc."
+      },
+      "CredentialStatusReference": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ],
+        "description": "Used for the discovery of information about the current status of a verifiable credential, such as whether it is suspended or revoked. The precise contents of the credential status information is determined by the specific `credentialStatus` type definition, and varies depending on factors such as whether it is simple to implement or if it is privacy-enhancing.\n\nSee  {@link https://www.w3.org/TR/vc-data-model/#status | Credential Status }"
+      },
+      "VerifiableCredential": {
+        "type": "object",
+        "properties": {
+          "proof": {
+            "$ref": "#/components/schemas/ProofType"
+          },
+          "issuer": {
+            "$ref": "#/components/schemas/IssuerType"
+          },
+          "credentialSubject": {
+            "$ref": "#/components/schemas/CredentialSubject"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "@context": {
+            "$ref": "#/components/schemas/ContextType"
+          },
+          "issuanceDate": {
+            "type": "string"
+          },
+          "expirationDate": {
+            "type": "string"
+          },
+          "credentialStatus": {
+            "$ref": "#/components/schemas/CredentialStatusReference"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@context",
+          "credentialSubject",
+          "issuanceDate",
+          "issuer",
+          "proof"
+        ],
+        "description": "Represents a signed Verifiable Credential payload (includes proof), using a JSON representation. See  {@link https://www.w3.org/TR/vc-data-model/#credentials | VC data model }"
+      },
+      "TIdentifiersColumns": {
+        "type": "string",
+        "enum": [
+          "did",
+          "alias",
+          "provider"
+        ],
+        "description": "The columns that can be queried for an  {@link  IIdentifier }",
+        "deprecated": "This type will be removed in future versions of this plugin interface."
+      },
+      "Where-TIdentifiersColumns": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "$ref": "#/components/schemas/TIdentifiersColumns"
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "not": {
+            "type": "boolean"
+          },
+          "op": {
+            "type": "string",
+            "enum": [
+              "LessThan",
+              "LessThanOrEqual",
+              "MoreThan",
+              "MoreThanOrEqual",
+              "Equal",
+              "Like",
+              "Between",
+              "In",
+              "Any",
+              "IsNull"
+            ]
+          }
+        },
+        "required": [
+          "column"
+        ],
+        "description": "Represents a WHERE predicate for a  {@link  FindArgs }  query. In situations where multiple WHERE predicates are present, they are combined with AND."
+      },
+      "Order-TIdentifiersColumns": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "$ref": "#/components/schemas/TIdentifiersColumns"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          }
+        },
+        "required": [
+          "column",
+          "direction"
+        ],
+        "description": "Represents the sort order of results from a  {@link  FindArgs }  query."
+      },
+      "FindArgs-TIdentifiersColumns": {
+        "type": "object",
+        "properties": {
+          "where": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Where-TIdentifiersColumns"
+            },
+            "description": "Imposes constraints on the values of the given columns. WHERE clauses are combined using AND."
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Order-TIdentifiersColumns"
+            },
+            "description": "Sorts the results according to the given array of column priorities."
+          },
+          "skip": {
+            "type": "number",
+            "description": "Ignores the first number of entries in a  {@link  IDataStoreORM }  query result."
+          },
+          "take": {
+            "type": "number",
+            "description": "Returns at most this number of results from a  {@link  IDataStoreORM }  query."
+          }
+        },
+        "description": "Represents an  {@link  IDataStoreORM }  Query."
+      },
+      "TCredentialColumns": {
+        "type": "string",
+        "enum": [
+          "context",
+          "type",
+          "id",
+          "issuer",
+          "subject",
+          "expirationDate",
+          "issuanceDate"
+        ],
+        "description": "The columns that can be searched for a  {@link  VerifiableCredential } \n\nSee  {@link  IDataStoreORM.dataStoreORMGetVerifiableCredentials } \nSee  {@link  IDataStoreORM.dataStoreORMGetVerifiableCredentialsCount }"
+      },
+      "Where-TCredentialColumns": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "$ref": "#/components/schemas/TCredentialColumns"
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "not": {
+            "type": "boolean"
+          },
+          "op": {
+            "type": "string",
+            "enum": [
+              "LessThan",
+              "LessThanOrEqual",
+              "MoreThan",
+              "MoreThanOrEqual",
+              "Equal",
+              "Like",
+              "Between",
+              "In",
+              "Any",
+              "IsNull"
+            ]
+          }
+        },
+        "required": [
+          "column"
+        ],
+        "description": "Represents a WHERE predicate for a  {@link  FindArgs }  query. In situations where multiple WHERE predicates are present, they are combined with AND."
+      },
+      "Order-TCredentialColumns": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "$ref": "#/components/schemas/TCredentialColumns"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          }
+        },
+        "required": [
+          "column",
+          "direction"
+        ],
+        "description": "Represents the sort order of results from a  {@link  FindArgs }  query."
+      },
+      "FindArgs-TCredentialColumns": {
+        "type": "object",
+        "properties": {
+          "where": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Where-TCredentialColumns"
+            },
+            "description": "Imposes constraints on the values of the given columns. WHERE clauses are combined using AND."
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Order-TCredentialColumns"
+            },
+            "description": "Sorts the results according to the given array of column priorities."
+          },
+          "skip": {
+            "type": "number",
+            "description": "Ignores the first number of entries in a  {@link  IDataStoreORM }  query result."
+          },
+          "take": {
+            "type": "number",
+            "description": "Returns at most this number of results from a  {@link  IDataStoreORM }  query."
+          }
+        },
+        "description": "Represents an  {@link  IDataStoreORM }  Query."
+      },
+      "UniqueVerifiableCredential": {
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string"
+          },
+          "verifiableCredential": {
+            "$ref": "#/components/schemas/VerifiableCredential"
+          }
+        },
+        "required": [
+          "hash",
+          "verifiableCredential"
+        ],
+        "description": "Represents the result of a Query for  {@link  VerifiableCredential } s\n\nSee  {@link  IDataStoreORM.dataStoreORMGetVerifiableCredentials } \nSee  {@link  IDataStoreORM.dataStoreORMGetVerifiableCredentialsByClaims }"
+      },
+      "CompactJWT": {
+        "type": "string",
+        "description": "Represents a Json Web Token in compact form. \"header.payload.signature\""
+      },
+      "W3CVerifiableCredential": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/VerifiableCredential"
+          },
+          {
+            "$ref": "#/components/schemas/CompactJWT"
+          }
+        ],
+        "description": "Represents a signed Verifiable Credential (includes proof), in either JSON or compact JWT format. See  {@link https://www.w3.org/TR/vc-data-model/#credentials | VC data model }  See  {@link https://www.w3.org/TR/vc-data-model/#proof-formats | proof formats }"
+      },
+      "UnsignedCredential": {
+        "type": "object",
+        "properties": {
+          "issuer": {
+            "$ref": "#/components/schemas/IssuerType"
+          },
+          "credentialSubject": {
+            "$ref": "#/components/schemas/CredentialSubject"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "@context": {
+            "$ref": "#/components/schemas/ContextType"
+          },
+          "issuanceDate": {
+            "type": "string"
+          },
+          "expirationDate": {
+            "type": "string"
+          },
+          "credentialStatus": {
+            "$ref": "#/components/schemas/CredentialStatusReference"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "issuer",
+          "credentialSubject",
+          "@context",
+          "issuanceDate"
+        ],
+        "description": "Represents an unsigned W3C Credential payload. See  {@link https://www.w3.org/TR/vc-data-model/#credentials | VC data model }"
+      },
+      "EnvelopedVerifiableCredential": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "$ref": "#/components/schemas/ContextType"
+          },
+          "type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@context",
+          "type",
+          "id"
+        ],
+        "description": "Represents an enveloped Verifiable Credential, which is a JSON object that contains a Verifiable Credential. See  {@link https://w3c.github.io/vc-data-model/#enveloped-verifiable-credentials | VC data model }"
+      },
+      "IRenderCredentialArgs": {
+        "type": "object",
+        "properties": {
+          "credential": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/W3CVerifiableCredential"
+              },
+              {
+                "$ref": "#/components/schemas/UnsignedCredential"
+              },
+              {
+                "$ref": "#/components/schemas/EnvelopedVerifiableCredential"
+              }
+            ]
+          }
+        },
+        "required": [
+          "credential"
+        ],
+        "description": "Arguments for rendering a verifiable credential."
+      },
+      "IRenderDocument": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "renderedTemplate": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "renderedTemplate"
+        ],
+        "description": "Result of rendering a verifiable credential."
+      },
+      "IRenderResult": {
+        "type": "object",
+        "properties": {
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IRenderDocument"
+            }
+          }
+        },
+        "required": [
+          "documents"
+        ]
+      },
+      "IFetchEncryptedDataByCredentialHashArgs": {
+        "type": "object",
+        "properties": {
+          "credentialHash": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "credentialHash"
+        ]
+      },
+      "IFetchEncryptedDataByCredentialHashResult": {
+        "type": "object",
+        "properties": {
+          "encryptedData": {
+            "type": "string"
+          },
+          "encryptedDataId": {
+            "type": "string"
+          },
+          "decryptedKey": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "encryptedData",
+          "encryptedDataId",
+          "decryptedKey"
+        ]
+      },
+      "IRevocationListDataArgs": {
+        "type": "object",
+        "properties": {
+          "revocationListPath": {
+            "type": "string"
+          },
+          "bitStringLength": {
+            "type": "string"
+          },
+          "revocationVCIssuer": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "revocationVCIssuer"
+        ]
+      },
+      "IRevocationStatus": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "revocationListIndex": {
+            "type": "number"
+          },
+          "revocationListCredential": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "revocationListIndex",
+          "revocationListCredential"
+        ]
+      },
+      "IHashCredentialArgs": {
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "hash"
+        ]
+      },
+      "CredentialStatus": {
+        "type": "object",
+        "properties": {
+          "revoked": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "revoked"
+        ],
+        "description": "Represents the result of a status check.\n\nImplementations MUST populate the `revoked` boolean property, but they can return additional metadata that is method specific."
+      },
+      "DateType": {
+        "type": "string",
+        "description": "Represents an issuance or expiration date for Credentials / Presentations. This is used as input when creating them."
+      },
+      "CredentialPayload": {
+        "type": "object",
+        "properties": {
+          "issuer": {
+            "$ref": "#/components/schemas/IssuerType"
+          },
+          "credentialSubject": {
+            "$ref": "#/components/schemas/CredentialSubject"
+          },
+          "type": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "@context": {
+            "$ref": "#/components/schemas/ContextType"
+          },
+          "issuanceDate": {
+            "$ref": "#/components/schemas/DateType"
+          },
+          "expirationDate": {
+            "$ref": "#/components/schemas/DateType"
+          },
+          "credentialStatus": {
+            "$ref": "#/components/schemas/CredentialStatusReference"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "issuer"
+        ],
+        "description": "Used as input when creating Verifiable Credentials"
+      },
+      "ProofFormat": {
+        "type": "string",
+        "enum": [
+          "jwt",
+          "lds",
+          "EthereumEip712Signature2021",
+          "EnvelopingProofJose"
+        ],
+        "description": "The type of encoding to be used for the Verifiable Credential or Presentation to be generated.\n\nOnly `jwt` and `lds` is supported at the moment."
+      },
+      "ICreateVerifiableCredentialArgs": {
+        "type": "object",
+        "properties": {
+          "resolutionOptions": {
+            "type": "object",
+            "properties": {
+              "publicKeyFormat": {
+                "type": "string"
+              },
+              "accept": {
+                "type": "string"
+              }
+            },
+            "description": "Options to be passed to the DID resolver."
+          },
+          "credential": {
+            "$ref": "#/components/schemas/CredentialPayload",
+            "description": "The JSON payload of the Credential according to the  {@link https://www.w3.org/TR/vc-data-model/#credentials | canonical model } \n\nThe signer of the Credential is chosen based on the `issuer.id` property of the `credential`\n\n`@context`, `type` and `issuanceDate` will be added automatically if omitted"
+          },
+          "save": {
+            "type": "boolean",
+            "description": "If this parameter is true, the resulting VerifiableCredential is sent to the  {@link  @veramo/core-types#IDataStore | storage plugin }  to be saved.",
+            "deprecated": "Please call\n{@link @veramo/core-types#IDataStore.dataStoreSaveVerifiableCredential | dataStoreSaveVerifiableCredential()} to\nsave the credential after creating it."
+          },
+          "proofFormat": {
+            "$ref": "#/components/schemas/ProofFormat",
+            "description": "The desired format for the VerifiableCredential to be created."
+          },
+          "removeOriginalFields": {
+            "type": "boolean",
+            "description": "Remove payload members during JWT-JSON transformation. Defaults to `true`. See https://www.w3.org/TR/vc-data-model/#jwt-encoding"
+          },
+          "keyRef": {
+            "type": "string",
+            "description": "[Optional] The ID of the key that should sign this credential. If this is not specified, the first matching key will be used."
+          },
+          "fetchRemoteContexts": {
+            "type": "boolean",
+            "description": "When dealing with JSON-LD you also MUST provide the proper contexts. Set this to `true` ONLY if you want the `@context` URLs to be fetched in case they are not preloaded. The context definitions SHOULD rather be provided at startup instead of being fetched.\n\nDefaults to `false`"
+          }
+        },
+        "required": [
+          "credential",
+          "proofFormat"
+        ],
+        "additionalProperties": {
+          "description": "Any other options that can be forwarded to the lower level libraries"
+        },
+        "description": "Encapsulates the parameters required to create a  {@link https://www.w3.org/TR/vc-data-model/#credentials | W3C Verifiable Credential }"
+      },
+      "VerificationPolicies": {
+        "type": "object",
+        "properties": {
+          "now": {
+            "type": "number",
+            "description": "policy to over the now (current time) during the verification check (UNIX time in seconds)"
+          },
+          "issuanceDate": {
+            "type": "boolean",
+            "description": "policy to skip the issuanceDate (nbf) timestamp check when set to `false`"
+          },
+          "expirationDate": {
+            "type": "boolean",
+            "description": "policy to skip the expirationDate (exp) timestamp check when set to `false`"
+          },
+          "audience": {
+            "type": "boolean",
+            "description": "policy to skip the audience check when set to `false`"
+          },
+          "credentialStatus": {
+            "type": "boolean",
+            "description": "policy to skip the revocation check (credentialStatus) when set to `false`"
+          }
+        },
+        "additionalProperties": {
+          "description": "Other options can be specified for verification. They will be forwarded to the lower level modules that perform the checks"
+        },
+        "description": "These optional settings can be used to override some default checks that are performed on Presentations during verification."
+      },
+      "IVerifyCredentialArgs": {
+        "type": "object",
+        "properties": {
+          "resolutionOptions": {
+            "type": "object",
+            "properties": {
+              "publicKeyFormat": {
+                "type": "string"
+              },
+              "accept": {
+                "type": "string"
+              }
+            },
+            "description": "Options to be passed to the DID resolver."
+          },
+          "credential": {
+            "$ref": "#/components/schemas/W3CVerifiableCredential",
+            "description": "The Verifiable Credential object according to the  {@link https://www.w3.org/TR/vc-data-model/#credentials | canonical model }  or the JWT representation.\n\nThe signer of the Credential is verified based on the `issuer.id` property of the `credential` or the `iss` property of the JWT payload respectively"
+          },
+          "fetchRemoteContexts": {
+            "type": "boolean",
+            "description": "When dealing with JSON-LD you also MUST provide the proper contexts. Set this to `true` ONLY if you want the `@context` URLs to be fetched in case they are not preloaded. The context definitions SHOULD rather be provided at startup instead of being fetched.\n\nDefaults to `false`"
+          },
+          "policies": {
+            "$ref": "#/components/schemas/VerificationPolicies",
+            "description": "Overrides specific aspects of credential verification, where possible."
+          }
+        },
+        "required": [
+          "credential"
+        ],
+        "additionalProperties": {
+          "description": "Other options can be specified for verification. They will be forwarded to the lower level modules. that perform the checks"
+        },
+        "description": "Encapsulates the parameters required to verify a  {@link https://www.w3.org/TR/vc-data-model/#credentials | W3C Verifiable Credential }"
+      },
+      "IError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "The details of the error being throw or forwarded"
+          },
+          "errorCode": {
+            "type": "string",
+            "description": "The code for the error being throw"
+          }
+        },
+        "description": "An error object, which can contain a code."
+      },
+      "IVerifyResult": {
+        "type": "object",
+        "properties": {
+          "verified": {
+            "type": "boolean",
+            "description": "This value is used to transmit the result of verification."
+          },
+          "error": {
+            "$ref": "#/components/schemas/IError",
+            "description": "Optional Error object for the but currently the machine readable errors are not expored from DID-JWT package to be imported here"
+          }
+        },
+        "required": [
+          "verified"
+        ],
+        "additionalProperties": {
+          "description": "Other options can be specified for verification. They will be forwarded to the lower level modules. that performt the checks"
+        },
+        "description": "Encapsulates the response object to verifyPresentation method after verifying a  {@link https://www.w3.org/TR/vc-data-model/#presentations | W3C Verifiable Presentation }"
+      },
+      "StatusPurposeType": {
+        "type": "string",
+        "enum": [
+          "revocation",
+          "suspension",
+          "message"
+        ]
+      },
+      "IIssueBitstringStatusListArgs": {
+        "type": "object",
+        "properties": {
+          "statusPurpose": {
+            "$ref": "#/components/schemas/StatusPurposeType"
+          },
+          "bitStringLength": {
+            "type": "number"
+          },
+          "bitstringStatusIssuer": {
+            "type": "string"
+          },
+          "statusSize": {
+            "type": "number"
+          },
+          "statusMessages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            }
+          },
+          "statusReference": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "statusPurpose",
+          "bitStringLength",
+          "bitstringStatusIssuer"
+        ]
+      },
+      "StatusEntry": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "id"
+        ],
+        "description": "Represents a status method entry that could be embedded in a W3C Verifiable Credential. Normally, only credentials that list a status method would need to be verified by it.\n\nex: ```json credentialStatus: {   type: \"EthrStatusRegistry2019\",   id: \"rinkeby:0xregistryAddress\" } ``` See https://www.w3.org/TR/vc-data-model/#status"
+      },
+      "CredentialStatusIssuerObject": {
+        "type": "object",
+        "properties": {
+          "credentialStatus": {
+            "$ref": "#/components/schemas/StatusEntry"
+          },
+          "issuer": {
+            "$ref": "#/components/schemas/IssuerType"
+          }
+        },
+        "required": [
+          "credentialStatus",
+          "issuer"
+        ]
+      },
+      "IVerifiableCredentialJSONOrJWT": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/components/schemas/CredentialStatusIssuerObject"
+          },
+          {
+            "$ref": "#/components/schemas/EnvelopedVerifiableCredential"
+          }
+        ]
+      },
+      "ICheckBitstringStatusArgs": {
+        "type": "object",
+        "properties": {
+          "verifiableCredential": {
+            "$ref": "#/components/schemas/IVerifiableCredentialJSONOrJWT"
+          }
+        },
+        "required": [
+          "verifiableCredential"
+        ]
+      },
+      "ISetBitstringStatusArgs": {
+        "type": "object",
+        "properties": {
+          "statusListCredential": {
+            "type": "string"
+          },
+          "statusListVCIssuer": {
+            "type": "string"
+          },
+          "statusPurpose": {
+            "type": "string"
+          },
+          "index": {
+            "type": "number"
+          },
+          "status": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "statusListCredential",
+          "statusListVCIssuer",
+          "statusPurpose",
+          "index",
+          "status"
+        ]
+      },
+      "IToolsComputeHashArgs": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "content"
+        ]
+      },
+      "RequireOnly<IKey,(\"privateKeyHex\"|\"type\"|\"kms\")>": {
+        "type": "object",
+        "properties": {
+          "kid": {
+            "type": "string",
+            "description": "Key ID"
+          },
+          "kms": {
+            "type": "string",
+            "description": "Key Management System"
+          },
+          "type": {
+            "$ref": "#/components/schemas/TKeyType",
+            "description": "Key type"
+          },
+          "publicKeyHex": {
+            "type": "string",
+            "description": "Public key"
+          },
+          "privateKeyHex": {
+            "type": "string",
+            "description": "Optional. Private key"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/KeyMetadata"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional. Key metadata. This should be used to determine which algorithms are supported."
+          }
+        },
+        "description": "Represents an object type where a subset of keys are required and everything else is optional."
+      },
+      "JsonWebKey": {
+        "type": "object",
+        "properties": {
+          "alg": {
+            "type": "string"
+          },
+          "crv": {
+            "type": "string"
+          },
+          "e": {
+            "type": "string"
+          },
+          "ext": {
+            "type": "boolean"
+          },
+          "key_ops": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "kid": {
+            "type": "string"
+          },
+          "kty": {
+            "type": "string"
+          },
+          "n": {
+            "type": "string"
+          },
+          "use": {
+            "type": "string"
+          },
+          "x": {
+            "type": "string"
+          },
+          "y": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kty"
+        ],
+        "description": "Encapsulates a JSON web key type that includes only the public properties that can be used in DID documents.\n\nThe private properties are intentionally omitted to discourage the use (and accidental disclosure) of private keys in DID documents."
+      },
+      "VerificationMethod": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "controller": {
+            "type": "string"
+          },
+          "publicKeyBase58": {
+            "type": "string"
+          },
+          "publicKeyBase64": {
+            "type": "string"
+          },
+          "publicKeyJwk": {
+            "$ref": "#/components/schemas/JsonWebKey"
+          },
+          "publicKeyHex": {
+            "type": "string"
+          },
+          "publicKeyMultibase": {
+            "type": "string"
+          },
+          "blockchainAccountId": {
+            "type": "string"
+          },
+          "ethereumAddress": {
+            "type": "string"
+          },
+          "conditionOr": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VerificationMethod"
+            }
+          },
+          "conditionAnd": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VerificationMethod"
+            }
+          },
+          "threshold": {
+            "type": "number"
+          },
+          "conditionThreshold": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VerificationMethod"
+            }
+          },
+          "conditionWeightedThreshold": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConditionWeightedThreshold"
+            }
+          },
+          "conditionDelegated": {
+            "type": "string"
+          },
+          "relationshipParent": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "relationshipChild": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "relationshipSibling": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "controller"
+        ],
+        "description": "Represents the properties of a Verification Method listed in a DID document.\n\nThis data type includes public key representations that are no longer present in the spec but are still used by several DID methods / resolvers and kept for backward compatibility."
+      },
+      "ConditionWeightedThreshold": {
+        "type": "object",
+        "properties": {
+          "condition": {
+            "$ref": "#/components/schemas/VerificationMethod"
+          },
+          "weight": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "condition",
+          "weight"
+        ]
+      },
+      "ServiceEndpoint": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object"
+          }
+        ],
+        "description": "Represents an endpoint of a Service entry in a DID document."
+      },
+      "Service": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "serviceEndpoint": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ServiceEndpoint"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ServiceEndpoint"
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "serviceEndpoint"
+        ],
+        "description": "Represents a Service entry in a  {@link  https://www.w3.org/TR/did-core/#did-document-properties | DID document } ."
+      },
+      "DIDDocument": {
+        "type": "object",
+        "properties": {
+          "authentication": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/components/schemas/VerificationMethod"
+                }
+              ]
+            }
+          },
+          "assertionMethod": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/components/schemas/VerificationMethod"
+                }
+              ]
+            }
+          },
+          "keyAgreement": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/components/schemas/VerificationMethod"
+                }
+              ]
+            }
+          },
+          "capabilityInvocation": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/components/schemas/VerificationMethod"
+                }
+              ]
+            }
+          },
+          "capabilityDelegation": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/components/schemas/VerificationMethod"
+                }
+              ]
+            }
+          },
+          "@context": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "https://www.w3.org/ns/did/v1"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "alsoKnownAs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "controller": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "verificationMethod": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VerificationMethod"
+            }
+          },
+          "service": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Service"
+            }
+          },
+          "publicKey": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VerificationMethod"
+            },
+            "deprecated": true
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "description": "Represents a DID document."
+      },
+      "DIDDocumentSection": {
+        "type": "string",
+        "enum": [
+          "verificationMethod",
+          "publicKey",
+          "service",
+          "authentication",
+          "assertionMethod",
+          "keyAgreement",
+          "capabilityInvocation",
+          "capabilityDelegation"
+        ],
+        "description": "Refers to a section of a DID document. Either the list of verification methods or services or one of the verification relationships.\n\nSee  {@link  https://www.w3.org/TR/did-core/#verification-relationships | verification relationships }"
+      },
+      "DIDResolutionOptions": {
+        "type": "object",
+        "properties": {
+          "accept": {
+            "type": "string"
+          }
+        },
+        "description": "Describes the options forwarded to the resolver when executing a  {@link  Resolvable.resolve }  operation."
+      },
+      "DIDResolutionMetadata": {
+        "type": "object",
+        "properties": {
+          "contentType": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "description": "Encapsulates the resolution metadata resulting from a  {@link  Resolvable.resolve }  operation."
+      },
+      "DIDDocumentMetadata": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "string"
+          },
+          "updated": {
+            "type": "string"
+          },
+          "deactivated": {
+            "type": "boolean"
+          },
+          "versionId": {
+            "type": "string"
+          },
+          "nextUpdate": {
+            "type": "string"
+          },
+          "nextVersionId": {
+            "type": "string"
+          },
+          "equivalentId": {
+            "type": "string"
+          },
+          "canonicalId": {
+            "type": "string"
+          }
+        },
+        "description": "Represents metadata about the DID document resulting from a  {@link  Resolvable.resolve }  operation."
+      },
+      "IDIDDiscoverMatch": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string",
+            "description": "DID"
+          },
+          "metaData": {
+            "type": "object",
+            "description": "Provider specific related metadata about the match"
+          }
+        },
+        "required": [
+          "did",
+          "metaData"
+        ],
+        "description": "A single discovery match."
+      },
+      "IDIDDiscoveryProviderResult": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string",
+            "description": "Provider name"
+          },
+          "matches": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IDIDDiscoverMatch"
+            },
+            "description": "List of discovery matches"
+          }
+        },
+        "required": [
+          "provider",
+          "matches"
+        ],
+        "description": "Discovery results from one provider."
+      },
+      "IMetaData": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type"
+          },
+          "value": {
+            "type": "string",
+            "description": "Optional. Value"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Message meta data"
+      },
+      "VerifiablePresentation": {
+        "type": "object",
+        "properties": {
+          "proof": {
+            "$ref": "#/components/schemas/ProofType"
+          },
+          "holder": {
+            "type": "string"
+          },
+          "verifiableCredential": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/W3CVerifiableCredential"
+            }
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "@context": {
+            "$ref": "#/components/schemas/ContextType"
+          },
+          "verifier": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "issuanceDate": {
+            "type": "string"
+          },
+          "expirationDate": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@context",
+          "holder",
+          "proof"
+        ],
+        "description": "Represents a signed Verifiable Presentation (includes proof), using a JSON representation. See  {@link  https://www.w3.org/TR/vc-data-model/#presentations | VP data model }"
+      },
+      "IMessageAttachmentData": {
+        "type": "object",
+        "properties": {
+          "jws": {},
+          "hash": {
+            "type": "string"
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "base64": {
+            "type": "string"
+          },
+          "json": {}
+        },
+        "description": "The DIDComm message structure for data in an attachment. See https://identity.foundation/didcomm-messaging/spec/#attachments"
+      },
+      "IMessageAttachment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "media_type": {
+            "type": "string"
+          },
+          "format": {
+            "type": "string"
+          },
+          "lastmod_time": {
+            "type": "string"
+          },
+          "byte_count": {
+            "type": "number"
+          },
+          "data": {
+            "$ref": "#/components/schemas/IMessageAttachmentData"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "description": "Message attachment"
+      },
+      "IDIDCommMessageAttachmentData": {
+        "type": "object",
+        "properties": {
+          "jws": {},
+          "hash": {
+            "type": "string"
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "base64": {
+            "type": "string"
+          },
+          "json": {}
+        },
+        "description": "The DIDComm message structure for data in an attachment. See https://identity.foundation/didcomm-messaging/spec/#attachments"
+      },
+      "IDIDCommMessageAttachment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "media_type": {
+            "type": "string"
+          },
+          "format": {
+            "type": "string"
+          },
+          "lastmod_time": {
+            "type": "string"
+          },
+          "byte_count": {
+            "type": "number"
+          },
+          "data": {
+            "$ref": "#/components/schemas/IDIDCommMessageAttachmentData"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "description": "The DIDComm message structure for attachments. See https://identity.foundation/didcomm-messaging/spec/#attachments"
+      },
+      "IDIDCommMessage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "thid": {
+            "type": "string"
+          },
+          "pthid": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "expires_time": {
+            "type": "string"
+          },
+          "created_time": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "from_prior": {
+            "type": "string"
+          },
+          "body": {},
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IDIDCommMessageAttachment"
+            }
+          },
+          "return_route": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "to",
+          "id",
+          "body"
+        ],
+        "description": "The DIDComm message structure. See https://identity.foundation/didcomm-messaging/spec/#plaintext-message-structure"
+      },
+      "DIDCommMessagePacking": {
+        "type": "string",
+        "enum": [
+          "authcrypt",
+          "anoncrypt",
+          "jws",
+          "none",
+          "anoncrypt+authcrypt",
+          "anoncrypt+jws"
+        ],
+        "description": "The possible types of message packing.\n\n`authcrypt`, `anoncrypt`, `anoncrypt+authcrypt`, and `anoncrypt+jws` will produce `DIDCommMessageMediaType.ENCRYPTED` messages.\n\n`jws` will produce `DIDCommMessageMediaType.SIGNED` messages.\n\n`none` will produce `DIDCommMessageMediaType.PLAIN` messages."
+      },
+      "IDIDCommOptions": {
+        "type": "object",
+        "properties": {
+          "bcc": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Add extra recipients for the packed message."
+          },
+          "recipientKids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Restrict to a set of kids for recipient"
+          },
+          "enc": {
+            "type": "string",
+            "enum": [
+              "XC20P",
+              "A256GCM",
+              "A256CBC-HS512"
+            ],
+            "description": "Optional content encryption algorithm to use. Defaults to 'A256GCM'"
+          },
+          "alg": {
+            "type": "string",
+            "enum": [
+              "ECDH-ES+A256KW",
+              "ECDH-1PU+A256KW",
+              "ECDH-ES+XC20PKW",
+              "ECDH-1PU+XC20PKW"
+            ],
+            "description": "Optional key wrapping algorithm to use. Defaults to 'ECDH-ES+A256KW'"
+          }
+        },
+        "description": "Extra options when packing a DIDComm message."
+      },
+      "IPackedDIDCommMessage": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "description": "The result of packing a DIDComm v2 message. The message is always serialized as string."
+      },
+      "IDIDCommMessageMetaData": {
+        "type": "object",
+        "properties": {
+          "packing": {
+            "$ref": "#/components/schemas/DIDCommMessagePacking"
+          }
+        },
+        "required": [
+          "packing"
+        ],
+        "description": "Metadata resulting from unpacking a DIDComm v2 message."
+      },
+      "PresentationPayload": {
+        "type": "object",
+        "properties": {
+          "holder": {
+            "type": "string"
+          },
+          "verifiableCredential": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/W3CVerifiableCredential"
+            }
+          },
+          "type": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "@context": {
+            "$ref": "#/components/schemas/ContextType"
+          },
+          "verifier": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "issuanceDate": {
+            "$ref": "#/components/schemas/DateType"
+          },
+          "expirationDate": {
+            "$ref": "#/components/schemas/DateType"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "holder"
+        ],
+        "description": "Used as input when creating Verifiable Presentations"
+      },
+      "W3CVerifiablePresentation": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/VerifiablePresentation"
+          },
+          {
+            "$ref": "#/components/schemas/CompactJWT"
+          }
+        ],
+        "description": "Represents a signed Verifiable Presentation (includes proof) in either JSON or compact JWT format. See  {@link https://www.w3.org/TR/vc-data-model/#credentials | VC data model }"
+      },
+      "Issuer": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string",
+            "description": "The DID of the issuer of a requested credential."
+          },
+          "url": {
+            "type": "string",
+            "description": "A URL where a credential of that type can be obtained."
+          }
+        },
+        "required": [
+          "did",
+          "url"
+        ],
+        "description": "Used for requesting Credentials using Selective Disclosure. Represents an accepted issuer of a credential."
+      },
+      "ICredentialRequestInput": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "description": "Motive for requiring this credential."
+          },
+          "essential": {
+            "type": "boolean",
+            "description": "If it is essential. A response that does not include this credential is not sufficient."
+          },
+          "credentialType": {
+            "type": "string",
+            "description": "The credential type. See  {@link  https://www.w3.org/TR/vc-data-model/#types | W3C Credential Types }"
+          },
+          "credentialContext": {
+            "type": "string",
+            "description": "The credential context. See  {@link  https://www.w3.org/TR/vc-data-model/#contexts | W3C Credential Context }"
+          },
+          "claimType": {
+            "type": "string",
+            "description": "The name of the claim property that the credential should express."
+          },
+          "claimValue": {
+            "type": "string",
+            "description": "The value of the claim that the credential should express."
+          },
+          "issuers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Issuer"
+            },
+            "description": "A list of accepted Issuers for this credential."
+          }
+        },
+        "required": [
+          "claimType"
+        ],
+        "description": "Describes a particular credential that is being requested"
+      },
+      "ISelectiveDisclosureRequest": {
+        "type": "object",
+        "properties": {
+          "issuer": {
+            "type": "string",
+            "description": "The issuer of the request"
+          },
+          "subject": {
+            "type": "string",
+            "description": "The target of the request"
+          },
+          "replyUrl": {
+            "type": "string",
+            "description": "The URL where the response should be sent back"
+          },
+          "tag": {
+            "type": "string"
+          },
+          "claims": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ICredentialRequestInput"
+            },
+            "description": "A list of claims that are being requested"
+          },
+          "credentials": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A list of issuer credentials that the target will use to establish trust"
+          }
+        },
+        "required": [
+          "issuer",
+          "claims"
+        ],
+        "description": "Represents the Selective Disclosure request parameters."
+      },
+      "ICredentialsForSdr": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "description": "Motive for requiring this credential."
+          },
+          "essential": {
+            "type": "boolean",
+            "description": "If it is essential. A response that does not include this credential is not sufficient."
+          },
+          "credentialType": {
+            "type": "string",
+            "description": "The credential type. See  {@link  https://www.w3.org/TR/vc-data-model/#types | W3C Credential Types }"
+          },
+          "credentialContext": {
+            "type": "string",
+            "description": "The credential context. See  {@link  https://www.w3.org/TR/vc-data-model/#contexts | W3C Credential Context }"
+          },
+          "claimType": {
+            "type": "string",
+            "description": "The name of the claim property that the credential should express."
+          },
+          "claimValue": {
+            "type": "string",
+            "description": "The value of the claim that the credential should express."
+          },
+          "issuers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Issuer"
+            },
+            "description": "A list of accepted Issuers for this credential."
+          },
+          "credentials": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UniqueVerifiableCredential"
+            }
+          }
+        },
+        "required": [
+          "claimType",
+          "credentials"
+        ],
+        "description": "The credentials that make up a response of a Selective Disclosure"
+      },
+      "IMessage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique message ID"
+          },
+          "type": {
+            "type": "string",
+            "description": "Message type"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Optional. Creation date (ISO 8601)"
+          },
+          "expiresAt": {
+            "type": "string",
+            "description": "Optional. Expiration date (ISO 8601)"
+          },
+          "threadId": {
+            "type": "string",
+            "description": "Optional. Thread ID"
+          },
+          "raw": {
+            "type": "string",
+            "description": "Optional. Original message raw data"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional. Parsed data"
+          },
+          "replyTo": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional. List of DIDs to reply to"
+          },
+          "replyUrl": {
+            "type": "string",
+            "description": "Optional. URL to post a reply message to"
+          },
+          "from": {
+            "type": "string",
+            "description": "Optional. Sender DID"
+          },
+          "to": {
+            "type": "string",
+            "description": "Optional. Recipient DID"
+          },
+          "metaData": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IMetaData"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional. Array of message metadata"
+          },
+          "credentials": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VerifiableCredential"
+            },
+            "description": "Optional. Array of attached verifiable credentials"
+          },
+          "presentations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VerifiablePresentation"
+            },
+            "description": "Optional. Array of attached verifiable presentations"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IMessageAttachment"
+            },
+            "description": "Optional. Array of generic attachments"
+          },
+          "returnRoute": {
+            "type": "string",
+            "description": "Optional. Signal how to reuse transport for return messages"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ],
+        "description": "Represents a DIDComm v1 message payload, with optionally decoded credentials and presentations."
+      },
+      "TMessageColumns": {
+        "type": "string",
+        "enum": [
+          "from",
+          "to",
+          "id",
+          "createdAt",
+          "expiresAt",
+          "threadId",
+          "type",
+          "raw",
+          "replyTo",
+          "replyUrl"
+        ],
+        "description": "The columns that can be queried for an  {@link  IMessage } \n\nSee  {@link  IDataStoreORM.dataStoreORMGetMessagesCount }"
+      },
+      "Where-TMessageColumns": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "$ref": "#/components/schemas/TMessageColumns"
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "not": {
+            "type": "boolean"
+          },
+          "op": {
+            "type": "string",
+            "enum": [
+              "LessThan",
+              "LessThanOrEqual",
+              "MoreThan",
+              "MoreThanOrEqual",
+              "Equal",
+              "Like",
+              "Between",
+              "In",
+              "Any",
+              "IsNull"
+            ]
+          }
+        },
+        "required": [
+          "column"
+        ],
+        "description": "Represents a WHERE predicate for a  {@link  FindArgs }  query. In situations where multiple WHERE predicates are present, they are combined with AND."
+      },
+      "Order-TMessageColumns": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "$ref": "#/components/schemas/TMessageColumns"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          }
+        },
+        "required": [
+          "column",
+          "direction"
+        ],
+        "description": "Represents the sort order of results from a  {@link  FindArgs }  query."
+      },
+      "FindArgs-TMessageColumns": {
+        "type": "object",
+        "properties": {
+          "where": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Where-TMessageColumns"
+            },
+            "description": "Imposes constraints on the values of the given columns. WHERE clauses are combined using AND."
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Order-TMessageColumns"
+            },
+            "description": "Sorts the results according to the given array of column priorities."
+          },
+          "skip": {
+            "type": "number",
+            "description": "Ignores the first number of entries in a  {@link  IDataStoreORM }  query result."
+          },
+          "take": {
+            "type": "number",
+            "description": "Returns at most this number of results from a  {@link  IDataStoreORM }  query."
+          }
+        },
+        "description": "Represents an  {@link  IDataStoreORM }  Query."
+      },
+      "TClaimsColumns": {
+        "type": "string",
+        "enum": [
+          "context",
+          "credentialType",
+          "type",
+          "value",
+          "isObj",
+          "id",
+          "issuer",
+          "subject",
+          "expirationDate",
+          "issuanceDate"
+        ],
+        "description": "The columns that can be searched for the claims of a  {@link  VerifiableCredential } \n\nSee  {@link  IDataStoreORM.dataStoreORMGetVerifiableCredentialsByClaims } \nSee  {@link  IDataStoreORM.dataStoreORMGetVerifiableCredentialsByClaimsCount }"
+      },
+      "Where-TClaimsColumns": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "$ref": "#/components/schemas/TClaimsColumns"
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "not": {
+            "type": "boolean"
+          },
+          "op": {
+            "type": "string",
+            "enum": [
+              "LessThan",
+              "LessThanOrEqual",
+              "MoreThan",
+              "MoreThanOrEqual",
+              "Equal",
+              "Like",
+              "Between",
+              "In",
+              "Any",
+              "IsNull"
+            ]
+          }
+        },
+        "required": [
+          "column"
+        ],
+        "description": "Represents a WHERE predicate for a  {@link  FindArgs }  query. In situations where multiple WHERE predicates are present, they are combined with AND."
+      },
+      "Order-TClaimsColumns": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "$ref": "#/components/schemas/TClaimsColumns"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          }
+        },
+        "required": [
+          "column",
+          "direction"
+        ],
+        "description": "Represents the sort order of results from a  {@link  FindArgs }  query."
+      },
+      "FindArgs-TClaimsColumns": {
+        "type": "object",
+        "properties": {
+          "where": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Where-TClaimsColumns"
+            },
+            "description": "Imposes constraints on the values of the given columns. WHERE clauses are combined using AND."
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Order-TClaimsColumns"
+            },
+            "description": "Sorts the results according to the given array of column priorities."
+          },
+          "skip": {
+            "type": "number",
+            "description": "Ignores the first number of entries in a  {@link  IDataStoreORM }  query result."
+          },
+          "take": {
+            "type": "number",
+            "description": "Returns at most this number of results from a  {@link  IDataStoreORM }  query."
+          }
+        },
+        "description": "Represents an  {@link  IDataStoreORM }  Query."
+      },
+      "TPresentationColumns": {
+        "type": "string",
+        "enum": [
+          "context",
+          "type",
+          "id",
+          "holder",
+          "verifier",
+          "expirationDate",
+          "issuanceDate"
+        ],
+        "description": "The columns that can be searched for a  {@link  VerifiablePresentation } \n\nSee  {@link  IDataStoreORM.dataStoreORMGetVerifiablePresentations } \nSee  {@link  IDataStoreORM.dataStoreORMGetVerifiablePresentationsCount }"
+      },
+      "Where-TPresentationColumns": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "$ref": "#/components/schemas/TPresentationColumns"
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "not": {
+            "type": "boolean"
+          },
+          "op": {
+            "type": "string",
+            "enum": [
+              "LessThan",
+              "LessThanOrEqual",
+              "MoreThan",
+              "MoreThanOrEqual",
+              "Equal",
+              "Like",
+              "Between",
+              "In",
+              "Any",
+              "IsNull"
+            ]
+          }
+        },
+        "required": [
+          "column"
+        ],
+        "description": "Represents a WHERE predicate for a  {@link  FindArgs }  query. In situations where multiple WHERE predicates are present, they are combined with AND."
+      },
+      "Order-TPresentationColumns": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "$ref": "#/components/schemas/TPresentationColumns"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          }
+        },
+        "required": [
+          "column",
+          "direction"
+        ],
+        "description": "Represents the sort order of results from a  {@link  FindArgs }  query."
+      },
+      "FindArgs-TPresentationColumns": {
+        "type": "object",
+        "properties": {
+          "where": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Where-TPresentationColumns"
+            },
+            "description": "Imposes constraints on the values of the given columns. WHERE clauses are combined using AND."
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Order-TPresentationColumns"
+            },
+            "description": "Sorts the results according to the given array of column priorities."
+          },
+          "skip": {
+            "type": "number",
+            "description": "Ignores the first number of entries in a  {@link  IDataStoreORM }  query result."
+          },
+          "take": {
+            "type": "number",
+            "description": "Returns at most this number of results from a  {@link  IDataStoreORM }  query."
+          }
+        },
+        "description": "Represents an  {@link  IDataStoreORM }  Query."
+      },
+      "ValidationError": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Error name"
+          },
+          "method": {
+            "type": "string",
+            "description": "Method"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "path": {
+            "type": "string",
+            "description": "Error path"
+          },
+          "code": {
+            "type": "string",
+            "description": "Error code"
+          },
+          "description": {
+            "type": "string",
+            "description": "Error description"
+          }
+        },
+        "required": [
+          "didUrl"
+        ],
+        "description": "Agent method arguments validation error"
+      },
+      "IKeyManagerCreateArgs": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/TKeyType",
+            "description": "Key type"
+          },
+          "kms": {
+            "type": "string",
+            "description": "Key Management System"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/KeyMetadata",
+            "description": "Optional. Key meta data"
+          }
+        },
+        "required": [
+          "type",
+          "kms"
+        ],
+        "description": "Input arguments for  {@link IKeyManager.keyManagerCreate | keyManagerCreate }"
+      },
+      "ManagedKeyInfo": {
+        "type": "object",
+        "properties": {
+          "kid": {
+            "type": "string",
+            "description": "Key ID"
+          },
+          "kms": {
+            "type": "string",
+            "description": "Key Management System"
+          },
+          "type": {
+            "$ref": "#/components/schemas/TKeyType",
+            "description": "Key type"
+          },
+          "publicKeyHex": {
+            "type": "string",
+            "description": "Public key"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/KeyMetadata"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional. Key metadata. This should be used to determine which algorithms are supported."
+          }
+        },
+        "required": [
+          "kid",
+          "kms",
+          "type",
+          "publicKeyHex"
+        ],
+        "description": "Represents information about a managed key. Private or secret key material is NOT present."
+      },
+      "IKeyManagerDecryptJWEArgs": {
+        "type": "object",
+        "properties": {
+          "kid": {
+            "type": "string",
+            "description": "Key ID"
+          },
+          "data": {
+            "type": "string",
+            "description": "Encrypted data"
+          }
+        },
+        "required": [
+          "kid",
+          "data"
+        ],
+        "description": "Input arguments for  {@link IKeyManager.keyManagerDecryptJWE | keyManagerDecryptJWE }"
+      },
+      "IKeyManagerDeleteArgs": {
+        "type": "object",
+        "properties": {
+          "kid": {
+            "type": "string",
+            "description": "Key ID"
+          }
+        },
+        "required": [
+          "kid"
+        ],
+        "description": "Input arguments for  {@link IKeyManager.keyManagerDelete | keyManagerDelete }"
+      },
+      "IKeyManagerEncryptJWEArgs": {
+        "type": "object",
+        "properties": {
+          "kid": {
+            "type": "string",
+            "description": "Key ID to use for encryption"
+          },
+          "to": {
+            "type": "object",
+            "properties": {
+              "kid": {
+                "type": "string",
+                "description": "Key ID"
+              },
+              "type": {
+                "$ref": "#/components/schemas/TKeyType",
+                "description": "Key type"
+              },
+              "publicKeyHex": {
+                "type": "string",
+                "description": "Public key"
+              },
+              "privateKeyHex": {
+                "type": "string",
+                "description": "Optional. Private key"
+              },
+              "meta": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/KeyMetadata"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Optional. Key metadata. This should be used to determine which algorithms are supported."
+              }
+            },
+            "required": [
+              "kid",
+              "type",
+              "publicKeyHex"
+            ],
+            "description": "Recipient key object"
+          },
+          "data": {
+            "type": "string",
+            "description": "Data to encrypt"
+          }
+        },
+        "required": [
+          "kid",
+          "to",
+          "data"
+        ],
+        "description": "Input arguments for  {@link IKeyManager.keyManagerEncryptJWE | keyManagerEncryptJWE }"
+      },
+      "IKeyManagerGetArgs": {
+        "type": "object",
+        "properties": {
+          "kid": {
+            "type": "string",
+            "description": "Key ID"
+          }
+        },
+        "required": [
+          "kid"
+        ],
+        "description": "Input arguments for  {@link IKeyManager.keyManagerGet | keyManagerGet }"
+      },
+      "MinimalImportableKey": {
+        "$ref": "#/components/schemas/RequireOnly<IKey,(\"privateKeyHex\"|\"type\"|\"kms\")>",
+        "description": "Represents the properties required to import a key."
+      },
+      "IKeyManagerSharedSecretArgs": {
+        "type": "object",
+        "properties": {
+          "secretKeyRef": {
+            "type": "string",
+            "description": "The secret key handle (`kid`) as returned by  {@link IKeyManager.keyManagerCreate | keyManagerCreate }"
+          },
+          "publicKey": {
+            "type": "object",
+            "properties": {
+              "publicKeyHex": {
+                "type": "string",
+                "description": "Public key"
+              },
+              "type": {
+                "$ref": "#/components/schemas/TKeyType",
+                "description": "Key type"
+              }
+            },
+            "required": [
+              "publicKeyHex",
+              "type"
+            ],
+            "description": "The public key of the other party. The `type` of key MUST be compatible with the type referenced by `secretKeyRef`"
+          }
+        },
+        "required": [
+          "secretKeyRef",
+          "publicKey"
+        ],
+        "description": "Input arguments for  {@link IKeyManager.keyManagerSharedSecret | keyManagerSharedSecret }"
+      },
+      "IKeyManagerSignArgs": {
+        "type": "object",
+        "properties": {
+          "keyRef": {
+            "type": "string",
+            "description": "The key handle, as returned during `keyManagerCreateKey`"
+          },
+          "algorithm": {
+            "type": "string",
+            "description": "The algorithm to use for signing. This must be one of the algorithms supported by the KMS for this key type.\n\nThe algorithm used here should match one of the names listed in `IKey.meta.algorithms`"
+          },
+          "data": {
+            "type": "string",
+            "description": "Data to sign"
+          },
+          "encoding": {
+            "type": "string",
+            "enum": [
+              "utf-8",
+              "base16",
+              "base64",
+              "hex"
+            ],
+            "description": "If the data is a \"string\" then you can specify which encoding is used. Default is \"utf-8\""
+          }
+        },
+        "required": [
+          "keyRef",
+          "data"
+        ],
+        "description": "Input arguments for  {@link IKeyManager.keyManagerSign | keyManagerSign }"
+      },
+      "IKeyManagerSignEthTXArgs": {
+        "type": "object",
+        "properties": {
+          "kid": {
+            "type": "string",
+            "description": "Key ID"
+          },
+          "transaction": {
+            "type": "object",
+            "description": "Ethereum transaction object"
+          }
+        },
+        "required": [
+          "kid",
+          "transaction"
+        ],
+        "description": "Input arguments for  {@link IKeyManager.keyManagerSignEthTX | keyManagerSignEthTX }"
+      },
+      "IKeyManagerSignJOSE": {
+        "type": "object",
+        "properties": {
+          "kid": {
+            "type": "string",
+            "description": "Key ID that identifies the private key stored in the key manager"
+          },
+          "data": {
+            "type": "string",
+            "description": "Data to sign"
+          },
+          "keyIdHeader": {
+            "type": "string",
+            "description": "kid used in the header"
+          }
+        },
+        "required": [
+          "kid",
+          "data",
+          "keyIdHeader"
+        ],
+        "description": "Input arguments for  {@link IKeyManager.IKeyManagerSignJOSE | IKeyManagerSignJOSE }"
+      },
+      "IKeyManagerSignJWTArgs": {
+        "type": "object",
+        "properties": {
+          "kid": {
+            "type": "string",
+            "description": "Key ID"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "BYTES_PER_ELEMENT": {
+                    "type": "number"
+                  },
+                  "buffer": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "byteLength": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "byteLength"
+                        ]
+                      },
+                      {}
+                    ]
+                  },
+                  "byteLength": {
+                    "type": "number"
+                  },
+                  "byteOffset": {
+                    "type": "number"
+                  },
+                  "length": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "BYTES_PER_ELEMENT",
+                  "buffer",
+                  "byteLength",
+                  "byteOffset",
+                  "length"
+                ],
+                "additionalProperties": {
+                  "type": "number"
+                }
+              }
+            ],
+            "description": "Data to sign"
+          }
+        },
+        "required": [
+          "kid",
+          "data"
+        ],
+        "description": "Input arguments for  {@link IKeyManager.keyManagerSignJWT | keyManagerSignJWT }"
+      },
+      "IDIDManagerAddKeyArgs": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string",
+            "description": "DID"
+          },
+          "key": {
+            "$ref": "#/components/schemas/IKey",
+            "description": "Key object"
+          },
+          "options": {
+            "type": "object",
+            "description": "Optional. Identifier provider specific options"
+          }
+        },
+        "required": [
+          "did",
+          "key"
+        ],
+        "description": "Input arguments for  {@link IDIDManager.didManagerAddKey | didManagerAddKey }"
+      },
+      "IDIDManagerAddServiceArgs": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string",
+            "description": "DID"
+          },
+          "service": {
+            "$ref": "#/components/schemas/IService",
+            "description": "Service object"
+          },
+          "options": {
+            "type": "object",
+            "description": "Optional. Identifier provider specific options"
+          }
+        },
+        "required": [
+          "did",
+          "service"
+        ],
+        "description": "Input arguments for  {@link IDIDManager.didManagerAddService | didManagerAddService }"
+      },
+      "IDIDManagerGetByAliasArgs": {
+        "type": "object",
+        "properties": {
+          "alias": {
+            "type": "string",
+            "description": "Alias"
+          },
+          "provider": {
+            "type": "string",
+            "description": "Optional provider"
+          }
+        },
+        "required": [
+          "alias"
+        ],
+        "description": "Input arguments for  {@link IDIDManager.didManagerGetByAlias | didManagerGetByAlias }"
+      },
+      "IDIDManagerGetOrCreateArgs": {
+        "type": "object",
+        "properties": {
+          "alias": {
+            "type": "string",
+            "description": "Identifier alias. Can be used to reference an object in an external system"
+          },
+          "provider": {
+            "type": "string",
+            "description": "Optional. Identifier provider"
+          },
+          "kms": {
+            "type": "string",
+            "description": "Optional. Key Management System"
+          },
+          "options": {
+            "type": "object",
+            "description": "Optional. Identifier provider specific options"
+          }
+        },
+        "required": [
+          "alias"
+        ],
+        "description": "Input arguments for  {@link IDIDManager.didManagerGetOrCreate | didManagerGetOrCreate }"
+      },
+      "MinimalImportableIdentifier": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string",
+            "description": "Decentralized identifier"
+          },
+          "alias": {
+            "type": "string",
+            "description": "Optional. Identifier alias. Can be used to reference an object in an external system"
+          },
+          "provider": {
+            "type": "string",
+            "description": "Identifier provider name"
+          },
+          "controllerKeyId": {
+            "type": "string",
+            "description": "Controller key id"
+          },
+          "keys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RequireOnly<IKey,(\"privateKeyHex\"|\"type\"|\"kms\")>"
+            }
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IService"
+            }
+          }
+        },
+        "required": [
+          "did",
+          "keys",
+          "provider"
+        ],
+        "description": "Represents the minimum amount of information needed to import an  {@link  IIdentifier } ."
+      },
+      "IDIDManagerRemoveKeyArgs": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string",
+            "description": "DID"
+          },
+          "kid": {
+            "type": "string",
+            "description": "Key ID"
+          },
+          "options": {
+            "type": "object",
+            "description": "Optional. Identifier provider specific options"
+          }
+        },
+        "required": [
+          "did",
+          "kid"
+        ],
+        "description": "Input arguments for  {@link IDIDManager.didManagerRemoveKey | didManagerRemoveKey }"
+      },
+      "IDIDManagerRemoveServiceArgs": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string",
+            "description": "DID"
+          },
+          "id": {
+            "type": "string",
+            "description": "Service ID"
+          },
+          "options": {
+            "type": "object",
+            "description": "Optional. Identifier provider specific options"
+          }
+        },
+        "required": [
+          "did",
+          "id"
+        ],
+        "description": "Input arguments for  {@link IDIDManager.didManagerRemoveService | didManagerRemoveService }"
+      },
+      "IDIDManagerSetAliasArgs": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string",
+            "description": "Required. DID"
+          },
+          "alias": {
+            "type": "string",
+            "description": "Required. Identifier alias"
+          }
+        },
+        "required": [
+          "did",
+          "alias"
+        ],
+        "description": "Input arguments for  {@link IDIDManager.didManagerSetAlias | didManagerSetAlias }"
+      },
+      "IDIDManagerUpdateArgs": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string",
+            "description": "Required. DID"
+          },
+          "document": {
+            "type": "object",
+            "properties": {
+              "@context": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {}
+                  },
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "allOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    ]
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "alsoKnownAs": {
+                "allOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "properties": {}
+                  }
+                ]
+              },
+              "controller": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "allOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    ]
+                  }
+                ]
+              },
+              "verificationMethod": {
+                "allOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/VerificationMethod"
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "properties": {}
+                  }
+                ]
+              },
+              "service": {
+                "allOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Service"
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "properties": {}
+                  }
+                ]
+              },
+              "publicKey": {
+                "allOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/VerificationMethod"
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "properties": {}
+                  }
+                ],
+                "deprecated": true
+              },
+              "authentication": {
+                "allOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/VerificationMethod"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "properties": {}
+                  }
+                ]
+              },
+              "assertionMethod": {
+                "allOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/VerificationMethod"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "properties": {}
+                  }
+                ]
+              },
+              "keyAgreement": {
+                "allOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/VerificationMethod"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "properties": {}
+                  }
+                ]
+              },
+              "capabilityInvocation": {
+                "allOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/VerificationMethod"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "properties": {}
+                  }
+                ]
+              },
+              "capabilityDelegation": {
+                "allOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/VerificationMethod"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "properties": {}
+                  }
+                ]
+              }
+            },
+            "description": "Required"
+          },
+          "options": {
+            "type": "object",
+            "description": "Identifier provider specific options."
+          }
+        },
+        "required": [
+          "did",
+          "document"
+        ],
+        "description": "The arguments necessary to perform a full DID document update for a DID."
+      },
+      "GetDIDComponentArgs": {
+        "type": "object",
+        "properties": {
+          "didDocument": {
+            "$ref": "#/components/schemas/DIDDocument",
+            "description": "the DID document from which to extract the fragment. This MUST be the document resolved by\n {@link  IResolver.resolveDid }"
+          },
+          "didUrl": {
+            "type": "string",
+            "description": "The DID URI that needs to be dereferenced. This should refer to the subsection by #fragment.\n\nExample: did:example:identifier#controller"
+          },
+          "section": {
+            "$ref": "#/components/schemas/DIDDocumentSection",
+            "description": "Optional. The section of the DID document where to search for the fragment. Example 'keyAgreement', or 'assertionMethod', or 'authentication', etc"
+          }
+        },
+        "required": [
+          "didDocument",
+          "didUrl"
+        ],
+        "description": "Input arguments for  {@link IResolver.getDIDComponentById | getDIDComponentById }"
+      },
+      "DIDDocComponent": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/VerificationMethod"
+          },
+          {
+            "$ref": "#/components/schemas/ServiceEndpoint"
+          }
+        ],
+        "description": "Return type of  {@link IResolver.getDIDComponentById | getDIDComponentById } \nrepresents a `VerificationMethod` or a `ServiceEndpoint` entry from a  {@link did-resolver#DIDDocument | DIDDocument }"
+      },
+      "ResolveDidArgs": {
+        "type": "object",
+        "properties": {
+          "didUrl": {
+            "type": "string",
+            "description": "DID URL"
+          },
+          "options": {
+            "$ref": "#/components/schemas/DIDResolutionOptions",
+            "description": "DID resolution options that will be passed to the method specific resolver. See: https://w3c.github.io/did-spec-registries/#did-resolution-input-metadata See: https://www.w3.org/TR/did-core/#did-resolution-options"
+          }
+        },
+        "required": [
+          "didUrl"
+        ],
+        "description": "Input arguments for  {@link IResolver.resolveDid | resolveDid }"
+      },
+      "DIDResolutionResult": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "https://w3id.org/did-resolution/v1"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "didResolutionMetadata": {
+            "$ref": "#/components/schemas/DIDResolutionMetadata"
+          },
+          "didDocument": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DIDDocument"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "didDocumentMetadata": {
+            "$ref": "#/components/schemas/DIDDocumentMetadata"
+          }
+        },
+        "required": [
+          "didResolutionMetadata",
+          "didDocument",
+          "didDocumentMetadata"
+        ],
+        "description": "Defines the result of a DID resolution operation."
+      },
+      "IDIDDiscoveryDiscoverDidArgs": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search string"
+          },
+          "options": {
+            "type": "object",
+            "description": "Provider specific options"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "description": "Contains the parameters of a DID Discovery Request."
+      },
+      "IDIDDiscoveryDiscoverDidResult": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search string"
+          },
+          "options": {
+            "type": "object",
+            "description": "Provider specific options"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IDIDDiscoveryProviderResult"
+            },
+            "description": "List of discovery results from different providers"
+          },
+          "errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "A record of encountered errors"
+          }
+        },
+        "required": [
+          "results"
+        ],
+        "description": "DID Discovery results."
+      },
+      "IHandleMessageArgs": {
+        "type": "object",
+        "properties": {
+          "raw": {
+            "type": "string",
+            "description": "Raw message data"
+          },
+          "metaData": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IMetaData"
+            },
+            "description": "Optional. Message meta data"
+          },
+          "save": {
+            "type": "boolean",
+            "description": "Optional. If set to `true`, the message will be saved using\n {@link  @veramo/core-types#IDataStore.dataStoreSaveMessage | dataStoreSaveMessage } \n<p/><p/>",
+            "deprecated": "Please call {@link @veramo/core-types#IDataStore.dataStoreSaveMessage | dataStoreSaveMessage()} after\nhandling the message and determining that it must be saved."
+          }
+        },
+        "required": [
+          "raw"
+        ],
+        "description": "Input arguments for  {@link IMessageHandler.handleMessage | handleMessage }"
+      },
+      "DIDCommMessageMediaType": {
+        "type": "string",
+        "enum": [
+          "application/didcomm-plain+json",
+          "application/didcomm-signed+json",
+          "application/didcomm-encrypted+json"
+        ],
+        "description": "Represents different DIDComm v2 message encapsulation."
+      },
+      "IPackDIDCommMessageArgs": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "$ref": "#/components/schemas/IDIDCommMessage"
+          },
+          "packing": {
+            "$ref": "#/components/schemas/DIDCommMessagePacking"
+          },
+          "keyRef": {
+            "type": "string"
+          },
+          "options": {
+            "$ref": "#/components/schemas/IDIDCommOptions"
+          }
+        },
+        "required": [
+          "message",
+          "packing"
+        ],
+        "description": "The input to the  {@link  DIDComm.packDIDCommMessage }  method. When `packing` is `authcrypt` or `jws`, a `keyRef` MUST be provided."
+      },
+      "ISendDIDCommMessageArgs": {
+        "type": "object",
+        "properties": {
+          "packedMessage": {
+            "$ref": "#/components/schemas/IPackedDIDCommMessage"
+          },
+          "messageId": {
+            "type": "string"
+          },
+          "returnTransportId": {
+            "type": "string"
+          },
+          "recipientDidUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "packedMessage",
+          "messageId",
+          "recipientDidUrl"
+        ],
+        "description": "The input to the  {@link  DIDComm.sendDIDCommMessage }  method. The provided `messageId` will be used in the emitted event to allow event/message correlation."
+      },
+      "ISendMessageDIDCommAlpha1Args": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "save": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "body": {
+                "anyOf": [
+                  {
+                    "type": "object"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "from",
+              "to",
+              "type",
+              "body"
+            ]
+          },
+          "headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "deprecated": "Please use {@link IDIDComm.sendDIDCommMessage } instead. This will be removed in Veramo 4.0.\nInput arguments for {@link IDIDComm.sendMessageDIDCommAlpha1 }"
+      },
+      "IUnpackDIDCommMessageArgs": {
+        "$ref": "#/components/schemas/IPackedDIDCommMessage",
+        "description": "The input to the  {@link  DIDComm.unpackDIDCommMessage }  method."
+      },
+      "IUnpackedDIDCommMessage": {
+        "type": "object",
+        "properties": {
+          "metaData": {
+            "$ref": "#/components/schemas/IDIDCommMessageMetaData"
+          },
+          "message": {
+            "$ref": "#/components/schemas/IDIDCommMessage"
+          }
+        },
+        "required": [
+          "metaData",
+          "message"
+        ],
+        "description": "The result of unpacking a DIDComm v2 message."
+      },
+      "ICreateVerifiablePresentationArgs": {
+        "type": "object",
+        "properties": {
+          "resolutionOptions": {
+            "type": "object",
+            "properties": {
+              "publicKeyFormat": {
+                "type": "string"
+              },
+              "accept": {
+                "type": "string"
+              }
+            },
+            "description": "Options to be passed to the DID resolver."
+          },
+          "presentation": {
+            "$ref": "#/components/schemas/PresentationPayload",
+            "description": "The JSON payload of the Presentation according to the  {@link https://www.w3.org/TR/vc-data-model/#presentations | canonical model } .\n\nThe signer of the Presentation is chosen based on the `holder` property of the `presentation`\n\n`@context`, `type` and `issuanceDate` will be added automatically if omitted"
+          },
+          "save": {
+            "type": "boolean",
+            "description": "If this parameter is true, the resulting VerifiablePresentation is sent to the  {@link  @veramo/core-types#IDataStore | storage plugin }  to be saved. <p/><p/>",
+            "deprecated": "Please call\n{@link @veramo/core-types#IDataStore.dataStoreSaveVerifiablePresentation |}   *   dataStoreSaveVerifiablePresentation()} to save the credential after creating it."
+          },
+          "challenge": {
+            "type": "string",
+            "description": "Optional (only JWT) string challenge parameter to add to the verifiable presentation."
+          },
+          "domain": {
+            "type": "string",
+            "description": "Optional string domain parameter to add to the verifiable presentation."
+          },
+          "proofFormat": {
+            "$ref": "#/components/schemas/ProofFormat",
+            "description": "The desired format for the VerifiablePresentation to be created. Currently, only JWT is supported"
+          },
+          "removeOriginalFields": {
+            "type": "boolean",
+            "description": "Remove payload members during JWT-JSON transformation. Defaults to `true`. See https://www.w3.org/TR/vc-data-model/#jwt-encoding"
+          },
+          "keyRef": {
+            "type": "string",
+            "description": "[Optional] The ID of the key that should sign this presentation. If this is not specified, the first matching key will be used."
+          },
+          "fetchRemoteContexts": {
+            "type": "boolean",
+            "description": "When dealing with JSON-LD you also MUST provide the proper contexts. Set this to `true` ONLY if you want the `@context` URLs to be fetched in case they are not preloaded. The context definitions SHOULD rather be provided at startup instead of being fetched.\n\nDefaults to `false`"
+          }
+        },
+        "required": [
+          "presentation",
+          "proofFormat"
+        ],
+        "additionalProperties": {
+          "description": "Any other options that can be forwarded to the lower level libraries"
+        },
+        "description": "Encapsulates the parameters required to create a  {@link https://www.w3.org/TR/vc-data-model/#presentations | W3C Verifiable Presentation }"
+      },
+      "IVerifyPresentationArgs": {
+        "type": "object",
+        "properties": {
+          "resolutionOptions": {
+            "type": "object",
+            "properties": {
+              "publicKeyFormat": {
+                "type": "string"
+              },
+              "accept": {
+                "type": "string"
+              }
+            },
+            "description": "Options to be passed to the DID resolver."
+          },
+          "presentation": {
+            "$ref": "#/components/schemas/W3CVerifiablePresentation",
+            "description": "The Verifiable Presentation object according to the  {@link https://www.w3.org/TR/vc-data-model/#presentations | canonical model }  or the JWT representation.\n\nThe signer of the Presentation is verified based on the `holder` property of the `presentation` or the `iss` property of the JWT payload respectively"
+          },
+          "challenge": {
+            "type": "string",
+            "description": "Optional (only for JWT) string challenge parameter to verify the verifiable presentation against"
+          },
+          "domain": {
+            "type": "string",
+            "description": "Optional (only for JWT) string domain parameter to verify the verifiable presentation against"
+          },
+          "fetchRemoteContexts": {
+            "type": "boolean",
+            "description": "When dealing with JSON-LD you also MUST provide the proper contexts. Set this to `true` ONLY if you want the `@context` URLs to be fetched in case they are not preloaded. The context definitions SHOULD rather be provided at startup instead of being fetched.\n\nDefaults to `false`"
+          },
+          "policies": {
+            "$ref": "#/components/schemas/VerificationPolicies",
+            "description": "Overrides specific aspects of credential verification, where possible."
+          }
+        },
+        "required": [
+          "presentation"
+        ],
+        "additionalProperties": {
+          "description": "Other options can be specified for verification. They will be forwarded to the lower level modules. that perform the checks"
+        },
+        "description": "Encapsulates the parameters required to verify a  {@link https://www.w3.org/TR/vc-data-model/#presentations | W3C Verifiable Presentation }"
+      },
+      "ICreateVerifiableCredentialMDPArgs": {
+        "type": "object",
+        "properties": {
+          "credential": {
+            "$ref": "#/components/schemas/CredentialPayload",
+            "description": "The json payload of the Credential according to the  {@link https://www.w3.org/TR/vc-data-model/#credentials | canonical model } \n\nThe signer of the Credential is chosen based on the `issuer.id` property of the `credential`\n\n`@context`, `type` and `issuanceDate` will be added automatically if omitted"
+          },
+          "keyRef": {
+            "type": "string",
+            "description": "Optional. The key handle ( {@link  @veramo/core-types#IKey.kid | IKey.kid } ) from the internal database."
+          },
+          "fetchRemoteContexts": {
+            "type": "boolean",
+            "description": "Set this to true if you want the `@context` URLs to be fetched in case they are not preloaded.\n\nDefaults to `false`"
+          }
+        },
+        "required": [
+          "credential"
+        ],
+        "additionalProperties": {
+          "description": "Any other options that can be forwarded to the lower level libraries"
+        },
+        "description": "Encapsulates the parameters required to create a  {@link https://www.w3.org/TR/vc-data-model/#credentials | W3C Verifiable Credential }"
+      },
+      "IRedactVerifiableCredentialArgs": {
+        "type": "object",
+        "properties": {
+          "inputVerifiableCredential": {
+            "$ref": "#/components/schemas/VerifiableCredential"
+          },
+          "outputCredential": {
+            "$ref": "#/components/schemas/CredentialPayload"
+          }
+        },
+        "required": [
+          "inputVerifiableCredential",
+          "outputCredential"
+        ]
+      },
+      "IVerifyCredentialMDPArgs": {
+        "type": "object",
+        "properties": {
+          "credential": {
+            "$ref": "#/components/schemas/VerifiableCredential",
+            "description": "The json payload of the Credential according to the  {@link https://www.w3.org/TR/vc-data-model/#credentials | canonical model } \n\nThe signer of the Credential is chosen based on the `issuer.id` property of the `credential`"
+          },
+          "fetchRemoteContexts": {
+            "type": "boolean",
+            "description": "Set this to true if you want the `@context` URLs to be fetched in case they are not preloaded.\n\nDefaults to `false`"
+          }
+        },
+        "required": [
+          "credential"
+        ],
+        "additionalProperties": {
+          "description": "Any other options that can be forwarded to the lower level libraries"
+        },
+        "description": "Encapsulates the parameters required to verify a  {@link https://www.w3.org/TR/vc-data-model/#credentials | W3C Verifiable Credential }"
+      },
+      "ICreateVerifiableCredentialLDArgs": {
+        "type": "object",
+        "properties": {
+          "resolutionOptions": {
+            "type": "object",
+            "properties": {
+              "publicKeyFormat": {
+                "type": "string"
+              },
+              "accept": {
+                "type": "string"
+              }
+            },
+            "description": "Options to be passed to the DID resolver."
+          },
+          "credential": {
+            "$ref": "#/components/schemas/CredentialPayload",
+            "description": "The json payload of the Credential according to the  {@link https://www.w3.org/TR/vc-data-model/#credentials | canonical model } \n\nThe signer of the Credential is chosen based on the `issuer.id` property of the `credential`\n\n`@context`, `type` and `issuanceDate` will be added automatically if omitted"
+          },
+          "keyRef": {
+            "type": "string",
+            "description": "Optional. The key handle ( {@link  @veramo/core-types#IKey.kid | IKey.kid } ) from the internal database."
+          },
+          "fetchRemoteContexts": {
+            "type": "boolean",
+            "description": "Set this to true if you want the `@context` URLs to be fetched in case they are not preloaded.\n\nDefaults to `false`"
+          }
+        },
+        "required": [
+          "credential"
+        ],
+        "additionalProperties": {
+          "description": "Any other options that can be forwarded to the lower level libraries"
+        },
+        "description": "Encapsulates the parameters required to create a  {@link https://www.w3.org/TR/vc-data-model/#credentials | W3C Verifiable Credential }"
+      },
+      "ICreateVerifiablePresentationLDArgs": {
+        "type": "object",
+        "properties": {
+          "resolutionOptions": {
+            "type": "object",
+            "properties": {
+              "publicKeyFormat": {
+                "type": "string"
+              },
+              "accept": {
+                "type": "string"
+              }
+            },
+            "description": "Options to be passed to the DID resolver."
+          },
+          "presentation": {
+            "$ref": "#/components/schemas/PresentationPayload",
+            "description": "The json payload of the Presentation according to the  {@link https://www.w3.org/TR/vc-data-model/#presentations | canonical model } .\n\nThe signer of the Presentation is chosen based on the `holder` property of the `presentation`\n\n`@context`, `type` and `issuanceDate` will be added automatically if omitted."
+          },
+          "challenge": {
+            "type": "string",
+            "description": "Optional (only JWT) string challenge parameter to add to the verifiable presentation."
+          },
+          "domain": {
+            "type": "string",
+            "description": "Optional string domain parameter to add to the verifiable presentation."
+          },
+          "keyRef": {
+            "type": "string",
+            "description": "Optional. The key handle ( {@link  @veramo/core-types#IKey.kid | IKey.kid } ) from the internal database."
+          },
+          "fetchRemoteContexts": {
+            "type": "boolean",
+            "description": "Set this to true if you want the `@context` URLs to be fetched in case they are not preloaded.\n\nDefaults to `false`"
+          }
+        },
+        "required": [
+          "presentation"
+        ],
+        "additionalProperties": {
+          "description": "Any other options that can be forwarded to the lower level libraries"
+        },
+        "description": "Encapsulates the parameters required to create a  {@link https://www.w3.org/TR/vc-data-model/#presentations | W3C Verifiable Presentation }"
+      },
+      "IVerifyCredentialLDArgs": {
+        "type": "object",
+        "properties": {
+          "resolutionOptions": {
+            "type": "object",
+            "properties": {
+              "publicKeyFormat": {
+                "type": "string"
+              },
+              "accept": {
+                "type": "string"
+              }
+            },
+            "description": "Options to be passed to the DID resolver."
+          },
+          "credential": {
+            "$ref": "#/components/schemas/VerifiableCredential",
+            "description": "The json payload of the Credential according to the  {@link https://www.w3.org/TR/vc-data-model/#credentials | canonical model } \n\nThe signer of the Credential is chosen based on the `issuer.id` property of the `credential`"
+          },
+          "fetchRemoteContexts": {
+            "type": "boolean",
+            "description": "Set this to true if you want the `@context` URLs to be fetched in case they are not preloaded.\n\nDefaults to `false`"
+          }
+        },
+        "required": [
+          "credential"
+        ],
+        "additionalProperties": {
+          "description": "Any other options that can be forwarded to the lower level libraries"
+        },
+        "description": "Encapsulates the parameters required to verify a  {@link https://www.w3.org/TR/vc-data-model/#credentials | W3C Verifiable Credential }"
+      },
+      "IVerifyPresentationLDArgs": {
+        "type": "object",
+        "properties": {
+          "resolutionOptions": {
+            "type": "object",
+            "properties": {
+              "publicKeyFormat": {
+                "type": "string"
+              },
+              "accept": {
+                "type": "string"
+              }
+            },
+            "description": "Options to be passed to the DID resolver."
+          },
+          "presentation": {
+            "$ref": "#/components/schemas/VerifiablePresentation",
+            "description": "The json payload of the Credential according to the  {@link https://www.w3.org/TR/vc-data-model/#credentials | canonical model } \n\nThe signer of the Credential is chosen based on the `issuer.id` property of the `credential`"
+          },
+          "challenge": {
+            "type": "string",
+            "description": "Optional (only for JWT) string challenge parameter to verify the verifiable presentation against"
+          },
+          "domain": {
+            "type": "string",
+            "description": "Optional (only for JWT) string domain parameter to verify the verifiable presentation against"
+          },
+          "fetchRemoteContexts": {
+            "type": "boolean",
+            "description": "Set this to true if you want the `@context` URLs to be fetched in case they are not preloaded.\n\nDefaults to `false`"
+          }
+        },
+        "required": [
+          "presentation"
+        ],
+        "additionalProperties": {
+          "description": "Any other options that can be forwarded to the lower level libraries"
+        },
+        "description": "Encapsulates the parameters required to verify a  {@link https://www.w3.org/TR/vc-data-model/#presentations | W3C Verifiable Presentation }"
+      },
+      "ICreateVerifiableCredentialEIP712Args": {
+        "type": "object",
+        "properties": {
+          "credential": {
+            "$ref": "#/components/schemas/CredentialPayload",
+            "description": "The json payload of the Credential according to the\n {@link  https://www.w3.org/TR/vc-data-model/#credentials | canonical model } \n\nThe signer of the Credential is chosen based on the `issuer.id` property of the `credential`\n\n`@context`, 'type' and 'issuanceDate' will be added automatically if omitted"
+          },
+          "keyRef": {
+            "type": "string",
+            "description": "Specific key to use for signing"
+          }
+        },
+        "required": [
+          "credential"
+        ],
+        "description": "Encapsulates the parameters required to create a\n {@link  https://www.w3.org/TR/vc-data-model/#credentials | W3C Verifiable Credential }"
+      },
+      "ICreateVerifiablePresentationEIP712Args": {
+        "type": "object",
+        "properties": {
+          "presentation": {
+            "$ref": "#/components/schemas/PresentationPayload",
+            "description": "The json payload of the Presentation according to the\n {@link  https://www.w3.org/TR/vc-data-model/#presentations | canonical model } .\n\nThe signer of the Presentation is chosen based on the `holder` property of the `presentation`\n\n`@context`, `type` and `issuanceDate` will be added automatically if omitted"
+          },
+          "keyRef": {
+            "type": "string",
+            "description": "[Optional] The ID of the key that should sign this presentation. If this is not specified, the first matching key will be used."
+          }
+        },
+        "required": [
+          "presentation"
+        ],
+        "description": "Encapsulates the parameters required to create a\n {@link  https://www.w3.org/TR/vc-data-model/#presentations | W3C Verifiable Presentation } \nusing the  {@link  https://w3c-ccg.github.io/ethereum-eip712-signature-2021-spec/ | EthereumEip712Signature2021 } \nproof format."
+      },
+      "IVerifyCredentialEIP712Args": {
+        "type": "object",
+        "properties": {
+          "credential": {
+            "$ref": "#/components/schemas/VerifiableCredential",
+            "description": "The json payload of the Credential according to the\n {@link  https://www.w3.org/TR/vc-data-model/#credentials | canonical model } \n\nThe signer of the Credential is chosen based on the `issuer.id` property of the `credential`"
+          }
+        },
+        "required": [
+          "credential"
+        ],
+        "description": "Encapsulates the parameters required to verify a\n {@link  https://www.w3.org/TR/vc-data-model/#credentials | W3C Verifiable Credential }"
+      },
+      "IVerifyPresentationEIP712Args": {
+        "type": "object",
+        "properties": {
+          "presentation": {
+            "$ref": "#/components/schemas/VerifiablePresentation",
+            "description": "The Verifiable Presentation object according to the\n {@link  https://www.w3.org/TR/vc-data-model/#presentations | canonical model }  or the JWT representation.\n\nThe signer of the Presentation is verified based on the `holder` property of the `presentation` or the `iss` property of the JWT payload respectively"
+          }
+        },
+        "required": [
+          "presentation"
+        ],
+        "description": "Encapsulates the parameters required to verify a\n {@link  https://www.w3.org/TR/vc-data-model/#presentations | W3C Verifiable Presentation }"
+      },
+      "ICreateProfileCredentialsArgs": {
+        "type": "object",
+        "properties": {
+          "holder": {
+            "type": "string",
+            "description": "Holder DID"
+          },
+          "verifier": {
+            "type": "string",
+            "description": "Optional. Verifier DID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Optional. Name"
+          },
+          "picture": {
+            "type": "string",
+            "description": "Optional. Picture URL"
+          },
+          "url": {
+            "type": "string",
+            "description": "Optional. URL"
+          },
+          "save": {
+            "type": "boolean",
+            "description": "Save presentation"
+          },
+          "send": {
+            "type": "boolean",
+            "description": "Send presentation"
+          }
+        },
+        "required": [
+          "holder",
+          "save",
+          "send"
+        ],
+        "description": "Profile data"
+      },
+      "ICreateSelectiveDisclosureRequestArgs": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ISelectiveDisclosureRequest"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "description": "Contains the parameters of a Selective Disclosure Request."
+      },
+      "IGetVerifiableCredentialsForSdrArgs": {
+        "type": "object",
+        "properties": {
+          "sdr": {
+            "type": "object",
+            "properties": {
+              "subject": {
+                "type": "string",
+                "description": "The target of the request"
+              },
+              "replyUrl": {
+                "type": "string",
+                "description": "The URL where the response should be sent back"
+              },
+              "tag": {
+                "type": "string"
+              },
+              "claims": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ICredentialRequestInput"
+                },
+                "description": "A list of claims that are being requested"
+              },
+              "credentials": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "A list of issuer credentials that the target will use to establish trust"
+              }
+            },
+            "required": [
+              "claims"
+            ],
+            "description": "The Selective Disclosure Request (issuer is omitted)"
+          },
+          "did": {
+            "type": "string",
+            "description": "The DID of the subject"
+          }
+        },
+        "required": [
+          "sdr"
+        ],
+        "description": "Encapsulates the params needed to gather credentials to fulfill a Selective disclosure request."
+      },
+      "IValidatePresentationAgainstSdrArgs": {
+        "type": "object",
+        "properties": {
+          "presentation": {
+            "$ref": "#/components/schemas/VerifiablePresentation"
+          },
+          "sdr": {
+            "$ref": "#/components/schemas/ISelectiveDisclosureRequest"
+          }
+        },
+        "required": [
+          "presentation",
+          "sdr"
+        ],
+        "description": "A tuple used to verify a Selective Disclosure Response. Encapsulates the response(`presentation`) and the corresponding request (`sdr`) that made it."
+      },
+      "IPresentationValidationResult": {
+        "type": "object",
+        "properties": {
+          "valid": {
+            "type": "boolean"
+          },
+          "claims": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ICredentialsForSdr"
+            }
+          }
+        },
+        "required": [
+          "valid",
+          "claims"
+        ],
+        "description": "The result of a selective disclosure response validation."
+      },
+      "IDataStoreDeleteMessageArgs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Required. Message ID"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "description": "Input arguments for  {@link IDataStore.dataStoreDeleteMessage | dataStoreDeleteMessage }"
+      },
+      "IDataStoreDeleteVerifiableCredentialArgs": {
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string",
+            "description": "Required. VerifiableCredential hash"
+          }
+        },
+        "required": [
+          "hash"
+        ],
+        "description": "Input arguments for  {@link IDataStoreDeleteVerifiableCredentialArgs | IDataStoreDeleteVerifiableCredentialArgs }"
+      },
+      "IDataStoreGetMessageArgs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Required. Message ID"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "description": "Input arguments for  {@link IDataStore.dataStoreGetMessage | dataStoreGetMessage }"
+      },
+      "IDataStoreGetVerifiablePresentationArgs": {
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string",
+            "description": "Required. VerifiablePresentation hash"
+          }
+        },
+        "required": [
+          "hash"
+        ],
+        "description": "Input arguments for  {@link IDataStore.dataStoreGetVerifiablePresentation | dataStoreGetVerifiablePresentation }"
+      },
+      "IDataStoreSaveMessageArgs": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "$ref": "#/components/schemas/IMessage",
+            "description": "Required. Message"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "description": "Input arguments for  {@link IDataStore.dataStoreSaveMessage | dataStoreSaveMessage }"
+      },
+      "IDataStoreSaveVerifiableCredentialArgs": {
+        "type": "object",
+        "properties": {
+          "verifiableCredential": {
+            "$ref": "#/components/schemas/VerifiableCredential",
+            "description": "Required. VerifiableCredential"
+          }
+        },
+        "required": [
+          "verifiableCredential"
+        ],
+        "description": "Input arguments for  {@link IDataStore.dataStoreSaveVerifiableCredential | dataStoreSaveVerifiableCredential }"
+      },
+      "IDataStoreSaveVerifiablePresentationArgs": {
+        "type": "object",
+        "properties": {
+          "verifiablePresentation": {
+            "$ref": "#/components/schemas/VerifiablePresentation",
+            "description": "Required. VerifiablePresentation"
+          }
+        },
+        "required": [
+          "verifiablePresentation"
+        ],
+        "description": "Input arguments for  {@link IDataStore.dataStoreSaveVerifiablePresentation | dataStoreSaveVerifiablePresentation }"
+      },
+      "FindIdentifiersArgs": {
+        "$ref": "#/components/schemas/FindArgs-TIdentifiersColumns",
+        "description": "The filter that can be used to find  {@link  IIdentifier } s in the data store."
+      },
+      "PartialIdentifier": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string",
+            "description": "Decentralized identifier"
+          },
+          "alias": {
+            "type": "string",
+            "description": "Optional. Identifier alias. Can be used to reference an object in an external system"
+          },
+          "provider": {
+            "type": "string",
+            "description": "Identifier provider name"
+          },
+          "controllerKeyId": {
+            "type": "string",
+            "description": "Controller key id"
+          },
+          "keys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IKey"
+            },
+            "description": "Array of managed keys"
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IService"
+            },
+            "description": "Array of services"
+          }
+        },
+        "description": "The result of a  {@link  IDataStoreORM.dataStoreORMGetIdentifiers }  query."
+      },
+      "FindMessagesArgs": {
+        "$ref": "#/components/schemas/FindArgs-TMessageColumns",
+        "description": "The filter that can be used to find  {@link  IMessage } s in the data store. See  {@link  IDataStoreORM.dataStoreORMGetMessages }"
+      },
+      "FindCredentialsArgs": {
+        "$ref": "#/components/schemas/FindArgs-TCredentialColumns",
+        "description": "The filter that can be used to find  {@link  VerifiableCredential } s in the data store. See  {@link  IDataStoreORM.dataStoreORMGetVerifiableCredentials }"
+      },
+      "FindClaimsArgs": {
+        "$ref": "#/components/schemas/FindArgs-TClaimsColumns",
+        "description": "The filter that can be used to find  {@link  VerifiableCredential } s in the data store, based on the types and values of their claims.\n\nSee  {@link  IDataStoreORM.dataStoreORMGetVerifiableCredentialsByClaims }"
+      },
+      "FindPresentationsArgs": {
+        "$ref": "#/components/schemas/FindArgs-TPresentationColumns",
+        "description": "The filter that can be used to find  {@link  VerifiablePresentation } s in the data store. See  {@link  IDataStoreORM.dataStoreORMGetVerifiablePresentations }"
+      },
+      "UniqueVerifiablePresentation": {
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string"
+          },
+          "verifiablePresentation": {
+            "$ref": "#/components/schemas/VerifiablePresentation"
+          }
+        },
+        "required": [
+          "hash",
+          "verifiablePresentation"
+        ],
+        "description": "Represents the result of a Query for  {@link  VerifiablePresentation } s\n\nSee  {@link  IDataStoreORM.dataStoreORMGetVerifiablePresentations }"
+      },
+      "IEncryptAndStoreDataArgs": {
+        "type": "object",
+        "properties": {
+          "data": {}
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "IEncrypteAndStoreDataResult": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "key"
+        ]
+      },
+      "IFetchEncryptedDataArgs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "ValidationError": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Error name"
+          },
+          "method": {
+            "type": "string",
+            "description": "Method"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "path": {
+            "type": "string",
+            "description": "Error path"
+          },
+          "code": {
+            "type": "string",
+            "description": "Error code"
+          },
+          "description": {
+            "type": "string",
+            "description": "Error description"
+          }
+        },
+        "required": [
+          "didUrl"
+        ],
+        "description": "Agent method arguments validation error"
+      }
+    }
+  },
+  "x-methods": {
+    "didManagerGetProviders": {
+      "description": "Fetches and returns a list of available identifier providers. This method helps in identifying the different providers that can be used for managing identifiers.",
+      "arguments": {
+        "type": "object"
+      },
+      "returnType": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "didManagerFind": {
+      "description": "Retrieves and returns a list of managed identifiers based on the specified search criteria. This method is useful for finding identifiers that match certain conditions.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IDIDManagerFindArgs"
+      },
+      "returnType": {
+        "type": "array",
+        "items": {
+          "$ref": "./components/schemas.json#/components/schemas/IIdentifier"
+        }
+      }
+    },
+    "didManagerGet": {
+      "description": "Fetches and returns a specific identifier based on the provided arguments. This method is used to retrieve detailed information about a particular identifier.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IDIDManagerGetArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IIdentifier"
+      }
+    },
+    "didManagerCreate": {
+      "description": "Creates a new identifier and returns it. This method allows for the generation of new identifiers with specified attributes.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IDIDManagerCreateArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IIdentifier"
+      }
+    },
+    "didManagerDelete": {
+      "description": "Deletes an existing identifier based on the provided arguments. This method is used to remove identifiers that are no longer needed.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IDIDManagerDeleteArgs"
+      },
+      "returnType": {
+        "type": "boolean"
+      }
+    },
+    "dataStoreGetVerifiableCredential": {
+      "description": "Retrieves a verifiable credential from the data store based on the provided arguments. This method is used to fetch credentials that have been stored.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IDataStoreGetVerifiableCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/VerifiableCredential"
+      }
+    },
+    "dataStoreORMGetIdentifiersCount": {
+      "description": "Attempts to obtain a count of identifiers stored in the ORM data store. This method is useful for getting the total number of identifiers.",
+      "arguments": {
+        "type": "object"
+      },
+      "returnType": {
+        "type": "integer"
+      }
+    },
+    "dataStoreORMGetVerifiableCredentials": {
+      "description": "Returns a list of verifiable credentials stored in the ORM data store based on the provided arguments. This method is used to fetch multiple credentials.",
+      "arguments": {
+        "type": "object"
+      },
+      "returnType": {
+        "type": "array",
+        "items": {
+          "$ref": "./components/schemas.json#/components/schemas/VerifiableCredential"
+        }
+      }
+    },
+    "dataStoreORMGetVerifiableCredentialsCount": {
+      "description": "Returns the count of verifiable credentials stored in the ORM data store. This method is useful for getting the total number of credentials.",
+      "arguments": {
+        "type": "object"
+      },
+      "returnType": {
+        "type": "integer"
+      }
+    },
+    "renderCredential": {
+      "description": "Renders a verifiable credential based on the provided arguments. This method is used to generate a visual representation of a credential.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IRenderCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IRenderResult"
+      }
+    },
+    "fetchEncryptedDataByCredentialHash": {
+      "description": "Fetches encrypted data associated with a credential hash. This method is used to retrieve encrypted information linked to a specific credential.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IFetchEncryptedDataByCredentialHashArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IFetchEncryptedDataByCredentialHashResult"
+      }
+    },
+    "issueRevocationStatusList": {
+      "description": "Issues a revocation status list based on the provided arguments. This method is used to generate a list indicating the revocation status of credentials.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IRevocationListDataArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IRevocationStatus"
+      }
+    },
+    "revokeCredential": {
+      "description": "Revokes a credential based on the provided arguments. This method is used to mark a credential as revoked.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IHashCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/CredentialStatus"
+      }
+    },
+    "activateCredential": {
+      "description": "Activates a credential based on the provided arguments. This method is used to mark a credential as active.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IHashCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/CredentialStatus"
+      }
+    },
+    "checkRevocationStatus": {
+      "description": "Checks the revocation status of a credential based on the provided arguments. This method is used to determine if a credential has been revoked.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IHashCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/CredentialStatus"
+      }
+    },
+    "routeCreationVerifiableCredential": {
+      "description": "Creates a Verifiable Credential. The payload, signer, and format are chosen based on the provided arguments. This method ensures the creation of a credential that adheres to the specified standards and requirements.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/ICreateVerifiableCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/VerifiableCredential"
+      }
+    },
+    "routeVerificationCredential": {
+      "description": "Verifies a Verifiable Credential in various formats such as JWT, LDS, EIP712, or OA. This method checks the validity and authenticity of the credential based on the provided arguments.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IVerifyCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IVerifyResult"
+      }
+    },
+    "issueBitstringStatusList": {
+      "description": "Issues a status list for bitstring credentials based on the provided arguments. This method is used to generate a list indicating the status of bitstring credentials.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IIssueBitstringStatusListArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IRevocationStatus"
+      }
+    },
+    "checkBitstringStatus": {
+      "description": "Checks the status of a bitstring credential based on the provided arguments. This method is used to determine the current status of a bitstring credential.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/ICheckBitstringStatusArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IRevocationStatus"
+      }
+    },
+    "setBitstringStatus": {
+      "description": "Sets the status of a bitstring credential based on the provided arguments. This method is used to update the status of a bitstring credential.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/ISetBitstringStatusArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IRevocationStatus"
+      }
+    },
+    "computeHash": {
+      "description": "Computes the hash of a given input based on the provided arguments. This method is used to generate a hash value for the specified input.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IToolsComputeHashArgs"
+      },
+      "returnType": {
+        "type": "string"
+      }
+    }
+  }
+}

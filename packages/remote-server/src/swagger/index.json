@@ -1,0 +1,27 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "VCKit API"
+  },
+  "servers": [],
+  "paths": {
+    "$ref": "./paths.json#/paths"
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "$ref": "./components/schemas.json#/components/schemas"
+    }
+  },
+  "x-methods": { "$ref": "./x-methods.json#/x-methods" },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}

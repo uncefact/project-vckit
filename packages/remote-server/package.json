@@ -3,10 +3,14 @@
   "description": "Express.js module that can expose some agent methods and messaging endpoints",
   "version": "1.0.0-beta.8",
   "main": "build/index.js",
-  "exports": "./build/index.js",
+  "exports": {
+    ".": "./build/index.js",
+    "./build/swagger/swagger.json": "./build/swagger/swagger.json"
+  },
   "types": "build/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "bundle-swagger": "redocly bundle src/swagger/index.json --output src/swagger/swagger.json",
+    "build": "pnpm bundle-swagger && tsc",
     "watch": "tsc -b --watch",
     "extract-api": "node ../cli/bin/vckit.js dev extract-api"
   },
@@ -21,7 +25,8 @@
     "passport": "^0.7.0",
     "passport-http-bearer": "^1.0.1",
     "uint8arrays": "^5.0.1",
-    "url-parse": "^1.5.10"
+    "url-parse": "^1.5.10",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@types/debug": "4.1.12",
@@ -29,6 +34,8 @@
     "@types/passport": "1.0.16",
     "@types/passport-http-bearer": "1.0.41",
     "@types/url-parse": "1.4.11",
+    "@types/swagger-ui-express": "^4.1.7",
+    "@redocly/cli": "^1.25.11",
     "typescript": "5.1.6"
   },
   "peerDependencies": {
