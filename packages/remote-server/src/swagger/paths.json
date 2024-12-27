@@ -3,13 +3,13 @@
     "/didManagerGetProviders": {
       "post": {
         "operationId": "didManagerGetProviders",
-        "description": "Returns a list of available identifier providers",
+        "description": "Retrieves a list of all available DID (Decentralized Identifier) providers supported by the system. These providers can be used for creating and managing decentralized identifiers.",
         "requestBody": {
           "content": { "application/json": { "schema": { "type": "object" } } }
         },
         "responses": {
           "200": {
-            "description": "Returns a list of available identifier providers",
+            "description": "Successfully retrieved the list of available DID providers",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": { "type": "array", "items": { "type": "string" } }
@@ -17,30 +17,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -48,7 +25,7 @@
     "/didManagerFind": {
       "post": {
         "operationId": "didManagerFind",
-        "description": "Returns a list of managed identifiers",
+        "description": "Searches and retrieves a list of managed identifiers based on specified criteria. Supports filtering by provider, alias, and other attributes to help locate specific identifiers in the system.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -60,7 +37,7 @@
         },
         "responses": {
           "200": {
-            "description": "Returns a list of managed identifiers",
+            "description": "Successfully retrieved the list of matching identifiers",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -73,30 +50,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -104,7 +58,7 @@
     "/didManagerGet": {
       "post": {
         "operationId": "didManagerGet",
-        "description": "Returns a specific identifier",
+        "description": "Retrieves detailed information about a specific identifier using its DID. Returns the complete identifier object including associated keys and services.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -116,7 +70,7 @@
         },
         "responses": {
           "200": {
-            "description": "Returns a specific identifier",
+            "description": "Successfully retrieved the identifier details",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -126,30 +80,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -157,7 +88,7 @@
     "/didManagerCreate": {
       "post": {
         "operationId": "didManagerCreate",
-        "description": "Creates and returns a new identifier",
+        "description": "Creates a new decentralized identifier (DID) using the specified provider and options. Returns the newly created identifier with its associated keys and services.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -169,7 +100,7 @@
         },
         "responses": {
           "200": {
-            "description": "Creates and returns a new identifier",
+            "description": "Successfully created a new identifier",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -179,30 +110,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -210,7 +118,7 @@
     "/didManagerDelete": {
       "post": {
         "operationId": "didManagerDelete",
-        "description": "Deletes identifier",
+        "description": "Removes a managed identifier from the system. This operation may not delete the DID from its respective registry, but rather removes it from local management.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -222,7 +130,7 @@
         },
         "responses": {
           "200": {
-            "description": "Deletes identifier",
+            "description": "Successfully deleted the identifier from local management",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": { "type": "boolean" }
@@ -230,30 +138,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -261,7 +146,7 @@
     "/dataStoreGetVerifiableCredential": {
       "post": {
         "operationId": "dataStoreGetVerifiableCredential",
-        "description": "Gets verifiable credential from the data store",
+        "description": "Retrieves a specific verifiable credential from the data store using its unique hash. Returns the complete credential including its proof.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -273,7 +158,7 @@
         },
         "responses": {
           "200": {
-            "description": "Gets verifiable credential from the data store",
+            "description": "Successfully retrieved the verifiable credential",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -283,30 +168,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -314,7 +176,7 @@
     "/dataStoreORMGetIdentifiersCount": {
       "post": {
         "operationId": "dataStoreORMGetIdentifiersCount",
-        "description": "Tries to obtain a count of ",
+        "description": "Returns the total count of identifiers in the system that match the specified filter criteria. Useful for pagination and statistics.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -326,7 +188,7 @@
         },
         "responses": {
           "200": {
-            "description": "Tries to obtain a count of ",
+            "description": "Successfully retrieved the count of matching identifiers",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": { "type": "number" }
@@ -334,30 +196,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -365,7 +204,7 @@
     "/dataStoreORMGetVerifiableCredentials": {
       "post": {
         "operationId": "dataStoreORMGetVerifiableCredentials",
-        "description": "Returns a list of ",
+        "description": "Retrieves a list of verifiable credentials from the data store based on specified search criteria. Supports filtering and pagination options.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -377,7 +216,7 @@
         },
         "responses": {
           "200": {
-            "description": "Returns a list of ",
+            "description": "Successfully retrieved the list of verifiable credentials",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -390,30 +229,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -421,7 +237,7 @@
     "/dataStoreORMGetVerifiableCredentialsCount": {
       "post": {
         "operationId": "dataStoreORMGetVerifiableCredentialsCount",
-        "description": "Returns a count of ",
+        "description": "Returns the total count of verifiable credentials in the system that match the specified filter criteria. Useful for pagination and statistics.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -433,7 +249,7 @@
         },
         "responses": {
           "200": {
-            "description": "Returns a count of ",
+            "description": "Successfully retrieved the count of matching verifiable credentials",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": { "type": "number" }
@@ -441,30 +257,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -472,7 +265,7 @@
     "/renderCredential": {
       "post": {
         "operationId": "renderCredential",
-        "description": "Renders a verifiable credential.",
+        "description": "Generates a human-readable or formatted representation of a verifiable credential. Useful for displaying credentials in user interfaces.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -484,7 +277,7 @@
         },
         "responses": {
           "200": {
-            "description": "Renders a verifiable credential.",
+            "description": "Successfully rendered the credential",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -494,30 +287,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -525,7 +295,7 @@
     "/fetchEncryptedDataByCredentialHash": {
       "post": {
         "operationId": "fetchEncryptedDataByCredentialHash",
-        "description": "",
+        "description": "Retrieves encrypted data associated with a specific credential using its hash. Returns both the encrypted data and the necessary decryption information.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -537,7 +307,7 @@
         },
         "responses": {
           "200": {
-            "description": "",
+            "description": "Successfully retrieved the encrypted data",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -547,30 +317,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -578,7 +325,7 @@
     "/issueRevocationStatusList": {
       "post": {
         "operationId": "issueRevocationStatusList",
-        "description": "",
+        "description": "Creates and issues a new revocation status list for verifiable credentials. This list can be used to track and verify the revocation status of credentials.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -590,7 +337,7 @@
         },
         "responses": {
           "200": {
-            "description": "",
+            "description": "Successfully created the revocation status list",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -600,30 +347,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -631,7 +355,7 @@
     "/revokeCredential": {
       "post": {
         "operationId": "revokeCredential",
-        "description": "",
+        "description": "Marks a specific verifiable credential as revoked in the system. This affects the credential's validity status.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -643,7 +367,7 @@
         },
         "responses": {
           "200": {
-            "description": "",
+            "description": "Successfully revoked the credential",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -653,30 +377,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -684,7 +385,7 @@
     "/activateCredential": {
       "post": {
         "operationId": "activateCredential",
-        "description": "",
+        "description": "Activates a previously revoked or suspended verifiable credential, making it valid again in the system.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -696,7 +397,7 @@
         },
         "responses": {
           "200": {
-            "description": "",
+            "description": "Successfully activated the credential",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -706,30 +407,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -737,7 +415,7 @@
     "/checkRevocationStatus": {
       "post": {
         "operationId": "checkRevocationStatus",
-        "description": "",
+        "description": "Checks whether a specific verifiable credential has been revoked. Returns the current status of the credential.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -749,7 +427,7 @@
         },
         "responses": {
           "200": {
-            "description": "",
+            "description": "Successfully retrieved the credential's revocation status",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -759,30 +437,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -790,7 +445,7 @@
     "/routeCreationVerifiableCredential": {
       "post": {
         "operationId": "routeCreationVerifiableCredential",
-        "description": "Creates a Verifiable Credential. The payload, signer and format are chosen based on the ",
+        "description": "Creates a new verifiable credential with specified payload, signer, and format. Supports various credential formats and signing methods.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -802,7 +457,7 @@
         },
         "responses": {
           "200": {
-            "description": "Creates a Verifiable Credential. The payload, signer and format are chosen based on the ",
+            "description": "Successfully created the verifiable credential",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -812,30 +467,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -843,7 +475,7 @@
     "/routeVerificationCredential": {
       "post": {
         "operationId": "routeVerificationCredential",
-        "description": "Verifies a Verifiable Credential JWT, LDS Format, EIP712 or OA.",
+        "description": "Verifies a verifiable credential's authenticity and validity. Supports multiple formats including JWT, LDS, EIP712, and OA.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -855,7 +487,7 @@
         },
         "responses": {
           "200": {
-            "description": "Verifies a Verifiable Credential JWT, LDS Format, EIP712 or OA.",
+            "description": "Successfully verified the credential",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -865,30 +497,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -896,7 +505,7 @@
     "/issueBitstringStatusList": {
       "post": {
         "operationId": "issueBitstringStatusList",
-        "description": "",
+        "description": "Creates and issues a new bitstring-based status list for verifiable credentials, providing an efficient way to track credential statuses.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -908,7 +517,7 @@
         },
         "responses": {
           "200": {
-            "description": "",
+            "description": "Successfully created the bitstring status list",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": { "type": "object" }
@@ -916,30 +525,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -947,7 +533,7 @@
     "/checkBitstringStatus": {
       "post": {
         "operationId": "checkBitstringStatus",
-        "description": "",
+        "description": "Checks the status of a credential using the bitstring-based status list system. Returns the current status of the specified credential.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -959,7 +545,7 @@
         },
         "responses": {
           "200": {
-            "description": "",
+            "description": "Successfully retrieved the credential's bitstring status",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -969,30 +555,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -1000,7 +563,7 @@
     "/setBitstringStatus": {
       "post": {
         "operationId": "setBitstringStatus",
-        "description": "",
+        "description": "Updates the status of a credential in the bitstring-based status list. Allows for efficient status updates in the credential system.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1012,7 +575,7 @@
         },
         "responses": {
           "200": {
-            "description": "",
+            "description": "Successfully updated the credential's bitstring status",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": { "type": "object" }
@@ -1020,30 +583,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
@@ -1051,7 +591,7 @@
     "/computeHash": {
       "post": {
         "operationId": "computeHash",
-        "description": "",
+        "description": "Calculates a cryptographic hash of the provided input data. Used for generating unique identifiers and verification purposes.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1063,7 +603,7 @@
         },
         "responses": {
           "200": {
-            "description": "",
+            "description": "Successfully computed the hash",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": { "type": "string" }
@@ -1071,30 +611,7 @@
             }
           },
           "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string", "description": "Error name" },
-                    "method": { "type": "string", "description": "Method" },
-                    "message": {
-                      "type": "string",
-                      "description": "Error message"
-                    },
-                    "path": { "type": "string", "description": "Error path" },
-                    "code": { "type": "string", "description": "Error code" },
-                    "description": {
-                      "type": "string",
-                      "description": "Error description"
-                    }
-                  },
-                  "required": ["didUrl"],
-                  "description": "Agent method arguments validation error"
-                }
-              }
-            }
+            "$ref": "./components/schemas.json#/components/schemas/ValidationError"
           }
         }
       }
