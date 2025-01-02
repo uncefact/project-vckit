@@ -164,3 +164,30 @@ The `scripts/release-doc.js` script automates the process of creating new docume
 # Run the release script
 pnpm release:doc
 ```
+
+### Release Guide
+
+To release a new version, ensure we have the `version.json` file updated with the new version number. Then, create a new release tag with the following steps:
+
+1. Create a new release branch from `next` with the version number as the branch name.
+2. Update the `version.json` file with the new version number.
+3. Generate new documentation version using the release script `yarn release:doc`.
+4. Check API documentation and update if necessary.
+5. Commit the changes and push the branch.
+6. Create a pull request from the release branch to `main`.
+7. Merge the pull request.
+8. Create a new release tag with the version number.
+8. Push the tag to the repository.
+
+(\*) With the `version.json` file, it contains the version number in the following format:
+
+```json
+{
+  "version": "MAJOR.MINOR.PATCH",
+  "apiVersion": "MAJOR.MINOR.PATCH",
+  "docVersion": "MAJOR.MINOR.PATCH",
+  "dependencies": {}
+}
+```
+
+We need to change manually the `version`, `apiVersion`, and `docVersion` fields.
