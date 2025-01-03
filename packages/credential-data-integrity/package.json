@@ -1,7 +1,7 @@
 {
   "name": "@vckit/credential-data-integrity",
   "description": "Veramo plugin for working with W3C JSON-LD Verifiable Credentials.",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0",
   "type": "module",
   "main": "build/index.js",
   "exports": {

@@ -1,6 +1,6 @@
 {
   "name": "@vckit/credential-router",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0",
   "description": "Credential router for VCKit to handle issue and verify with different proof types",
   "author": "Nam Hoang <hoangxuannam160493@gmail.com>",
   "homepage": "https://github.com/uncefact/project-vckit#readme",
