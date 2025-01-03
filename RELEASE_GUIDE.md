@@ -14,7 +14,7 @@ This document provides a step-by-step guide for preparing, releasing, and deploy
 
 ---
 
-## 1. Pre-Release Checklist
+## Pre-Release Checklist
 
 Before starting the release process, ensure:
 
@@ -31,7 +31,7 @@ Before starting the release process, ensure:
 
 ---
 
-## 2. Version Bumping
+## Version Bumping
 
 1. Determine the new version number based on [Semantic Versioning](https://semver.org/):
 
@@ -48,13 +48,13 @@ Before starting the release process, ensure:
 
 ---
 
-## 3. Post-Release Steps
+## Post-Release Steps
 
 - [ ] Merge the `main` branch to `next` branch.
 
 ---
 
-## 4. Hotfix Release
+## Hotfix Release
 
 In case of a critical bug or security issue, a hotfix release is required. Follow these steps:
 
@@ -68,7 +68,7 @@ In case of a critical bug or security issue, a hotfix release is required. Follo
 
 ---
 
-## 5. Troubleshooting
+## Troubleshooting
 
 - **Build failed:** Check logs for errors in dependencies or configurations.
 - **Tests failed:** Investigate the specific test cases and fix issues.
