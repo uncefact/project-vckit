@@ -110,7 +110,10 @@ const Layout = () => {
     })
   }
 
-  if (availableMethods.includes('verifyCredential')) {
+  if (
+    availableMethods.includes('verifyCredential') ||
+    availableMethods.includes('routeVerificationCredential')
+  ) {
     mainMenuItems.push({
       path: '/credential-verifier',
       name: 'Credential verifier',

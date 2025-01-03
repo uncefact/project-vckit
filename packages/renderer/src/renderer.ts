@@ -1,9 +1,7 @@
 import jsonld from '@digitalcredentials/jsonld';
 import { JsonLdObj } from 'jsonld/jsonld-spec';
 import { Buffer } from 'buffer';
-
 import {
-  VerifiableCredential,
   RenderMethodPayload,
   IRendererProvider,
   IAgentPlugin,
@@ -12,9 +10,12 @@ import {
   IRenderResult,
   UnsignedCredential,
   IRenderer,
+  VerifiableCredential,
+  EnvelopedVerifiableCredential,
 } from '@vckit/core-types';
 import { RenderDefaultContexts } from './render-default-contexts.js';
 import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
+import * as jose from 'jose';
 
 export const RENDER_METHOD = 'https://www.w3.org/2018/credentials#renderMethod';
 
@@ -73,9 +74,23 @@ export class Renderer implements IAgentPlugin {
     context?: IRendererContext,
   ): Promise<IRenderResult> {
     try {
-      const [expandedDocument] = await expandVerifiableCredential(
-        args.credential,
-      );
+      let credential: VerifiableCredential | UnsignedCredential;
+      const { credential: credentialArg } = args;
+      if (
+        (<EnvelopedVerifiableCredential>credentialArg).type ===
+        'EnvelopedVerifiableCredential'
+      ) {
+        const jwt = (<EnvelopedVerifiableCredential>credentialArg).id.split(
+          ',',
+        )[1];
+        credential = decodeJWTJose(jwt);
+      } else {
+        credential = {
+          ...(<VerifiableCredential | UnsignedCredential>credentialArg),
+        };
+      }
+
+      const [expandedDocument] = await expandVerifiableCredential(credential);
 
       if (!expandedDocument) {
         throw new Error('Error expanding the verifiable credential');
@@ -94,7 +109,7 @@ export class Renderer implements IAgentPlugin {
           const document = await rendererProvider.renderCredential({
             data: renderMethod.data,
             context,
-            document: args.credential,
+            document: credential,
           });
           const responseDocument = {
             type: renderMethod.type,
@@ -192,4 +207,8 @@ function documentLoader(url: string, options: any) {
     };
   }
   return documentLoaderFn(url);
+}
+
+function decodeJWTJose(jwt: string): UnsignedCredential {
+  return jose.decodeJwt(jwt);
 }

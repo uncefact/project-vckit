@@ -1,0 +1,120 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test_and_build:
+    runs-on: ubuntu-latest
+    env:
+      EXCLUDED_PACKAGE_OA_RENDERERS: '!./packages/vckit-oa-renderers/'
+      EXCLUDED_PACKAGE_CREDENTIAL_OA: '!./packages/credential-oa/'
+      EXCLUDED_PACKAGE_EXPLORER: '!./packages/demo-explorer/'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Install pnpm
+        run: npm i pnpm --global
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21'
+
+      - name: Install dependencies
+        run: pnpm i --filter ${{ env.EXCLUDED_PACKAGE_OA_RENDERERS }} --filter ${{ env.EXCLUDED_PACKAGE_CREDENTIAL_OA }} --filter ${{ env.EXCLUDED_PACKAGE_EXPLORER }} --no-frozen-lockfile
+
+      - name: Build
+        run: pnpm build:agent
+
+      - name: Run tests
+        run: |
+          pnpm test:packages --changedSince=origin/next --ci --json --coverage --testLocationInResults --outputFile=report.json
+
+      - name: Coverage
+        uses: artiomtr/jest-coverage-report-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          coverage-file: report.json
+          base-coverage-file: report.json
+          threshold: 80
+
+  build_docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: documentation/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./documentation
+        run: npm ci
+
+      - name: Build website
+        working-directory: ./documentation
+        run: npm run build
+        env:
+          DOCS_BASE_URL: ${{ vars.DOCS_BASE_URL }}
+          DOCS_URL: ${{ vars.DOCS_URL }}
+
+  release:
+    needs: [test_and_build, build_docs]
+    runs-on: ubuntu-latest
+    outputs:
+      new_version: ${{ steps.retrieve_version.outputs.new_version }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Get the version from version.json file and store it in the output file
+      - name: Get version from version.json
+        id: retrieve_version
+        run: |
+          new_version=$(jq -r '.version' version.json)
+          if [ -z "$new_version" ]; then
+            echo "Error: version field is empty or not found in version.json!"
+            exit 1
+          fi
+          echo "new_version=$new_version" >> "$GITHUB_OUTPUT"
+
+      # Create tag to the repository by using the version from the output file
+      - name: Create tag
+        id: create-tag
+        run: |
+          new_version=${{ steps.retrieve_version.outputs.new_version }}
+
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git tag -a "$new_version" -m "Release version $new_version"
+          git push origin "$new_version"
+
+          echo "new_tag=$new_version" >> "$GITHUB_OUTPUT"
+
+      # Create GitHub release
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          new_version=${{ steps.retrieve_version.outputs.new_version }}
+          new_tag=${{ steps.create-tag.outputs.new_tag }}          
+
+          sed -n "/## \[$new_version\]/,/## \[/p" CHANGELOG.md | sed '$d' > release_notes.md
+
+          gh release create "$new_tag" \
+            --title "Release ${{ steps.retrieve_version.outputs.new_version }}" \
+            --notes-file release_notes.md \
+            --target ${{ github.ref_name }}

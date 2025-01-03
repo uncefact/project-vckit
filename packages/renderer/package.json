@@ -1,6 +1,6 @@
 {
   "name": "@vckit/renderer",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0",
   "description": "To render the verifiable credentials.",
   "keywords": [],
   "author": "Nam Hoang <hoangxuannam160493@gmail.com>",
@@ -34,7 +34,8 @@
   "dependencies": {
     "@digitalcredentials/jsonld": "5.2.1",
     "@vckit/core-types": "workspace:^",
-    "handlebars": "^4.7.8"
+    "handlebars": "^4.7.8",
+    "jose": "^5.9.3"
   },
   "type": "module",
   "moduleDirectories": [

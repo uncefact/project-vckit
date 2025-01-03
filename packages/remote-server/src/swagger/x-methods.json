@@ -1,0 +1,202 @@
+{
+  "x-methods": {
+    "didManagerGetProviders": {
+      "description": "Fetches and returns a list of available identifier providers. This method helps in identifying the different providers that can be used for managing identifiers.",
+      "arguments": {
+        "type": "object"
+      },
+      "returnType": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "didManagerFind": {
+      "description": "Retrieves and returns a list of managed identifiers based on the specified search criteria. This method is useful for finding identifiers that match certain conditions.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IDIDManagerFindArgs"
+      },
+      "returnType": {
+        "type": "array",
+        "items": {
+          "$ref": "./components/schemas.json#/components/schemas/IIdentifier"
+        }
+      }
+    },
+    "didManagerGet": {
+      "description": "Fetches and returns a specific identifier based on the provided arguments. This method is used to retrieve detailed information about a particular identifier.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IDIDManagerGetArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IIdentifier"
+      }
+    },
+    "didManagerCreate": {
+      "description": "Creates a new identifier and returns it. This method allows for the generation of new identifiers with specified attributes.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IDIDManagerCreateArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IIdentifier"
+      }
+    },
+    "didManagerDelete": {
+      "description": "Deletes an existing identifier based on the provided arguments. This method is used to remove identifiers that are no longer needed.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IDIDManagerDeleteArgs"
+      },
+      "returnType": {
+        "type": "boolean"
+      }
+    },
+    "dataStoreGetVerifiableCredential": {
+      "description": "Retrieves a verifiable credential from the data store based on the provided arguments. This method is used to fetch credentials that have been stored.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IDataStoreGetVerifiableCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/VerifiableCredential"
+      }
+    },
+    "dataStoreORMGetIdentifiersCount": {
+      "description": "Attempts to obtain a count of identifiers stored in the ORM data store. This method is useful for getting the total number of identifiers.",
+      "arguments": {
+        "type": "object"
+      },
+      "returnType": {
+        "type": "integer"
+      }
+    },
+    "dataStoreORMGetVerifiableCredentials": {
+      "description": "Returns a list of verifiable credentials stored in the ORM data store based on the provided arguments. This method is used to fetch multiple credentials.",
+      "arguments": {
+        "type": "object"
+      },
+      "returnType": {
+        "type": "array",
+        "items": {
+          "$ref": "./components/schemas.json#/components/schemas/VerifiableCredential"
+        }
+      }
+    },
+    "dataStoreORMGetVerifiableCredentialsCount": {
+      "description": "Returns the count of verifiable credentials stored in the ORM data store. This method is useful for getting the total number of credentials.",
+      "arguments": {
+        "type": "object"
+      },
+      "returnType": {
+        "type": "integer"
+      }
+    },
+    "renderCredential": {
+      "description": "Renders a verifiable credential based on the provided arguments. This method is used to generate a visual representation of a credential.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IRenderCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IRenderResult"
+      }
+    },
+    "fetchEncryptedDataByCredentialHash": {
+      "description": "Fetches encrypted data associated with a credential hash. This method is used to retrieve encrypted information linked to a specific credential.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IFetchEncryptedDataByCredentialHashArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IFetchEncryptedDataByCredentialHashResult"
+      }
+    },
+    "issueRevocationStatusList": {
+      "description": "Issues a revocation status list based on the provided arguments. This method is used to generate a list indicating the revocation status of credentials.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IRevocationListDataArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IRevocationStatus"
+      }
+    },
+    "revokeCredential": {
+      "description": "Revokes a credential based on the provided arguments. This method is used to mark a credential as revoked.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IHashCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/CredentialStatus"
+      }
+    },
+    "activateCredential": {
+      "description": "Activates a credential based on the provided arguments. This method is used to mark a credential as active.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IHashCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/CredentialStatus"
+      }
+    },
+    "checkRevocationStatus": {
+      "description": "Checks the revocation status of a credential based on the provided arguments. This method is used to determine if a credential has been revoked.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IHashCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/CredentialStatus"
+      }
+    },
+    "routeCreationVerifiableCredential": {
+      "description": "Creates a Verifiable Credential. The payload, signer, and format are chosen based on the provided arguments. This method ensures the creation of a credential that adheres to the specified standards and requirements.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/ICreateVerifiableCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/VerifiableCredential"
+      }
+    },
+    "routeVerificationCredential": {
+      "description": "Verifies a Verifiable Credential in various formats such as JWT, LDS, EIP712, or OA. This method checks the validity and authenticity of the credential based on the provided arguments.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IVerifyCredentialArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IVerifyResult"
+      }
+    },
+    "issueBitstringStatusList": {
+      "description": "Issues a status list for bitstring credentials based on the provided arguments. This method is used to generate a list indicating the status of bitstring credentials.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IIssueBitstringStatusListArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IRevocationStatus"
+      }
+    },
+    "checkBitstringStatus": {
+      "description": "Checks the status of a bitstring credential based on the provided arguments. This method is used to determine the current status of a bitstring credential.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/ICheckBitstringStatusArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IRevocationStatus"
+      }
+    },
+    "setBitstringStatus": {
+      "description": "Sets the status of a bitstring credential based on the provided arguments. This method is used to update the status of a bitstring credential.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/ISetBitstringStatusArgs"
+      },
+      "returnType": {
+        "$ref": "./components/schemas.json#/components/schemas/IRevocationStatus"
+      }
+    },
+    "computeHash": {
+      "description": "Computes the hash of a given input based on the provided arguments. This method is used to generate a hash value for the specified input.",
+      "arguments": {
+        "$ref": "./components/schemas.json#/components/schemas/IToolsComputeHashArgs"
+      },
+      "returnType": {
+        "type": "string"
+      }
+    }
+  }
+}

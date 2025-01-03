@@ -786,10 +786,41 @@ components:
         proofValue:
           type: string
           description: Value of the Linked Data proof.
+    DataIntegrityProof:
+      type: object
+      description: A Data Integrity Proof as defined by the W3C VC Data Integrity specification
+      properties:
+        type:
+          type: string
+          description: Data Integrity Proof type.
+        cryptosuite:
+          type: string
+          description: The name of the cryptographic suite.
+        created:
+          type: string
+          description: Date the proof was created.
+        challenge:
+          type: string
+          description: >-
+            A value chosen by the verifier to mitigate authentication proof replay attacks.
+        domain:
+          type: string
+          description: The domain of the proof to restrict its use to a particular target.
+        nonce:
+          type: string
+          description: >-
+            A value chosen by the creator of a proof to randomize proof values for privacy purposes.
+        verificationMethod:
+          type: string
+          description: Verification Method used to verify proof.
+        proofPurpose:
+          type: string
+          description: The purpose of the proof to be used with verificationMethod.
+        proofValue:
+          type: string
+          description: Value of the Linked Data proof.
     VerifiableCredential:
       oneOf:
-        - type: string
-          description: An Enveloping Proof Verifiable Credential.
         - type: object
           description: A JSON-LD Verifiable Credential with a proof.
           allOf:
@@ -944,10 +975,49 @@ components:
         options:
           $ref: '#/components/schemas/IssueCredentialOptions'
     IssueCredentialResponse:
-      type: object
-      properties:
-        verifiableCredential:
-          $ref: '#/components/schemas/VerifiableCredential'
+      oneOf:
+      - type: object
+        title: Embedded VC
+        description: Response for issuing a credential.
+        properties:
+          '@context':
+            type: array
+            items:
+              type: string
+          id:
+            type: string
+          type:
+            type: array
+            items:
+              type: string
+          issuer:
+            type: object
+            properties:
+              id:
+                type: string
+          issuanceDate:
+            type: string
+          expirationDate:
+            type: string
+          credentialSubject:
+            type: object
+            description: The subject
+          proof:
+            $ref: '#/components/schemas/DataIntegrityProof'
+      - type: object
+        title: Enveloped VC
+        description: Response for issuing a credential.
+        properties:
+          '@context':
+            type: array
+            items:
+              type: string
+          id:
+            type: string
+          type:
+            type: string
+            example: 'EnvelopedVerifiableCredential'
+
     UpdateCredentialStatus:
       type: object
       description: Request for updating the status of an issued credential.

@@ -9,6 +9,8 @@ import { DocumentLoader } from '@transmute/vc-status-rl-2020/dist/types';
 import * as didKey from '@transmute/did-key.js';
 import * as didWeb from '@transmute/did-web';
 import {
+  CredentialStatusIssuerObject,
+  EnvelopedVerifiableCredential,
   ICredentialRouter,
   IVerifiableCredentialJSONOrJWT,
   IssuerType,
@@ -85,9 +87,17 @@ export async function checkStatus(credential: IVerifiableCredentialJSONOrJWT) {
   if (typeof credential === 'string') {
     ({ statusEntry, issuer } =
       _getCredentialSubjectStatusEntryAndIssuerFromJWT(credential));
+  }
+  if (
+    (<EnvelopedVerifiableCredential>credential).type ===
+    'EnvelopedVerifiableCredential'
+  ) {
+    const jwt = (<EnvelopedVerifiableCredential>credential).id.split(',')[1];
+    ({ statusEntry, issuer } =
+      _getCredentialSubjectStatusEntryAndIssuerFromJWT(jwt));
   } else {
-    statusEntry = credential.credentialStatus;
-    issuer = credential.issuer;
+    statusEntry = (<CredentialStatusIssuerObject>credential).credentialStatus;
+    issuer = (<CredentialStatusIssuerObject>credential).issuer;
   }
 
   if (!statusEntry) {
@@ -189,7 +199,7 @@ const _checkStatuses = async (
 };
 
 const verifyBitstringStatusListCredential = (
-  credential: W3CVerifiableCredential,
+  credential: W3CVerifiableCredential | EnvelopedVerifiableCredential,
 ) => {
   const agent = createAgent<ICredentialRouter>({
     plugins: [
@@ -225,10 +235,10 @@ const _checkStatus = async (
   const { statusListIndex } = statusEntry;
   const index = parseInt(statusListIndex, 10);
   // retrieve SL VC
-  let slCredential: W3CVerifiableCredential;
+  let slCredential: W3CVerifiableCredential | EnvelopedVerifiableCredential;
   try {
     const { document } = await documentLoader(statusEntry.statusListCredential);
-    slCredential = document as W3CVerifiableCredential;
+    slCredential = document as any;
   } catch (e) {
     return {
       revoked: true,
@@ -263,9 +273,18 @@ const _checkStatus = async (
   if (typeof slCredential === 'string') {
     ({ credentialSubject: slCredentialSubject, issuer: slIssuer } =
       _getCredentialSubjectStatusEntryAndIssuerFromJWT(slCredential));
+  }
+  if (
+    (<EnvelopedVerifiableCredential>slCredential).type ===
+    'EnvelopedVerifiableCredential'
+  ) {
+    const jwt = (<EnvelopedVerifiableCredential>slCredential).id.split(',')[1];
+    ({ credentialSubject: slCredentialSubject, issuer: slIssuer } =
+      _getCredentialSubjectStatusEntryAndIssuerFromJWT(jwt));
   } else {
-    slCredentialSubject = slCredential.credentialSubject;
-    slIssuer = slCredential.issuer;
+    slCredentialSubject = (<VerifiableCredential>slCredential)
+      .credentialSubject;
+    slIssuer = (<VerifiableCredential>slCredential).issuer;
   }
 
   const { statusPurpose: credentialStatusPurpose } = statusEntry;

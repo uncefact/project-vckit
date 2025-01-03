@@ -44,6 +44,25 @@ pnpm vckit config
 
 The `pnpm vckit config` command will create a `agent.yml` file in the root of the project. This file contains the configuration for the Veramo agent. You can edit this file to configure the agent to your needs. The default configuration is sufficient to get started.
 
+## Seed Identifier
+
+This feature automates the process of seeding a predefined DID document for use in development environments.
+
+The DID document is located at `documentation/static/test-and-development/did.json`.
+This document is built and served using Docusaurus.
+
+A seed-identifier script is available to seed the identifier into the vckit instance.
+This script runs the `vckit did import` command and uses a predefined identifier file located at `/development/did-web-identifier.json`.
+
+The predefined did:web used for seeding is: `did:web:uncefact.github.io:project-vckit:test-and-development`
+
+```bash
+# Seed identifier
+pnpm seed-identifier
+```
+
+The Docker Compose entrypoint includes a shell command to run the seed-identifier script automatically.
+
 ## Start the server on local
 
 ```bash
@@ -128,3 +147,47 @@ docker-compose up
 ```
 
 This command will build the Docker images (if not already built) and start the containers defined in the `docker-compose.yaml` file. The VCkit API will be accessible at `http://localhost:3332`.
+
+## Documentation Versioning
+
+The project uses Docusaurus for documentation management. Documentation versions are managed through a release script and automated pipeline.
+
+### Release Script
+
+The `scripts/release-doc.js` script automates the process of creating new documentation versions:
+
+- Reads the documentation version from `version.json`
+- Creates Docusaurus version using `docVersion` value from `version.json` file
+  To manually create a new documentation version:
+
+```bash
+# Run the release script
+pnpm release:doc
+```
+
+### Release Guide
+
+To release a new version, ensure we have the `version.json` file updated with the new version number. Then, create a new release tag with the following steps:
+
+1. Create a new release branch from `next` with the version number as the branch name.
+2. Update the `version.json` file with the new version number.
+3. Generate new documentation version using the release script `pnpm release:doc`.
+4. Check API documentation and update if necessary.
+5. Commit the changes and push the branch.
+6. Create a pull request from the release branch to `main`.
+7. Merge the pull request.
+8. Create a new release tag with the version number.
+8. Push the tag to the repository.
+
+(\*) With the `version.json` file, it contains the version number in the following format:
+
+```json
+{
+  "version": "MAJOR.MINOR.PATCH",
+  "apiVersion": "MAJOR.MINOR.PATCH",
+  "docVersion": "MAJOR.MINOR.PATCH",
+  "dependencies": {}
+}
+```
+
+We need to change manually the `version`, `apiVersion`, and `docVersion` fields.

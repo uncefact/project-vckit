@@ -11,9 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@vckit/core-types": "^1.0.0-beta.7",
-    "@vckit/renderer": "^1.0.0-beta.7",
-    "@vckit/revocationlist": "^1.0.0-beta.7",
+    "@vckit/core-types": "^1.0.0",
+    "@vckit/renderer": "^1.0.0",
+    "@vckit/revocationlist": "^1.0.0",
     "@veramo/core": "^5.6.0",
     "@veramo/credential-ld": "^5.6.0",
     "@veramo/credential-w3c": "^5.6.0",

@@ -1,7 +1,7 @@
 {
   "name": "@vckit/credential-oa",
   "description": "vckit plugin for working with OpenAttestation Verifiable Credentials & Presentations.",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0",
   "main": "build/index.js",
   "exports": {
     ".": "./build/index.js",

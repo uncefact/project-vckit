@@ -1,10 +1,10 @@
 {
   "name": "vckit",
-  "version": "1.0.0-beta.10",
+  "version": "1.0.0",
   "scripts": {
     "postinstall": "mkdir .tmp_npm; cd .tmp_npm; mkdir veramo; cd veramo; git init; git remote add -f origin https://github.com/gs-gs/veramo.git; git pull --depth=1 origin vc-v2; pnpm install; pnpm build;",
     "build": "pnpm build:agent && pnpm build:explorer",
-    "build:agent": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --experimental-json-modules\" pnpm build:js && pnpm build:api && pnpm build:schema",
+    "build:agent": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --experimental-json-modules\" pnpm --ignore-scripts build:js && pnpm --ignore-scripts build:api && pnpm --ignore-scripts build:schema",
     "build:js": "pnpm -r --stream --filter !./packages/vckit-oa-renderers/ --filter !./packages/credential-oa/ --filter !./packages/demo-explorer/ build",
     "build:api": "pnpm --package=@vckit/cli -c dlx \"pnpm -r --stream --filter !./packages/vckit-oa-renderers/ --filter !./packages/credential-oa/ --filter !./packages/demo-explorer/ extract-api\"",
     "build:schema": "pnpm --package=@vckit/cli -c dlx \"pnpm -r --stream generate-plugin-schema\"",
@@ -18,13 +18,15 @@
     "migrate:db": "pnpm -r --stream typeorm migration:run",
     "rollback:db": "pnpm -r --stream typeorm migration:revert",
     "watch": "pnpm -r exec --if-present 'pnpm run watch'",
+    "seed-identifier": "cat development/did-web-identifier.json | pnpm vckit did import",
     "vckit": "cross-env NODE_NO_WARNINGS=1 ./packages/cli/bin/vckit.js",
     "prettier": "prettier --write \"{packages,docs,__tests__,!build}/**/*.{ts,js,json,md,yml}\"",
     "publish:latest": "lerna publish --conventional-commits --include-merged-tags --create-release github --yes --dist-tag beta --registry \"https://registry.npmjs.org/:_authToken=${NPM_TOKEN}\"",
     "publish:next": "lerna publish --conventional-prerelease --force-publish --canary --no-git-tag-version --include-merged-tags --preid next --pre-dist-tag next --yes --registry \"https://registry.npmjs.org/:_authToken=${NPM_TOKEN}\"",
     "build-clean": "rimraf --glob ./packages/*/build ./packages/*/api ./packages/*/node_modules ./packages/*/tsconfig.tsbuildinfo ./temp ./tmp && jest --clearCache",
     "upgrade:packages": "pnpm -r --stream upgrade --latest",
-    "version": "lerna version"
+    "version": "lerna version",
+    "release:doc": "node scripts/release-doc.js"
   },
   "devDependencies": {
     "@ethersproject/contracts": "^5.7.0",

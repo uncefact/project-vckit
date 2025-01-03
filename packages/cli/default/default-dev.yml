@@ -184,7 +184,7 @@ server:
     - - /credentials/status/bitstring-status-list
       - $require: '@vckit/bitstringStatusList?t=function#bitstringStatusListRouter'
 
-    # API base path
+    # Agent API base path
     - - /agent
       # - $require: '@vckit/remote-server?t=function#apiKeyAuth'
       #   $args:
@@ -212,8 +212,21 @@ server:
               $ref: /constants/methods
 
     # rapidoc docs
-    - - /api-docs
+    - - /agent-api-docs
       - $require: '@vckit/remote-server?t=function#ApiDocsRouter'
+
+    # API base path
+    - - /api
+      - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+        $args:
+          - apiKey: kh14g04piduv
+      - $require: '@vckit/remote-server?t=function#ApiRouter'
+
+    - - /api-docs
+      - $require: '@vckit/remote-server?t=function#SwaggerApiDocsRouter'
+
+    - - /swagger-api.json
+      - $require: '@vckit/remote-server?t=function#SwaggerApiSchemaRouter'
 
   # Execute during server initialization
   # init:
@@ -384,6 +397,8 @@ renderer:
           $require: '@vckit/renderer#WebRenderingTemplate2022'
         SvgRenderingHint2022:
           $require: '@vckit/renderer#WebRenderingTemplate2022'
+        RenderTemplate2024:
+          $require: '@vckit/renderer#RenderTemplate2024'
 
 dbConnectionBitstringStatusList:
   $require: typeorm#DataSource
@@ -403,7 +418,8 @@ dbConnectionBitstringStatusList:
 bitstringStatusList:
   $require: '@vckit/bitstringStatusList#BitstringStatusList'
   $args:
-    - bitstringDomainURL: http://localhost:3332
+    - bitstringDomainURL:
+        $ref: /constants/baseUrl
       dbConnection:
         $ref: /dbConnectionBitstringStatusList
 

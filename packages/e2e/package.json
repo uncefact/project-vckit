@@ -1,6 +1,6 @@
 {
   "name": "@vckit/e2e",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0",
   "description": "This package is used to test project-vckit packages/plugins.",
   "author": "Nam Hoang <hoangxuannam160493@gmail.com>",
   "homepage": "https://github.com/uncefact/project-vckit",
