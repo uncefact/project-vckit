@@ -7,10 +7,7 @@
   },
   "command": {
     "publish": {
-      "allowBranch": [
-        "main",
-        "next"
-      ],
+      "allowBranch": ["main", "next"],
       "conventionalCommits": true,
       "gitRemote": "origin",
       "message": "chore(release): %s [skip ci]"
