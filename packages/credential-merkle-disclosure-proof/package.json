@@ -1,7 +1,7 @@
 {
   "name": "@vckit/credential-merkle-disclosure-proof",
   "description": "vckit plugin for merkle disclosure proof",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0",
   "main": "build/index.js",
   "exports": {
     ".": "./build/index.js",

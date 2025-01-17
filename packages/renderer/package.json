@@ -1,6 +1,6 @@
 {
   "name": "@vckit/renderer",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0",
   "description": "To render the verifiable credentials.",
   "keywords": [],
   "author": "Nam Hoang <hoangxuannam160493@gmail.com>",

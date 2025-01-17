@@ -1,7 +1,7 @@
 {
   "name": "@vckit/remote-server",
   "description": "Express.js module that can expose some agent methods and messaging endpoints",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0",
   "main": "build/index.js",
   "exports": {
     ".": "./build/index.js",

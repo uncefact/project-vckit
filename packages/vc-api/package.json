@@ -1,7 +1,7 @@
 {
   "name": "@vckit/vc-api",
   "description": "Express.js module that can expose some agent methods",
-  "version": "1.0.0-beta.9",
+  "version": "1.0.0",
   "main": "build/index.js",
   "exports": "./build/index.js",
   "types": "build/index.d.ts",
