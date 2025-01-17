@@ -39,7 +39,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pnpm test:packages --changedSince=origin/main
+          pnpm test:packages
 
   build_docs:
     runs-on: ubuntu-latest
