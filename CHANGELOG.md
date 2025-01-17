@@ -1,6 +1,14 @@
 # Change Log
 
 
+## [1.0.2](https://github.com/uncefact/project-vckit/compare/1.0.1...v1.0.2) (2025-01-17)
+
+
+### Miscellaneous
+
+* Update checks write permisions on release workflow ([#246](https://github.com/uncefact/project-vckit/issues/246)) ([be1e8bc](https://github.com/uncefact/project-vckit/commit/be1e8bcb5cec2d717282d63e9ac68f3339deddd3))
+* Update version 1.0.2 ([3024669](https://github.com/uncefact/project-vckit/commit/30246692b1e51d469a30ab1c1e6fd73e6b2e054d))
+
 ## [1.0.1](https://github.com/uncefact/project-vckit/compare/1.0.0...v1.0.1) (2025-01-17)
 
 
