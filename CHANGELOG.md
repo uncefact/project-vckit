@@ -1,6 +1,18 @@
 # Change Log
 
 
+## [1.0.1](https://github.com/uncefact/project-vckit/compare/1.0.0...v1.0.1) (2025-01-17)
+
+
+### Code Refactoring
+
+* Update CHANGELOG.md structure ([383b8c6](https://github.com/uncefact/project-vckit/commit/383b8c64f96dcfb6840e9ff4a61b93ae778e08cf))
+
+
+### Miscellaneous
+
+* Update version 1.0.1 ([4107a0b](https://github.com/uncefact/project-vckit/commit/4107a0bff7585bf1795a094bd34dde0493e394bc))
+
 ## [1.0.0](https://github.com/uncefact/project-vckit/compare/v1.0.0...v1.0.0) (2025-01-03)
 
 
