@@ -26,7 +26,7 @@ We want to make contributing to this project as easy and transparent as possible
 ### Commit messages
 
 We use github to host code, to track issues and feature requests, as well as accept pull requests.
-We Use [lerna](https://github.com/lerna/lerna) with 
+We Use [lerna](https://github.com/lerna/lerna) with
 [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) to automate our release process.
 Versioning, changelogs and publication is all covered by this automation.
 Please see some [commit message examples](https://github.com/semantic-release/semantic-release#commit-message-format)
@@ -61,6 +61,16 @@ Any contributions you make will be under the GNU General Public License v3.0
 
 Thank you for your contribution!
 
+### Publishing Packages
+
+All packages for this project are published under the official UNCEFACT NPM organization: [uncefact](https://www.npmjs.com/org/uncefact).
+
+To ensure the integrity and consistency of our releases, publishing rights have been limited to a small group of trusted advisers.
+
+Currently, only [kshychko](https://github.com/kshychko) and [ashleythedeveloper](https://github.com/ashleythedeveloper) are authorized to publish new versions of packages.
+
+If you encounter any issues or have questions regarding the publishing process, please open a ticket in this repository.
+
 ### Attribution
 
-This contributing guide is based on the contributing guide for [Veramo](https://github.com/uport-project/veramo), one of vc-kit's core components. 
+This contributing guide is based on the contributing guide for [Veramo](https://github.com/uport-project/veramo), one of vc-kit's core components.
