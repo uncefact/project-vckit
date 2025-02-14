@@ -218,7 +218,7 @@ We use this [`/verifyCredential`](http://localhost:3332/api-docs/#post-/verifyCr
 
 ## Render a Vc
 
-This feature is handled by VCkit Renderer plugin, check it out in the npm [here](https://www.npmjs.com/package/@vckit/renderer).
+This feature is handled by VCkit Renderer plugin, check it out in the npm [here](https://www.npmjs.com/package/@uncefact/vckit-renderer).
 
 To get the rendered VC, you can try this endpoint [`/renderCredential`](http://localhost:3332/api-docs/#post-/renderCredential).
 

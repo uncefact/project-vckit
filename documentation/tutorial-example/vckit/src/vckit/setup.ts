@@ -17,7 +17,7 @@ import {
 //     RevocationStatus2020
 // } from '@vckit/revocationlist'
 
-import { Renderer, WebRenderingTemplate2022 } from '@vckit/renderer';
+import { Renderer, WebRenderingTemplate2022 } from '@uncefact/vckit-renderer';
 
 //Veramo core and plugins
 import { createAgent } from '@veramo/core';

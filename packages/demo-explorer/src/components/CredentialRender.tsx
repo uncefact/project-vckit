@@ -4,7 +4,7 @@ import {
   Renderer,
   WebRenderingTemplate2022,
   RenderTemplate2024,
-} from '@vckit/renderer'
+} from '@uncefact/vckit-renderer'
 import { useVeramo } from '@veramo-community/veramo-react'
 import { VerifiableCredential } from '@veramo/core'
 import { Button, Spin, Tabs } from 'antd'

@@ -384,22 +384,22 @@ credentialIssuerLD:
         - $require: '@veramo/credential-ld?t=object#LdDefaultContexts'
         - $require: '@transmute/credentials-context?t=object#contexts'
         - $require: '@transmute/did-context?t=object#contexts'
-        - $require: '@vckit/renderer?t=object#RenderDefaultContexts'
+        - $require: '@uncefact/vckit-renderer?t=object#RenderDefaultContexts'
         - $require: '@vckit/revocationlist?t=object#RevocationListDefaultContexts'
         #  others should be included here
 
 # Renderer
 renderer:
-  $require: '@vckit/renderer#Renderer'
+  $require: '@uncefact/vckit-renderer#Renderer'
   $args:
     - defaultProvider: WebRenderingTemplate2022
       providers:
         WebRenderingTemplate2022:
-          $require: '@vckit/renderer#WebRenderingTemplate2022'
+          $require: '@uncefact/vckit-renderer#WebRenderingTemplate2022'
         SvgRenderingHint2022:
-          $require: '@vckit/renderer#WebRenderingTemplate2022'
+          $require: '@uncefact/vckit-renderer#WebRenderingTemplate2022'
         RenderTemplate2024:
-          $require: '@vckit/renderer#RenderTemplate2024'
+          $require: '@uncefact/vckit-renderer#RenderTemplate2024'
 
 dbConnectionBitstringStatusList:
   $require: typeorm#DataSource
