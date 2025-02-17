@@ -13,7 +13,7 @@ import {
 } from '../src/controllers/holder-controller';
 import { Request, Response } from 'express';
 import { RequestWithAgent } from '../src/types/request-type';
-import { IAgent } from '@vckit/core-types';
+import { IAgent } from '@uncefact/vckit-core-types';
 import { jest } from '@jest/globals';
 
 describe('getCredential', () => {

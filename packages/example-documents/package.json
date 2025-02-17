@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/example-documents",
+  "name": "@uncefact/vckit-example-documents",
   "description": "vckit sample documents",
   "version": "1.0.0",
   "main": "build/index.js",

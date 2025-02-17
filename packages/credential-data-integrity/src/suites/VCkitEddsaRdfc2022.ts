@@ -14,7 +14,7 @@ import {
   TKeyType,
   IResolver,
   IKeyManager,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 import * as Ed25519Multikey from '@digitalbazaar/ed25519-multikey';
 import { DataIntegrityProof } from '@digitalbazaar/data-integrity';
 import { cryptosuite as eddsaRdfc2022CryptoSuite } from '@digitalbazaar/eddsa-rdfc-2022-cryptosuite';

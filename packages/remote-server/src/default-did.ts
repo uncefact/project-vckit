@@ -1,6 +1,6 @@
 import parse from 'url-parse'
 
-import { IDIDManager, TAgent, TKeyType } from '@vckit/core-types'
+import { IDIDManager, TAgent, TKeyType } from '@uncefact/vckit-core-types'
 
 interface CreateDefaultDidOptions {
   agent: TAgent<IDIDManager>

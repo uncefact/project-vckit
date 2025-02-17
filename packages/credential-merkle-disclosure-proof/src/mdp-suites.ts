@@ -7,7 +7,7 @@ import {
   IResolver,
   PresentationPayload,
   TKeyType,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 import { DIDDocument } from 'did-resolver';
 
 export type RequiredAgentMethods = IResolver &

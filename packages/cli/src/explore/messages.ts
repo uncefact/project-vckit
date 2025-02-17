@@ -1,5 +1,5 @@
 import blessed, { Widgets } from 'blessed'
-import { IMessage } from '@vckit/core-types'
+import { IMessage } from '@uncefact/vckit-core-types'
 import { shortDate, shortDid } from './utils.js'
 import { ConfiguredAgent } from '../setup.js'
 import { styles } from './styles.js'

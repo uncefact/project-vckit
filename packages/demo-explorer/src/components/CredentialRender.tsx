@@ -1,5 +1,5 @@
 import { ProCard } from '@ant-design/pro-components'
-import { QrCodeDocumentWrapper } from '@vckit/react-components'
+import { QrCodeDocumentWrapper } from '@uncefact/vckit-react-components'
 import {
   Renderer,
   WebRenderingTemplate2022,

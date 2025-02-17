@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/demo-explorer",
+  "name": "@uncefact/vckit-demo-explorer",
   "version": "1.0.0",
   "private": true,
   "license": "Apache-2.0",
@@ -64,8 +64,8 @@
     "@jsonforms/core": "^3.1.0",
     "@jsonforms/material-renderers": "^3.1.0",
     "@jsonforms/react": "^3.1.0",
-    "@vckit/example-documents": "workspace:^1.0.0",
-    "@vckit/react-components": "workspace:^1.0.0",
+    "@uncefact/vckit-example-documents": "workspace:^1.0.0",
+    "@uncefact/vckit-react-components": "workspace:^1.0.0",
     "@uncefact/vckit-renderer": "workspace:^1.0.0",
     "@veramo/remote-client": "5.5.3",
     "ajv": "^8.12.0",

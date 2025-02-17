@@ -7,7 +7,7 @@ OAuth middleware is a package that provides OAuth2 JWT bearer token authenticati
 1. Add the configuration for OAuth middleware to the agent.yml file in the root of your project.
 
    ```yaml
-   - $require: '@vckit/oauth-middleware?t=function#apiOAuth'
+   - $require: '@uncefact/vckit-oauth-middleware?t=function#apiOAuth'
         $args:
           - issuerBaseURL: <your_issuer_base_url>
             audience: <your_audience>

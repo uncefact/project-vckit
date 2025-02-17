@@ -5,7 +5,7 @@ import {
   IKeyManager,
   IResolver,
   TAgent,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 
 type ConfiguredAgent = TAgent<
   IDIDManager & IKeyManager & IResolver & ICredentialIssuer

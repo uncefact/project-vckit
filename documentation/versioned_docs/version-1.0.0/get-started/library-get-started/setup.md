@@ -34,7 +34,7 @@ import {
     IResolver,
     TAgent,
     IRenderer
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 
 import { Renderer, WebRenderingTemplate2022 } from '@uncefact/vckit-renderer';
 

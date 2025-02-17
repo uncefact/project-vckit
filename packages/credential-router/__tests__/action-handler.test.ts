@@ -3,7 +3,7 @@ import {
   ICreateVerifiableCredentialArgs,
   IVerifyCredentialArgs,
   IssuerAgentContext,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 
 import { CredentialRouter } from '../src/action-handler';
 import {

@@ -20,7 +20,7 @@ agent:
     - schemaValidation: false
       plugins:
         /// ... other declarations
-        - $require: '@vckit/credential-oa#CredentialOA'
+        - $require: '@uncefact/vckit-credential-oa#CredentialOA'
 ```
 
 - And export the functions of the plugin to be used in the application

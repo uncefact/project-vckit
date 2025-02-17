@@ -1,4 +1,4 @@
-import { IAgent, IMessageHandler, TAgent } from '@vckit/core-types'
+import { IAgent, IMessageHandler, TAgent } from '@uncefact/vckit-core-types'
 import { text, Request, Router } from 'express'
 
 interface RequestWithMessageHandler extends Request {

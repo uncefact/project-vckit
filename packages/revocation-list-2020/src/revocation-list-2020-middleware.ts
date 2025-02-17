@@ -1,4 +1,4 @@
-import { RequestWithAgent } from '@vckit/core-types';
+import { RequestWithAgent } from '@uncefact/vckit-core-types';
 import { asArray, extractIssuer, processEntryToArray } from '@veramo/utils';
 import {
   NextFunction,

@@ -16,7 +16,7 @@ import {
   UnsignedCredential,
   EnvelopedVerifiableCredential,
   VerifiableCredential,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 import { OrPromise } from '@veramo/utils';
 import {
   DataSource,

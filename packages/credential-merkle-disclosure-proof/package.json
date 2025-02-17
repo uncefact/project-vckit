@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/credential-merkle-disclosure-proof",
+  "name": "@uncefact/vckit-credential-merkle-disclosure-proof",
   "description": "vckit plugin for merkle disclosure proof",
   "version": "1.0.0",
   "main": "build/index.js",
@@ -22,7 +22,7 @@
     "@digitalcredentials/vc": "^6.0.0",
     "@transmute/json-web-signature": "0.7.0-unstable.82",
     "@transmute/merkle-proof": "0.7.0-unstable.82",
-    "@vckit/core-types": "workspace:^",
+    "@uncefact/vckit-core-types": "workspace:^",
     "@veramo/credential-ld": "link:../../.tmp_npm/veramo/packages/credential-ld",
     "@veramo/utils": "5.5.3",
     "debug": "^4.3.4",

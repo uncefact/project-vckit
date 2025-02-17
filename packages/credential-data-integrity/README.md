@@ -23,10 +23,10 @@ credentialIssuerLD:
   $require: '@veramo/credential-ld#CredentialIssuerLD'
   $args:
     - suites:
-        - $require: '@vckit/credential-data-integrity#VCkitEddsaRdfc2022'
+        - $require: '@uncefact/vckit-credential-data-integrity#VCkitEddsaRdfc2022'
         #  others should be included here
       contextMaps:
-        - $require: '@vckit/credential-data-integrity?t=object#contexts'
+        - $require: '@uncefact/vckit-credential-data-integrity?t=object#contexts'
         #  others should be included here
 ```
 

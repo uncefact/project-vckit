@@ -92,7 +92,7 @@ server:
   port:
     $ref: /constants/port
   use:
-    - - $require: '@vckit/remote-server?t=function#RequestWithAgentRouter'
+    - - $require: '@uncefact/vckit-remote-server?t=function#RequestWithAgentRouter'
         $args:
           - agent:
               $ref: /agent
@@ -101,7 +101,7 @@ server:
 1. `baseUrl` and `port`:
    - These fields define the base URL and port number where the server will be hosted. However, instead of directly providing values, they reference values from the constants section. This ensures that the server's base URL and port remain consistent and can be easily modified in one central place.
 2. `use`:
-   This section configures middleware for the server's request handling. **RequestWithAgentRouter**: This middleware is being utilized, which seems to be custom functionality provided by the @vckit/remote-server package. It appears to add information about an agent to incoming requests.
+   This section configures middleware for the server's request handling. **RequestWithAgentRouter**: This middleware is being utilized, which seems to be custom functionality provided by the @uncefact/vckit-remote-server package. It appears to add information about an agent to incoming requests.
 
 - `$require`: Specifies the module or package required to handle this middleware.
 - `$args`: Specifies the arguments to be passed to the middleware. In this case, it's using agent.
@@ -118,14 +118,14 @@ server:
   port:
     $ref: /constants/port
   use:
-    - - $require: '@vckit/remote-server?t=function#RequestWithAgentRouter'
+    - - $require: '@uncefact/vckit-remote-server?t=function#RequestWithAgentRouter'
         $args:
           - agent:
               $ref: /agent
 
      - - /agent
       # Authentication middleware
-      - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+      - $require: '@uncefact/vckit-remote-server?t=function#apiKeyAuth'
         $args:
           - apiKey: <your_api_key>
 ```

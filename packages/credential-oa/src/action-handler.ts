@@ -11,7 +11,7 @@ import {
   IVerifyResult,
   VerifiableCredential,
   VerifierAgentContext,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 
 import {
   __unsafe__use__it__at__your__own__risks__wrapDocument,
@@ -25,7 +25,7 @@ import {
   processEntryToArray,
 } from '@veramo/utils';
 
-import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
+import schema from '@uncefact/vckit-core-types/build/plugin.schema.json' assert { type: 'json' };
 
 import {
   isValid,

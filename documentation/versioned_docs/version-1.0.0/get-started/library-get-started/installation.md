@@ -57,7 +57,7 @@ npx @veramo/cli config create-secret-key
 ## Install VCkit plugins
 
 ```bash
-npm install @vckit/core-types @uncefact/vckit-renderer
+npm install @uncefact/vckit-core-types @uncefact/vckit-renderer
 ```
 
 ## Install Veramo packages

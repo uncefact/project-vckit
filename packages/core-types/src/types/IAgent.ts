@@ -55,7 +55,7 @@ export interface IEventListener {
   readonly eventTypes?: string[]
   /**
    * Processes an event emitted by the agent.
-   * @param context - Execution context. Requires agent with {@link @vckit/core-types#IDataStore} methods
+   * @param context - Execution context. Requires agent with {@link @uncefact/vckit-core-types#IDataStore} methods
    * @public
    */
   onEvent?(event: { type: string; data: any }, context: IAgentContext<{}>): Promise<void>

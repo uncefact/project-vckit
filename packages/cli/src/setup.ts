@@ -8,7 +8,7 @@ import {
   IMessageHandler,
   IResolver,
   TAgent,
-} from '@vckit/core-types'
+} from '@uncefact/vckit-core-types'
 import { ISelectiveDisclosure } from '@veramo/selective-disclosure'
 import { IDIDComm } from '@veramo/did-comm'
 import { IDIDDiscovery } from '@veramo/did-discovery'

@@ -20,7 +20,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install pnpm
-        run: npm i pnpm --global
+        run: npm i pnpm@8.14.1 --global
 
       - name: Install Node.js
         uses: actions/setup-node@v3

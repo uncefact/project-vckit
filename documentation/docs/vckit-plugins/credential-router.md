@@ -17,7 +17,7 @@ agent:
   $args:
     - schemaValidation: false
       plugins:
-        - $require: '@vckit/credential-router#CredentialRouter'
+        - $require: '@uncefact/vckit-credential-router#CredentialRouter'
 ```
 
 - And export the functions of the plugin to be used in the application

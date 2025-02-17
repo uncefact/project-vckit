@@ -1,7 +1,7 @@
 /**
- * Provides {@link @vckit/core#Agent} implementation and defines {@link @vckit/core-types#IResolver},
- * {@link @vckit/core-types#IDIDManager}, {@link @vckit/core-types#IKeyManager}, {@link
- * @vckit/core-types#IDataStore}, {@link @vckit/core-types#IMessageHandler} plugin interfaces
+ * Provides {@link @vckit/core#Agent} implementation and defines {@link @uncefact/vckit-core-types#IResolver},
+ * {@link @uncefact/vckit-core-types#IDIDManager}, {@link @uncefact/vckit-core-types#IKeyManager}, {@link
+ * @uncefact/vckit-core-types#IDataStore}, {@link @uncefact/vckit-core-types#IMessageHandler} plugin interfaces
  *
  * @packageDocumentation
  */
