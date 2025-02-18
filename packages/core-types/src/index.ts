@@ -1,5 +1,5 @@
 /**
- * Provides {@link @vckit/core#Agent} implementation and defines {@link @uncefact/vckit-core-types#IResolver},
+ * Provides {@link @veramo/core#Agent} implementation and defines {@link @uncefact/vckit-core-types#IResolver},
  * {@link @uncefact/vckit-core-types#IDIDManager}, {@link @uncefact/vckit-core-types#IKeyManager}, {@link
  * @uncefact/vckit-core-types#IDataStore}, {@link @uncefact/vckit-core-types#IMessageHandler} plugin interfaces
  *

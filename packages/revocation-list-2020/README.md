@@ -38,7 +38,7 @@ revocationList:
 
 ```yaml
 agent:
-  $require: '@vckit/core#Agent'
+  $require: '@veramo/core#Agent'
   $args:
     - schemaValidation: false
       plugins:

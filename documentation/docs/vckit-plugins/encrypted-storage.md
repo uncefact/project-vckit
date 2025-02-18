@@ -46,7 +46,7 @@ then require the encrypted storage plugin to the agent.
 ```yaml
 # Agent
 agent:
-  $require: '@vckit/core#Agent'
+  $require: '@veramo/core#Agent'
   $args:
     - schemaValidation: false
       plugins:
