@@ -3817,8 +3817,8 @@
             },
             "save": {
               "type": "boolean",
-              "description": "Optional. If set to `true`, the message will be saved using  {@link  @vckit/core-types#IDataStore.dataStoreSaveMessage | dataStoreSaveMessage }  <p/><p/>",
-              "deprecated": "Please call {@link @vckit/core-types#IDataStore.dataStoreSaveMessage | dataStoreSaveMessage()} after\nhandling the message and determining that it must be saved."
+              "description": "Optional. If set to `true`, the message will be saved using  {@link  @uncefact/vckit-core-types#IDataStore.dataStoreSaveMessage | dataStoreSaveMessage }  <p/><p/>",
+              "deprecated": "Please call {@link @uncefact/vckit-core-types#IDataStore.dataStoreSaveMessage | dataStoreSaveMessage()} after\nhandling the message and determining that it must be saved."
             }
           },
           "required": [

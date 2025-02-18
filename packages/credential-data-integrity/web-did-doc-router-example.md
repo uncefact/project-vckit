@@ -15,7 +15,7 @@ import {
   TAgent,
   TKeyType,
   IKey,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 import { bytesToBase58, bytesToMultibase, hexToBytes } from '@veramo/utils';
 import { Request, Router } from 'express';
 import { ServiceEndpoint, VerificationMethod } from 'did-resolver';

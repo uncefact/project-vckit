@@ -18,13 +18,13 @@ dbConnectionBitstringStatusList:
       synchronize: false
       migrationsRun: true
       migrations:
-        $require: '@vckit/bitstringStatusList?t=object#migrations'
+        $require: '@uncefact/vckit-bitstringStatusList?t=object#migrations'
       logging: false
       entities:
-        $require: '@vckit/bitstringStatusList?t=object#Entities'
+        $require: '@uncefact/vckit-bitstringStatusList?t=object#Entities'
 
 bitstringStatusList:
-  $require: '@vckit/bitstringStatusList#BitstringStatusList'
+  $require: '@uncefact/vckit-bitstringStatusList#BitstringStatusList'
   $args:
     - bitstringDomainURL: http://localhost:3332
       dbConnection:
@@ -44,7 +44,7 @@ agent:
         - $require: '@veramo/credential-status#CredentialStatusPlugin'
           $args:
             - BitstringStatusListEntry:
-                $require: '@vckit/bitstringStatusList?t=object#checkStatus'
+                $require: '@uncefact/vckit-bitstringStatusList?t=object#checkStatus'
 ```
 
 - Add the plugin to the vckit server
@@ -58,7 +58,7 @@ server:
   use:
    ...
     - - /credentials/status/bitstring-status-list
-      - $require: '@vckit/bitstringStatusList?t=function#bitstringStatusListRouter'
+      - $require: '@uncefact/vckit-bitstringStatusList?t=function#bitstringStatusListRouter'
 ```
 
 - Add the methods to the vckit server

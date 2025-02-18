@@ -16,7 +16,7 @@ import {
   IssuerType,
   VerifiableCredential,
   W3CVerifiableCredential,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 import { decodeList } from '@digitalbazaar/vc-bitstring-status-list';
 import {
   CredentialIssuerLD,
@@ -26,7 +26,7 @@ import {
   VeramoJsonWebSignature2020,
 } from '@veramo/credential-ld';
 import { createAgent } from '@veramo/core';
-import { CredentialRouter } from '@vckit/credential-router';
+import { CredentialRouter } from '@uncefact/vckit-credential-router';
 import { CredentialPlugin } from '@veramo/credential-w3c';
 
 const resolve = async (did: string) => {

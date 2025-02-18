@@ -3,7 +3,7 @@ import { jest } from '@jest/globals';
 import {
   ICreateVerifiableCredentialArgs,
   IssuerAgentContext,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 
 import { CredentialOA } from '../src/action-handler';
 import {

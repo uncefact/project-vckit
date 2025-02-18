@@ -47,10 +47,10 @@ Creating a new plugin means implementing the **IAgentPlugin** interface.
 Example code of the Hash Tool:
 
 ```ts
-import { IAgentPlugin, ITools, IToolsComputeHashArgs } from '@vckit/core-types';
+import { IAgentPlugin, ITools, IToolsComputeHashArgs } from '@uncefact/vckit-core-types';
 import { sha256 } from 'multiformats/hashes/sha2';
 import { base58btc } from 'multiformats/bases/base58';
-import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
+import schema from '@uncefact/vckit-core-types/build/plugin.schema.json' assert { type: 'json' };
 
 export class MultibaseEncodedSHA256 implements IAgentPlugin {
   readonly methods: ITools;
@@ -80,7 +80,7 @@ export class MultibaseEncodedSHA256 implements IAgentPlugin {
 
 ```
 
-There're 2 properties of the class are required, both of them are from @vckit/core-types:
+There're 2 properties of the class are required, both of them are from @uncefact/vckit-core-types:
 - `methods`
 - `schema`
 
@@ -89,7 +89,7 @@ There're 2 properties of the class are required, both of them are from @vckit/co
 As you may know, working with VCkit is all about the agent. If you have your custom plugin and want to use it as an extended function then you need to add it to the agent. Here's how to do it.
 
 ### Step 1: Add the plugin to agent.yml
-Open the `agent.yml` file, and add this line `- $require: '@vckit/tools#MultibaseEncodedSHA256'` at the end of the **agent**. The updated agent will look like this.
+Open the `agent.yml` file, and add this line `- $require: '@uncefact/vckit-tools#MultibaseEncodedSHA256'` at the end of the **agent**. The updated agent will look like this.
 
 ```yml
 # Agent
@@ -99,7 +99,7 @@ agent:
     plugins:
         ...
         # Add tools plugin for MultibaseEncodedSHA256
-        - $require: '@vckit/tools?#MultibaseEncodedSHA256'
+        - $require: '@uncefact/vckit-tools?#MultibaseEncodedSHA256'
 ```
 
 ### Step 2: Expose the method.

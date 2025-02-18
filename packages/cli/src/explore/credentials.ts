@@ -1,5 +1,5 @@
 import blessed, { Widgets } from 'blessed'
-import { UniqueVerifiableCredential } from '@vckit/core-types'
+import { UniqueVerifiableCredential } from '@uncefact/vckit-core-types'
 import { shortDate, shortDid, copyToClipboard } from './utils.js'
 import { ConfiguredAgent } from '../setup.js'
 import { styles } from './styles.js'

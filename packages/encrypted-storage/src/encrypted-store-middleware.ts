@@ -1,4 +1,4 @@
-import { IAgent, IEncrypteAndStoreDataResult } from '@vckit/core-types';
+import { IAgent, IEncrypteAndStoreDataResult } from '@uncefact/vckit-core-types';
 import { NextFunction, Request, Response, Router } from 'express';
 import interceptor from 'express-interceptor';
 import { RequestWithAgent } from './encrypted-store-router.js';

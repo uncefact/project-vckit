@@ -10,7 +10,7 @@ import {
   IMessageHandler,
   IResolver,
   TAgent,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 
 import { createAgent, IAgentOptions } from '@veramo/core';
 import { CredentialPlugin } from '@veramo/credential-w3c';
@@ -25,7 +25,7 @@ import {
 import {
   CredentialMerkleDisclosureProof,
   VCKitMerkleDisclosureProof2021,
-} from '@vckit/credential-merkle-disclosure-proof';
+} from '@uncefact/vckit-credential-merkle-disclosure-proof';
 
 import { DIDResolverPlugin } from '@veramo/did-resolver';
 import { KeyManager } from '@veramo/key-manager';

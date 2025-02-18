@@ -8,7 +8,7 @@ import {
   IAgent,
   IIdentifier,
   IRevocationListDataArgs,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 import { OrPromise } from '@veramo/utils';
 import {
   DataSource,

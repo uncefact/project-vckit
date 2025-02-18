@@ -7,11 +7,11 @@ import {
   IIssueBitstringStatusListArgs,
   ISetBitstringStatusArgs,
   IVerifiableCredentialJSONOrJWT,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 import { BitstringStatusListEntryStore } from './identifier/bitstring-status-list-entry-store.js';
 import { OrPromise } from '@veramo/utils';
 import { DataSource } from 'typeorm';
-import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
+import schema from '@uncefact/vckit-core-types/build/plugin.schema.json' assert { type: 'json' };
 import { checkStatus } from './bitstring-status-list-status.js';
 
 export class BitstringStatusList implements IAgentPlugin {

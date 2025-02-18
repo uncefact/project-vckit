@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/utils",
+  "name": "@uncefact/vckit-utils",
   "version": "1.0.0",
   "description": "A package of utilities for working with VC-Kit",
   "keywords": [],

@@ -5,7 +5,7 @@ import qrcode from 'qrcode-terminal'
 import * as fs from 'fs'
 import * as json5 from 'json5'
 import { readStdin } from './util.js'
-import { CredentialPayload } from '@vckit/core-types'
+import { CredentialPayload } from '@uncefact/vckit-core-types'
 
 import fuzzy from 'fuzzy'
 

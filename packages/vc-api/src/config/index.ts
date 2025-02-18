@@ -1,4 +1,4 @@
-import { ProofFormat } from '@vckit/core-types';
+import { ProofFormat } from '@uncefact/vckit-core-types';
 
 export type IssuerConfiguration = {
   proofFormat: ProofFormat;

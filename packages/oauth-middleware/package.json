@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/oauth-middleware",
+  "name": "@uncefact/vckit-oauth-middleware",
   "version": "1.0.0",
   "description": "OAuth2 middleware for Express API",
   "author": "Nam Hoang <hoangxuannam160493@gmail.com>",

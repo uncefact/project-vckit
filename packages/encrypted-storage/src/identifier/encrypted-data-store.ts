@@ -3,7 +3,7 @@ import { DataSource } from 'typeorm';
 import { EncryptedData } from '../entities/encrypted-data.js';
 import { getConnectedDb } from '../utils.js';
 import { CredentialEncryptedData } from '../entities/credential-encrypted-data.js';
-import { IFetchEncryptedDataByCredentialHashResult } from '@vckit/core-types';
+import { IFetchEncryptedDataByCredentialHashResult } from '@uncefact/vckit-core-types';
 
 /**
  * @public

@@ -7,7 +7,7 @@ import {
   IResolver,
   IVerifyResult,
   VerifiableCredential,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 
 import {
   _ExtendedIKey,

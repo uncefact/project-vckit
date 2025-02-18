@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/revocationlist",
+  "name": "@uncefact/vckit-revocationlist",
   "version": "1.0.0",
   "description": "To encrypt the data and store to the database.",
   "author": "Nam Hoang <hoangxuannam160493@gmail.com>",
@@ -44,8 +44,8 @@
     "@transmute/ed25519-signature-2018": "0.7.0-unstable.82",
     "@transmute/json-web-signature": "0.7.0-unstable.82",
     "@transmute/vc-status-rl-2020": "0.7.0-unstable.82",
-    "@vckit/core-types": "workspace:^",
-    "@vckit/renderer": "workspace:^",
+    "@uncefact/vckit-core-types": "workspace:^",
+    "@uncefact/vckit-renderer": "workspace:^",
     "@veramo/credential-ld": "link:../../.tmp_npm/veramo/packages/credential-ld",
     "@veramo/data-store": "5.5.3",
     "@veramo/utils": "5.5.3",

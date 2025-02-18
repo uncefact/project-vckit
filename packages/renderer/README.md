@@ -20,12 +20,12 @@ To test it locally, you need to restart your vckit server.
 
 ```yaml
 renderer:
-  $require: '@vckit/renderer#Renderer'
+  $require: '@uncefact/vckit-renderer#Renderer'
   $args:
     - defaultProvider: WebRenderingTemplate2022
       providers:
         WebRenderingTemplate2022:
-          $require: '@vckit/renderer#WebRenderingTemplate2022'
+          $require: '@uncefact/vckit-renderer#WebRenderingTemplate2022'
 ```
 
 ## Usage
@@ -33,7 +33,7 @@ renderer:
 ### Standalone
 
 ```typescript
-import { WebRenderingTemplate2022 } from '@vckit/renderer';
+import { WebRenderingTemplate2022 } from '@uncefact/vckit-renderer';
 
 const params = {
   credential: {

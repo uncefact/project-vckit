@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/core-types",
+  "name": "@uncefact/vckit-core-types",
   "description": "vc-kit core",
   "version": "1.0.0",
   "main": "build/index.js",

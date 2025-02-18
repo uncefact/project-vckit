@@ -9,14 +9,14 @@ The router follows the `veramo` architecture, allowing you to configure it using
 ````yaml
 # VC API v1
 - - /v1
-  - $require: '@vckit/vc-api?t=function#V1VcRouter'
+  - $require: '@uncefact/vckit-vc-api?t=function#V1VcRouter'
     $args:
       - basePath: :3332
         apiKey: test123
 
 # VC API v2
 - - /v2
-  - $require: '@vckit/vc-api?t=function#V2VcRouter'
+  - $require: '@uncefact/vckit-vc-api?t=function#V2VcRouter'
     $args:
       - basePath: :3332
         apiKey: test123
@@ -75,7 +75,7 @@ credentialIssuerLD:
 
 ```yaml
 # DID Documents
-- - $require: '@vckit/remote-server?t=function#WebDidDocRouter'
+- - $require: '@uncefact/vckit-remote-server?t=function#WebDidDocRouter'
     $args:
       - keyMapping:
           Ed25519: Ed25519VerificationKey2020 # Ed25519VerificationKey2020 | JsonWebKey2020

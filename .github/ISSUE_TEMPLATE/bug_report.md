@@ -58,7 +58,7 @@ server:
   port: 3332
   use:
     - - /v1
-      - $require: '@vckit/vc-api?t=function#V1VcRouter'
+      - $require: '@uncefact/vckit-vc-api?t=function#V1VcRouter'
         $args:
           - basePath: :3332
             apiKey: <REMOVED>

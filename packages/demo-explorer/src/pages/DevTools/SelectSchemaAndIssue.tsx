@@ -3,7 +3,7 @@ import { Select } from 'antd'
 import { VCJSONSchema } from '../../types'
 import IssueCredentialFromSchema from '../../components/IssueCredentialFromSchema'
 import { PageContainer } from '@ant-design/pro-components'
-import { credentialsIssueExamples } from '@vckit/example-documents'
+import { credentialsIssueExamples } from '@uncefact/vckit-example-documents'
 
 const { Option } = Select
 

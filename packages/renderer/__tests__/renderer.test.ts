@@ -8,7 +8,7 @@ import {
   IRenderResult,
   RenderDocument,
   IRenderedResult,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 import universityDegreeCredential from '../fixtures/university-degree-credential.json';
 import universityDegreeCredentialTemplate2024 from '../fixtures/univerisity-degree-credential-template-2024.json';
 

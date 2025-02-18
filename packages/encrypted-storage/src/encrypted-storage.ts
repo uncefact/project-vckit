@@ -7,8 +7,8 @@ import {
   IFetchEncryptedDataArgs,
   IFetchEncryptedDataByCredentialHashArgs,
   IFetchEncryptedDataByCredentialHashResult,
-} from '@vckit/core-types';
-import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
+} from '@uncefact/vckit-core-types';
+import schema from '@uncefact/vckit-core-types/build/plugin.schema.json' assert { type: 'json' };
 import {
   IEncryptionResults,
   decryptString,

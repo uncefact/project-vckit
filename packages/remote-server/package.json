@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/remote-server",
+  "name": "@uncefact/vckit-remote-server",
   "description": "Express.js module that can expose some agent methods and messaging endpoints",
   "version": "1.0.0",
   "main": "build/index.js",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@transmute/ed25519-key-pair": "0.7.0-unstable.82",
-    "@vckit/core-types": "workspace:^",
+    "@uncefact/vckit-core-types": "workspace:^",
     "@veramo/remote-client": "link:../../.tmp_npm/veramo/packages/remote-client",
     "@veramo/utils": "5.5.3",
     "debug": "^4.3.4",
@@ -26,7 +26,8 @@
     "passport-http-bearer": "^1.0.1",
     "uint8arrays": "^5.0.1",
     "url-parse": "^1.5.10",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "@uncefact/vckit-renderer": "^1.0.0"
   },
   "devDependencies": {
     "@types/debug": "4.1.12",

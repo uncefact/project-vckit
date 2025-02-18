@@ -5,7 +5,7 @@ import {
   UnsignedPresentation,
   VerifiableCredential,
   VerifiablePresentation,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 import { Response } from 'express';
 import { errorHandler } from '../error-handler.js';
 import { RequestWithAgent } from '../types/request-type.js';

@@ -11,8 +11,8 @@ Open browser and navigate to `http://localhost:3332/api-docs#post-/computeHash`.
 
 ### Library
 
-Install `@vckit/tools` package with `pnpm i @vckit/tools` command.
-Use `computeHash` function from `@vckit/tools` package.
+Install `@uncefact/vckit-tools` package with `pnpm i @uncefact/vckit-tools` command.
+Use `computeHash` function from `@uncefact/vckit-tools` package.
 
 ## Run unit test
 
@@ -35,5 +35,5 @@ agent:
     plugins:
         ...
         # Add tools plugin for MultibaseEncodedSHA256
-        - $require: '@vckit/tools?#MultibaseEncodedSHA256'
+        - $require: '@uncefact/vckit-tools?#MultibaseEncodedSHA256'
 ```
