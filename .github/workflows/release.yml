@@ -24,12 +24,12 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install pnpm
-        run: npm i pnpm --global
+        run: npm install -g pnpm@8.14.0
 
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '21'
+          node-version: '20.12.2'
 
       - name: Install dependencies
         run: pnpm i --filter ${{ env.EXCLUDED_PACKAGE_OA_RENDERERS }} --filter ${{ env.EXCLUDED_PACKAGE_CREDENTIAL_OA }} --filter ${{ env.EXCLUDED_PACKAGE_EXPLORER }} --no-frozen-lockfile

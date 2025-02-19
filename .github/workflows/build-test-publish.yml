@@ -19,7 +19,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20.12.2'
 
       - name: Install pnpm
         run: npm install -g pnpm@8.14.0
@@ -50,10 +50,10 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20.12.2'
 
       - name: Install pnpm
-        run: npm install -g pnpm@8.6.0
+        run: npm install -g pnpm@8.14.0
 
       - name: 'Restore build output'
         uses: actions/cache/restore@v3
