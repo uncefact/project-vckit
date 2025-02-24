@@ -25,5 +25,8 @@
   "dependencies": {
     "@uncefact/vckit-core-types": "workspace:1.0.0",
     "multiformats": "^13.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
