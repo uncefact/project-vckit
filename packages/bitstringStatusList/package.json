@@ -1,5 +1,5 @@
 {
-  "name": "@uncefact/vckit-bitstringStatusList",
+  "name": "@uncefact/vckit-bitstring-status-list",
   "version": "1.0.0",
   "description": "Using Bitstring to represent status list for revocation VC",
   "homepage": "https://github.com/uncefact/project-vckit#readme",
