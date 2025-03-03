@@ -39,7 +39,7 @@
     "@transmute/did-context": "0.7.0-unstable.82",
     "@types/blessed": "^0.1.25",
     "@types/swagger-ui-express": "^4.1.6",
-    "@uncefact/vckit-bitstringStatusList": "workspace:^",
+    "@uncefact/vckit-bitstring-status-list": "workspace:^",
     "@uncefact/vckit-core-types": "workspace:^",
     "@uncefact/vckit-credential-data-integrity": "workspace:^",
     "@uncefact/vckit-credential-merkle-disclosure-proof": "workspace:1.0.0",

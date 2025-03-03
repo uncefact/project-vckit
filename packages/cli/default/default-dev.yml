@@ -182,7 +182,7 @@ server:
       - $require: '@uncefact/vckit-revocationlist?t=function#revocationList2020Router'
 
     - - /credentials/status/bitstring-status-list
-      - $require: '@uncefact/vckit-bitstringStatusList?t=function#bitstringStatusListRouter'
+      - $require: '@uncefact/vckit-bitstring-status-list?t=function#bitstringStatusListRouter'
 
     # Agent API base path
     - - /agent
@@ -409,14 +409,14 @@ dbConnectionBitstringStatusList:
       synchronize: false
       migrationsRun: true
       migrations:
-        $require: '@uncefact/vckit-bitstringStatusList?t=object#migrations'
+        $require: '@uncefact/vckit-bitstring-status-list?t=object#migrations'
       logging: false
       entities:
-        $require: '@uncefact/vckit-bitstringStatusList?t=object#Entities'
+        $require: '@uncefact/vckit-bitstring-status-list?t=object#Entities'
 
 # BitstringStatusList for credentialStatus
 bitstringStatusList:
-  $require: '@uncefact/vckit-bitstringStatusList#BitstringStatusList'
+  $require: '@uncefact/vckit-bitstring-status-list#BitstringStatusList'
   $args:
     - bitstringDomainURL:
         $ref: /constants/baseUrl
@@ -454,7 +454,7 @@ agent:
         - $require: '@veramo/credential-status#CredentialStatusPlugin'
           $args:
             - BitstringStatusListEntry:
-                $require: '@uncefact/vckit-bitstringStatusList?t=object#checkStatus'
+                $require: '@uncefact/vckit-bitstring-status-list?t=object#checkStatus'
               RevocationList2020Status:
                 $require: '@uncefact/vckit-revocationlist?t=object#checkStatus'
         - $require: '@uncefact/vckit-tools#MultibaseEncodedSHA256'
