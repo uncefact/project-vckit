@@ -20,13 +20,13 @@ dbConnectionRevocationList:
       synchronize: true
       migrationsRun: true
       migrations:
-        $require: '@uncefact/vckit-revocationlist?t=object#migrations'
+        $require: '@uncefact/vckit-revocation-list-2020?t=object#migrations'
       logging: false
       entities:
-        $require: '@uncefact/vckit-revocationlist?t=object#Entities'
+        $require: '@uncefact/vckit-revocation-list-2020?t=object#Entities'
 
 revocationList:
-  $require: '@uncefact/vckit-revocationlist#RevocationStatus2020'
+  $require: '@uncefact/vckit-revocation-list-2020#RevocationStatus2020'
   $args:
     - dbConnection:
         $ref: /dbConnectionRevocationList
@@ -47,13 +47,13 @@ agent:
         - $require: '@veramo/credential-status#CredentialStatusPlugin'
           $args:
             - RevocationList2020Status:
-                $require: '@uncefact/vckit-revocationlist?t=object#checkStatus'
+                $require: '@uncefact/vckit-revocation-list-2020?t=object#checkStatus'
 ```
 
 - Then, set the revocation list middleware to inject the credential status to the credential when it is issued:
 
 ```yaml
-- $require: '@uncefact/vckit-revocationlist?t=function#revocationList2020'
+- $require: '@uncefact/vckit-revocation-list-2020?t=function#revocationList2020'
   $args:
     - apiRoutes:
         - /routeCreationVerifiableCredential

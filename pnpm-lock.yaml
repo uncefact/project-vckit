@@ -262,7 +262,7 @@ importers:
       '@uncefact/vckit-renderer':
         specifier: workspace:1.0.0
         version: link:../renderer
-      '@uncefact/vckit-revocationlist':
+      '@uncefact/vckit-revocation-list-2020':
         specifier: workspace:^
         version: link:../revocation-list-2020
       '@uncefact/vckit-tools':

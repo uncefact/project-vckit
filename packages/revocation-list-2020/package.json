@@ -1,5 +1,5 @@
 {
-  "name": "@uncefact/vckit-revocationlist",
+  "name": "@uncefact/vckit-revocation-list-2020",
   "version": "1.0.0",
   "description": "To encrypt the data and store to the database.",
   "author": "Nam Hoang <hoangxuannam160493@gmail.com>",

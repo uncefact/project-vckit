@@ -15,7 +15,7 @@ import {
 //     migrations as revocationListMigrations,
 //     Entities as revocationListEntities,
 //     RevocationStatus2020
-// } from '@uncefact/vckit-revocationlist'
+// } from '@uncefact/vckit-revocation-list-2020'
 
 import { Renderer, WebRenderingTemplate2022 } from '@uncefact/vckit-renderer';
 
