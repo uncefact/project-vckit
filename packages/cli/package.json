@@ -49,7 +49,7 @@
     "@uncefact/vckit-example-documents": "workspace:1.0.0",
     "@uncefact/vckit-remote-server": "workspace:1.0.0",
     "@uncefact/vckit-renderer": "workspace:1.0.0",
-    "@uncefact/vckit-revocationlist": "workspace:^",
+    "@uncefact/vckit-revocation-list-2020": "workspace:^",
     "@uncefact/vckit-tools": "workspace:^",
     "@uncefact/vckit-utils": "workspace:^",
     "@uncefact/vckit-vc-api": "workspace:1.0.0",
