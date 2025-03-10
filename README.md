@@ -191,3 +191,29 @@ To release a new version, ensure we have the `version.json` file updated with th
 ```
 
 We need to change manually the `version`, `apiVersion`, and `docVersion` fields.
+
+### Troubleshooting
+
+#### Issue: Old Version of Veramo's Modified Code Running
+
+**Symptoms**:
+
+- Unexpected behavior from Veramo despite recent code updates.
+- Changes to Veramo's code not reflecting in builds or runtime.
+
+**Cause**:
+The .tmp_npm folder caches modified Veramo code. When new code is pushed to the repository, this folder may retain outdated versions. Notably, pnpm build-clean does not remove this folder, leading to stale code execution.
+
+**Solution:**
+
+1. **Delete the `.tmp_npm` Folder:**
+   - Manually delete the `.tmp_npm` folder to ensure that the latest code is used.
+   - This folder is not removed by running `pnpm build-clean`.
+
+2. **Re-clone the Repository:**
+   - If deleting the `.tmp_npm` folder does not resolve the issue, consider re-cloning the repository. Note that this can be slow and inefficient, so it should be used as a last resort.
+
+**Steps to Delete the `.tmp_npm` Folder:**
+
+```sh
+rm -rf .tmp_npm
