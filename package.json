@@ -1,6 +1,6 @@
 {
   "name": "vckit",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "postinstall": "mkdir .tmp_npm; cd .tmp_npm; mkdir veramo; cd veramo; git init; git remote add -f origin https://github.com/gs-gs/veramo.git; git pull --depth=1 origin vc-v2; pnpm install; pnpm build;",
     "build": "pnpm build:agent && pnpm build:explorer",
