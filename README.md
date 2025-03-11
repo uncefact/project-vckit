@@ -177,7 +177,7 @@ To release a new version, ensure we have the `version.json` file updated with th
 6. Create a pull request from the release branch to `main`.
 7. Merge the pull request.
 8. Create a new release tag with the version number.
-8. Push the tag to the repository.
+9. Push the tag to the repository.
 
 (\*) With the `version.json` file, it contains the version number in the following format:
 
