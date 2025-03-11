@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.1.0](https://github.com/uncefact/project-vckit/compare/1.1.0...v1.1.0) (2025-03-11)
+
+
+### Miscellaneous
+
+* Release 1.1.0 ([8a832aa](https://github.com/uncefact/project-vckit/commit/8a832aa7ac82b4151f611bf2b3ceba12be599dc2))
+
 ## [1.1.0](https://github.com/uncefact/project-vckit/compare/1.0.2...v1.0.3) (2025-03-11)
 
 ### Features
