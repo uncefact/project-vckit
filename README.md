@@ -206,16 +206,6 @@ The .tmp_npm folder caches modified Veramo code. When new code is pushed to the 
 
 **Solution:**
 
-1. **Delete the `.tmp_npm` Folder:**
-
-   - Manually delete the `.tmp_npm` folder to ensure that the latest code is used.
-   - This folder is not removed by running `pnpm build-clean`.
-
-2. **Re-clone the Repository:**
-   - If deleting the `.tmp_npm` folder does not resolve the issue, consider re-cloning the repository. Note that this can be slow and inefficient, so it should be used as a last resort.
-
-**Steps to Delete the `.tmp_npm` Folder and Re-clone it:**
-
 ```sh
 # Delete the .tmp_npm Folder
 # This removes the temporary folder that may contain outdated code
