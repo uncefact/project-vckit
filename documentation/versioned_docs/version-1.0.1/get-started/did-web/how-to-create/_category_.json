@@ -1,0 +1,8 @@
+{
+  "label": "Creating and Hosting a did:web Identifier",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "This section will guide you through the process of creating, retrieving, and hosting a did:web identifier using VCkit. Project VCkit provides users with three ways to create and manage a did:web. Whether you're looking to use our preconfigured setup, host locally, or use your own domain, we've got you covered."
+  }
+}
