@@ -1,5 +1,35 @@
 # Change Log
 
+## [1.1.0](https://github.com/uncefact/project-vckit/compare/1.0.2...v1.0.3) (2025-03-11)
+
+### Features
+
+* Update doc and add render context ([a2f49c0](https://github.com/uncefact/project-vckit/commit/a2f49c0c95d49fb8ec469576eaebbfa17e03af80))
+
+
+### Bug Fixes
+
+* Add copy version.json in dockerfile ([#266](https://github.com/uncefact/project-vckit/issues/266)) ([75f32d0](https://github.com/uncefact/project-vckit/commit/75f32d04bd49fc7ce206f082f6fe58a0c7589ccb))
+
+
+### Code Refactoring
+
+* Rename [@vckit](https://github.com/vckit) packages to [@uncefact](https://github.com/uncefact) across the project ([#259](https://github.com/uncefact/project-vckit/issues/259)) ([4deb0c4](https://github.com/uncefact/project-vckit/commit/4deb0c493c37af43a34e01c1367031728e4537be))
+
+
+### Documentation
+
+* Add packaging information ([#258](https://github.com/uncefact/project-vckit/issues/258)) ([8ef5fb7](https://github.com/uncefact/project-vckit/commit/8ef5fb79d9a6f65158c6a2c2f3babab38be418d8))
+* Update document for trouble of Veramo code ([325b7e3](https://github.com/uncefact/project-vckit/commit/325b7e3c375a8e07177b12cbaee7c8af711b8858))
+
+
+### Miscellaneous
+
+* Update bitstring package name ([#267](https://github.com/uncefact/project-vckit/issues/267)) ([8cef116](https://github.com/uncefact/project-vckit/commit/8cef1165f869715efe8f86f6e42bdfcfd5cd6a4e))
+* Update revocation list package name ([#269](https://github.com/uncefact/project-vckit/issues/269)) ([328af8b](https://github.com/uncefact/project-vckit/commit/328af8b2b65fc41cc85987be709acb16237ad20d))
+* Add publishConfig with public access to package.json files ([#263](https://github.com/uncefact/project-vckit/issues/263)) ([d46f3e6](https://github.com/uncefact/project-vckit/commit/d46f3e6f7e4fd64e5ec77d736ad9af1210525aaa))
+* Update package manager and node versions ([#261](https://github.com/uncefact/project-vckit/pull/261))
+* Update npm organisation name([#260](https://github.com/uncefact/project-vckit/pull/260))
 
 ## [1.0.2](https://github.com/uncefact/project-vckit/compare/1.0.1...v1.0.2) (2025-01-17)
 
