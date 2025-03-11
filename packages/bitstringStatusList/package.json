@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/bitstringStatusList",
+  "name": "@uncefact/vckit-bitstring-status-list",
   "version": "1.0.0",
   "description": "Using Bitstring to represent status list for revocation VC",
   "homepage": "https://github.com/uncefact/project-vckit#readme",
@@ -41,8 +41,8 @@
     "@transmute/did-key.js": "0.3.0-unstable.10",
     "@transmute/did-web": "0.7.0-unstable.82",
     "@transmute/vc-status-rl-2020": "0.7.0-unstable.82",
-    "@vckit/core-types": "workspace:*",
-    "@vckit/credential-router": "workspace:*",
+    "@uncefact/vckit-core-types": "workspace:*",
+    "@uncefact/vckit-credential-router": "workspace:*",
     "@veramo/core": "5.5.3",
     "@veramo/credential-ld": "link:../../.tmp_npm/veramo/packages/credential-ld",
     "@veramo/credential-status": "link:../../.tmp_npm/veramo/packages/credential-status",
@@ -54,5 +54,8 @@
     "did-jwt": "^7.4.7",
     "typeorm": "^0.3.10",
     "uuid": "^9.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -7,7 +7,7 @@ import {
   VerifiableCredential,
   ProofType,
   UnsignedCredential,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 import * as vc from '@digitalcredentials/vc';
 import { MDP2021SuiteLoader } from './mdp-2021-suite-loader.js';
 import jsonldSignatures from '@digitalcredentials/jsonld-signatures';

@@ -1,4 +1,4 @@
-import { TAgent, IQRCodeEndpoint } from '@vckit/core-types'
+import { TAgent, IQRCodeEndpoint } from '@uncefact/vckit-core-types'
 import { Request, Router } from 'express'
 
 interface RequestWithAgent extends Request {

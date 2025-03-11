@@ -1,7 +1,7 @@
-import { IAgentPlugin, ITools, IToolsComputeHashArgs } from '@vckit/core-types';
+import { IAgentPlugin, ITools, IToolsComputeHashArgs } from '@uncefact/vckit-core-types';
 import { sha256 } from 'multiformats/hashes/sha2';
 import { base58btc } from 'multiformats/bases/base58';
-import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
+import schema from '@uncefact/vckit-core-types/build/plugin.schema.json' assert { type: 'json' };
 
 export class MultibaseEncodedSHA256 implements IAgentPlugin {
   readonly methods: ITools;

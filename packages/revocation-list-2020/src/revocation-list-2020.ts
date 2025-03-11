@@ -9,13 +9,13 @@ import {
   IHashCredentialArgs,
   IRevocationStatus,
   IIdentifier,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 import { OrPromise } from '@veramo/utils';
 import { DataSource } from 'typeorm';
 import { RevocationDataStore } from './identifier/revocation-list-2020-store.js';
 import { RevocationList } from './entities/revocation-list-2020-data.js';
 import { checkStatus as _checkStatus } from './revocation-list-2020-status.js';
-import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
+import schema from '@uncefact/vckit-core-types/build/plugin.schema.json' assert { type: 'json' };
 
 /**
  * @public

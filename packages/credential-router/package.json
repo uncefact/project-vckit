@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/credential-router",
+  "name": "@uncefact/vckit-credential-router",
   "version": "1.0.0",
   "description": "Credential router for VCKit to handle issue and verify with different proof types",
   "author": "Nam Hoang <hoangxuannam160493@gmail.com>",
@@ -35,9 +35,9 @@
     "url": "https://github.com/uncefact/project-vckit/issues"
   },
   "dependencies": {
-    "@vckit/core-types": "workspace:^",
-    "@vckit/credential-merkle-disclosure-proof": "workspace:^",
-    "@vckit/credential-oa": "workspace:^",
+    "@uncefact/vckit-core-types": "workspace:^",
+    "@uncefact/vckit-credential-merkle-disclosure-proof": "workspace:^",
+    "@uncefact/vckit-credential-oa": "workspace:^",
     "@veramo/credential-w3c": "link:../../.tmp_npm/veramo/packages/credential-w3c"
   },
   "publishConfig": {

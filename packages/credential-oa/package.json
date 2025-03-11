@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/credential-oa",
+  "name": "@uncefact/vckit-credential-oa",
   "description": "vckit plugin for working with OpenAttestation Verifiable Credentials & Presentations.",
   "version": "1.0.0",
   "main": "build/index.js",
@@ -16,7 +16,7 @@
   "dependencies": {
     "@govtechsg/oa-verify": "^9.0.0",
     "@govtechsg/open-attestation": "6.5.1",
-    "@vckit/core-types": "workspace:^",
+    "@uncefact/vckit-core-types": "workspace:^",
     "@veramo/utils": "5.5.3"
   },
   "devDependencies": {

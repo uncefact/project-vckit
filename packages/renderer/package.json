@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/renderer",
+  "name": "@uncefact/vckit-renderer",
   "version": "1.0.0",
   "description": "To render the verifiable credentials.",
   "keywords": [],
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@digitalcredentials/jsonld": "5.2.1",
-    "@vckit/core-types": "workspace:^",
+    "@uncefact/vckit-core-types": "workspace:^",
     "handlebars": "^4.7.8",
     "jose": "^5.9.3"
   },

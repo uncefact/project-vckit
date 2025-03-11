@@ -18,12 +18,12 @@ To implement a new render provider, follow these steps:
 
 ```yaml
 renderer:
-  $require: '@vckit/renderer#Renderer'
+  $require: '@uncefact/vckit-renderer#Renderer'
   $args:
     - defaultProvider: WebRenderingTemplate2022
       providers:
         WebRenderingTemplate2022:
-          $require: '@vckit/renderer#WebRenderingTemplate2022'
+          $require: '@uncefact/vckit-renderer#WebRenderingTemplate2022'
 ```
 
 ## Usage
@@ -33,7 +33,7 @@ renderer:
 #### Verifiable credential data that uses the proof type 'lds'
 
 ```typescript
-import { WebRenderingTemplate2022 } from '@vckit/renderer';
+import { WebRenderingTemplate2022 } from '@uncefact/vckit-renderer';
 
 // Example credential data
 const params = {
@@ -81,7 +81,7 @@ const result = await renderer.renderCredential(params, context);
 #### Verifiable credential data with EnvelopedVerifiableCredential
 
 ```typescript
-import { WebRenderingTemplate2022 } from '@vckit/renderer';
+import { WebRenderingTemplate2022 } from '@uncefact/vckit-renderer';
 
 const params = {
   credential: {

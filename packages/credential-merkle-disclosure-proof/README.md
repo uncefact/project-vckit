@@ -11,11 +11,11 @@ This package get idea from [merkle-disclosure-proof-2021](https://github.com/tra
 ```yaml
    # Merkle Disclosure Proof credentialPlugin
     credentialIssuerMDP:
-        $require: '@vckit/credential-merkle-disclosure-proof#CredentialMerkleDisclosureProof'
+        $require: '@uncefact/vckit-credential-merkle-disclosure-proof#CredentialMerkleDisclosureProof'
         $args:
             - suites:
                 # - $require: '@veramo/credential-ld#VeramoJsonWebSignature2020'
-                - $require: '@vckit/credential-merkle-disclosure-proof#VCKitMerkleDisclosureProof2021'
+                - $require: '@uncefact/vckit-credential-merkle-disclosure-proof#VCKitMerkleDisclosureProof2021'
             contextMaps:
                 # The LdDefaultContext is a "catch-all" for now.
                 - $require: '@veramo/credential-ld?t=object#LdDefaultContexts'

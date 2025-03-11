@@ -6,7 +6,7 @@ import { readStdin } from './util.js'
 import * as fs from 'fs'
 import * as json5 from 'json5'
 import { extractIssuer } from '@veramo/utils'
-import { PartialIdentifier, UniqueVerifiablePresentation } from '@vckit/core-types'
+import { PartialIdentifier, UniqueVerifiablePresentation } from '@uncefact/vckit-core-types'
 
 const presentation = new Command('presentation').description('W3C Verifiable Presentation')
 

@@ -9,15 +9,15 @@ import {
     IResolver,
     TAgent,
     IRenderer
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 
 // import{
 //     migrations as revocationListMigrations,
 //     Entities as revocationListEntities,
 //     RevocationStatus2020
-// } from '@vckit/revocationlist'
+// } from '@uncefact/vckit-revocation-list-2020'
 
-import { Renderer, WebRenderingTemplate2022 } from '@vckit/renderer';
+import { Renderer, WebRenderingTemplate2022 } from '@uncefact/vckit-renderer';
 
 //Veramo core and plugins
 import { createAgent } from '@veramo/core';

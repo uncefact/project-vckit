@@ -103,10 +103,10 @@ dbConnectionEncrypted:
       synchronize: false
       migrationsRun: true
       migrations:
-        $require: '@vckit/encrypted-storage?t=object#migrations'
+        $require: '@uncefact/vckit-encrypted-storage?t=object#migrations'
       logging: false
       entities:
-        $require: '@vckit/encrypted-storage?t=object#Entities'
+        $require: '@uncefact/vckit-encrypted-storage?t=object#Entities'
 
 dbConnectionRevocationList:
   $require: typeorm#DataSource
@@ -117,13 +117,13 @@ dbConnectionRevocationList:
       synchronize: false
       migrationsRun: true
       migrations:
-        $require: '@vckit/revocationlist?t=object#migrations'
+        $require: '@uncefact/vckit-revocation-list-2020?t=object#migrations'
       logging: false
       entities:
-        $require: '@vckit/revocationlist?t=object#Entities'
+        $require: '@uncefact/vckit-revocation-list-2020?t=object#Entities'
 
 revocationList:
-  $require: '@vckit/revocationlist#RevocationStatus2020'
+  $require: '@uncefact/vckit-revocation-list-2020#RevocationStatus2020'
   $args:
     - revocationListPath: http://localhost:3332
       bitStringLength: 8
@@ -141,33 +141,33 @@ server:
     - - $require: 'cors?t=function#default'
 
     # Add agent to the request object
-    - - $require: '@vckit/remote-server?t=function#RequestWithAgentRouter'
+    - - $require: '@uncefact/vckit-remote-server?t=function#RequestWithAgentRouter'
         $args:
           - agent:
               $ref: /agent
 
-    - - $require: '@vckit/utils?t=function#loggerMiddleware'
+    - - $require: '@uncefact/vckit-utils?t=function#loggerMiddleware'
 
     # DID Documents
-    - - $require: '@vckit/remote-server?t=function#WebDidDocRouter'
+    - - $require: '@uncefact/vckit-remote-server?t=function#WebDidDocRouter'
 
     # VC API v1
     - - /v1
-      - $require: '@vckit/vc-api?t=function#V1VcRouter'
+      - $require: '@uncefact/vckit-vc-api?t=function#V1VcRouter'
         $args:
           - basePath: :3332
             apiKey: ${API_KEY}
 
     # VC API v2
     - - /v2
-      - $require: '@vckit/vc-api?t=function#V2VcRouter'
+      - $require: '@uncefact/vckit-vc-api?t=function#V2VcRouter'
         $args:
           - basePath: :3332
             apiKey: ${API_KEY}
 
     # API base path
     - - /messaging
-      - $require: '@vckit/remote-server?t=function#MessagingRouter'
+      - $require: '@uncefact/vckit-remote-server?t=function#MessagingRouter'
         $args:
           - metaData:
               type: DIDComm
@@ -175,34 +175,34 @@ server:
 
     # Encrypted storage API
     - - /encrypted-storage
-      - $require: '@vckit/encrypted-storage?t=function#encryptedStoreRouter'
+      - $require: '@uncefact/vckit-encrypted-storage?t=function#encryptedStoreRouter'
 
     # Revocation List
     - - /credentials/status/revocation-list-2020
-      - $require: '@vckit/revocationlist?t=function#revocationList2020Router'
+      - $require: '@uncefact/vckit-revocation-list-2020?t=function#revocationList2020Router'
 
     - - /credentials/status/bitstring-status-list
-      - $require: '@vckit/bitstringStatusList?t=function#bitstringStatusListRouter'
+      - $require: '@uncefact/vckit-bitstring-status-list?t=function#bitstringStatusListRouter'
 
     # Agent API base path
     - - /agent
-      # - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+      # - $require: '@uncefact/vckit-remote-server?t=function#apiKeyAuth'
       #   $args:
       #     - apiKey: kh14g04piduv
 
-      - $require: '@vckit/encrypted-storage?t=function#encryptedStoreMiddleware'
+      - $require: '@uncefact/vckit-encrypted-storage?t=function#encryptedStoreMiddleware'
         $args:
           - apiRoutes:
               - /routeCreationVerifiableCredential
 
-      - $require: '@vckit/remote-server?t=function#AgentRouter'
+      - $require: '@uncefact/vckit-remote-server?t=function#AgentRouter'
         $args:
           - exposedMethods:
               $ref: /constants/methods
 
     # Open API schema
     - - /open-api.json
-      - $require: '@vckit/remote-server?t=function#ApiSchemaRouter'
+      - $require: '@uncefact/vckit-remote-server?t=function#ApiSchemaRouter'
         $args:
           - basePath: :3332/agent
             securityScheme: bearer
@@ -213,24 +213,24 @@ server:
 
     # rapidoc docs
     - - /agent-api-docs
-      - $require: '@vckit/remote-server?t=function#ApiDocsRouter'
+      - $require: '@uncefact/vckit-remote-server?t=function#ApiDocsRouter'
 
     # API base path
     - - /api
-      - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+      - $require: '@uncefact/vckit-remote-server?t=function#apiKeyAuth'
         $args:
           - apiKey: kh14g04piduv
-      - $require: '@vckit/remote-server?t=function#ApiRouter'
+      - $require: '@uncefact/vckit-remote-server?t=function#ApiRouter'
 
     - - /api-docs
-      - $require: '@vckit/remote-server?t=function#SwaggerApiDocsRouter'
+      - $require: '@uncefact/vckit-remote-server?t=function#SwaggerApiDocsRouter'
 
     - - /swagger-api.json
-      - $require: '@vckit/remote-server?t=function#SwaggerApiSchemaRouter'
+      - $require: '@uncefact/vckit-remote-server?t=function#SwaggerApiSchemaRouter'
 
   # Execute during server initialization
   # init:
-  #   - $require: '@vckit/remote-server?t=function#createDefaultDid'
+  #   - $require: '@uncefact/vckit-remote-server?t=function#createDefaultDid'
   #     $args:
   #       - agent:
   #           $ref: /agent
@@ -317,7 +317,7 @@ keyManager:
 
 # Encrypted Storage Plugin
 encryptedStorage:
-  $require: '@vckit/encrypted-storage#EncryptedStorage'
+  $require: '@uncefact/vckit-encrypted-storage#EncryptedStorage'
   $args:
     - dbConnection:
         $ref: /dbConnectionEncrypted
@@ -384,22 +384,22 @@ credentialIssuerLD:
         - $require: '@veramo/credential-ld?t=object#LdDefaultContexts'
         - $require: '@transmute/credentials-context?t=object#contexts'
         - $require: '@transmute/did-context?t=object#contexts'
-        - $require: '@vckit/renderer?t=object#RenderDefaultContexts'
-        - $require: '@vckit/revocationlist?t=object#RevocationListDefaultContexts'
+        - $require: '@uncefact/vckit-renderer?t=object#RenderDefaultContexts'
+        - $require: '@uncefact/vckit-revocation-list-2020?t=object#RevocationListDefaultContexts'
         #  others should be included here
 
 # Renderer
 renderer:
-  $require: '@vckit/renderer#Renderer'
+  $require: '@uncefact/vckit-renderer#Renderer'
   $args:
     - defaultProvider: WebRenderingTemplate2022
       providers:
         WebRenderingTemplate2022:
-          $require: '@vckit/renderer#WebRenderingTemplate2022'
+          $require: '@uncefact/vckit-renderer#WebRenderingTemplate2022'
         SvgRenderingHint2022:
-          $require: '@vckit/renderer#WebRenderingTemplate2022'
+          $require: '@uncefact/vckit-renderer#WebRenderingTemplate2022'
         RenderTemplate2024:
-          $require: '@vckit/renderer#RenderTemplate2024'
+          $require: '@uncefact/vckit-renderer#RenderTemplate2024'
 
 dbConnectionBitstringStatusList:
   $require: typeorm#DataSource
@@ -410,14 +410,14 @@ dbConnectionBitstringStatusList:
       synchronize: false
       migrationsRun: true
       migrations:
-        $require: '@vckit/bitstringStatusList?t=object#migrations'
+        $require: '@uncefact/vckit-bitstring-status-list?t=object#migrations'
       logging: false
       entities:
-        $require: '@vckit/bitstringStatusList?t=object#Entities'
+        $require: '@uncefact/vckit-bitstring-status-list?t=object#Entities'
 
 # BitstringStatusList for credentialStatus
 bitstringStatusList:
-  $require: '@vckit/bitstringStatusList#BitstringStatusList'
+  $require: '@uncefact/vckit-bitstring-status-list#BitstringStatusList'
   $args:
     - bitstringDomainURL:
         $ref: /constants/baseUrl
@@ -436,9 +436,9 @@ agent:
         - $ref: /didDiscovery
         - $ref: /messageHandler
         - $require: '@veramo/did-comm#DIDComm'
-        - $require: '@vckit/credential-router#CredentialRouter'
+        - $require: '@uncefact/vckit-credential-router#CredentialRouter'
         - $require: '@veramo/credential-w3c#CredentialPlugin'
-        # - $require: '@vckit/credential-oa#CredentialOA' #TODO: Implement
+        # - $require: '@uncefact/vckit-credential-oa#CredentialOA' #TODO: Implement
         - $ref: /credentialIssuerLD
         - $require: '@veramo/credential-eip712#CredentialIssuerEIP712'
         - $require: '@veramo/selective-disclosure#SelectiveDisclosure'
@@ -455,7 +455,7 @@ agent:
         - $require: '@veramo/credential-status#CredentialStatusPlugin'
           $args:
             - BitstringStatusListEntry:
-                $require: '@vckit/bitstringStatusList?t=object#checkStatus'
+                $require: '@uncefact/vckit-bitstring-status-list?t=object#checkStatus'
               RevocationList2020Status:
-                $require: '@vckit/revocationlist?t=object#checkStatus'
-        - $require: '@vckit/tools#MultibaseEncodedSHA256'
+                $require: '@uncefact/vckit-revocation-list-2020?t=object#checkStatus'
+        - $require: '@uncefact/vckit-tools#MultibaseEncodedSHA256'

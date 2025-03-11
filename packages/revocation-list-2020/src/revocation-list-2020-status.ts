@@ -6,10 +6,10 @@ import { contexts } from '@transmute/did-context/index.js';
 import { DocumentLoader } from '@transmute/vc-status-rl-2020/dist/types';
 import * as didKey from '@transmute/did-key.js';
 import * as didWeb from '@transmute/did-web';
-import { CredentialStatus } from '@vckit/core-types';
+import { CredentialStatus } from '@uncefact/vckit-core-types';
 import { LdDefaultContexts } from '@veramo/credential-ld';
 import { RevocationListDefaultContexts } from './revocaltion-list-default-contexts.js';
-import { RenderDefaultContexts } from '@vckit/renderer';
+import { RenderDefaultContexts } from '@uncefact/vckit-renderer';
 
 const resolve = async (did: string) => {
   if (did.startsWith('did:key')) {

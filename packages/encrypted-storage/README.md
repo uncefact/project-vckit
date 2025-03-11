@@ -20,10 +20,10 @@ dbConnectionEncrypted:
       synchronize: false
       migrationsRun: true
       migrations:
-        $require: '@vckit/encrypted-storage?t=object#migrations'
+        $require: '@uncefact/vckit-encrypted-storage?t=object#migrations'
       logging: false
       entities:
-        $require: '@vckit/encrypted-storage?t=object#Entities'
+        $require: '@uncefact/vckit-encrypted-storage?t=object#Entities'
 ```
 
 Second, add the `encryptedStorage` to define the encrypted storage plugin.
@@ -31,7 +31,7 @@ Second, add the `encryptedStorage` to define the encrypted storage plugin.
 ```yaml
 # Encrypted Storage Plugin
 encryptedStorage:
-  $require: '@vckit/encrypted-storage#EncryptedStorage'
+  $require: '@uncefact/vckit-encrypted-storage#EncryptedStorage'
   $args:
     - dbConnection:
         $ref: /dbConnectionEncrypted
@@ -42,7 +42,7 @@ then require the encrypted storage plugin to the agent.
 ```yaml
 # Agent
 agent:
-  $require: '@vckit/core#Agent'
+  $require: '@veramo/core#Agent'
   $args:
     - schemaValidation: false
       plugins:
@@ -63,16 +63,16 @@ After that, you need to configure the middleware to use the encrypted storage pl
 ```yaml
 # API base path
 - - /agent
-  - $require: '@vckit/remote-server?t=function#apiKeyAuth'
+  - $require: '@uncefact/vckit-remote-server?t=function#apiKeyAuth'
     $args:
       - apiKey: test123
   # Configure the middleware before the AgentRouter function. The middleware only allow the apis in `apiRoutes` to use the encrypted storage plugin.
-  - $require: '@vckit/encrypted-storage?t=function#encryptedStoreMiddleware'
+  - $require: '@uncefact/vckit-encrypted-storage?t=function#encryptedStoreMiddleware'
     $args:
       - apiRoutes:
           - /routeCreationVerifiableCredential
 
-  - $require: '@vckit/remote-server?t=function#AgentRouter'
+  - $require: '@uncefact/vckit-remote-server?t=function#AgentRouter'
     $args:
       - exposedMethods:
           $ref: /constants/methods
@@ -83,7 +83,7 @@ Finally, you need to expose the endpoint that can be used to fetch the encrypted
 ```yaml
 # Encrypted storage API
 - - /encrypted-storage
-  - $require: '@vckit/encrypted-storage?t=function#encryptedStoreRouter'
+  - $require: '@uncefact/vckit-encrypted-storage?t=function#encryptedStoreRouter'
 ```
 
 ### To use the encrypted storage plugin

@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/oa-renderers",
+  "name": "@uncefact/vckit-oa-renderers",
   "version": "1.0.0",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -221,5 +221,8 @@
   "moduleDirectories": [
     "node_modules",
     "src"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -12,9 +12,9 @@ import {
   IRenderer,
   VerifiableCredential,
   EnvelopedVerifiableCredential,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 import { RenderDefaultContexts } from './render-default-contexts.js';
-import schema from '@vckit/core-types/build/plugin.schema.json' assert { type: 'json' };
+import schema from '@uncefact/vckit-core-types/build/plugin.schema.json' assert { type: 'json' };
 import * as jose from 'jose';
 
 export const RENDER_METHOD = 'https://www.w3.org/2018/credentials#renderMethod';

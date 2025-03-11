@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/credential-data-integrity",
+  "name": "@uncefact/vckit-credential-data-integrity",
   "description": "Veramo plugin for working with W3C JSON-LD Verifiable Credentials.",
   "version": "1.0.0",
   "type": "module",
@@ -15,7 +15,7 @@
     "@digitalbazaar/data-integrity": "^2.1.0",
     "@digitalbazaar/ed25519-multikey": "^1.1.0",
     "@digitalbazaar/eddsa-rdfc-2022-cryptosuite": "^1.0.1",
-    "@vckit/core-types": "workspace:*",
+    "@uncefact/vckit-core-types": "workspace:*",
     "@veramo/credential-ld": "link:../../.tmp_npm/veramo/packages/credential-ld",
     "@veramo/utils": "5.5.3"
   },

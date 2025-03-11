@@ -8,7 +8,7 @@ import {
   IRenderResult,
   RenderDocument,
   IRenderedResult,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 import universityDegreeCredential from '../fixtures/university-degree-credential.json';
 import universityDegreeCredentialTemplate2024 from '../fixtures/univerisity-degree-credential-template-2024.json';
 
@@ -119,9 +119,10 @@ describe('Renderer', () => {
 
     expect(renderTemplate2024Result.documents).toEqual([
       {
-        renderedTemplate:
-          'PGRpdiBzdHlsZT0id2lkdGg6MzAwcHg7IGhlaWdodDozMDBweDsgYm9yZGVyOiAycHggc29saWQgYmxhY2s7IHRleHQtYWxpZ246Y2VudGVyIj4gIAoJPGgyPkNlcnRpZmljYXRlPC9oMj4KICAgIDxwPk9mIENvbXBsZXRpb248L3A+CiAgPGRpdj4gICAgVGhpcyBpcyB0byBjZXJ0aWZ5IHRoYXQgIDwvZGl2PiAgCiAgPHN0cm9uZyBzdHlsZT0iZm9udC1zaXplOiAxNnB4Ij4gICBKb2huIERvZSAgPC9zdHJvbmc+CiAgPGRpdj5oYXMgY29tcGxldGVkIHRoZSBCYWNoZWxvciBvZiBDb21wdXRlciBTY2llbmNlPC9kaXY+CiAgPGRpdj4gICAgYnkgRXhhbXBsZSBVbml2ZXJzaXR5LiAgPC9kaXY+CjwvZGl2Pg==',
+        renderedTemplate: 'RXJyb3I6IE5vIHRlbXBsYXRlIG9yIHVybCBwcm92aWRlZA==',
         type: 'RenderTemplate2024',
+        id: undefined,
+        name: undefined,
       },
     ]);
   });
@@ -293,9 +294,10 @@ describe('Renderer', () => {
 
     expect(renderTemplate2024Result.documents).toEqual([
       {
-        renderedTemplate:
-          'RXJyb3I6IE5vIGhhc2ggZnVuY3Rpb24gcHJvdmlkZWQgdG8gdmVyaWZ5IHRoZSB0ZW1wbGF0ZQ==',
+        renderedTemplate: 'RXJyb3I6IE5vIHRlbXBsYXRlIG9yIHVybCBwcm92aWRlZA==',
         type: 'RenderTemplate2024',
+        id: undefined,
+        name: undefined,
       },
     ]);
   });

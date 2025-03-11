@@ -1,4 +1,4 @@
-import { TAgent, IPluginMethodMap } from '@vckit/core-types'
+import { TAgent, IPluginMethodMap } from '@uncefact/vckit-core-types'
 import { createObjects } from './objectCreator.js'
 
 /**

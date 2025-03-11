@@ -1,5 +1,5 @@
 {
-  "name": "@vckit/tools",
+  "name": "@uncefact/vckit-tools",
   "version": "1.0.0",
   "description": "",
   "main": "build/index.js",
@@ -23,7 +23,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@vckit/core-types": "workspace:1.0.0",
+    "@uncefact/vckit-core-types": "workspace:1.0.0",
     "multiformats": "^13.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

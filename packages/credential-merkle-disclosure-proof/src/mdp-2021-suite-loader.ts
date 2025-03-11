@@ -1,5 +1,5 @@
 import { VeramoLdSignature } from '@veramo/credential-ld';
-import { TKeyType } from '@vckit/core-types';
+import { TKeyType } from '@uncefact/vckit-core-types';
 
 /**
  * Initializes a list of Signature suites and exposes those to the Agent Module

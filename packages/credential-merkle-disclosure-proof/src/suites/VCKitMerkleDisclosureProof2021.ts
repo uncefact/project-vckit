@@ -4,7 +4,7 @@ import {
   IAgentContext,
   IKey,
   TKeyType,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 import { RequiredAgentMethods, VCKitMDPSignature } from '../mdp-suites.js';
 import { JsonWebKey } from '@transmute/json-web-signature';
 import { MerkleDisclosureProof2021 } from '../merkle-disclosure-proof-2021/MerkleDisclosureProof2021.js';

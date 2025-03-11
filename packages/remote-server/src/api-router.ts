@@ -1,4 +1,4 @@
-import { IAgent } from '@vckit/core-types';
+import { IAgent } from '@uncefact/vckit-core-types';
 import swaggerUi from 'swagger-ui-express';
 import { Request, Response, NextFunction, Router } from 'express';
 import Debug from 'debug';

@@ -2,7 +2,7 @@ import {
   IRendererProvider,
   RenderDocument,
   IRenderedResult,
-} from '@vckit/core-types';
+} from '@uncefact/vckit-core-types';
 import handlebars from 'handlebars';
 import { RENDER_METHOD } from '../renderer.js';
 
