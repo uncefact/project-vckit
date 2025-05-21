@@ -28,6 +28,21 @@ renderer:
           $require: '@uncefact/vckit-renderer#WebRenderingTemplate2022'
 ```
 
+## IRI Usage for Render Methods
+
+When defining or consuming render methods, it's crucial to use correct and valid Internationalized Resource Identifiers (IRIs).
+
+- The primary IRI for identifying render methods within a Verifiable Credential, as defined by the W3C VC Data Model, is `https://www.w3.org/2018/credentials#renderMethod`. This is used in the VC JSON-LD context to denote the `renderMethod` property. (See `RENDER_METHOD` constant in `packages/renderer/src/renderer.ts`).
+
+- For properties within a specific render method implementation, such as `RenderTemplate2024`, IRIs should be constructed carefully. The `vckit` codebase has adopted the following distinct IRIs from the `https://w3id.org/vc/render-method#` namespace for common properties to avoid issues stemming from incorrect IRI construction (like appending to a base IRI fragment, which could lead to multiple `#` characters):
+
+  - For the template string: `https://w3id.org/vc/render-method#template` (see `TEMPLATE_IRI` in `packages/renderer/src/providers/render-template-2024.ts` and `packages/renderer/src/providers/web-rendering-template-2022.ts`)
+  - For a URL pointing to a template: `https://w3id.org/vc/render-method#url` (see `URL_IRI` in `packages/renderer/src/providers/render-template-2024.ts`)
+
+- Other properties like `mediaType` (e.g., using `https://schema.org/encodingFormat`), `digestMultibase` (e.g., `https://w3id.org/security#digestMultibase`), and `name` (e.g., `https://schema.org/name`) should use their respective standard IRIs as per their defining specifications.
+
+This approach ensures IRI validity and interoperability. For historical context and further details on the evolution of these IRIs within `vckit` and related discussions, refer to [GitHub issue uncefact/spec-untp#334](https://github.com/uncefact/spec-untp/issues/334).
+
 ## Usage
 
 ### Standalone
