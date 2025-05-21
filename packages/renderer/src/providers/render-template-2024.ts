@@ -6,6 +6,10 @@ import {
 } from '@uncefact/vckit-core-types';
 import handlebars from 'handlebars';
 import { RENDER_METHOD } from '../renderer.js';
+
+const TEMPLATE_IRI = 'https://w3id.org/vc/render-method#template'; // See issue https://github.com/uncefact/spec-untp/issues/334
+const URL_IRI = 'https://w3id.org/vc/render-method#url'; // See issue https://github.com/uncefact/spec-untp/issues/334
+
 /**
  * RenderTemplate2024 class implements the IRendererProvider interface for rendering verifiable credentials using Handlebars templates.
  * @public
@@ -97,14 +101,12 @@ export class RenderTemplate2024 implements IRendererProvider {
   }
 
   extractData(data: any) {
-    const template = data[`${RENDER_METHOD}#template`]
-      ? (data[`${RENDER_METHOD}#template`] as { '@value': string }[])[0][
-          '@value'
-        ]
+    const template = data[TEMPLATE_IRI]
+      ? (data[TEMPLATE_IRI] as { '@value': string }[])[0]['@value']
       : undefined;
 
-    const url = data[`${RENDER_METHOD}#url`]
-      ? (data[`${RENDER_METHOD}#url`] as { '@value': string }[])[0]['@value']
+    const url = data[URL_IRI]
+      ? (data[URL_IRI] as { '@value': string }[])[0]['@value']
       : undefined;
 
     const mediaType = data['https://schema.org/encodingFormat']
