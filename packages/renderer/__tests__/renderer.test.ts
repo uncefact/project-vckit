@@ -119,7 +119,7 @@ describe('Renderer', () => {
 
     expect(renderTemplate2024Result.documents).toEqual([
       {
-        renderedTemplate: 'RXJyb3I6IE5vIHRlbXBsYXRlIG9yIHVybCBwcm92aWRlZA==',
+        renderedTemplate: 'PGRpdiBzdHlsZT0id2lkdGg6MzAwcHg7IGhlaWdodDozMDBweDsgYm9yZGVyOiAycHggc29saWQgYmxhY2s7IHRleHQtYWxpZ246Y2VudGVyIj4gIAoJPGgyPkNlcnRpZmljYXRlPC9oMj4KICAgIDxwPk9mIENvbXBsZXRpb248L3A+CiAgPGRpdj4gICAgVGhpcyBpcyB0byBjZXJ0aWZ5IHRoYXQgIDwvZGl2PiAgCiAgPHN0cm9uZyBzdHlsZT0iZm9udC1zaXplOiAxNnB4Ij4gICBKb2huIERvZSAgPC9zdHJvbmc+CiAgPGRpdj5oYXMgY29tcGxldGVkIHRoZSBCYWNoZWxvciBvZiBDb21wdXRlciBTY2llbmNlPC9kaXY+CiAgPGRpdj4gICAgYnkgRXhhbXBsZSBVbml2ZXJzaXR5LiAgPC9kaXY+CjwvZGl2Pg==',
         type: 'RenderTemplate2024',
         id: undefined,
         name: undefined,
@@ -132,11 +132,11 @@ describe('Renderer', () => {
     const args: IRenderCredentialArgs = {
       credential: {
         ...universityDegreeCredential,
-        render: [
+        renderMethod: [
           {
             template:
               '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="100">\n  <rect width="100%" height="100%" style="fill:rgb(0,0,255);stroke-width:2;stroke:rgb(0,0,0)" />\n  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" style="font-size:16px">Jane Smith</text>\n</svg>',
-            '@type': 'SvgRenderingHint2022',
+            'type': 'SvgRenderingHint2022',
           },
         ],
       },
@@ -166,7 +166,7 @@ describe('Renderer', () => {
           'https://www.w3.org/2018/credentials/v1',
           'https://www.w3.org/2018/credentials/examples/v1',
           {
-            render: 'https://www.w3.org/2018/credentials#renderMethod',
+            renderMethod: 'https://www.w3.org/2018/credentials#renderMethod',
           },
         ],
         id: 'http://example.edu/credentials/3732',
@@ -194,7 +194,7 @@ describe('Renderer', () => {
           'https://www.w3.org/2018/credentials/v1',
           'https://www.w3.org/2018/credentials/examples/v1',
           {
-            render: 'https://www.w3.org/2018/credentials#renderMethod',
+            renderMethod: 'https://www.w3.org/2018/credentials#renderMethod',
           },
         ],
         id: 'http://example.edu/credentials/3732',
@@ -202,7 +202,7 @@ describe('Renderer', () => {
         issuer: 'https://example.edu/issuers/565049',
         issuanceDate: '2010-01-01T00:00:00Z',
         credentialSubject: {},
-        render: [
+        renderMethod: [
           {
             template: 'random-template',
             '@type': 'invalid-render-type',
@@ -218,13 +218,13 @@ describe('Renderer', () => {
     ).rejects.toThrow('Renderer provider invalid-render-type not found');
   });
 
-  it('should render a verifiable credential with no render methods', async () => {
+  it('should throw an error if the verifiable credential does not contain a render method', async () => {
     // Mock data
     const args: IRenderCredentialArgs = {
       credential: {
         '@context': [
           'https://www.w3.org/2018/credentials/v1',
-          'https://www.w3.org/2018/credentials/examples/v1',
+          'https://www.w3.org/2018/credentials/examples/v1'     
         ],
         id: 'http://example.edu/credentials/3732',
         type: ['VerifiableCredential', 'UniversityDegreeCredential'],
@@ -246,7 +246,7 @@ describe('Renderer', () => {
     ).rejects.toThrow('Render method not found in the verifiable credential');
   });
 
-  it('should render a verifiable credential with an empty credential object', async () => {
+  it('should throw an error if the verifiable credential is not valid', async () => {
     // Mock data
     const args: IRenderCredentialArgs = {
       credential: {} as any,
@@ -294,7 +294,7 @@ describe('Renderer', () => {
 
     expect(renderTemplate2024Result.documents).toEqual([
       {
-        renderedTemplate: 'RXJyb3I6IE5vIHRlbXBsYXRlIG9yIHVybCBwcm92aWRlZA==',
+        renderedTemplate: 'PGRpdiBzdHlsZT0id2lkdGg6MzAwcHg7IGhlaWdodDozMDBweDsgYm9yZGVyOiAycHggc29saWQgYmxhY2s7IHRleHQtYWxpZ246Y2VudGVyIj4gIAoJPGgyPkNlcnRpZmljYXRlPC9oMj4KICAgIDxwPk9mIENvbXBsZXRpb248L3A+CiAgPGRpdj4gICAgVGhpcyBpcyB0byBjZXJ0aWZ5IHRoYXQgIDwvZGl2PiAgCiAgPHN0cm9uZyBzdHlsZT0iZm9udC1zaXplOiAxNnB4Ij4gICBKb2huIERvZSAgPC9zdHJvbmc+CiAgPGRpdj5oYXMgY29tcGxldGVkIHRoZSBCYWNoZWxvciBvZiBDb21wdXRlciBTY2llbmNlPC9kaXY+CiAgPGRpdj4gICAgYnkgRXhhbXBsZSBVbml2ZXJzaXR5LiAgPC9kaXY+CjwvZGl2Pg==',
         type: 'RenderTemplate2024',
         id: undefined,
         name: undefined,
@@ -307,7 +307,7 @@ describe('Renderer', () => {
     const args: IRenderCredentialArgs = {
       credential: {
         ...universityDegreeCredential,
-        render: [
+        renderMethod: [
           {
             template: 'template1',
             '@type': 'WebRenderingTemplate2022',
@@ -342,14 +342,32 @@ describe('Renderer', () => {
     // Mock data
     const args: IRenderCredentialArgs = {
       credential: {
-        '@context': [
-          'https://www.w3.org/ns/credentials/v2',
-          'https://www.w3.org/ns/credentials/examples/v2',
-          'https://dev-render-method-context.s3.ap-southeast-1.amazonaws.com/dev-render-method-context.json',
+        "@context": [
+            "https://www.w3.org/ns/credentials/v2",
+            "https://www.w3.org/ns/credentials/examples/v2",
+            {
+                "@context": {
+                    "renderMethodPrefix": "https://w3id.org/vc/render-method#",
+                    "xsd": "http://www.w3.org/2001/XMLSchema#",
+                    "@protected": true,
+                    "@version": 1.1,
+                    "WebRenderingTemplate2022": {
+                        "@protected": true,
+                        "@id": "renderMethodPrefix:WebRenderingTemplate2022",
+                        "@context": {
+                            "@protected": true,
+                            "template": {
+                                "@id": "renderMethodPrefix:template",
+                                "@type": "xsd:string"
+                            }
+                        }
+                    }
+                }
+            }
         ],
-        type: 'EnvelopedVerifiableCredential',
-        id: 'data:application/vc-ld+jwt,eyJhbGciOiJFZERTQSIsImlzcyI6ImRpZDp3ZWI6ZDVmNi0xMTYtMTA2LTE5Mi0yMTUubmdyb2stZnJlZS5hcHAiLCJ0eXAiOiJ2Yy1sZCtqd3QifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiLCJodHRwczovL2Rldi1yZW5kZXItbWV0aG9kLWNvbnRleHQuczMuYXAtc291dGhlYXN0LTEuYW1hem9uYXdzLmNvbS9kZXYtcmVuZGVyLW1ldGhvZC1jb250ZXh0Lmpzb24iXSwiaWQiOiJodHRwOi8vdW5pdmVyc2l0eS5leGFtcGxlL2NyZWRlbnRpYWxzLzE4NzIiLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwiRXhhbXBsZUFsdW1uaUNyZWRlbnRpYWwiXSwiaXNzdWVyIjoiZGlkOndlYjpkNWY2LTExNi0xMDYtMTkyLTIxNS5uZ3Jvay1mcmVlLmFwcCIsInZhbGlkRnJvbSI6IjIwMTAtMDEtMDFUMTk6MjM6MjRaIiwiY3JlZGVudGlhbFNjaGVtYSI6eyJpZCI6Imh0dHBzOi8vZXhhbXBsZS5vcmcvZXhhbXBsZXMvZGVncmVlLmpzb24iLCJ0eXBlIjoiSnNvblNjaGVtYSJ9LCJjcmVkZW50aWFsU3ViamVjdCI6eyJpZCI6ImRpZDpleGFtcGxlOjEyMyIsImRlZ3JlZSI6eyJ0eXBlIjoiQmFjaGVsb3JEZWdyZWUiLCJuYW1lIjoiQmFjaGVsb3Igb2YgU2NpZW5jZSBhbmQgQXJ0cyJ9fSwicmVuZGVyIjpbeyJ0ZW1wbGF0ZSI6IlBHUnBkaUJ6ZEhsc1pUMGlkMmxrZEdnNk16QXdjSGc3SUdobGFXZG9kRG94TURCd2VEc2dZbTl5WkdWeU9pQXljSGdnYzI5c2FXUWdZbXhoWTJzN0lIUmxlSFF0WVd4cFoyNDZZMlZ1ZEdWeUlqNEtJQ0E4WkdsMlBnb2dJQ0FnVkdocGN5QkNZV05vWld4dmNpQnZaaUJUWTJsbGJtTmxJR0Z1WkNCQmNuUnpJR2x6SUdOdmJtWmxjbkpsWkNCMGJ3b2dJRHd2WkdsMlBnb2dJRHh6ZEhKdmJtY2djM1I1YkdVOUltWnZiblF0YzJsNlpUb2dNVFp3ZUNJK0NpQWdJQ0JLWVc1bElGTnRhWFJvQ2lBZ1BDOXpkSEp2Ym1jK0NpQWdQR1JwZGo0S0lDQWdJR0o1SUVWNFlXMXdiR1VnVlc1cGRtVnljMmwwZVM0S0lDQThMMlJwZGo0S1BDOWthWFkrIiwiQHR5cGUiOiJXZWJSZW5kZXJpbmdUZW1wbGF0ZTIwMjIifV0sImlzc3VhbmNlRGF0ZSI6IjIwMjQtMDktMzBUMDg6MzE6MTYuODg4WiJ9.UFC7Zxk3sAqef5Rs7oJxDwv304TTNPQHV1xBr2sgWg-xpZBAfmFpXcxoYvxEf80I__c3TwI95GnFH9C7qJzIAg',
-      },
+        "type": "EnvelopedVerifiableCredential",
+        "id": "data:application/vc+jwt,eyJhbGciOiJFZERTQSIsImtpZCI6ImRpZDp3ZWI6dW5jZWZhY3QuZ2l0aHViLmlvOnByb2plY3QtdmNraXQ6dGVzdC1hbmQtZGV2ZWxvcG1lbnQjN2FmMTM2YThlZmExMWE0ZGYyZTkwMTBiOTcyYmRiOTJhMDAxMzcyNGI1MGU1ZWZhNDU0MDdhMmRkZWExODRlNi1Kc29uV2ViS2V5LWtleS0wIiwiY3R5IjoidmMiLCJ0eXAiOiJ2Yytqd3QifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiLHsiQGNvbnRleHQiOnsicmVuZGVyTWV0aG9kUHJlZml4IjoiaHR0cHM6Ly93M2lkLm9yZy92Yy9yZW5kZXItbWV0aG9kIyIsInhzZCI6Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvWE1MU2NoZW1hIyIsIkBwcm90ZWN0ZWQiOnRydWUsIkB2ZXJzaW9uIjoxLjEsIldlYlJlbmRlcmluZ1RlbXBsYXRlMjAyMiI6eyJAcHJvdGVjdGVkIjp0cnVlLCJAaWQiOiJyZW5kZXJNZXRob2RQcmVmaXg6V2ViUmVuZGVyaW5nVGVtcGxhdGUyMDIyIiwiQGNvbnRleHQiOnsiQHByb3RlY3RlZCI6dHJ1ZSwidGVtcGxhdGUiOnsiQGlkIjoicmVuZGVyTWV0aG9kUHJlZml4OnRlbXBsYXRlIiwiQHR5cGUiOiJ4c2Q6c3RyaW5nIn19fX19XSwiaWQiOiJodHRwOi8vdW5pdmVyc2l0eS5leGFtcGxlL2NyZWRlbnRpYWxzLzE4NzIiLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwiRXhhbXBsZUFsdW1uaUNyZWRlbnRpYWwiXSwiaXNzdWVyIjoiZGlkOndlYjp1bmNlZmFjdC5naXRodWIuaW86cHJvamVjdC12Y2tpdDp0ZXN0LWFuZC1kZXZlbG9wbWVudCIsInZhbGlkRnJvbSI6IjIwMTAtMDEtMDFUMTk6MjM6MjRaIiwiY3JlZGVudGlhbFNjaGVtYSI6eyJpZCI6Imh0dHBzOi8vZXhhbXBsZS5vcmcvZXhhbXBsZXMvZGVncmVlLmpzb24iLCJ0eXBlIjoiSnNvblNjaGVtYSJ9LCJjcmVkZW50aWFsU3ViamVjdCI6eyJpZCI6ImRpZDpleGFtcGxlOjEyMyIsImRlZ3JlZSI6eyJ0eXBlIjoiQmFjaGVsb3JEZWdyZWUiLCJuYW1lIjoiQmFjaGVsb3Igb2YgU2NpZW5jZSBhbmQgQXJ0cyJ9fSwicmVuZGVyTWV0aG9kIjpbeyJ0ZW1wbGF0ZSI6IlBHUnBkaUJ6ZEhsc1pUMGlkMmxrZEdnNk16QXdjSGc3SUdobGFXZG9kRG94TURCd2VEc2dZbTl5WkdWeU9pQXljSGdnYzI5c2FXUWdZbXhoWTJzN0lIUmxlSFF0WVd4cFoyNDZZMlZ1ZEdWeUlqNEtJQ0E4WkdsMlBnb2dJQ0FnVkdocGN5QkNZV05vWld4dmNpQnZaaUJUWTJsbGJtTmxJR0Z1WkNCQmNuUnpJR2x6SUdOdmJtWmxjbkpsWkNCMGJ3b2dJRHd2WkdsMlBnb2dJRHh6ZEhKdmJtY2djM1I1YkdVOUltWnZiblF0YzJsNlpUb2dNVFp3ZUNJK0NpQWdJQ0JLWVc1bElGTnRhWFJvQ2lBZ1BDOXpkSEp2Ym1jK0NpQWdQR1JwZGo0S0lDQWdJR0o1SUVWNFlXMXdiR1VnVlc1cGRtVnljMmwwZVM0S0lDQThMMlJwZGo0S1BDOWthWFkrIiwidHlwZSI6IldlYlJlbmRlcmluZ1RlbXBsYXRlMjAyMiJ9XSwiaXNzdWFuY2VEYXRlIjoiMjAyNC0wOS0zMFQwODozMToxNi44ODhaIn0.CCWSfHZ4sDl5HNXX4rHFaXky3MxFIjaILcxPdN5w4LTLhRHo-aTxwQ3FvafwvS6oPXw-JkQgXbZdHiy2qsuqBw"
+    },
     };
 
     const context = {};

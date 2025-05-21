@@ -35,14 +35,16 @@ describe('RenderTemplate2024', () => {
           '@value': 'text/html',
         },
       ],
-      'https://www.w3.org/2018/credentials#renderMethod#template': [
+      'https://w3id.org/vc/render-method#url': [
         {
-          '@value': '<div>{{name}}</div>',
+          '@type': 'http://www.w3.org/2001/XMLSchema#string',
+          '@value': 'https://example.com',
         },
       ],
-      'https://www.w3.org/2018/credentials#renderMethod#url': [
+      'https://w3id.org/vc/render-method#template': [
         {
-          '@value': 'https://example.com',
+          '@type': 'http://www.w3.org/2001/XMLSchema#string',
+          '@value': '<div>{{name}}</div>',
         },
       ],
     };
@@ -80,7 +82,7 @@ describe('RenderTemplate2024', () => {
 
   it('should render successfully by inline template, when no url', async () => {
     // Mock data without url
-    delete data['https://www.w3.org/2018/credentials#renderMethod#url'];
+    delete data['https://w3id.org/vc/render-method#url'];
 
     const document = { name: 'John Doe' };
 
@@ -91,7 +93,7 @@ describe('RenderTemplate2024', () => {
 
   it('should render successfully, when having mediaQuery', async () => {
     // Mock data without url
-    delete data['https://www.w3.org/2018/credentials#renderMethod#url'];
+    delete data['https://w3id.org/vc/render-method#url'];
     // Mock mediaQuery
     data['https://www.w3.org/2018/credentials#renderMethod#mediaQuery'] = [
       {
@@ -111,7 +113,7 @@ describe('RenderTemplate2024', () => {
 
   it('should return "Error: Unsupported media type", when using invalit mediaType', async () => {
     // Mock data without url
-    delete data['https://www.w3.org/2018/credentials#renderMethod#url'];
+    delete data['https://w3id.org/vc/render-method#url'];
     // Mock invalid mediaType
     data['https://schema.org/encodingFormat'] = [
       { '@value': 'application/json' },
@@ -126,8 +128,8 @@ describe('RenderTemplate2024', () => {
 
   it('should return "Error: No template or url provided", when no url and template', async () => {
     // Mock data without url and template
-    delete data['https://www.w3.org/2018/credentials#renderMethod#url'];
-    delete data['https://www.w3.org/2018/credentials#renderMethod#template'];
+    delete data['https://w3id.org/vc/render-method#url'];
+    delete data['https://w3id.org/vc/render-method#template'];
 
     const document = { name: 'John Doe' };
 
@@ -140,7 +142,7 @@ describe('RenderTemplate2024', () => {
 
   it('should return "Error: No hash function provided to verify the template", when context empty object', async () => {
     // Mock data without url
-    data['https://www.w3.org/2018/credentials#renderMethod#url'] = [
+    data['https://w3id.org/vc/render-method#url'] = [
       { '@value': '' },
     ];
     // Mock context empty object
@@ -157,7 +159,7 @@ describe('RenderTemplate2024', () => {
 
   it('should return "Error: Template hash does not match the provided digest", when invalid hash', async () => {
     // Mock data without url
-    data['https://www.w3.org/2018/credentials#renderMethod#url'] = [
+    data['https://w3id.org/vc/render-method#url'] = [
       { '@value': '' },
     ];
 
