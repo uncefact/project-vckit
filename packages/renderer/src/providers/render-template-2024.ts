@@ -5,10 +5,7 @@ import {
   IRenderedResult,
 } from '@uncefact/vckit-core-types';
 import handlebars from 'handlebars';
-import { RENDER_METHOD } from '../renderer.js';
-
-const TEMPLATE_IRI = 'https://w3id.org/vc/render-method#template'; // See issue https://github.com/uncefact/spec-untp/issues/334
-const URL_IRI = 'https://w3id.org/vc/render-method#url'; // See issue https://github.com/uncefact/spec-untp/issues/334
+import { RENDER_METHOD, TEMPLATE_IRI, URL_IRI } from '../renderer.js';
 
 /**
  * RenderTemplate2024 class implements the IRendererProvider interface for rendering verifiable credentials using Handlebars templates.
