@@ -10,10 +10,12 @@ To implement a new render provider, follow these steps:
 
 2. Save the provider file in the `packages/renderer/src/providers` folder, using a name that corresponds to the render type. For example, if you want to implement a provider for `WebRenderingTemplate2022`, name the provider file as `web-rendering-template-2022.ts`.
 
-3. Delete  `tsconfig.tsbuildinfo` and run build the plugin by running this command 
+3. Delete `tsconfig.tsbuildinfo` and run build the plugin by running this command
+
 ```bash
 pnpm build
 ```
+
 To test it locally, you need to restart your vckit server.
 
 4. Add the provider to the agent.yml file, as shown in the following example:
@@ -34,7 +36,7 @@ When defining or consuming render methods, it's crucial to use correct and valid
 
 - The primary IRI for identifying render methods within a Verifiable Credential, as defined by the W3C VC Data Model, is `https://www.w3.org/2018/credentials#renderMethod`. This is used in the VC JSON-LD context to denote the `renderMethod` property. (See `RENDER_METHOD` constant in `packages/renderer/src/renderer.ts`).
 
-- For properties within a specific render method implementation, such as `RenderTemplate2024`, IRIs should be constructed carefully. The `vckit` codebase has adopted the following distinct IRIs from the `https://w3id.org/vc/render-method#` namespace for common properties to avoid issues stemming from incorrect IRI construction (like appending to a base IRI fragment, which could lead to multiple `#` characters):
+- For properties within a specific render method implementation, such as `RenderTemplate2024`, IRIs should be constructed carefully. The `vckit` codebase follows the same approach observed in [digitalbazaar/vc-render-method-context](https://github.com/digitalbazaar/vc-render-method-context/blob/97c4aac6b39175398992e932c5c20cfd9b6309ef/contexts/v2rc1.jsonld#L35), where we use `https://w3id.org/vc/render-method#` as the base and add a suffix for common properties to avoid issues stemming from incorrect IRI construction (like appending to a base IRI fragment, which could lead to multiple `#` characters):
 
   - For the template string: `https://w3id.org/vc/render-method#template` (see `TEMPLATE_IRI` in `packages/renderer/src/providers/render-template-2024.ts` and `packages/renderer/src/providers/web-rendering-template-2022.ts`)
   - For a URL pointing to a template: `https://w3id.org/vc/render-method#url` (see `URL_IRI` in `packages/renderer/src/providers/render-template-2024.ts`)
