@@ -4,7 +4,7 @@ import {
   IRenderedResult,
 } from '@uncefact/vckit-core-types';
 import handlebars from 'handlebars';
-import { RENDER_METHOD } from '../renderer.js';
+import { TEMPLATE_IRI } from '../renderer.js';
 
 /**
  * WebRenderingTemplate2022 class implements the IRendererProvider interface for rendering verifiable credentials using Handlebars templates.
@@ -37,10 +37,8 @@ export class WebRenderingTemplate2022 implements IRendererProvider {
   }
 
   extractData(data: any) {
-    const template = data[`${RENDER_METHOD}#template`]
-      ? (data[`${RENDER_METHOD}#template`] as { '@value': string }[])[0][
-          '@value'
-        ]
+    const template = data[TEMPLATE_IRI]
+      ? (data[TEMPLATE_IRI] as { '@value': string }[])[0]['@value']
       : undefined;
     return { template };
   }

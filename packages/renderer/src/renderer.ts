@@ -18,6 +18,8 @@ import schema from '@uncefact/vckit-core-types/build/plugin.schema.json' assert 
 import * as jose from 'jose';
 
 export const RENDER_METHOD = 'https://www.w3.org/2018/credentials#renderMethod';
+export const TEMPLATE_IRI = 'https://w3id.org/vc/render-method#template'; // See issue https://github.com/uncefact/spec-untp/issues/334
+export const URL_IRI = 'https://w3id.org/vc/render-method#url'; // See issue https://github.com/uncefact/spec-untp/issues/334
 
 /**
  * Renderer class responsible for rendering verifiable credentials using specified render methods.
