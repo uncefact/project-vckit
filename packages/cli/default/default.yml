@@ -122,6 +122,21 @@ dbConnectionRevocationList:
       entities:
         $require: '@uncefact/vckit-revocation-list-2020?t=object#Entities'
 
+# did:webvh DID log database — uncomment to enable did:webvh support
+# dbConnectionWebvh:
+#   $require: typeorm#DataSource
+#   $args:
+#     - type: sqlite
+#       database:
+#         $ref: /constants/databaseFile
+#       synchronize: false
+#       migrationsRun: true
+#       migrations:
+#         $require: '@uncefact/vckit-did-provider-webvh?t=object#migrations'
+#       logging: false
+#       entities:
+#         $require: '@uncefact/vckit-did-provider-webvh?t=object#Entities'
+
 revocationList:
   $require: '@uncefact/vckit-revocation-list-2020#RevocationStatus2020'
   $args:
@@ -150,6 +165,13 @@ server:
 
     # DID Documents
     - - $require: '@uncefact/vckit-remote-server?t=function#WebDidDocRouter'
+
+    # did:webvh DID Documents — uncomment to serve did.jsonl for did:webvh DIDs
+    # - - $require: '@uncefact/vckit-did-provider-webvh?t=function#WebvhDidDocRouter'
+    #     $args:
+    #       - dbConnection:
+    #           $ref: /dbConnectionWebvh
+    #         serveDidJson: true
 
     # VC API v1
     - - /v1
@@ -259,6 +281,9 @@ didResolver:
         $ref: /web-did-resolver
       key:
         $ref: /did-key-resolver
+      # did:webvh (DID Web + Verifiable History) — uncomment to enable
+      # webvh:
+      #   $require: '@uncefact/vckit-did-provider-webvh?t=function&p=/webvh#getWebvhResolver'
       pkh:
         $require: '@veramo/did-provider-pkh?t=function&p=/pkh#getDidPkhResolver'
       elem:
@@ -295,6 +320,10 @@ universal-resolver:
 
 did-key-resolver:
   $require: '@veramo/did-provider-key?t=function&p=/key#getDidKeyResolver'
+
+# did:webvh resolver — uncomment to enable did:webvh support
+# webvh-did-resolver:
+#   $require: '@uncefact/vckit-did-provider-webvh?t=function&p=/webvh#getWebvhResolver'
 
 # Key Manager
 keyManager:
@@ -356,6 +385,16 @@ didManager:
           $require: '@veramo/did-provider-key#KeyDIDProvider'
           $args:
             - defaultKms: local
+        # did:webvh (DID Web + Verifiable History) — uncomment to enable
+        # Provides verifiable DID document history and DID portability across domains.
+        # did:webvh:
+        #   $require: '@uncefact/vckit-did-provider-webvh#WebvhDIDProvider'
+        #   $args:
+        #     - defaultKms: local
+        #       defaultDomain: localhost
+        #       defaultPortable: true
+        #       dbConnection:
+        #         $ref: /dbConnectionWebvh
         # did:pkh:
         #   $require: '@veramo/did-provider-pkh#PkhDIDProvider'
         #   $args:
