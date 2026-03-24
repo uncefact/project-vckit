@@ -27,7 +27,7 @@ pnpm seed-identifier
 ```
 
 :::note
-The Docker Compose entrypoint includes a shell command to run the seed-identifier script automatically.
+The Docker Compose entrypoint seeds the identifier automatically on container start. Set `SEED_DID=false` in your environment to disable this. If seeding fails (e.g. database not reachable), the container will exit with an error rather than starting without a DID.
 :::
 
 **Resulting DID**
