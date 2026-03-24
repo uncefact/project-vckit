@@ -60,6 +60,8 @@ assert_eq "SEED_DID=true, file exists" "seed" "$(seed_decision 'true' 'yes')"
 assert_eq "SEED_DID=true, file missing" "skipped" "$(seed_decision 'true' 'no')"
 assert_eq "SEED_DID unset, file exists" "seed" "$(seed_decision '' 'yes')"
 assert_eq "SEED_DID unset, file missing" "skipped" "$(seed_decision '' 'no')"
+assert_eq "SEED_DID=FALSE (case-sensitive, seeds)" "seed" "$(seed_decision 'FALSE' 'yes')"
+assert_eq "SEED_DID=0 (not false, seeds)" "seed" "$(seed_decision '0' 'yes')"
 
 # --- Summary ---
 

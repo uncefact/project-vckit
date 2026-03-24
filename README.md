@@ -66,7 +66,7 @@ The Docker Compose entrypoint seeds the identifier automatically on container st
 | `SEED_DID` | Behaviour |
 |-------------|-----------|
 | `true` (default) | Seeds if `did-web-identifier.json` is present; **fails the container** if import fails |
-| `false` | Skips seeding entirely |
+| `false` (exact, case-sensitive) | Skips seeding entirely |
 | (unset) | Same as `true` |
 
 > **Breaking change:** The entrypoint now exits with an error if `did import` fails. Previously, failures were silent and the container would start without a DID, causing credential verification to fail. Deployments that do not seed DIDs should set `SEED_DID=false`.
