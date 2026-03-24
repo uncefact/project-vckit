@@ -2,7 +2,7 @@
 
 echo "Updating agent.yml with environment variables..."
 
-# Derive basePath port from API_DOMAIN.
+# Derive basePath port from API_DOMAIN (must be host or host:port only, no path).
 # API_DOMAIN carries the external-facing address:
 #   - "localhost:3332" for local dev     → BASEPATH_PORT=":3332"
 #   - "vckit.example.com" for production → BASEPATH_PORT="" (empty)
