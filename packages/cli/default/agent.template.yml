@@ -185,14 +185,14 @@ server:
     - - /v1
       - $require: '@uncefact/vckit-vc-api?t=function#V1VcRouter'
         $args:
-          - basePath: :${PORT}
+          - basePath: ${BASEPATH_PORT}
             apiKey: ${API_KEY}
 
     # VC API v2
     - - /v2
       - $require: '@uncefact/vckit-vc-api?t=function#V2VcRouter'
         $args:
-          - basePath: :${PORT}
+          - basePath: ${BASEPATH_PORT}
             apiKey: ${API_KEY}
 
     # API base path
@@ -234,7 +234,7 @@ server:
     - - /open-api.json
       - $require: '@uncefact/vckit-remote-server?t=function#ApiSchemaRouter'
         $args:
-          - basePath: :3332/agent
+          - basePath: ${BASEPATH_PORT}/agent
             securityScheme: bearer
             apiName: Agent
             apiVersion: '1.0.0'
