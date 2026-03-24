@@ -1,6 +1,6 @@
 #!/bin/bash
 # Tests for entrypoint.sh logic (BASEPATH_PORT extraction and SEED_DID guard)
-# Run: sh tests/entrypoint.test.sh
+# Run: bash tests/entrypoint.test.sh
 
 PASS=0
 FAIL=0
