@@ -18,7 +18,7 @@ esac
 export BASEPATH_PORT
 
 # Replace variables in the agent.yml file with the exported environment variables
-envsubst '${DATABASE_TYPE},${DATABASE_NAME},${DATABASE_HOST},${DATABASE_PORT},${DATABASE_USERNAME},${DATABASE_PASSWORD},${DATABASE_ENCRYPTION_KEY},${DATABASE_SSL},${BASEPATH_PORT},${PORT},${PROTOCOL},${API_DOMAIN},${API_KEY}' < /app/agent.template.yml > /app/agent.yml
+envsubst '${DATABASE_TYPE},${DATABASE_NAME},${DATABASE_HOST},${DATABASE_PORT},${DATABASE_USERNAME},${DATABASE_PASSWORD},${DATABASE_ENCRYPTION_KEY},${DATABASE_SSL},${BASEPATH_PORT},${PORT},${PROTOCOL},${API_DOMAIN},${API_KEY}' < /app/agent.template.yml > /app/agent.yml || { echo "ERROR: Failed to generate agent.yml from template"; exit 1; }
 
 echo "Agent.yml updated."
 
@@ -34,7 +34,8 @@ elif [ ! -f did-web-identifier.json ]; then
   echo "DID seeding skipped (did-web-identifier.json not found)."
 else
   echo "Seeding test identifier..."
-  cat did-web-identifier.json | node packages/cli/build/cli.js did import || { echo "ERROR: DID seed failed"; exit 1; }
+  SEED_DATA=$(cat did-web-identifier.json) || { echo "ERROR: Failed to read did-web-identifier.json"; exit 1; }
+  printf '%s' "$SEED_DATA" | node packages/cli/build/cli.js did import || { echo "ERROR: DID import failed (exit code $?)"; exit 1; }
   echo "Test identifier seeded."
 fi
 
