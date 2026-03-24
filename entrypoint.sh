@@ -9,6 +9,8 @@ echo "Updating agent.yml with environment variables..."
 # This prevents the internal container port from appearing in
 # OpenAPI URLs when deployed behind a reverse proxy.
 case "$API_DOMAIN" in
+  "["*"]") BASEPATH_PORT="" ;;
+  "["*"]:"[0-9]*) BASEPATH_PORT=":${API_DOMAIN##*:}" ;;
   *:[0-9]*) BASEPATH_PORT=":${API_DOMAIN##*:}" ;;
   *) BASEPATH_PORT="" ;;
 esac
