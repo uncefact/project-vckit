@@ -77,6 +77,7 @@ dbConnection: //this is name of the connection
   - `migrations`: Specifies the location of migration files.
     - `$require`: This indicates that migration files are required from a specific module. It's pointing to the migrations provided by the **@veramo/data-store package**.
   - `logging`: Specifies whether TypeORM should log SQL queries. It's set to false to disable logging.
+  - `ssl`: Enables SSL for the database connection. Set via `DATABASE_SSL` environment variable. Use `true` for managed PostgreSQL providers (DigitalOcean, AWS RDS, GCP Cloud SQL). Leave empty to disable. Custom CA certificate support (SSL object) is not available via env vars — operators needing it should edit `agent.yml` directly.
   - `entities`: Specifies the entities (database tables) managed by TypeORM.
 
     - `$require`: This indicates that entities are required from a specific module. It's pointing to the entities provided by the **@veramo/data-store package**.
