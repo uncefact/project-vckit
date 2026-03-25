@@ -17,6 +17,11 @@ esac
 
 export BASEPATH_PORT
 
+# Default DATABASE_SSL to false if unset or empty.
+# An empty value renders as "ssl:" in YAML, which TypeORM interprets as truthy.
+DATABASE_SSL="${DATABASE_SSL:-false}"
+export DATABASE_SSL
+
 # Replace variables in the agent.yml file with the exported environment variables
 envsubst '${DATABASE_TYPE},${DATABASE_NAME},${DATABASE_HOST},${DATABASE_PORT},${DATABASE_USERNAME},${DATABASE_PASSWORD},${DATABASE_ENCRYPTION_KEY},${DATABASE_SSL},${BASEPATH_PORT},${PORT},${PROTOCOL},${API_DOMAIN},${API_KEY}' < /app/agent.template.yml > /app/agent.yml || { echo "ERROR: Failed to generate agent.yml from template"; exit 1; }
 
