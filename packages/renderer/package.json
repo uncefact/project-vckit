@@ -29,10 +29,10 @@
     "extract-api": "node ../cli/bin/vckit.js dev extract-api"
   },
   "resolutions": {
-    "jsonld": "npm:@digitalcredentials/jsonld@5.2.1"
+    "jsonld": "npm:@digitalcredentials/jsonld@9.0.0"
   },
   "dependencies": {
-    "@digitalcredentials/jsonld": "5.2.1",
+    "@digitalcredentials/jsonld": "9.0.0",
     "@uncefact/vckit-core-types": "workspace:^",
     "handlebars": "^4.7.8",
     "jose": "^5.9.3"
