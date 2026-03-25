@@ -78,6 +78,7 @@ did
       printTable([{ provider: identifier.provider, alias: identifier.alias, did: identifier.did }])
     } catch (e: any) {
       console.error(e.message)
+      process.exitCode = 1
     }
   })
 
@@ -105,6 +106,7 @@ did
       console.log('Success:', result)
     } catch (e: any) {
       console.error(e)
+      process.exitCode = 1
     }
   })
 
@@ -153,6 +155,7 @@ did
       console.log('Success:', result)
     } catch (e: any) {
       console.error(e)
+      process.exitCode = 1
     }
   })
 
@@ -186,6 +189,7 @@ did
       console.log('Success:', result)
     } catch (e: any) {
       console.error(e)
+      process.exitCode = 1
     }
   })
 
@@ -232,6 +236,7 @@ did
       console.log('Success:', result)
     } catch (e: any) {
       console.error(e)
+      process.exitCode = 1
     }
   })
 
@@ -265,6 +270,7 @@ did
       console.log('Success:', result)
     } catch (e: any) {
       console.error(e)
+      process.exitCode = 1
     }
   })
 
@@ -293,6 +299,7 @@ did
       console.log(JSON.stringify(identifier))
     } catch (e: any) {
       console.error(e)
+      process.exitCode = 1
     }
   })
 
@@ -315,6 +322,7 @@ did
       console.log(identifier)
     } catch (e: any) {
       console.error(e)
+      process.exitCode = 1
     }
   })
 
@@ -328,6 +336,7 @@ did
       console.log(JSON.stringify(ddo, null, 2))
     } catch (e: any) {
       console.error(e.message)
+      process.exitCode = 1
     }
   })
 
