@@ -52,6 +52,7 @@ Thumbs.db
 /examples/*/node_modules/
 /examples/*/build/
 /docs
+!/docs/adr/
 /report
 /node_modules
 website/node_modules
