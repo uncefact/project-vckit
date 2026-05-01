@@ -1,5 +1,49 @@
 # Change Log
 
+## [1.2.0](https://github.com/uncefact/project-vckit/compare/1.1.0...v1.2.0) (2026-05-01)
+
+
+### Features
+
+* **cli:** Add DATABASE_SSL env var to all DB connections in agent template ([0ac360f](https://github.com/uncefact/project-vckit/commit/0ac360f58d194c0485a4c0fcf4fbc121fe24796f)), closes [#284](https://github.com/uncefact/project-vckit/issues/284)
+
+
+### Bug Fixes
+
+* Add error handling and SSL support to Docker entrypoint ([4ab3fa6](https://github.com/uncefact/project-vckit/commit/4ab3fa6186bb5ab24efafa32869bc2546524839a)), closes [#282](https://github.com/uncefact/project-vckit/issues/282) [#283](https://github.com/uncefact/project-vckit/issues/283)
+* Add trailing newline to local.env and fix test run comment ([e3ad675](https://github.com/uncefact/project-vckit/commit/e3ad675d27cd357a5df1bf5ea99d66f982cf0f20))
+* Address PR review findings ([8c26263](https://github.com/uncefact/project-vckit/commit/8c26263c513bcec2188d42ec9495094802ce65b2))
+* Address review findings in README and test shebang ([cf2a8f5](https://github.com/uncefact/project-vckit/commit/cf2a8f548908e78b84551bbadd11751973adcd84))
+* **cli:** Derive basePath port from API_DOMAIN instead of PORT ([7cec60f](https://github.com/uncefact/project-vckit/commit/7cec60fd3675e71a078c719f67850e8db5cc1d43)), closes [#285](https://github.com/uncefact/project-vckit/issues/285)
+* **cli:** Set exit code on errors in all did subcommands ([09e3803](https://github.com/uncefact/project-vckit/commit/09e3803693b370e0fa2248ba1b5d0fec6608c4f7)), closes [#293](https://github.com/uncefact/project-vckit/issues/293)
+* Default DATABASE_SSL to false when unset or empty ([ba81c41](https://github.com/uncefact/project-vckit/commit/ba81c41b7eb53a67fb0880b8f919aaabfabebdcb))
+* Harden entrypoint error handling ([9d7f30b](https://github.com/uncefact/project-vckit/commit/9d7f30b67c4f12540efcf629463585f90c605267))
+* **renderer:** Upgrade @digitalcredentials/jsonld from 5.2.1 to 9.0.0 ([#294](https://github.com/uncefact/project-vckit/issues/294)) ([b3ef389](https://github.com/uncefact/project-vckit/commit/b3ef389cfa494fa9edd5e1c13e64e598375b671b))
+* Template and url iri ([#279](https://github.com/uncefact/project-vckit/issues/279)) ([5179b95](https://github.com/uncefact/project-vckit/commit/5179b95c283b781bf4e69e0187352c80f2ff2767))
+
+
+### Tests
+
+* Add shell tests for entrypoint BASEPATH_PORT and SEED_DID logic ([003d3b4](https://github.com/uncefact/project-vckit/commit/003d3b4cdcc659a6b9164f207544a6f55c9cb4ec))
+* Add shell tests for entrypoint BASEPATH_PORT and SEED_DID logic ([e62be91](https://github.com/uncefact/project-vckit/commit/e62be91e9f62a2ec9363988dc233e1d68861bf3a))
+
+
+### Documentation
+
+* Add architectural decision records for deployment fixes ([9dbb466](https://github.com/uncefact/project-vckit/commit/9dbb466599df9ed8fd3b58fa32f37a0ec3f616d2))
+* Document DATABASE_SSL property in agent configuration guide ([acc2905](https://github.com/uncefact/project-vckit/commit/acc2905bf0273788cea40e6c274187cec2bda4f9))
+* Document SEED_DID and hard-fail in seed identifier guide ([2341d71](https://github.com/uncefact/project-vckit/commit/2341d71ebdeafa50e3a8da9ec67d92761863bf35))
+* Document SEED_DID env var and breaking change in README ([20c514c](https://github.com/uncefact/project-vckit/commit/20c514c7979e2cd4b57b9998e02813718bd1a1c7))
+* **renderer:** Fix incorrect media type in enveloped credential examples ([#281](https://github.com/uncefact/project-vckit/issues/281)) ([692d0e5](https://github.com/uncefact/project-vckit/commit/692d0e55c71c0c1a0d8188efbc81176fad3e496c))
+
+
+### Miscellaneous
+
+* Add DATABASE_SSL and SEED_DID defaults to local.env ([5d233d8](https://github.com/uncefact/project-vckit/commit/5d233d88cf3ab47b9e45eeeeaf37de2f6f820757))
+* Release 1.2.0 ([7113e0f](https://github.com/uncefact/project-vckit/commit/7113e0f9444eb42d874e686cea389d9ecef71999))
+* Release 1.2.0 ([a0ce6a0](https://github.com/uncefact/project-vckit/commit/a0ce6a075c589ecb5c81ef20362f74d7226a20b2))
+* **release:** Prepare release 1.2.0 ([470c39d](https://github.com/uncefact/project-vckit/commit/470c39d53da9706c709f2e614a49e52f75934f62))
+
 ## [1.1.0](https://github.com/uncefact/project-vckit/compare/1.0.2...v1.0.3) (2025-03-11)
 
 ### Features
