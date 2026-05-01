@@ -27,7 +27,7 @@
     "uint8arrays": "^5.0.1",
     "url-parse": "^1.5.10",
     "swagger-ui-express": "^5.0.1",
-    "@uncefact/vckit-renderer": "^1.0.0"
+    "@uncefact/vckit-renderer": "workspace:^"
   },
   "devDependencies": {
     "@types/debug": "4.1.12",
