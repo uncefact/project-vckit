@@ -1,5 +1,18 @@
 # Change Log
 
+## [1.2.1](https://github.com/uncefact/project-vckit/compare/1.2.0...v1.2.1) (2026-05-01)
+
+
+### Bug Fixes
+
+* **deps:** Regenerate pnpm-lock.yaml with pnpm 8.14.0 ([1669b53](https://github.com/uncefact/project-vckit/commit/1669b5302d0a3c6bfb2024f3402dc7d2663924ce))
+
+
+### Miscellaneous
+
+* Release 1.2.1 ([ce00f5b](https://github.com/uncefact/project-vckit/commit/ce00f5bcc11c3170f306913c93490bb467ecfb62))
+* **release:** Prepare hotfix 1.2.1 ([7d62e18](https://github.com/uncefact/project-vckit/commit/7d62e186d079b03b68f8c6f52023d86ff8db6b4e))
+
 ## [1.2.0](https://github.com/uncefact/project-vckit/compare/1.1.0...v1.2.0) (2026-05-01)
 
 
