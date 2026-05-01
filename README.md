@@ -61,7 +61,15 @@ The predefined did:web used for seeding is: `did:web:uncefact.github.io:project-
 pnpm seed-identifier
 ```
 
-The Docker Compose entrypoint includes a shell command to run the seed-identifier script automatically.
+The Docker Compose entrypoint seeds the identifier automatically on container start. This behaviour can be controlled with the `SEED_DID` environment variable:
+
+| `SEED_DID` | Behaviour |
+|-------------|-----------|
+| `true` (default) | Seeds if `did-web-identifier.json` is present; **fails the container** if import fails |
+| `false` (exact, case-sensitive) | Skips seeding entirely |
+| (unset) | Same as `true` |
+
+> **Behaviour change:** The entrypoint now exits with an error if `did import` fails. Previously, failures were silent and the container would start without a DID, causing credential verification to fail downstream. Deployments that intentionally do not seed DIDs should set `SEED_DID=false` to skip seeding.
 
 ## Start the server on local
 

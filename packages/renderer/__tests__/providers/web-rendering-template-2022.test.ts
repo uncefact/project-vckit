@@ -12,7 +12,7 @@ describe('WebRenderingTemplate2022', () => {
       const document = { name: 'John Doe' };
 
       const data = {
-        'https://www.w3.org/2018/credentials#renderMethod#template': [
+        'https://w3id.org/vc/render-method#template': [
           {
             '@value': '<p>{{name}}</p>',
           },
@@ -31,7 +31,7 @@ describe('WebRenderingTemplate2022', () => {
       const document = { name: 'John Doe' };
 
       const data = {
-        'https://www.w3.org/2018/credentials#renderMethod#template': [
+        'https://w3id.org/vc/render-method#template': [
           {
             '@value': '',
           },
@@ -49,7 +49,7 @@ describe('WebRenderingTemplate2022', () => {
     it('should return the template content if the template is random text', async () => {
       const document = { name: 'John Doe' };
       const data = {
-        'https://www.w3.org/2018/credentials#renderMethod#template': [
+        'https://w3id.org/vc/render-method#template': [
           {
             '@value': 'Some random text',
           },
@@ -70,7 +70,7 @@ describe('WebRenderingTemplate2022', () => {
       const template = '    \t\n   ';
       const document = { name: 'John Doe' };
       const data = {
-        'https://www.w3.org/2018/credentials#renderMethod#template': [
+        'https://w3id.org/vc/render-method#template': [
           {
             '@value': '    \t\n   ',
           },
@@ -89,7 +89,7 @@ describe('WebRenderingTemplate2022', () => {
       const document = { name: 'John Doe' };
 
       const data = {
-        'https://www.w3.org/2018/credentials#renderMethod#template': [
+        'https://w3id.org/vc/render-method#template': [
           {
             '@value': '<p>{{name}</p>',
           },
