@@ -1,207 +1,76 @@
+import type { DIDResolutionResult, DIDResolver, DIDDocument, ParsedDID } from 'did-resolver';
 import {
-  DIDResolutionResult,
-  DIDResolver,
-  DIDDocument,
-  ParsedDID,
-  Resolvable,
-  DIDResolutionOptions,
-} from 'did-resolver';
+  resolveDID, resolveDIDFromLog,
+  type DIDDoc, type DIDLog, type DIDResolutionMeta, type ResolutionOptions,
+} from 'didwebvh-ts';
+import { VeramoVerifier } from './veramo-signer.js';
 
-/**
- * Creates a did:webvh DID resolver compatible with @veramo/did-resolver.
- *
- * The resolver fetches and verifies the full DID log chain, supporting:
- * - Standard resolution (latest version)
- * - Version-specific resolution (versionId, versionTime, versionNumber)
- * - Portability chain following (resolves moved DIDs)
- *
- * @returns A resolver map `{ webvh: resolve }` for use with DIDResolverPlugin
- *
- * @public
- */
-export function getWebvhResolver(): Record<string, DIDResolver> {
-  async function resolve(
-    didUrl: string,
-    parsed: ParsedDID,
-    resolver: Resolvable,
-    options: DIDResolutionOptions,
-  ): Promise<DIDResolutionResult> {
-    try {
-      const { resolveDID } = await import('didwebvh-ts');
-      const { VeramoVerifier } = await import('./veramo-signer.js');
-
-      // Parse version-related query parameters from the DID URL
-      const resolutionOptions: any = {
-        verifier: new VeramoVerifier(),
-      };
-
-      // did:webvh supports version resolution via query params
-      if (parsed.query) {
-        const params = new URLSearchParams(parsed.query);
-        if (params.has('versionId')) {
-          resolutionOptions.versionId = params.get('versionId');
-        }
-        if (params.has('versionTime')) {
-          resolutionOptions.versionTime = new Date(params.get('versionTime')!);
-        }
-        if (params.has('versionNumber')) {
-          resolutionOptions.versionNumber = parseInt(
-            params.get('versionNumber')!,
-            10,
-          );
-        }
-      }
-
-      // Resolve the DID via didwebvh-ts
-      // This fetches did.jsonl from the HTTPS URL derived from the DID,
-      // parses and verifies every log entry in the chain.
-      const result = await resolveDID(parsed.did, resolutionOptions);
-
-      // Build the standard DID resolution result
-      const didDocument: DIDDocument = result.doc as DIDDocument;
-      const meta = result.meta || {};
-
-      return {
-        didResolutionMetadata: {
-          contentType: 'application/did+ld+json',
-        },
-        didDocument,
-        didDocumentMetadata: {
-          created: meta.created,
-          updated: meta.updated,
-          versionId: meta.versionId,
-          deactivated: meta.deactivated || false,
-          // did:webvh-specific metadata
-          ...(meta.scid && { scid: meta.scid }),
-          ...(meta.portable !== undefined && { portable: meta.portable }),
-          ...(meta.prerotation !== undefined && { prerotation: meta.prerotation }),
-          ...(meta.nextKeyHashes?.length && { nextKeyHashes: meta.nextKeyHashes }),
-          ...(meta.updateKeys?.length && { updateKeys: meta.updateKeys }),
-          ...(meta.witness && { witness: meta.witness }),
-          ...(meta.watchers && { watchers: meta.watchers }),
-        },
-      };
-    } catch (err: any) {
-      // Map errors to standard DID resolution error codes
-      const errorMessage = err.message || String(err);
-
-      let errorCode = 'notFound';
-      if (errorMessage.includes('INVALID_DID')) {
-        errorCode = 'invalidDid';
-      } else if (errorMessage.includes('METHOD_NOT_SUPPORTED')) {
-        errorCode = 'methodNotSupported';
-      } else if (errorMessage.includes('INVALID_DID_DOCUMENT')) {
-        errorCode = 'invalidDidDocument';
-      }
-
-      return {
-        didResolutionMetadata: {
-          error: errorCode,
-          message: errorMessage,
-        },
-        didDocument: null,
-        didDocumentMetadata: {},
-      };
-    }
+function errorCode(error: string): string {
+  switch (error) {
+    case 'NOT_FOUND': case 'notFound': return 'notFound';
+    case 'INVALID_DID_URL': case 'invalidDidUrl': return 'invalidDidUrl';
+    case 'INVALID_OPTIONS': case 'invalidOptions': return 'invalidOptions';
+    default: return 'invalidDid';
   }
-
-  return { webvh: resolve };
 }
 
-/**
- * Creates a did:webvh resolver that resolves from a local log store
- * instead of fetching over HTTPS. Useful for resolving locally-managed DIDs.
- *
- * Falls back to the network-based resolver for DIDs not found locally.
- *
- * @param logStore - The WebvhDidLogStore to look up local DID logs
- * @returns A resolver map for use with DIDResolverPlugin
- *
- * @public
- */
-export function getWebvhLocalResolver(
-  logStore: { getLogForDid: (did: string) => Promise<any[] | null> },
-): Record<string, DIDResolver> {
-  async function resolve(
-    didUrl: string,
-    parsed: ParsedDID,
-    resolver: Resolvable,
-    options: DIDResolutionOptions,
-  ): Promise<DIDResolutionResult> {
-    try {
-      // Try local resolution first
-      const localLog = await logStore.getLogForDid(parsed.did);
+function resolutionResult(result: { doc: DIDDoc | null; meta: Partial<DIDResolutionMeta> }): DIDResolutionResult {
+  const { error, problemDetails, ...metadata } = result.meta;
+  return {
+    didDocument: result.doc as DIDDocument | null,
+    didDocumentMetadata: metadata,
+    didResolutionMetadata: {
+      ...(result.doc ? { contentType: 'application/did+ld+json' } : {}),
+      ...(error ? { error: errorCode(error), ...(problemDetails ? { problemDetails, message: problemDetails.detail } : {}) } : {}),
+    },
+  };
+}
 
-      if (localLog) {
-        const { resolveDIDFromLog } = await import('didwebvh-ts');
-        const { VeramoVerifier } = await import('./veramo-signer.js');
+function failedResolution(error: unknown): DIDResolutionResult {
+  const message = error instanceof Error ? error.message : String(error);
+  return {
+    didDocument: null,
+    didDocumentMetadata: {},
+    didResolutionMetadata: { error: 'invalidDid', message },
+  };
+}
 
-        const resolutionOptions: any = {
-          verifier: new VeramoVerifier(),
-        };
+function resolutionOptions(parsed: ParsedDID): ResolutionOptions {
+  const options: ResolutionOptions = { verifier: new VeramoVerifier() };
+  const query = new URLSearchParams(parsed.query);
+  if (query.has('versionId')) options.versionId = query.get('versionId')!;
+  if (query.has('versionTime')) options.versionTime = new Date(query.get('versionTime')!);
+  if (query.has('versionNumber')) options.versionNumber = Number(query.get('versionNumber'));
+  return options;
+}
 
-        if (parsed.query) {
-          const params = new URLSearchParams(parsed.query);
-          if (params.has('versionId')) {
-            resolutionOptions.versionId = params.get('versionId');
-          }
-          if (params.has('versionTime')) {
-            resolutionOptions.versionTime = new Date(
-              params.get('versionTime')!,
-            );
-          }
-          if (params.has('versionNumber')) {
-            resolutionOptions.versionNumber = parseInt(
-              params.get('versionNumber')!,
-              10,
-            );
-          }
-        }
-
-        const result = await resolveDIDFromLog(localLog, resolutionOptions);
-
-        const didDocument: DIDDocument = result.doc as DIDDocument;
-        const meta = result.meta || {};
-
-        return {
-          didResolutionMetadata: {
-            contentType: 'application/did+ld+json',
-          },
-          didDocument,
-          didDocumentMetadata: {
-            created: meta.created,
-            updated: meta.updated,
-            versionId: meta.versionId,
-            deactivated: meta.deactivated || false,
-            ...(meta.scid && { scid: meta.scid }),
-            ...(meta.portable !== undefined && { portable: meta.portable }),
-            ...(meta.prerotation !== undefined && {
-              prerotation: meta.prerotation,
-            }),
-            ...(meta.nextKeyHashes?.length && {
-              nextKeyHashes: meta.nextKeyHashes,
-            }),
-            ...(meta.updateKeys?.length && { updateKeys: meta.updateKeys }),
-            ...(meta.witness && { witness: meta.witness }),
-            ...(meta.watchers && { watchers: meta.watchers }),
-          },
-        };
+/** Creates a network WebVH resolver that preserves verification errors and metadata. @public */
+export function getWebvhResolver(): Record<string, DIDResolver> {
+  return {
+    webvh: async (_didUrl, parsed) => {
+      try {
+        return resolutionResult(await resolveDID(parsed.did, resolutionOptions(parsed)));
+      } catch (error) {
+        return failedResolution(error);
       }
+    },
+  };
+}
 
-      // Fall back to network resolver
-      const networkResolver = getWebvhResolver();
-      return networkResolver.webvh(didUrl, parsed, resolver, options);
-    } catch (err: any) {
-      return {
-        didResolutionMetadata: {
-          error: 'notFound',
-          message: err.message || String(err),
-        },
-        didDocument: null,
-        didDocumentMetadata: {},
-      };
-    }
-  }
-
-  return { webvh: resolve };
+/** Resolves managed logs locally, falling back to HTTPS only when no local log exists. @public */
+export function getWebvhLocalResolver(
+  logStore: { getLogForDid: (did: string) => Promise<DIDLog | null> },
+): Record<string, DIDResolver> {
+  const network = getWebvhResolver();
+  return {
+    webvh: async (didUrl, parsed, resolver, options) => {
+      try {
+        const log = await logStore.getLogForDid(parsed.did);
+        if (log === null) return network.webvh(didUrl, parsed, resolver, options);
+        return resolutionResult(await resolveDIDFromLog(log, { ...resolutionOptions(parsed), scid: parsed.id.split(':')[0] }));
+      } catch (error) {
+        return failedResolution(error);
+      }
+    },
+  };
 }

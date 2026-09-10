@@ -1,225 +1,72 @@
-import { describe, it, expect, jest, beforeEach } from '@jest/globals';
+import { afterEach, describe, expect, it, jest } from '@jest/globals';
+import { parse, type DIDResolver, type DIDResolutionOptions } from 'did-resolver';
+import { getWebvhResolver, getWebvhLocalResolver } from '../webvh-did-resolver.js';
+import { signedHistory } from './fixtures.js';
 
-// Mock didwebvh-ts
-jest.unstable_mockModule('didwebvh-ts', () => ({
-  resolveDID: jest.fn(),
-  resolveDIDFromLog: jest.fn(),
-}));
+export function resolveWith(resolver: DIDResolver, did: string, options: DIDResolutionOptions = {}) {
+  return resolver(did, parse(did)!, {} as any, options);
+}
+function serve(log: unknown[]) {
+  return jest.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(log.map(entry => JSON.stringify(entry)).join('\n')));
+}
+afterEach(() => { jest.restoreAllMocks(); });
 
-// Mock veramo-signer
-jest.unstable_mockModule('../veramo-signer.js', () => ({
-  VeramoVerifier: jest.fn().mockImplementation(() => ({
-    verify: jest.fn().mockResolvedValue(true),
-  })),
-}));
-
-describe('getWebvhResolver', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
+describe('WebVH resolution', () => {
+  it('returns a verified document and protocol metadata', async () => {
+    const { did, log } = await signedHistory();
+    serve(log);
+    const result = await resolveWith(getWebvhResolver().webvh, did);
+    expect(result.didResolutionMetadata.error).toBeUndefined();
+    expect(result.didDocument?.id).toBe(did);
+    expect(result.didDocumentMetadata.versionId).toBe(log[1].versionId);
   });
 
-  it('should return a resolver map with webvh key', async () => {
-    const { getWebvhResolver } = await import('../webvh-did-resolver.js');
-    const resolverMap = getWebvhResolver();
-    expect(resolverMap).toHaveProperty('webvh');
-    expect(typeof resolverMap.webvh).toBe('function');
-  });
-
-  it('should resolve a DID successfully', async () => {
-    const { resolveDID } = await import('didwebvh-ts');
-    const mockResolveDID = resolveDID as jest.MockedFunction<typeof resolveDID>;
-    mockResolveDID.mockResolvedValue({
-      did: 'did:webvh:z6Mktest123:example.com',
-      doc: {
-        '@context': ['https://www.w3.org/ns/did/v1'],
-        id: 'did:webvh:z6Mktest123:example.com',
-        verificationMethod: [
-          {
-            id: 'did:webvh:z6Mktest123:example.com#key-1',
-            type: 'Multikey',
-            controller: 'did:webvh:z6Mktest123:example.com',
-            publicKeyMultibase: 'z6Mktest...',
-          },
-        ],
-      },
-      meta: {
-        created: '2024-01-01T00:00:00Z',
-        updated: '2024-01-01T00:00:00Z',
-        versionId: '1-abc123',
-        deactivated: false,
-        scid: 'z6Mktest123',
-        portable: true,
-        prerotation: false,
-        updateKeys: ['z6Mktest...'],
-        nextKeyHashes: [],
-      },
-      controlled: true,
-    });
-
-    const { getWebvhResolver } = await import('../webvh-did-resolver.js');
-    const resolverMap = getWebvhResolver();
-
-    const result = await resolverMap.webvh(
-      'did:webvh:z6Mktest123:example.com',
-      {
-        did: 'did:webvh:z6Mktest123:example.com',
-        method: 'webvh',
-        id: 'z6Mktest123:example.com',
-        didUrl: 'did:webvh:z6Mktest123:example.com',
-      },
-      { resolve: jest.fn<any>() } as any,
-      {},
-    );
-
-    expect(result.didDocument).toBeDefined();
-    expect(result.didDocument?.id).toBe('did:webvh:z6Mktest123:example.com');
-    expect(result.didDocumentMetadata.versionId).toBe('1-abc123');
-    expect(result.didDocumentMetadata.deactivated).toBe(false);
-  });
-
-  it('should handle resolution errors gracefully', async () => {
-    const { resolveDID } = await import('didwebvh-ts');
-    const mockResolveDID = resolveDID as jest.MockedFunction<typeof resolveDID>;
-    mockResolveDID.mockRejectedValue(new Error('NOT_FOUND: DID not found'));
-
-    const { getWebvhResolver } = await import('../webvh-did-resolver.js');
-    const resolverMap = getWebvhResolver();
-
-    const result = await resolverMap.webvh(
-      'did:webvh:z6Mknotexist:example.com',
-      {
-        did: 'did:webvh:z6Mknotexist:example.com',
-        method: 'webvh',
-        id: 'z6Mknotexist:example.com',
-        didUrl: 'did:webvh:z6Mknotexist:example.com',
-      },
-      { resolve: jest.fn<any>() } as any,
-      {},
-    );
-
+  it('preserves a network validation error for a tampered log', async () => {
+    const { did, log } = await signedHistory();
+    log[0].state.alsoKnownAs = ['https://tampered.example'];
+    serve(log);
+    const result = await resolveWith(getWebvhResolver().webvh, did);
     expect(result.didDocument).toBeNull();
-    expect(result.didResolutionMetadata.error).toBe('notFound');
+    expect(result.didResolutionMetadata.error).toBe('invalidDid');
+    expect(result.didResolutionMetadata.problemDetails).toBeDefined();
   });
 
-  it('should pass version query parameters to didwebvh-ts', async () => {
-    const { resolveDID } = await import('didwebvh-ts');
-    const mockResolveDID = resolveDID as jest.MockedFunction<typeof resolveDID>;
-    mockResolveDID.mockResolvedValue({
-      did: 'did:webvh:z6Mktest123:example.com',
-      doc: { id: 'did:webvh:z6Mktest123:example.com' },
-      meta: { versionId: '1-abc', created: '', updated: '' },
-      controlled: false,
-    });
-
-    const { getWebvhResolver } = await import('../webvh-did-resolver.js');
-    const resolverMap = getWebvhResolver();
-
-    await resolverMap.webvh(
-      'did:webvh:z6Mktest123:example.com?versionNumber=2',
-      {
-        did: 'did:webvh:z6Mktest123:example.com',
-        method: 'webvh',
-        id: 'z6Mktest123:example.com',
-        didUrl: 'did:webvh:z6Mktest123:example.com?versionNumber=2',
-        query: 'versionNumber=2',
-      },
-      { resolve: jest.fn<any>() } as any,
-      {},
-    );
-
-    expect(mockResolveDID).toHaveBeenCalledWith(
-      'did:webvh:z6Mktest123:example.com',
-      expect.objectContaining({
-        versionNumber: 2,
-      }),
-    );
-  });
-});
-
-describe('getWebvhLocalResolver', () => {
-  it('should resolve from local log store', async () => {
-    const { resolveDIDFromLog } = await import('didwebvh-ts');
-    const mockResolveDIDFromLog = resolveDIDFromLog as jest.MockedFunction<
-      typeof resolveDIDFromLog
-    >;
-    mockResolveDIDFromLog.mockResolvedValue({
-      did: 'did:webvh:z6Mktest123:example.com',
-      doc: {
-        id: 'did:webvh:z6Mktest123:example.com',
-        verificationMethod: [],
-      },
-      meta: {
-        versionId: '1-abc',
-        created: '2024-01-01T00:00:00Z',
-        updated: '2024-01-01T00:00:00Z',
-      },
-    });
-
-    const mockLogStore = {
-      getLogForDid: jest.fn<any>().mockResolvedValue([
-        { versionId: '1-abc', parameters: {}, state: {} },
-      ]),
-    };
-
-    const { getWebvhLocalResolver } = await import(
-      '../webvh-did-resolver.js'
-    );
-    const resolverMap = getWebvhLocalResolver(mockLogStore);
-
-    const result = await resolverMap.webvh(
-      'did:webvh:z6Mktest123:example.com',
-      {
-        did: 'did:webvh:z6Mktest123:example.com',
-        method: 'webvh',
-        id: 'z6Mktest123:example.com',
-        didUrl: 'did:webvh:z6Mktest123:example.com',
-      },
-      { resolve: jest.fn<any>() } as any,
-      {},
-    );
-
-    expect(result.didDocument).toBeDefined();
-    expect(mockLogStore.getLogForDid).toHaveBeenCalledWith(
-      'did:webvh:z6Mktest123:example.com',
-    );
-    expect(mockResolveDIDFromLog).toHaveBeenCalled();
+  it('reports an absent network log as notFound', async () => {
+    const { did } = await signedHistory();
+    jest.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('not found', { status: 404 }));
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    expect((await resolveWith(getWebvhResolver().webvh, did)).didResolutionMetadata.error).toBe('notFound');
   });
 
-  it('should fall back to network resolver when DID not in local store', async () => {
-    const { resolveDID } = await import('didwebvh-ts');
-    const mockResolveDID = resolveDID as jest.MockedFunction<typeof resolveDID>;
-    mockResolveDID.mockResolvedValue({
-      did: 'did:webvh:z6Mkremote:other.com',
-      doc: { id: 'did:webvh:z6Mkremote:other.com' },
-      meta: { versionId: '1-xyz', created: '', updated: '' },
-      controlled: false,
-    });
+  it('rejects a corrupt local log without falling back to the network', async () => {
+    const { did, log } = await signedHistory();
+    log[1].proof![0].proofValue = 'z111';
+    const fetch = jest.spyOn(globalThis, 'fetch');
+    const resolver = getWebvhLocalResolver({ getLogForDid: async () => log });
+    const result = await resolveWith(resolver.webvh, did);
+    expect(result.didDocument).toBeNull();
+    expect(result.didResolutionMetadata.error).toBe('invalidDid');
+    expect(fetch).not.toHaveBeenCalled();
+  });
 
-    const mockLogStore = {
-      getLogForDid: jest.fn<any>().mockResolvedValue(null),
-    };
+  it('binds a local log to the SCID that was requested', async () => {
+    const { log } = await signedHistory();
+    const other = await signedHistory();
+    const result = await resolveWith(getWebvhLocalResolver({ getLogForDid: async () => log }).webvh, other.did);
+    expect(result.didResolutionMetadata.error).toBe('invalidDid');
+  });
 
-    const { getWebvhLocalResolver } = await import(
-      '../webvh-did-resolver.js'
-    );
-    const resolverMap = getWebvhLocalResolver(mockLogStore);
+  it('falls back to the network when no local log exists', async () => {
+    const { did, log } = await signedHistory();
+    const fetch = serve(log);
+    const result = await resolveWith(getWebvhLocalResolver({ getLogForDid: async () => null }).webvh, did);
+    expect(result.didDocument?.id).toBe(did);
+    expect(fetch).toHaveBeenCalled();
+  });
 
-    const result = await resolverMap.webvh(
-      'did:webvh:z6Mkremote:other.com',
-      {
-        did: 'did:webvh:z6Mkremote:other.com',
-        method: 'webvh',
-        id: 'z6Mkremote:other.com',
-        didUrl: 'did:webvh:z6Mkremote:other.com',
-      },
-      { resolve: jest.fn<any>() } as any,
-      {},
-    );
-
-    expect(result.didDocument).toBeDefined();
-    expect(mockResolveDID).toHaveBeenCalledWith(
-      'did:webvh:z6Mkremote:other.com',
-      expect.any(Object),
-    );
+  it('supports historical versions in DID URL queries', async () => {
+    const { did, log } = await signedHistory();
+    const result = await resolveWith(getWebvhLocalResolver({ getLogForDid: async () => log }).webvh, `${did}?versionNumber=1`);
+    expect(result.didDocumentMetadata.versionId).toBe(log[0].versionId);
   });
 });
