@@ -38,7 +38,8 @@ export class WebvhDidLogStore {
     entity.log = JSON.stringify(params.log);
     entity.portable = params.portable;
     entity.deactivated = false;
-    return db.getRepository(WebvhDidLog).save(entity);
+    await db.getRepository(WebvhDidLog).insert(entity);
+    return entity;
   }
 
   /**
@@ -57,17 +58,27 @@ export class WebvhDidLogStore {
       throw new Error(`did:webvh log not found for SCID: ${params.scid}`);
     }
 
-    existing.log = JSON.stringify(params.log);
-    if (params.currentDid !== undefined) {
-      existing.currentDid = params.currentDid;
+    // The candidate must extend precisely the history the caller read. Never
+    // overwrite an accepted entry, including when another writer wins a race.
+    const predecessor = JSON.stringify(params.log.slice(0, -1));
+    if (!params.log.length || predecessor !== existing.log) {
+      throw new Error('WebVH update conflict: reload the DID history and retry');
     }
-    if (params.previousDids !== undefined) {
-      existing.previousDids = JSON.stringify(params.previousDids);
+    const changes = {
+      log: JSON.stringify(params.log),
+      updatedAt: new Date(),
+      ...(params.currentDid !== undefined ? { currentDid: params.currentDid } : {}),
+      ...(params.previousDids !== undefined ? { previousDids: JSON.stringify(params.previousDids) } : {}),
+      ...(params.deactivated !== undefined ? { deactivated: params.deactivated } : {}),
+    };
+    const result = await db.getRepository(WebvhDidLog).createQueryBuilder()
+      .update().set(changes)
+      .where({ scid: params.scid, log: predecessor })
+      .execute();
+    if (result.affected !== 1) {
+      throw new Error('WebVH update conflict: reload the DID history and retry');
     }
-    if (params.deactivated !== undefined) {
-      existing.deactivated = params.deactivated;
-    }
-    return db.getRepository(WebvhDidLog).save(existing);
+    return Object.assign(existing, changes);
   }
 
   /**
