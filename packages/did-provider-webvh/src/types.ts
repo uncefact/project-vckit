@@ -37,6 +37,9 @@ export interface WebvhCreateIdentifierOptions {
   /** Enable pre-rotation keys for key compromise protection */
   preRotation?: boolean;
 
+  /** Existing KMS key references to commit for the next update, instead of generating a future key. */
+  nextUpdateKeys?: string[];
+
   /** Witness configuration for multi-party DID update approval */
   witnesses?: {
     threshold: number;
@@ -75,6 +78,9 @@ export interface WebvhUpdateIdentifierOptions {
 
   /** New pre-rotation key hashes (activates/changes pre-rotation) */
   nextKeyHashes?: string[];
+
+  /** Commit managed future key references, persisting their KMS association. Mutually exclusive with nextKeyHashes. */
+  nextUpdateKeys?: string[];
 }
 
 /**

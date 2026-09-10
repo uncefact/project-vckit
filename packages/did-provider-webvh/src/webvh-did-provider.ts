@@ -1,4 +1,4 @@
-import { resolveDIDFromLog } from 'didwebvh-ts';
+import { deriveNextKeyHash, resolveDIDFromLog } from 'didwebvh-ts';
 import type { WebvhDidLog } from './entities/webvh-did-log.js';
 import { AbstractIdentifierProvider } from '@veramo/did-manager';
 import { IIdentifier, IKey, IService, IAgentContext, IKeyManager } from '@uncefact/vckit-core-types';
@@ -47,18 +47,19 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
     return key;
   }
 
-  private async signingKey(entity: WebvhDidLog, identifier: IIdentifier, context: WebvhProviderContext, requested?: string): Promise<IKey> {
+  private async signingKey(entity: WebvhDidLog, identifier: IIdentifier, context: WebvhProviderContext, requested?: string, authorizedKeys?: string[]): Promise<IKey> {
     const { meta } = await resolveDIDFromLog(JSON.parse(entity.log), { verifier: new VeramoVerifier() });
+    const authorized = authorizedKeys ?? meta.updateKeys;
     const refs: Record<string, string> = JSON.parse(entity.updateKeyRefs || '{}');
     for (const key of identifier.keys) {
       if (key.type === 'Ed25519') refs[this.multikey(key)] = key.kid;
     }
     if (requested) {
       const key = await this.managedKey(requested, refs, context);
-      if (!meta.updateKeys.includes(this.multikey(key))) throw new Error('Signing key is not authorized to update this DID');
+      if (!authorized.includes(this.multikey(key))) throw new Error('Signing key is not authorized to update this DID');
       return key;
     }
-    for (const multikey of meta.updateKeys) {
+    for (const multikey of authorized) {
       if (refs[multikey]) return this.managedKey(multikey, refs, context);
     }
     throw new Error('No locally managed key is authorized to update this DID');
@@ -131,19 +132,13 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
       createOptions.paths = options.paths;
     }
 
-    if (options?.preRotation) {
-      // When pre-rotation is enabled, we generate a second key for the next rotation
-      const nextKey = await context.agent.keyManagerCreate({
-        kms: keyManagementSystem,
-        type: 'Ed25519',
-      });
-      const nextKeyMultibase = bytesToMultibase(
-        hexToBytes(nextKey.publicKeyHex),
-        'Ed25519',
-      );
-      // Hash the next key for the pre-rotation commitment
-      // didwebvh-ts expects the hash in a specific format
-      createOptions.nextKeyHashes = [nextKeyMultibase];
+    if (options?.preRotation || options?.nextUpdateKeys) {
+      const futureKeys = options?.nextUpdateKeys
+        ? await Promise.all(options.nextUpdateKeys.map(ref => this.managedKey(ref, {}, context)))
+        : [await context.agent.keyManagerCreate({ kms: keyManagementSystem, type: 'Ed25519' })];
+      if (!futureKeys.length) throw new Error('Pre-rotation requires at least one future key');
+      createOptions.nextKeyHashes = await Promise.all(futureKeys.map(key => deriveNextKeyHash(this.multikey(key))));
+      for (const key of futureKeys) updateKeyRefs[this.multikey(key)] = key.kid;
     }
 
     if (options?.witnesses) {
@@ -212,10 +207,46 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
     // 2. Get the controlling key for signing
     // Look up the identifier in Veramo's DID store to find the controller key
     const identifier = await context.agent.didManagerGet({ did: logEntity.currentDid });
-    const controllerKey = await this.signingKey(logEntity, identifier, context, options?.signingKey);
     const updateKeyRefs: Record<string, string> = JSON.parse(logEntity.updateKeyRefs || '{}');
     for (const key of identifier.keys) {
       if (key.type === 'Ed25519') updateKeyRefs[this.multikey(key)] = key.kid;
+    }
+
+    const { meta } = await resolveDIDFromLog(existingLog, { verifier: new VeramoVerifier() });
+    let nextKeys = options?.updateKeys
+      ? await Promise.all(options.updateKeys.map(ref => this.managedKey(ref, updateKeyRefs, context)))
+      : undefined;
+    if (meta.prerotation) {
+      if (!nextKeys) {
+        const committed = [];
+        for (const multikey of Object.keys(updateKeyRefs)) {
+          if (meta.nextKeyHashes.includes(await deriveNextKeyHash(multikey))) committed.push(multikey);
+        }
+        nextKeys = await Promise.all(committed.map(ref => this.managedKey(ref, updateKeyRefs, context)));
+      }
+      if (!nextKeys.length) throw new Error('No locally managed key matches the pre-rotation commitment');
+      for (const key of nextKeys) {
+        if (!meta.nextKeyHashes.includes(await deriveNextKeyHash(this.multikey(key)))) {
+          throw new Error('Update key does not match the pre-rotation commitment');
+        }
+      }
+    }
+    const controllerKey = await this.signingKey(logEntity, identifier, context, options?.signingKey,
+      meta.prerotation ? nextKeys!.map(key => this.multikey(key)) : undefined);
+    if (options?.nextKeyHashes !== undefined && options.nextUpdateKeys !== undefined) {
+      throw new Error('Specify nextUpdateKeys or nextKeyHashes, not both');
+    }
+    let nextKeyHashes = options?.nextKeyHashes;
+    if (options?.nextUpdateKeys !== undefined) {
+      const futureKeys = await Promise.all(options.nextUpdateKeys.map(ref => this.managedKey(ref, updateKeyRefs, context)));
+      nextKeyHashes = await Promise.all(futureKeys.map(key => deriveNextKeyHash(this.multikey(key))));
+      for (const key of futureKeys) updateKeyRefs[this.multikey(key)] = key.kid;
+    }
+    if (meta.prerotation && nextKeyHashes === undefined) {
+      const futureKey = await context.agent.keyManagerCreate({ kms: controllerKey.kms, type: 'Ed25519' });
+      const futureMultikey = this.multikey(futureKey);
+      updateKeyRefs[futureMultikey] = futureKey.kid;
+      nextKeyHashes = [await deriveNextKeyHash(futureMultikey)];
     }
 
     const publicKeyMultibase = bytesToMultibase(
@@ -269,14 +300,11 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
     }
 
     // Apply provider-specific options
-    if (options?.updateKeys) {
-      const nextKeys = await Promise.all(options.updateKeys.map(ref => this.managedKey(ref, updateKeyRefs, context)));
+    if (nextKeys) {
       updateOptions.updateKeys = nextKeys.map(key => this.multikey(key));
       for (const key of nextKeys) updateKeyRefs[this.multikey(key)] = key.kid;
     }
-    if (options?.nextKeyHashes) {
-      updateOptions.nextKeyHashes = options.nextKeyHashes;
-    }
+    if (nextKeyHashes !== undefined) updateOptions.nextKeyHashes = nextKeyHashes;
 
     // Handle domain portability
     if (isPorting) {
@@ -351,6 +379,14 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
     if (logEntity.deactivated) {
       // Already deactivated, just clean up
       return true;
+    }
+
+    // Consume the committed key before deactivation: the dependency's deactivation
+    // helper cannot perform a pre-rotation transition itself. Both entries remain durable.
+    const { meta } = await resolveDIDFromLog(JSON.parse(logEntity.log), { verifier: new VeramoVerifier() });
+    if (meta.prerotation) {
+      await this.updateIdentifier({ did: identifier.did, document: {}, options: { nextKeyHashes: [] } }, context);
+      return this.deleteIdentifier(identifier, context);
     }
 
     const existingLog = JSON.parse(logEntity.log);
