@@ -154,15 +154,15 @@ server:
 
     - - $require: '@uncefact/vckit-utils?t=function#loggerMiddleware'
 
-    # DID Documents
-    - - $require: '@uncefact/vckit-remote-server?t=function#WebDidDocRouter'
-
-    # did:webvh DID Documents — uncomment to serve did.jsonl for did:webvh DIDs
+    # did:webvh DID Documents — mount before WebDidDocRouter when enabled
     # - - $require: '@uncefact/vckit-did-provider-webvh?t=function#WebvhDidDocRouter'
     #     $args:
     #       - dbConnection:
     #           $ref: /dbConnection
     #         serveDidJson: true
+
+    # DID Documents
+    - - $require: '@uncefact/vckit-remote-server?t=function#WebDidDocRouter'
 
     # VC API v1
     - - /v1

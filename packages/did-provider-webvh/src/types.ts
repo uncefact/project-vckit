@@ -1,4 +1,4 @@
-import type { IAgentContext, IKeyManager } from '@veramo/core';
+import type { IAgentContext, IKeyManager, IService } from '@veramo/core';
 import { OrPromise } from '@veramo/utils';
 import { DataSource } from 'typeorm';
 
@@ -57,6 +57,9 @@ export interface WebvhCreateIdentifierOptions {
 
   /** Key type for the DID's primary key. Defaults to 'Ed25519'. */
   keyType?: 'Ed25519';
+
+  /** Service endpoints to include in the genesis DID document. */
+  services?: IService[];
 }
 
 /**

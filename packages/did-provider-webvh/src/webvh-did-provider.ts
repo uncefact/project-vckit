@@ -124,6 +124,7 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
       signer,
       updateKeys: initialKeys.map(candidate => this.multikey(candidate)),
       verificationMethods,
+      services: options?.services,
       portable,
       verifier: new VeramoVerifier(),
     };
@@ -171,7 +172,7 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
       did,
       controllerKeyId: key.kid,
       keys: initialKeys,
-      services: [],
+      services: options?.services || [],
     };
 
     return identifier;

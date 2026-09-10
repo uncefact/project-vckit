@@ -1,183 +1,59 @@
-import { Request, Router } from 'express';
+import { type Request, Router } from 'express';
+import { generateParallelDidWeb, resolveDIDFromLog } from 'didwebvh-ts';
 import { WebvhDidLogStore } from './store/webvh-did-log-store.js';
-import { OrPromise } from '@veramo/utils';
-import { DataSource } from 'typeorm';
+import { VeramoVerifier } from './veramo-signer.js';
+import type { OrPromise } from '@veramo/utils';
+import type { DataSource } from 'typeorm';
 
-/**
- * Request type with an optional agent property, matching VCkit's pattern.
- */
-interface RequestWithAgent extends Request {
-  agent?: any;
-}
-
-/**
- * Options for the WebvhDidDocRouter.
- * @public
- */
+/** @public */
 export interface WebvhDidDocRouterOptions {
-  /** Database connection for loading DID logs */
   dbConnection: OrPromise<DataSource>;
-
-  /**
-   * Whether to serve a backward-compatible did.json alongside did.jsonl.
-   * This allows did:web consumers to resolve the DID using the latest state.
-   * Defaults to true.
-   */
+  /** Publish the parallel did:web document at did.json. Defaults to true. */
   serveDidJson?: boolean;
 }
 
 /**
- * Creates an Express router that serves did:webvh DID documents.
- *
- * Endpoints:
- * - `/.well-known/did.jsonl` — DID log for the root domain DID
- * - `/{path}/did.jsonl` — DID log for path-based DIDs
- * - `/.well-known/did.json` — (optional) Backward-compatible did:web document
- * - `/{path}/did.json` — (optional) Backward-compatible did:web document
- *
+ * Publishes root and path-based WebVH histories and parallel did:web documents.
+ * Mount before the standard WebDidDocRouter so it can handle managed WebVH DIDs.
  * @public
  */
 export const WebvhDidDocRouter = (options: WebvhDidDocRouterOptions): Router => {
   const router = Router();
-  const logStore = new WebvhDidLogStore(options.dbConnection);
-  const serveDidJson = options.serveDidJson ?? true;
+  const store = new WebvhDidLogStore(options.dbConnection);
 
-  /**
-   * Construct the DID string from the request hostname and path.
-   */
-  const getDidForRequest = (req: Request, pathSegment?: string): string => {
-    const host = encodeURIComponent(req.get('host') || req.hostname);
-    if (pathSegment) {
-      const pathParts = pathSegment.replace(/\//g, ':');
-      // We need to search by domain+path pattern since we don't know the SCID
-      return `${host}:${pathParts}`;
-    }
-    return host;
+  const findLog = async (req: Request) => {
+    const host = encodeURIComponent((req.get('host') || req.hostname).toLowerCase());
+    const path = req.path.replace(/\/did\.jsonl?$/, '').replace(/^\//, '');
+    const domainPath = host + (path && path !== '.well-known' ? ':' + path.replace(/\//g, ':') : '');
+    return (await store.getAllLogs()).find(entity =>
+      [entity.currentDid, ...JSON.parse(entity.previousDids || '[]')]
+        .some(did => did.split(':').slice(3).join(':') === domainPath));
   };
 
-  /**
-   * Find a DID log entity matching a domain+path pattern.
-   * Since we don't know the SCID from the URL, we search all logs
-   * for one whose currentDid matches the domain+path pattern.
-   */
-  const findLogByDomainPath = async (domainPath: string) => {
-    const allLogs = await logStore.getAllLogs();
-    return allLogs.find((log) => {
-      // did:webvh:{SCID}:{domain}:{path...}
-      const parts = log.currentDid.split(':');
-      // Remove 'did:webvh:{SCID}:' prefix, keep domain:path
-      const didDomainPath = parts.slice(3).join(':');
-      return didDomainPath === domainPath;
-    });
-  };
-
-  /**
-   * Convert a DID log to JSONL format (one JSON object per line).
-   */
-  const logToJsonl = (log: any[]): string => {
-    return log.map((entry) => JSON.stringify(entry)).join('\n');
-  };
-
-  /**
-   * Extract the latest DID document from a DID log for backward-compatible did.json.
-   */
-  const latestDocFromLog = (log: any[]): any | null => {
-    if (!log || log.length === 0) return null;
-    const lastEntry = log[log.length - 1];
-    return lastEntry?.state || null;
-  };
-
-  // Serve did.jsonl for root domain DID
-  router.get('/.well-known/did.jsonl', async (req: RequestWithAgent, res) => {
+  router.get(/^\/(.+)\/did\.jsonl$/, async (req, res) => {
     try {
-      const domainPath = getDidForRequest(req);
-      const logEntity = await findLogByDomainPath(domainPath);
-
-      if (!logEntity) {
-        res.status(404).json({ error: 'DID not found' });
-        return;
-      }
-
-      const log = JSON.parse(logEntity.log);
-      res.setHeader('Content-Type', 'application/jsonl');
-      res.send(logToJsonl(log));
-    } catch (e: any) {
-      res.status(500).json({ error: e.message });
+      const entity = await findLog(req);
+      if (!entity) { res.status(404).json({ error: 'DID not found' }); return; }
+      res.type('application/jsonl').send(JSON.parse(entity.log).map((entry: unknown) => JSON.stringify(entry)).join('\n') + '\n');
+    } catch (error) {
+      res.status(500).json({ error: error instanceof Error ? error.message : String(error) });
     }
   });
 
-  // Serve did.jsonl for path-based DIDs
-  router.get(/^\/(.+)\/did\.jsonl$/, async (req: RequestWithAgent, res) => {
-    try {
-      const pathSegment = req.params[0];
-      const domainPath = getDidForRequest(req, pathSegment);
-      const logEntity = await findLogByDomainPath(domainPath);
-
-      if (!logEntity) {
-        res.status(404).json({ error: 'DID not found' });
-        return;
-      }
-
-      const log = JSON.parse(logEntity.log);
-      res.setHeader('Content-Type', 'application/jsonl');
-      res.send(logToJsonl(log));
-    } catch (e: any) {
-      res.status(500).json({ error: e.message });
-    }
-  });
-
-  // Backward-compatible did.json (latest DID document state)
-  if (serveDidJson) {
-    router.get('/.well-known/did.json', async (req: RequestWithAgent, res, next) => {
+  if (options.serveDidJson ?? true) {
+    router.get(/^\/(.+)\/did\.json$/, async (req, res, next) => {
       try {
-        const domainPath = getDidForRequest(req);
-        const logEntity = await findLogByDomainPath(domainPath);
-
-        if (!logEntity) {
-          // Fall through to let the standard WebDidDocRouter handle it
-          next();
-          return;
-        }
-
-        const log = JSON.parse(logEntity.log);
-        const doc = latestDocFromLog(log);
-
-        if (!doc) {
-          next();
-          return;
-        }
-
-        res.json(doc);
-      } catch (e: any) {
-        next();
-      }
-    });
-
-    router.get(/^\/(.+)\/did\.json$/, async (req: RequestWithAgent, res, next) => {
-      try {
-        const pathSegment = req.params[0];
-        const domainPath = getDidForRequest(req, pathSegment);
-        const logEntity = await findLogByDomainPath(domainPath);
-
-        if (!logEntity) {
-          next();
-          return;
-        }
-
-        const log = JSON.parse(logEntity.log);
-        const doc = latestDocFromLog(log);
-
-        if (!doc) {
-          next();
-          return;
-        }
-
-        res.json(doc);
-      } catch (e: any) {
-        next();
+        const entity = await findLog(req);
+        if (!entity) { next(); return; }
+        const resolved = await resolveDIDFromLog(JSON.parse(entity.log), { verifier: new VeramoVerifier(), witnessProofs: [] });
+        if (resolved.meta.deactivated) { res.status(410).json({ error: 'DID deactivated' }); return; }
+        // Resolve first to verify the history and materialize implicit services.
+        const document = generateParallelDidWeb(resolved.did, resolved.doc);
+        res.type('application/did+ld+json').send(document);
+      } catch (error) {
+        res.status(500).json({ error: error instanceof Error ? error.message : String(error) });
       }
     });
   }
-
   return router;
 };
