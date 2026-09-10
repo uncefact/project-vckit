@@ -70,3 +70,38 @@ describe('WebVH resolution', () => {
     expect(result.didDocumentMetadata.versionId).toBe(log[0].versionId);
   });
 });
+
+describe('historical resolution options', () => {
+  it.each(['network', 'local'])('honors API versionId, versionNumber and versionTime through the %s resolver', async mode => {
+    const { did, log } = await signedHistory();
+    jest.spyOn(globalThis, 'fetch').mockImplementation(async () => new Response(log.map(entry => JSON.stringify(entry)).join('\n')));
+    const resolver = mode === 'local' ? getWebvhLocalResolver({ getLogForDid: async () => log }) : getWebvhResolver();
+    for (const options of [{ versionId: log[0].versionId }, { versionNumber: 1 }, { versionTime: '2026-01-01T00:00:00Z' }]) {
+      const result = await resolveWith(resolver.webvh, did, options);
+      expect(result.didResolutionMetadata.error).toBeUndefined();
+      expect(result.didDocumentMetadata.versionId).toBe(log[0].versionId);
+    }
+  });
+
+  it.each([
+    ['?versionNumber=2', { versionNumber: 1 }],
+    ['?versionNumber=1&versionNumber=2', {}],
+    ['?versionNumber=1.5', {}],
+    ['?versionNumber=1garbage', {}],
+    ['', { versionNumber: 0 }],
+    ['', { versionTime: '2026-02-30T00:00:00Z' }],
+    ['', { versionNumber: 1, versionTime: '2026-01-01T00:00:00Z' }],
+  ] as [string, DIDResolutionOptions][])('rejects invalid or conflicting selectors: %s %j', async (query, options) => {
+    const { did } = await signedHistory();
+    const fetch = jest.spyOn(globalThis, 'fetch');
+    const result = await resolveWith(getWebvhResolver().webvh, did + query, options);
+    expect(result.didResolutionMetadata.error).toBe('invalidOptions');
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it('accepts matching API/query selectors and ignores unrelated extension parameters', async () => {
+    const { did, log } = await signedHistory();
+    const result = await resolveWith(getWebvhLocalResolver({ getLogForDid: async () => log }).webvh, `${did}?versionNumber=1&extension=value`, { versionNumber: 1 });
+    expect(result.didDocumentMetadata.versionId).toBe(log[0].versionId);
+  });
+});
