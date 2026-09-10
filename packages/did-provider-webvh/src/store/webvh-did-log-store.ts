@@ -1,6 +1,8 @@
 import { OrPromise } from '@veramo/utils';
 import { DataSource } from 'typeorm';
 import { Identifier, Key, Service } from '@veramo/data-store';
+import type { DIDLog, WitnessProofFileEntry } from 'didwebvh-ts';
+import { WebvhWitnessProof } from '../entities/webvh-witness-proof.js';
 
 // A single-connection driver must not admit another operation into an active transaction.
 const queues = new WeakMap<DataSource, Promise<unknown>>();
@@ -113,6 +115,62 @@ export class WebvhDidLogStore {
     }
     return Object.assign(existing, changes);
     }));
+  }
+
+  /**
+   * Publish verified approvals before appending their candidate log entry.
+   * Keep approvals for published entries: a pending proof cannot replace them.
+   */
+  async stageWitnessProofs(params: {
+    scid: string;
+    dids: string[];
+    expectedLog: DIDLog;
+    proofs: WitnessProofFileEntry[];
+  }): Promise<void> {
+    return this.withDb(db => db.transaction(async manager => {
+      const log = await manager.getRepository(WebvhDidLog).findOneBy({ scid: params.scid });
+      if ((log?.log ?? '[]') !== JSON.stringify(params.expectedLog)) {
+        throw new Error('WebVH update conflict: reload the DID history and retry');
+      }
+      const repository = manager.getRepository(WebvhWitnessProof);
+      const existing = await repository.findOneBy({ scid: params.scid });
+      const proofSets: WitnessProofFileEntry[] = JSON.parse(existing?.proofs ?? '[]');
+      for (const incoming of params.proofs) {
+        let target = proofSets.find(entry => entry.versionId === incoming.versionId);
+        if (!target) {
+          target = { versionId: incoming.versionId, proof: [] };
+          proofSets.push(target);
+        }
+        for (const proof of incoming.proof) {
+          if (!target.proof.some(previous => JSON.stringify(previous) === JSON.stringify(proof))) target.proof.push(proof);
+        }
+      }
+      await repository.save(repository.create({
+        scid: params.scid,
+        dids: JSON.stringify([...new Set([...JSON.parse(existing?.dids ?? '[]'), ...params.dids])]),
+        proofs: JSON.stringify(proofSets),
+      }));
+    }));
+  }
+
+  async getWitnessProofsForScid(scid: string): Promise<WitnessProofFileEntry[]> {
+    return this.withDb(async db => {
+      const entity = await db.getRepository(WebvhWitnessProof).findOneBy({ scid });
+      return JSON.parse(entity?.proofs ?? '[]');
+    });
+  }
+
+  async getWitnessProofsForDid(did: string): Promise<WitnessProofFileEntry[]> {
+    return this.getWitnessProofsForScid(WebvhDidLogStore.extractScid(did));
+  }
+
+  /** Also finds the proof publication for a DID whose genesis log is not yet public. */
+  async getWitnessProofsForDomainPath(domainPath: string): Promise<WitnessProofFileEntry[] | null> {
+    return this.withDb(async db => {
+      const records = await db.getRepository(WebvhWitnessProof).find();
+      const record = records.find(entity => JSON.parse(entity.dids).some((did: string) => did.split(':').slice(3).join(':') === domainPath));
+      return record ? JSON.parse(record.proofs) : null;
+    });
   }
 
   /**

@@ -1,7 +1,7 @@
 import type { DIDResolutionResult, DIDResolver, DIDDocument, ParsedDID, DIDResolutionOptions } from 'did-resolver';
 import {
   resolveDID, resolveDIDFromLog,
-  type DIDDoc, type DIDLog, type DIDResolutionMeta, type ResolutionOptions,
+  type DIDDoc, type DIDLog, type DIDResolutionMeta, type ResolutionOptions, type WitnessProofFileEntry,
 } from 'didwebvh-ts';
 import { VeramoVerifier } from './veramo-signer.js';
 
@@ -135,7 +135,10 @@ export function getWebvhResolver(): Record<string, DIDResolver> {
 
 /** Resolves managed logs locally, falling back to HTTPS only when no local log exists. @public */
 export function getWebvhLocalResolver(
-  logStore: { getLogForDid: (did: string) => Promise<DIDLog | null> },
+  logStore: {
+    getLogForDid: (did: string) => Promise<DIDLog | null>;
+    getWitnessProofsForDid?: (did: string) => Promise<WitnessProofFileEntry[]>;
+  },
 ): Record<string, DIDResolver> {
   const network = getWebvhResolver();
   return {
@@ -144,7 +147,8 @@ export function getWebvhLocalResolver(
         const selectors = resolutionOptions(parsed, options);
         const log = await logStore.getLogForDid(parsed.did);
         if (log === null) return network.webvh(didUrl, parsed, resolver, options);
-        return await resolveVersion(selected => resolveDIDFromLog(log, { ...selected, scid: parsed.id.split(':')[0] }), selectors);
+        const witnessProofs = await logStore.getWitnessProofsForDid?.(parsed.did) ?? [];
+        return await resolveVersion(selected => resolveDIDFromLog(log, { ...selected, scid: parsed.id.split(':')[0], witnessProofs }), selectors);
       } catch (error) {
         return failedResolution(error);
       }

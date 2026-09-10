@@ -1,6 +1,24 @@
+import type { DIDLog, WitnessParameter, WitnessProofFileEntry } from 'didwebvh-ts';
 import type { IAgentContext, IKeyManager, IService } from '@veramo/core';
 import { OrPromise } from '@veramo/utils';
 import { DataSource } from 'typeorm';
+
+/** The witness list and approval threshold defined by WebVH. @public */
+export type WebvhWitnessConfiguration = WitnessParameter;
+
+/** Candidate history submitted to independently operated witnesses. @public */
+export interface WebvhWitnessRequest {
+  did: string;
+  log: DIDLog;
+  requiredWitnesses: WebvhWitnessConfiguration;
+}
+
+/**
+ * Retrieves witness approvals for a candidate. Transport and witness policy are
+ * application-specific. The provider verifies every required threshold itself.
+ * @public
+ */
+export type WebvhWitnessProofCollector = (request: WebvhWitnessRequest) => Promise<WitnessProofFileEntry[]>;
 
 /**
  * Configuration for the did:webvh provider, passed as constructor args.
@@ -15,6 +33,9 @@ export interface WebvhDIDProviderOptions {
 
   /** Default value for portable flag on new DIDs (defaults to true) */
   defaultPortable?: boolean;
+
+  /** Collect approvals before publishing a witnessed creation, update, or deactivation. */
+  witnessProofCollector?: WebvhWitnessProofCollector;
 
   /** Database connection for DID logs. Portability requires the same DataSource as Veramo DIDStore, with SharedEntities and SharedMigrations. */
   dbConnection: OrPromise<DataSource>;
@@ -40,11 +61,8 @@ export interface WebvhCreateIdentifierOptions {
   /** Existing KMS key references to commit for the next update, instead of generating a future key. */
   nextUpdateKeys?: string[];
 
-  /** Witness configuration for multi-party DID update approval */
-  witnesses?: {
-    threshold: number;
-    witnesses: Array<{ id: string; weight?: number }>;
-  };
+  /** Witness configuration. Requires a configured witnessProofCollector. */
+  witnesses?: WebvhWitnessConfiguration;
 
   /** Watcher webhook URLs for tamper detection notifications */
   watchers?: string[];
@@ -67,6 +85,9 @@ export interface WebvhCreateIdentifierOptions {
  * @public
  */
 export interface WebvhUpdateIdentifierOptions {
+  /** Replace the witness list, or null to disable witnessing after this approved update. */
+  witnesses?: WebvhWitnessConfiguration | null;
+
   /** Port the DID to a new domain. Requires the DID to have been created with portable: true. */
   portToDomain?: string;
 

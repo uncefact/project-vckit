@@ -1,3 +1,4 @@
+import { CreateWebvhWitnessProofTable1700000000003 } from './3.createWebvhWitnessProofTable.js';
 import { AddWebvhUpdateKeyRefs1700000000002 } from './2.addUpdateKeyRefs.js';
 import { CreateWebvhDidLogTable1700000000001 } from './1.createWebvhDidLogTable.js';
 
@@ -7,4 +8,4 @@ import { CreateWebvhDidLogTable1700000000001 } from './1.createWebvhDidLogTable.
  *
  * @public
  */
-export const migrations = [CreateWebvhDidLogTable1700000000001, AddWebvhUpdateKeyRefs1700000000002];
+export const migrations = [CreateWebvhDidLogTable1700000000001, AddWebvhUpdateKeyRefs1700000000002, CreateWebvhWitnessProofTable1700000000003];

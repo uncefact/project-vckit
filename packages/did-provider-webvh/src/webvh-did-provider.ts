@@ -1,5 +1,6 @@
-import { deriveNextKeyHash, resolveDIDFromLog } from 'didwebvh-ts';
+import { deriveNextKeyHash, resolveDIDFromLog, type DIDLog, type WitnessProofFileEntry, type WitnessParameterResolution } from 'didwebvh-ts';
 import type { WebvhDidLog } from './entities/webvh-did-log.js';
+import { deactivateWebvhLog } from './deactivate-webvh-log.js';
 import { AbstractIdentifierProvider } from '@veramo/did-manager';
 import { IIdentifier, IKey, IService, IAgentContext, IKeyManager } from '@uncefact/vckit-core-types';
 import { bytesToMultibase, hexToBytes } from '@veramo/utils';
@@ -10,6 +11,7 @@ import {
   WebvhCreateIdentifierOptions,
   WebvhUpdateIdentifierOptions,
   WebvhProviderContext,
+  WebvhWitnessProofCollector,
 } from './types.js';
 
 /**
@@ -26,13 +28,51 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
   private defaultDomain?: string;
   private defaultPortable: boolean;
   private logStore: WebvhDidLogStore;
+  private witnessProofCollector?: WebvhWitnessProofCollector;
 
   constructor(options: WebvhDIDProviderOptions) {
     super();
     this.defaultKms = options.defaultKms;
+    this.witnessProofCollector = options.witnessProofCollector;
     this.defaultDomain = options.defaultDomain;
     this.defaultPortable = options.defaultPortable ?? true;
     this.logStore = new WebvhDidLogStore(options.dbConnection);
+  }
+
+  private async verifyHistory(log: DIDLog, proofs?: WitnessProofFileEntry[]) {
+    const did = log[0]?.state.id;
+    if (typeof did !== 'string') throw new Error('DID history is missing a valid document ID');
+    const witnessProofs = proofs ?? await this.logStore.getWitnessProofsForDid(did);
+    const result = await resolveDIDFromLog(log, { verifier: new VeramoVerifier(), witnessProofs });
+    if (result.meta.error) throw new Error(result.meta.problemDetails?.detail ?? result.meta.error);
+    return result;
+  }
+
+  private async approvePublication(log: DIDLog, previousWitness?: WitnessParameterResolution): Promise<void> {
+    const entry = log[log.length - 1];
+    const did = entry.state.id;
+    if (typeof did !== 'string') throw new Error('DID history is missing a valid document ID');
+    const scid = WebvhDidLogStore.extractScid(did);
+    const existingProofs = await this.logStore.getWitnessProofsForScid(scid);
+    const required = previousWitness?.witnesses?.length ? previousWitness : entry.parameters.witness;
+    let approvals: WitnessProofFileEntry[] = [];
+    if (required?.witnesses?.length) {
+      if (!this.witnessProofCollector) throw new Error('A witness proof collector is required before publication');
+      const collected = await this.witnessProofCollector({
+        did, log: JSON.parse(JSON.stringify(log)), requiredWitnesses: { ...JSON.parse(JSON.stringify(required)), threshold: Number(required.threshold) },
+      });
+      approvals = JSON.parse(JSON.stringify(collected));
+      if (!Array.isArray(approvals)) throw new Error('Witness collector must return an array of proof sets');
+      approvals = approvals.filter(proofs => proofs.versionId === entry.versionId);
+    }
+    await this.verifyHistory(log, [...existingProofs, ...approvals]);
+    if (approvals.length) {
+      // This commits the proof file first. A later log/identifier failure leaves
+      // harmless pending proofs, while retaining every published approval.
+      await this.logStore.stageWitnessProofs({
+        scid, dids: log.map(entry => entry.state.id as string), expectedLog: log.slice(0, -1), proofs: approvals,
+      });
+    }
   }
 
   private multikey(key: IKey): string {
@@ -48,7 +88,7 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
   }
 
   private async signingKey(entity: WebvhDidLog, identifier: IIdentifier, context: WebvhProviderContext, requested?: string, authorizedKeys?: string[]): Promise<IKey> {
-    const { meta } = await resolveDIDFromLog(JSON.parse(entity.log), { verifier: new VeramoVerifier() });
+    const { meta } = await this.verifyHistory(JSON.parse(entity.log));
     const authorized = authorizedKeys ?? meta.updateKeys;
     const refs: Record<string, string> = JSON.parse(entity.updateKeyRefs || '{}');
     for (const key of identifier.keys) {
@@ -75,6 +115,9 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
     { kms, alias, options }: { kms?: string; alias?: string; options?: WebvhCreateIdentifierOptions },
     context: WebvhProviderContext,
   ): Promise<Omit<IIdentifier, 'provider'>> {
+    if (options?.witnesses?.witnesses?.length && !this.witnessProofCollector) {
+      throw new Error('A witness proof collector is required before publication');
+    }
     const keyManagementSystem = kms || this.defaultKms;
     const domain = options?.domain || this.defaultDomain;
     if (!domain) {
@@ -125,6 +168,7 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
       updateKeys: initialKeys.map(candidate => this.multikey(candidate)),
       verificationMethods,
       services: options?.services,
+      witness: options?.witnesses,
       portable,
       verifier: new VeramoVerifier(),
     };
@@ -142,10 +186,6 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
       for (const key of futureKeys) updateKeyRefs[this.multikey(key)] = key.kid;
     }
 
-    if (options?.witnesses) {
-      createOptions.witness = options.witnesses;
-    }
-
     if (options?.watchers) {
       createOptions.watchers = options.watchers;
     }
@@ -157,6 +197,8 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
 
     // 8. Extract the SCID from the created DID
     const scid = WebvhDidLogStore.extractScid(did);
+
+    await this.approvePublication(log);
 
     // 9. Persist the DID log to the database
     await this.logStore.saveLog({
@@ -213,7 +255,7 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
       if (key.type === 'Ed25519') updateKeyRefs[this.multikey(key)] = key.kid;
     }
 
-    const { meta } = await resolveDIDFromLog(existingLog, { verifier: new VeramoVerifier() });
+    const { meta } = await this.verifyHistory(existingLog);
     let nextKeys = options?.updateKeys
       ? await Promise.all(options.updateKeys.map(ref => this.managedKey(ref, updateKeyRefs, context)))
       : undefined;
@@ -275,6 +317,8 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
       log: existingLog,
       signer,
       verifier: new VeramoVerifier(),
+      witnessProofs: await this.logStore.getWitnessProofsForScid(scid),
+      witness: options?.witnesses === undefined ? (meta.witness ?? {}) : (options.witnesses ?? {}),
     };
 
     // Apply document changes
@@ -322,6 +366,7 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
     const result = await updateDID(updateOptions);
     const newDid = result.did;
     const newLog = result.log;
+    await this.approvePublication(newLog, meta.witness);
 
     // 6. Persist updated log
     const previousDids: string[] = JSON.parse(logEntity.previousDids || '[]');
@@ -367,7 +412,7 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
 
     // Consume the committed key before deactivation: the dependency's deactivation
     // helper cannot perform a pre-rotation transition itself. Both entries remain durable.
-    const { meta } = await resolveDIDFromLog(JSON.parse(logEntity.log), { verifier: new VeramoVerifier() });
+    const { meta } = await this.verifyHistory(JSON.parse(logEntity.log));
     if (meta.prerotation) {
       await this.updateIdentifier({ did: identifier.did, document: {}, options: { nextKeyHashes: [] } }, context);
       return this.deleteIdentifier(identifier, context);
@@ -387,19 +432,13 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
 
     const signer = new VeramoSigner(controllerKey.kid, verificationMethodId, context);
 
-    // Deactivate via didwebvh-ts
-    const { deactivateDID } = await import('didwebvh-ts');
-
-    const result = await deactivateDID({
-      log: existingLog,
-      signer,
-      verifier: new VeramoVerifier(),
-    });
+    const log = await deactivateWebvhLog(existingLog, meta.updateKeys, signer);
+    await this.approvePublication(log, meta.witness);
 
     // Persist the deactivation
     await this.logStore.updateLog({
       scid,
-      log: result.log,
+      log,
       deactivated: true,
     });
 

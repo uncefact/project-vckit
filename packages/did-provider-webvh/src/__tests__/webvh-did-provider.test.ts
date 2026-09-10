@@ -88,6 +88,14 @@ describe('managed pre-rotation', () => {
   });
 });
 
+it('requires a witness collector before creating keys, identifiers, or logs', async () => {
+  const { agent, logStore, db } = fixture;
+  await expect(agent.didManagerCreate({ options: { witnesses: { threshold: 1, witnesses: [{ id: 'did:key:zExample' }] } } })).rejects.toThrow('A witness proof collector is required');
+  expect(await logStore.getAllLogs()).toEqual([]);
+  expect(await agent.didManagerFind({})).toEqual([]);
+  expect(await db.getRepository('Key').count()).toBe(0);
+});
+
 describe('atomic portability', () => {
   it('moves the managed alias and existing keys, preserving the active history and old DID', async () => {
     const { agent, logStore, context } = fixture;

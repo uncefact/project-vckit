@@ -1,3 +1,4 @@
+import { WebvhWitnessProof } from './entities/webvh-witness-proof.js';
 import { WebvhDidLog } from './entities/webvh-did-log.js';
 
 // Provider
@@ -17,7 +18,8 @@ export { VeramoSigner, VeramoVerifier } from './veramo-signer.js';
 export { WebvhDidLogStore } from './store/webvh-did-log-store.js';
 
 // TypeORM entities (for DataSource configuration)
-export const Entities = [WebvhDidLog];
+export const Entities = [WebvhDidLog, WebvhWitnessProof];
+export { WebvhWitnessProof };
 export { WebvhDidLog } from './entities/webvh-did-log.js';
 
 // Migrations (for DataSource configuration)
@@ -26,6 +28,9 @@ export { migrations } from './migrations/index.js';
 // Types
 export type {
   WebvhDIDProviderOptions,
+  WebvhWitnessProofCollector,
+  WebvhWitnessRequest,
+  WebvhWitnessConfiguration,
   WebvhCreateIdentifierOptions,
   WebvhUpdateIdentifierOptions,
   WebvhDidMetadata,
@@ -35,5 +40,5 @@ export type {
 // Combined configuration for the shared Veramo/WebVH database used by portability.
 import { Entities as VeramoEntities, migrations as VeramoMigrations } from '@veramo/data-store';
 import { migrations as WebvhMigrations } from './migrations/index.js';
-export const SharedEntities = [...VeramoEntities, WebvhDidLog];
+export const SharedEntities = [...VeramoEntities, ...Entities];
 export const SharedMigrations = [...VeramoMigrations, ...WebvhMigrations];
