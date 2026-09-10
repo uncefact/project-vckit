@@ -94,3 +94,7 @@ local-database*.json
 # logs
 /logs
 .tmp_npm
+
+# didwebvh-ts writes diagnostic logs when NODE_ENV=test
+/test/logs/
+/packages/did-provider-webvh/conformance/generated/

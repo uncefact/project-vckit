@@ -1,0 +1,2273 @@
+{
+  "suite": "https://github.com/decentralized-identity/didwebvh-test-suite",
+  "suiteCommit": "0f03983c61ff3ed80d37239105d5b1a02e3f13dd",
+  "node": "v20.12.2",
+  "platform": "linux",
+  "architecture": "x64",
+  "dependency": "2.8.0",
+  "mode": "regenerated",
+  "upstreamBuilds": [
+    {
+      "implementation": "ts",
+      "image": "rd-vckit-webvh-testsuit-683f6230-dcf1235291c7-ts:dev",
+      "exitCode": 0,
+      "seconds": 1.9,
+      "imageId": "sha256:8825dc61c2a283ca8dbc67df0417238f8d24b1a488794c5bc2a85525b5fd52a2",
+      "libraryCommit": "80b3901cf5168967d82b3f5a6d231f7d25496c71"
+    },
+    {
+      "implementation": "python",
+      "image": "rd-vckit-webvh-testsuit-683f6230-dcf1235291c7-python:dev",
+      "exitCode": 0,
+      "seconds": 2.3,
+      "imageId": "sha256:0589d66c569f802fd96c98b61d67bacb9acf3991434fc5e9ad4b1a79630e7348",
+      "libraryCommit": "905f5e1b67db617655d94d25427c965f619cda6c"
+    },
+    {
+      "implementation": "rust",
+      "image": "rd-vckit-webvh-testsuit-683f6230-dcf1235291c7-rust:dev",
+      "exitCode": 0,
+      "seconds": 48,
+      "imageId": "sha256:0457657edf96993ffd3732ecdc9eb5af693c10b61cfaa72b24944088d6ca9c6d",
+      "libraryCommit": "3fa86a5cd133db8e6d5c1bb23ae36053f7459fe2"
+    },
+    {
+      "implementation": "java",
+      "image": "rd-vckit-webvh-testsuit-683f6230-dcf1235291c7-java:dev",
+      "exitCode": 0,
+      "seconds": 21.8,
+      "imageId": "sha256:5440dad04ea36f86c1b46fe6bfe8f25b32084ca0f7026d5f9d9b7271f888c44d",
+      "libraryCommit": "65eb18faeec583239f41662a145ca6205587a14c"
+    },
+    {
+      "implementation": "java-eecc",
+      "image": "rd-vckit-webvh-testsuit-683f6230-dcf1235291c7-java-eecc:dev",
+      "exitCode": 0,
+      "seconds": 25.1,
+      "imageId": "sha256:e78358fc457c199b3bccddd13d9fd0e37223455347aa5593a7a8a1add899f9aa",
+      "libraryCommit": "7f79b0dc018643357ea5577eff02ee5b615f93fe"
+    },
+    {
+      "implementation": "dart",
+      "image": "rd-vckit-webvh-testsuit-683f6230-dcf1235291c7-dart:dev",
+      "exitCode": 0,
+      "seconds": 16.8,
+      "imageId": "sha256:d34f73179da282c62f8b997b04730602cbce3d5e1c80ab35d4fcb946a273ba10",
+      "libraryCommit": "2a5ab10a33098a60367a768f968e2d6b4fcc3a8f"
+    }
+  ],
+  "harnessManifest": {
+    "suiteCommit": "0f03983c61ff3ed80d37239105d5b1a02e3f13dd",
+    "harnessPatchSha256": "242a981088a5fbea6ca971f048189524d8d2709f2dd190109242495047987be1",
+    "harnessFiles": {
+      ".claude/settings.json": "0cee1360b5bc38e3d7cc41c67d519328f49de3ad02aea16464ecdd82b11b2216",
+      ".dockerignore": "e5029a1358822e7f54313c72b915c534834bce570ae53774e78afc3a172a826d",
+      ".gitignore": "caa289655e9d8ea9fefb57bacbeb2fc1b8280b410263052e8702dd5540f2bca4",
+      "CLAUDE.md": "4c493f172708679bdb611702220db06f66c855e357f1022d506b9d38a958ad57",
+      "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "README.md": "76ed3003aaff2ff6ed3dc6520341d84b6a6742f015077db7693489027101d0dd",
+      "implementations/dart/Dockerfile": "e9fbd8eaff16b9d60a00b1be502be890a39b62e9f580d9c4af1466d9dc5d15a1",
+      "implementations/dart/bin/generate_vectors.dart": "ab06f2284ed13965f66520e63abdc4126c3deb1886495c19595f7ee5d7a69106",
+      "implementations/dart/bin/test_vectors.dart": "37d05d0735d7df66bd9adec0e7585ac99a94b02ad261a40d9e4f22b259e98f4b",
+      "implementations/dart/config.yaml": "9878913b583dd7c3aa98a7aa708e7347aa260bd60ad8bcab138d10f062fc27fc",
+      "implementations/dart/docker-entrypoint.sh": "3f4e3e05a1f80d239de84b07c2a9e15420fe8901a34bfecb60e625d03015a93b",
+      "implementations/dart/pubspec.yaml": "ed076fab8a55b391ae6666827ed7a29d1e5e4f753954f9515d06c7db3e956d35",
+      "implementations/java-eecc/.gitignore": "b53ee26e6ff1da219b0563333a76d2c9ec19eec713d6ee54e11a1edacb0e9f3d",
+      "implementations/java-eecc/Dockerfile": "fbb9f5970f53a8c8dd6e8f34dc00007d2b6c6158381db8f0cd5d57aa19d8f57b",
+      "implementations/java-eecc/README.md": "0faf475675e33e0c3c5c50e1df5a0f2b7ce707a0e61616e4e1e297a49f7ebc5b",
+      "implementations/java-eecc/config.yaml": "a0a2f7c9eaf925dc3bf83840f9a6347929b0da7bf36df7264fa5d187dd355b35",
+      "implementations/java-eecc/docker-entrypoint.sh": "7a7407bf8d00bea909154d3235702d5a04b5438719063fbd4555bdaf49c5d121",
+      "implementations/java-eecc/pom.xml": "af1fd90b9ecdab548293ad125b7cca9faffcd875b4137b85545a10451f0022c4",
+      "implementations/java-eecc/src/main/java/org/didwebvh/compliance/GenerateVectors.java": "9f1a71ef21f199a146f80348f58553007f6f49d329d02a2b8060467b55a9ac00",
+      "implementations/java-eecc/src/main/java/org/didwebvh/compliance/TestVectors.java": "98a9653ad43ae4d88405dcf12b9831ccb2ed8d49b798aac2de3fbd7f9e8663ab",
+      "implementations/java/.gitignore": "b53ee26e6ff1da219b0563333a76d2c9ec19eec713d6ee54e11a1edacb0e9f3d",
+      "implementations/java/Dockerfile": "407c031e2337ecaa3fe4e9ee98ed91fd7113d8e177118d4312b77b1087f9976a",
+      "implementations/java/README.md": "01792c0ad41572790274fce99895d97db02771d9080c547e79425264f4c01dc7",
+      "implementations/java/config.yaml": "e453d28124e621d64129cbbc8b266f90b0d9424452b04b469680fd248b325db9",
+      "implementations/java/docker-entrypoint.sh": "029f015b96c9983079e3a3cf9127897a9cde96cb38c9efaf0c774f821d727684",
+      "implementations/java/pom.xml": "d879b076a20fd26fb86320615c3b74e7e3c150b7d232e8fd0e43306bc9ad3983",
+      "implementations/java/src/main/java/org/didwebvh/compliance/GenerateVectors.java": "e6c925c091a6edae7fbf5973dbe3569d8d77d47450fe6089d93f69c2913cab17",
+      "implementations/java/src/main/java/org/didwebvh/compliance/TestVectors.java": "e9de4d6182fb44d2fa0503834d335d2f252db519c82d12f0bda14438e7145380",
+      "implementations/python/Dockerfile": "6b9875de3f9b6aa453e29f2ac0b81ad253709da61ed9c63ea8ff7865d3d57f95",
+      "implementations/python/README.md": "551520d7b4925db15b2eb1cf2720eab2d5dae9c54aa31d9bc6a6a82a423acebd",
+      "implementations/python/config.yaml": "4eee490a4767f9d48d2ea413952408c3b652d84ceb7d52e80b51718ed0d3d8a3",
+      "implementations/python/conftest.py": "314a799b1fe13a0cdd2cd5e444c9b7c283aea457354108e1430f525a35ca2117",
+      "implementations/python/docker-entrypoint.sh": "385d764b786ffeea45355959344b9c47855dff0fda345c229184f89a70e35e8a",
+      "implementations/python/gen_resolver_suite.py": "5ff8dfb6cf948362c238ea3d4d1f9d516a96601111a844f99c82f77e53326aa5",
+      "implementations/python/generate.py": "eb2064e2900e03c53978eed712b6ce2967d79ac69a93fdc3eaa28905077585b3",
+      "implementations/python/pytest.ini": "e28a989e765f6f1fc37e02fb00a351f56391f749cafcd3f93057abbfb17ba26b",
+      "implementations/python/test-suite/logs/invalid-json/did.jsonl": "fd622f18b633fd1b801f4c1df190db710e74b3f08768c587646a5761aef93c0b",
+      "implementations/python/test-suite/logs/invalid-method/did.jsonl": "934202033f3d9703adb782ee338e698aed9f0f22b1976c6e12af4ee632da3638",
+      "implementations/python/test-suite/logs/invalid-scid/did.jsonl": "934202033f3d9703adb782ee338e698aed9f0f22b1976c6e12af4ee632da3638",
+      "implementations/python/test-suite/logs/missing-proof/did.jsonl": "c4571e0758a2e14bbe2257edb06f8753dd5e92ff35e602922da6bf5b578e50b1",
+      "implementations/python/test-suite/logs/missing-witness/did-witness.json": "bd7fb688ded1a946503eb013d0a6704f410e73fdbbdd7290f15fbbdf68620b6d",
+      "implementations/python/test-suite/logs/missing-witness/did.jsonl": "1d9c20f8e60deb64d7b5cfb3fe860327773f98f11a47b14393b656ebb9f7ed77",
+      "implementations/python/test-suite/logs/short/did-witness.json": "0988bde93a3175afcef70b02cc1e3db54074f99ad2d760fffa4dd38a0fd04bf7",
+      "implementations/python/test-suite/logs/short/did.jsonl": "b57e41cd30e980cc9ebf7c066607e05c87f94d7c39ecc47785bfb1d129d65495",
+      "implementations/python/test-suite/resolver-suite.json": "eff2c14bd7635455875d66d2b2f215a6e45f213c97e640cd8c3446b4feb15b84",
+      "implementations/python/test_generate.py": "8b13887c2f2dc10ffb6ac3c0d8ae4b50f41dc888604de90b65926a5b57aaacc2",
+      "implementations/python/test_resolver_suite.py": "3f879603c19edf6be2d27559dfd82fb85e4a5f7c4d9425cd77a5e981c1e8986a",
+      "implementations/python/test_vectors.py": "03f96376cde6f845d36bde03e72816025f97ce41d6d8866f88b87af3ff0cd989",
+      "implementations/rust/Cargo.lock": "44fcfaa25c6c82195198d2111aa939494e706fb4bbb912deaca810fd053c1005",
+      "implementations/rust/Cargo.toml": "d3bf65c6fcc1081787b730cc3ce8d5bda63f3f8b9dca634fb9a966c743896d31",
+      "implementations/rust/Dockerfile": "3fe2357a9cbef1a4d9a55ad65765de61f43bea32981c77cd1af0758266b73d22",
+      "implementations/rust/README.md": "99b11fa79829c618a8721575aadb5e7e87a151b2d642cb55bbbeae88be32ee91",
+      "implementations/rust/config.yaml": "c22380c9b62c611bc1ed105ed33ea87e7090e6910b5f80a00b125db6421e3ca3",
+      "implementations/rust/docker-entrypoint.sh": "700b4a77c6fcdd6d41ec402cdf2ee1b8cb7217708f464d81f4aa5716f67b3940",
+      "implementations/rust/src/generate.rs": "7e78e98a3af12ab4a7026a46490cb57563e257d08d04c3c98ad2a52086fd6b8b",
+      "implementations/rust/src/main.rs": "30b239289b6c3970656021e2a628896f04761180ddb1a5e551c5c8a59023d79a",
+      "implementations/ts/Dockerfile": "ff0fd89b7c4bafd66ccd576f58839e6baa403454a10ea544f77cc7a0c6667f41",
+      "implementations/ts/config.yaml": "84a7cebbf97afad2a55579af8454c42b7c43301242534ce0be8e0ec3b5adf6c5",
+      "implementations/ts/src/cryptography.ts": "8f807e0b2d632b0b34d038714b62d24dc96ea09fe372873653033cb8bfed6e77",
+      "implementations/ts/src/generator.ts": "d4d16f2314799a789a74e522cfe96633c972afc17e7a7279375d67ab34a655eb",
+      "implementations/ts/src/interfaces.ts": "d61ba1b604dbdc4e6ff1b5fd967a8d23bd7d5dc63f7e31324fe5beef94e9edb5",
+      "implementations/ts/src/negative-generator.ts": "923967ea7a8dd70a7c6581fb007079a0aa1c32833b5f25e90be1f2471a48576b",
+      "implementations/ts/tsconfig.json": "c065e5cad1d49cc6afea6885a3eb36704bfff3d05e4597d587c4611b46bc6ce2",
+      "package.json": "0bac7724664781eb995c2e9e1022854bb09197939cdafbcaa949e924ec490fa7",
+      "pnpm-lock.yaml": "ca8587acca7d40de17c52749603d55ccb246cbbc74a36fe207ea34054bebca88",
+      "pnpm-workspace.yaml": "ac02d96368617c760f093cfe61fdec64b6244007ab3553e0d6621f706f54a353",
+      "scripts/run": "ed19705bc0018c170c7ae7011e1e33487b75da3cedf0501742d54d30454ede05",
+      "scripts/run-all": "fa3dd2f0173a3012819300dd66bc8fe71cca6964d87b673f1cb3b35f115b9cab"
+    }
+  },
+  "sourceSha256": "11ca5473a58e447f41ff819b1b77f6ce139a8bb4f447df6985a95cbf80f90001",
+  "generatedAt": "2026-09-10T10:26:15.642Z",
+  "summary": {
+    "creation": {
+      "PASS": 13
+    },
+    "negative": {
+      "PASS": 21
+    },
+    "crossResolution": {
+      "DIFF": 88,
+      "SKIP": 2
+    },
+    "selfResolution": {
+      "PASS": 15
+    },
+    "verifierControls": {
+      "PASS": 2
+    }
+  },
+  "results": {
+    "creation": [
+      {
+        "scenario": "basic-create",
+        "status": "PASS",
+        "entries": 1
+      },
+      {
+        "scenario": "basic-update",
+        "status": "PASS",
+        "entries": 2
+      },
+      {
+        "scenario": "deactivate",
+        "status": "PASS",
+        "entries": 2
+      },
+      {
+        "scenario": "key-rotation",
+        "status": "PASS",
+        "entries": 2
+      },
+      {
+        "scenario": "multi-update",
+        "status": "PASS",
+        "entries": 3
+      },
+      {
+        "scenario": "multiple-update-keys",
+        "status": "PASS",
+        "entries": 2
+      },
+      {
+        "scenario": "portable",
+        "status": "PASS",
+        "entries": 1
+      },
+      {
+        "scenario": "portable-move",
+        "status": "PASS",
+        "entries": 2
+      },
+      {
+        "scenario": "pre-rotation",
+        "status": "PASS",
+        "entries": 1
+      },
+      {
+        "scenario": "pre-rotation-consume",
+        "status": "PASS",
+        "entries": 3
+      },
+      {
+        "scenario": "services",
+        "status": "PASS",
+        "entries": 2
+      },
+      {
+        "scenario": "witness-threshold",
+        "status": "PASS",
+        "entries": 1
+      },
+      {
+        "scenario": "witness-update",
+        "status": "PASS",
+        "entries": 2
+      }
+    ],
+    "negative": [
+      {
+        "scenario": "negative-cross-did-witness-replay",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "reason": "Witness threshold not met for version 2-QmYEL1QoGevzo8NLnXW6XW2GJQoQrzg3ZpzQVPMnGBa6Pc: got 0, need 1"
+      },
+      {
+        "scenario": "negative-did-key-body-fragment-mismatch",
+        "expectedError": "invalidProof",
+        "status": "PASS",
+        "error": "invalidDid",
+        "reason": "did:key verificationMethod fragment must equal body multibase. Expected fragment 'z6MkkHK1RWHkK3Exv6VUuK6foNUKia5nRyfbRgupcxN9HhW8' but got 'z6MkjchhfUsD6mmvni8mCdXHw216Xrm9bQe2mBH1P5RDjVJG'"
+      },
+      {
+        "scenario": "negative-duplicate-witness-ids",
+        "expectedError": "invalidParameters",
+        "status": "PASS",
+        "error": "invalidDid",
+        "reason": "Duplicate witness id: did:key:z6Mkrv5Cm2XCLumMPTqooLTCw6YDf421d7VdTziwrZ8vNf4L"
+      },
+      {
+        "scenario": "negative-fragment-leaks-into-domain",
+        "input": "did:webvh:Qm0000000000000000000000000000000000000000000000:127.0.0.1#x",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "fetches": []
+      },
+      {
+        "scenario": "negative-lowercase-pct-port-ip",
+        "input": "did:webvh:Qm0000000000000000000000000000000000000000000000:127.0.0.1%3a8080",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "fetches": []
+      },
+      {
+        "scenario": "negative-path-traversal-did",
+        "input": "did:webvh:Qm0000000000000000000000000000000000000000000000:example.com:..:..:admin",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "fetches": []
+      },
+      {
+        "scenario": "negative-pct-encoded-ip-host",
+        "input": "did:webvh:Qm0000000000000000000000000000000000000000000000:127%2E0%2E0%2E1",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "fetches": []
+      },
+      {
+        "scenario": "negative-pct-encoded-ip-host",
+        "input": "did:webvh:Qm0000000000000000000000000000000000000000000000:127%2e0%2e0%2e1",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "fetches": []
+      },
+      {
+        "scenario": "negative-pct-encoded-ip-host",
+        "input": "did:webvh:Qm0000000000000000000000000000000000000000000000:169%2E254%2E169%2E254",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "fetches": []
+      },
+      {
+        "scenario": "negative-pct-encoded-traversal",
+        "input": "did:webvh:Qm0000000000000000000000000000000000000000000000:example.com:%2E%2E:admin",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "fetches": []
+      },
+      {
+        "scenario": "negative-pct-encoded-traversal",
+        "input": "did:webvh:Qm0000000000000000000000000000000000000000000000:example.com:%2e%2e:admin",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "fetches": []
+      },
+      {
+        "scenario": "negative-pct-encoded-traversal",
+        "input": "did:webvh:Qm0000000000000000000000000000000000000000000000:example.com:a%2Fb",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "fetches": []
+      },
+      {
+        "scenario": "negative-portable-scid-swap",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "reason": "SCID in state.id 'QmAttackerChosenAfterPortabilityMove' does not match SCID in log 'QmSoujwhaNNgWGD3deyXDHoE3UTvnXJSeq925AR4kzoc9S'"
+      },
+      {
+        "scenario": "negative-pre-rotation-omit-updatekeys",
+        "expectedError": "invalidParameters",
+        "status": "PASS",
+        "error": "invalidDid",
+        "reason": "Cannot read properties of undefined (reading 'some')"
+      },
+      {
+        "scenario": "negative-scid-mismatch-genesis",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "reason": "SCID in DID 'QmAttackerControlledScidThatDoesNotHashToAnything' does not match SCID in log 'QmV2V5CSzH5w9UF4rHHAdktXL93ounugmgV2LXVCx9s2i9'"
+      },
+      {
+        "scenario": "negative-unknown-method-version",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "reason": "'did:webvh:99.0' is not a supported method version."
+      },
+      {
+        "scenario": "negative-versiontime-future",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "reason": "versionTime for version '2' must not be more than 5 minutes in the future"
+      },
+      {
+        "scenario": "negative-versiontime-non-monotonic",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "reason": "versionTime for version '2' must be greater than previous entry time"
+      },
+      {
+        "scenario": "negative-witness-update-threshold-not-met",
+        "expectedError": "invalidDid",
+        "status": "PASS",
+        "error": "invalidDid",
+        "reason": "Witness threshold not met for version 2-QmcRmyDP523pLsvKvr49BNEVsevhjNGYZhxMGtPyhut9Hy: got 1, need 2"
+      },
+      {
+        "scenario": "negative-wrong-cryptosuite",
+        "expectedError": "invalidProof",
+        "status": "PASS",
+        "error": "invalidDid",
+        "reason": "Unknown cryptosuite eddsa-rdfc-2022"
+      },
+      {
+        "scenario": "negative-zero-witness-threshold",
+        "expectedError": "invalidParameters",
+        "status": "PASS",
+        "error": "invalidDid",
+        "reason": "Witness threshold must be between 1 and the number of witnesses"
+      }
+    ],
+    "crossResolution": [
+      {
+        "scenario": "basic-create",
+        "source": "dart",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "basic-create",
+        "source": "java",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "basic-create",
+        "source": "java-eecc",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "basic-create",
+        "source": "python",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/@context",
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata"
+        ]
+      },
+      {
+        "scenario": "basic-create",
+        "source": "rust",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "basic-create",
+        "source": "ts",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/ttl"
+        ]
+      },
+      {
+        "scenario": "basic-update",
+        "source": "dart",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "basic-update",
+        "source": "java",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "basic-update",
+        "source": "java-eecc",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "basic-update",
+        "source": "python",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/@context",
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata"
+        ]
+      },
+      {
+        "scenario": "basic-update",
+        "source": "rust",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "basic-update",
+        "source": "ts",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/ttl"
+        ]
+      },
+      {
+        "scenario": "deactivate",
+        "source": "dart",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata/contentType"
+        ]
+      },
+      {
+        "scenario": "deactivate",
+        "source": "java",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata/contentType"
+        ]
+      },
+      {
+        "scenario": "deactivate",
+        "source": "java-eecc",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata/contentType"
+        ]
+      },
+      {
+        "scenario": "deactivate",
+        "source": "python",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/@context",
+          "/didDocument",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata"
+        ]
+      },
+      {
+        "scenario": "deactivate",
+        "source": "rust",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata/contentType"
+        ]
+      },
+      {
+        "scenario": "deactivate",
+        "source": "ts",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didResolutionMetadata/contentType",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/ttl"
+        ]
+      },
+      {
+        "scenario": "key-rotation",
+        "source": "dart",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "key-rotation",
+        "source": "java",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "key-rotation",
+        "source": "java-eecc",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "key-rotation",
+        "source": "python",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/@context",
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata"
+        ]
+      },
+      {
+        "scenario": "key-rotation",
+        "source": "rust",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "key-rotation",
+        "source": "ts",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/ttl"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "dart",
+        "file": "resolutionResult.1.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "dart",
+        "file": "resolutionResult.2.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "dart",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "java",
+        "file": "resolutionResult.1.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "java",
+        "file": "resolutionResult.2.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "java",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "java-eecc",
+        "file": "resolutionResult.1.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "java-eecc",
+        "file": "resolutionResult.2.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "java-eecc",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "python",
+        "file": "resolutionResult.1.json",
+        "status": "DIFF",
+        "differences": [
+          "/@context",
+          "/didDocument/alsoKnownAs",
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/updated",
+          "/didDocumentMetadata/versionId",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "python",
+        "file": "resolutionResult.2.json",
+        "status": "DIFF",
+        "differences": [
+          "/@context",
+          "/didDocument/alsoKnownAs/1",
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/updated",
+          "/didDocumentMetadata/versionId",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "python",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/@context",
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "rust",
+        "file": "resolutionResult.1.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/updated",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "rust",
+        "file": "resolutionResult.2.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/updated",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "rust",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "ts",
+        "file": "resolutionResult.1.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/ttl"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "ts",
+        "file": "resolutionResult.2.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/ttl"
+        ]
+      },
+      {
+        "scenario": "multi-update",
+        "source": "ts",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/ttl"
+        ]
+      },
+      {
+        "scenario": "multiple-update-keys",
+        "source": "dart",
+        "status": "SKIP",
+        "reason": "No committed log"
+      },
+      {
+        "scenario": "multiple-update-keys",
+        "source": "java",
+        "status": "SKIP",
+        "reason": "No committed log"
+      },
+      {
+        "scenario": "multiple-update-keys",
+        "source": "java-eecc",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "multiple-update-keys",
+        "source": "python",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/@context",
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata"
+        ]
+      },
+      {
+        "scenario": "multiple-update-keys",
+        "source": "rust",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "multiple-update-keys",
+        "source": "ts",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/ttl"
+        ]
+      },
+      {
+        "scenario": "portable",
+        "source": "dart",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "portable",
+        "source": "java",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "portable",
+        "source": "java-eecc",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "portable",
+        "source": "python",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/@context",
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata"
+        ]
+      },
+      {
+        "scenario": "portable",
+        "source": "rust",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "portable",
+        "source": "ts",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/ttl"
+        ]
+      },
+      {
+        "scenario": "portable-move",
+        "source": "dart",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "portable-move",
+        "source": "java",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "portable-move",
+        "source": "java-eecc",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "portable-move",
+        "source": "python",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/@context",
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata"
+        ]
+      },
+      {
+        "scenario": "portable-move",
+        "source": "rust",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "portable-move",
+        "source": "ts",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/ttl"
+        ]
+      },
+      {
+        "scenario": "pre-rotation",
+        "source": "dart",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "pre-rotation",
+        "source": "java",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "pre-rotation",
+        "source": "java-eecc",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "pre-rotation",
+        "source": "python",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/@context",
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata"
+        ]
+      },
+      {
+        "scenario": "pre-rotation",
+        "source": "rust",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "pre-rotation",
+        "source": "ts",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/ttl"
+        ]
+      },
+      {
+        "scenario": "pre-rotation-consume",
+        "source": "dart",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "pre-rotation-consume",
+        "source": "java",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "pre-rotation-consume",
+        "source": "java-eecc",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "pre-rotation-consume",
+        "source": "python",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/@context",
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata"
+        ]
+      },
+      {
+        "scenario": "pre-rotation-consume",
+        "source": "rust",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "pre-rotation-consume",
+        "source": "ts",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/ttl"
+        ]
+      },
+      {
+        "scenario": "services",
+        "source": "dart",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/2/id",
+          "/didDocument/service/2/serviceEndpoint",
+          "/didDocument/service/3/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "services",
+        "source": "java",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/2/id",
+          "/didDocument/service/2/serviceEndpoint",
+          "/didDocument/service/3/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "services",
+        "source": "java-eecc",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/2/serviceEndpoint",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "services",
+        "source": "python",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/@context",
+          "/didDocument/service/2/id",
+          "/didDocument/service/2/serviceEndpoint",
+          "/didDocument/service/3/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata"
+        ]
+      },
+      {
+        "scenario": "services",
+        "source": "rust",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/2/id",
+          "/didDocument/service/3/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "services",
+        "source": "ts",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/2/id",
+          "/didDocument/service/2/serviceEndpoint",
+          "/didDocument/service/3/id",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/ttl"
+        ]
+      },
+      {
+        "scenario": "witness-threshold",
+        "source": "dart",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "witness-threshold",
+        "source": "java",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "witness-threshold",
+        "source": "java-eecc",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "witness-threshold",
+        "source": "python",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/@context",
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata"
+        ]
+      },
+      {
+        "scenario": "witness-threshold",
+        "source": "rust",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "witness-threshold",
+        "source": "ts",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/ttl"
+        ]
+      },
+      {
+        "scenario": "witness-update",
+        "source": "dart",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "witness-update",
+        "source": "java",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "witness-update",
+        "source": "java-eecc",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/deactivated",
+          "/didDocumentMetadata/portable",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/witness",
+          "/didDocumentMetadata/watchers",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "witness-update",
+        "source": "python",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/@context",
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash",
+          "/didResolutionMetadata"
+        ]
+      },
+      {
+        "scenario": "witness-update",
+        "source": "rust",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionNumber",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/witness/threshold",
+          "/didDocumentMetadata/witness/witnesses/1",
+          "/didDocumentMetadata/updateKeys",
+          "/didDocumentMetadata/nextKeyHashes",
+          "/didDocumentMetadata/prerotation",
+          "/didDocumentMetadata/previousLogEntryHash"
+        ]
+      },
+      {
+        "scenario": "witness-update",
+        "source": "ts",
+        "file": "resolutionResult.json",
+        "status": "DIFF",
+        "differences": [
+          "/didDocument/service/0/id",
+          "/didDocument/service/0/serviceEndpoint",
+          "/didDocument/service/1/id",
+          "/didDocumentMetadata/versionTime",
+          "/didDocumentMetadata/ttl"
+        ]
+      }
+    ],
+    "selfResolution": [
+      {
+        "scenario": "basic-create",
+        "source": "vckit",
+        "file": "resolutionResult.json",
+        "status": "PASS"
+      },
+      {
+        "scenario": "basic-update",
+        "source": "vckit",
+        "file": "resolutionResult.json",
+        "status": "PASS"
+      },
+      {
+        "scenario": "deactivate",
+        "source": "vckit",
+        "file": "resolutionResult.json",
+        "status": "PASS"
+      },
+      {
+        "scenario": "key-rotation",
+        "source": "vckit",
+        "file": "resolutionResult.json",
+        "status": "PASS"
+      },
+      {
+        "scenario": "multi-update",
+        "source": "vckit",
+        "file": "resolutionResult.1.json",
+        "status": "PASS"
+      },
+      {
+        "scenario": "multi-update",
+        "source": "vckit",
+        "file": "resolutionResult.2.json",
+        "status": "PASS"
+      },
+      {
+        "scenario": "multi-update",
+        "source": "vckit",
+        "file": "resolutionResult.json",
+        "status": "PASS"
+      },
+      {
+        "scenario": "multiple-update-keys",
+        "source": "vckit",
+        "file": "resolutionResult.json",
+        "status": "PASS"
+      },
+      {
+        "scenario": "portable",
+        "source": "vckit",
+        "file": "resolutionResult.json",
+        "status": "PASS"
+      },
+      {
+        "scenario": "portable-move",
+        "source": "vckit",
+        "file": "resolutionResult.json",
+        "status": "PASS"
+      },
+      {
+        "scenario": "pre-rotation",
+        "source": "vckit",
+        "file": "resolutionResult.json",
+        "status": "PASS"
+      },
+      {
+        "scenario": "pre-rotation-consume",
+        "source": "vckit",
+        "file": "resolutionResult.json",
+        "status": "PASS"
+      },
+      {
+        "scenario": "services",
+        "source": "vckit",
+        "file": "resolutionResult.json",
+        "status": "PASS"
+      },
+      {
+        "scenario": "witness-threshold",
+        "source": "vckit",
+        "file": "resolutionResult.json",
+        "status": "PASS"
+      },
+      {
+        "scenario": "witness-update",
+        "source": "vckit",
+        "file": "resolutionResult.json",
+        "status": "PASS"
+      }
+    ],
+    "verifierControls": [
+      {
+        "scenario": "corrupt-controller-signature",
+        "status": "PASS",
+        "reason": "Proof 0 failed verification (proofValue: z2gbCNg9WYQHGgRA4zqk7nCUz68FRkASqt9ojSXdDJyYYHYQqCAEXujM2h6ugBSfkaGBKhq7H4LJJYHwaJ5jvtkT1)"
+      },
+      {
+        "scenario": "corrupt-witness-signature",
+        "status": "PASS",
+        "reason": "Witness threshold not met for version 1-QmVfm3PzDU95EkjbuFCj9T7znnrgE5sW2v2uT5gQ347gZK: got 0, need 1"
+      }
+    ]
+  },
+  "fixtureHashes": {
+    "vectors/basic-create/script.yaml": "3b5e13ca25175e00d3384a592240f4781c75422e2f72a694c5e993c6f646fc14",
+    "vectors/basic-update/script.yaml": "a289daa67918a1c835aba3f99c026e070197e1e71f00933c8166eefdd8bc1413",
+    "vectors/deactivate/script.yaml": "04a8d52918e7f47754be3020d5f226dc6ed1321a02a1ad77c7699033320d3eb7",
+    "vectors/key-rotation/script.yaml": "14090141c76aa44473858c80b0c0a4319d2bffe62f769dc2b03cbc515131dde2",
+    "vectors/multi-update/script.yaml": "b992df84ec357fcc750630faa7bfde38a6397f9c4c76883149d73b8bed63d323",
+    "vectors/multiple-update-keys/script.yaml": "cda3dc749f1fee33810e19d30bae4167ada4f7392c56bd97ad741c564ac6a791",
+    "vectors/negative-cross-did-witness-replay/script.yaml": "3c59fd4ca69b90a5475dd0cea46c3adeafe3a6fd0c20cd5f254abba40f16aeb6",
+    "vectors/negative-did-key-body-fragment-mismatch/script.yaml": "96d7fa38a710bfc02b196950d64a0374d90be3419a7a4720cfda1bc97d2a7a3d",
+    "vectors/negative-duplicate-witness-ids/script.yaml": "b1a7b7c54b6c95f1665b0a4c6bf5509fe01ef5d62c30d3fcb7228b68dff22e59",
+    "vectors/negative-fragment-leaks-into-domain/script.yaml": "f9014a29887244d875f21398d1bde35e554387710676fee393bc7164e26e17a0",
+    "vectors/negative-lowercase-pct-port-ip/script.yaml": "a87add103f622a9e9d8635b5262367fd701d75e60ddb9915eb8f7980c65b0c29",
+    "vectors/negative-path-traversal-did/script.yaml": "70d299d4ebcfa3798c3170fb92a4de7401e81ae6f25989e0ba30f1d16e1a632d",
+    "vectors/negative-pct-encoded-ip-host/script.yaml": "0f594a40bd5400e1f6ed95f045022f937147c87f515f7428bf515477db12073e",
+    "vectors/negative-pct-encoded-traversal/script.yaml": "8123f239655f123770d0fe2ace4e57ecb41b31afaa1f2c22765616cf972339c6",
+    "vectors/negative-portable-scid-swap/script.yaml": "51a578672478a671dba7ff7dcef6646f957d0d9b6b838053a12ff108ac07a49a",
+    "vectors/negative-pre-rotation-omit-updatekeys/script.yaml": "d9c4eb430f6aeab72f77f975250033cc91469a1d3cec454f391246a649d997f0",
+    "vectors/negative-scid-mismatch-genesis/script.yaml": "67aae822da3a32ddccd5cebe70776a6e570bbb4be2f75d2ace6fff58013066c6",
+    "vectors/negative-unknown-method-version/script.yaml": "fa012b72686715215c7bc0e8cca21992289e87522b5918c380c0aeef15fa89d2",
+    "vectors/negative-versiontime-future/script.yaml": "63a5e96a8dcda117bd2d5d6fc6f6d9c2bd3532dbea46986ec5e01741b9c5ece1",
+    "vectors/negative-versiontime-non-monotonic/script.yaml": "1020a6dc5303e2c32891b187c7d59413be29b4bbb1adb21d6ca7e0a0d26dee43",
+    "vectors/negative-witness-update-threshold-not-met/script.yaml": "0c1bd79ab4fb35f6c515347bba6727802243aa6f5f89ae4790223afcd97d3d10",
+    "vectors/negative-wrong-cryptosuite/script.yaml": "2f70e008f3868f398156a6872fb1d6d1db0115a4cfbd35254e46a614db06fd99",
+    "vectors/negative-zero-witness-threshold/script.yaml": "9c106be9cc836111012c734064f6ff59cf2a262a73a728e0f77375081ff5e74c",
+    "vectors/portable/script.yaml": "ed6d37e2ff0e6d599b47e7616b8ab132a3f7b00d4f42f4ee358f9a37de14fb15",
+    "vectors/portable-move/script.yaml": "152fa448fbe0469caf9e8812c2c1e062fd9bd0cdb374d2c7208fcbac6881fe5c",
+    "vectors/pre-rotation/script.yaml": "e8410886718f6db43dab3a1830fcd6549fa8d070a194e51149d756f4d4986cfd",
+    "vectors/pre-rotation-consume/script.yaml": "6ae640446ed897576c083c98f691c6c5fb673604386a5078067a08dcac818f3b",
+    "vectors/services/script.yaml": "7ac87dcc61ff0d9dd948612a22fc0c9e76e5581b1b362e452edb6406c315dfd3",
+    "vectors/witness-threshold/script.yaml": "f1e8a509ed71258fbe61a015e858611d3549582e4f3930cf47a4c5bca625d8b4",
+    "vectors/witness-update/script.yaml": "c3bd6758a82ce67d15525a881643b344795b491d30aa0a74731999d2bb76da3a",
+    "vectors/negative-cross-did-witness-replay/ts/did.jsonl": "48e47f24d3eb12f8a08283c08c6120b8f4ab73c467a37f843811fe17e307a99e",
+    "vectors/negative-cross-did-witness-replay/ts/did-witness.json": "db80cd7d2319b05f9c6b4741b59902bb503435fbcbe65599da7f16df5bd655e6",
+    "vectors/negative-did-key-body-fragment-mismatch/ts/did.jsonl": "9814940b29a88f42ebdaf5aba64d16fe2dbd0d4522e052d7116d0ef7b16ed1ce",
+    "vectors/negative-duplicate-witness-ids/ts/did.jsonl": "b9b7603a1996bc77e2927c876a1f30314124c9e6544480b56ab67edd6eeec809",
+    "vectors/negative-portable-scid-swap/ts/did.jsonl": "e1148f73bfcdd9318cfe52b8354880adabddcfcafcbaa9cd74c3836d05818971",
+    "vectors/negative-pre-rotation-omit-updatekeys/ts/did.jsonl": "f5962caed33f7324bc990927955733cd1c65ae4500e148e8ff9aa25cdfdeec1b",
+    "vectors/negative-scid-mismatch-genesis/ts/did.jsonl": "e5d012a80280122813713eeffcf6cb8b2c474ad5eb3da191c87e15766e649c52",
+    "vectors/negative-unknown-method-version/ts/did.jsonl": "b17e99960058ff680b40897b68f63d1c16105058d83f401aaedce7c6f77dd382",
+    "vectors/negative-versiontime-future/ts/did.jsonl": "9017e627275a444732b3511128bcd1b0c3208e99a345ed555ed8e9dfea933b97",
+    "vectors/negative-versiontime-non-monotonic/ts/did.jsonl": "de1dd03893ef2389320b148fbb75b4f077d8520cd9eb2d6c71d90d2e8024c33a",
+    "vectors/negative-witness-update-threshold-not-met/ts/did.jsonl": "1880a230b53c3a86b4bdc5abb0e75fa39e9c91b7dff9067e0791ce2569b19277",
+    "vectors/negative-witness-update-threshold-not-met/ts/did-witness.json": "1ffb218384ad4a9d9717a6ab80e96b70711f59069fc986b1ab0516e4360b941f",
+    "vectors/negative-wrong-cryptosuite/ts/did.jsonl": "97d8e4fab10d3f92e26026cdf0f33a14726b96e55a3e472d6ed0b5edd0c5574c",
+    "vectors/negative-zero-witness-threshold/ts/did.jsonl": "989e50e5e2fd33346842a11c95c6568964af95cdbac1107fd5304af19d82e017",
+    "vectors/basic-create/dart/did.jsonl": "d6d74e1de742c9184f95daff567dc2a2c48220efbbbb2ff85238dac2866fa7c1",
+    "vectors/basic-create/dart/resolutionResult.json": "115a8e9cd76b439c66a628a6e29668b41ace62c8d91f114c1120a0a575a62cc4",
+    "vectors/basic-create/java/did.jsonl": "289d74dbca4aadc53034333ae136ced3bd7d6f035423bdeb71098ae3be7c2319",
+    "vectors/basic-create/java/resolutionResult.json": "8359cc4c2ba3add35c7274f961f47f5846624463929d71cc0ff94095f1c1f612",
+    "vectors/basic-create/java-eecc/did.jsonl": "3838c18b2f3e16fa0980348d22f9b505511b707e5d624569e8e63481c62091fe",
+    "vectors/basic-create/java-eecc/resolutionResult.json": "5b69fb0e566e6751053d4de2d7325184b0cda4c5d68440ab689c66110614fdde",
+    "vectors/basic-create/python/did.jsonl": "a381f2a65a380fe341a28fa83ec62621ea7b627742b8b900541563ef2d0ccfb7",
+    "vectors/basic-create/python/resolutionResult.json": "8fd0cc7d7dd51ade67511af36c94c11fa0af93d5e2c3ec1658b6551d386cccf6",
+    "vectors/basic-create/rust/did.jsonl": "a8934f1ec2a9884711d02ad05ac9d9029cac7ed1ae948e2b3a725424b3f8936c",
+    "vectors/basic-create/rust/resolutionResult.json": "51b6b558d097ebdef98edf6fae38110d511dbd6505ccf497a1791780370dcbf0",
+    "vectors/basic-create/ts/did.jsonl": "d31f101026c638bfc8531329263c066bc531be9fed9a705af38b49717611ba6c",
+    "vectors/basic-create/ts/resolutionResult.json": "4a5a88971c9f3ef5a7a2e244ebde4c0fa91e5245dbd15ba34d881288a47240ad",
+    "vectors/basic-update/dart/did.jsonl": "b7d412b357b6cafa8747348852448e2dd43f2a5ce130f975211b4a81fc8477b5",
+    "vectors/basic-update/dart/resolutionResult.json": "82cb29ca60395b9ce53a6b631c7c9a83356858f1fe5b9d800d705ba97cb1ed7d",
+    "vectors/basic-update/java/did.jsonl": "5faaf6ef3c9b86d2bdd40d15311904fb7f85c37222508f2f4f0c1598356784b5",
+    "vectors/basic-update/java/resolutionResult.json": "6c619193842fa490f88b9fa3f2ea510990c7a41bd9baccecdc426738e4da8982",
+    "vectors/basic-update/java-eecc/did.jsonl": "2cba77711ef43473a8031255b945371febfbaa82765ef31185d8562644049ae9",
+    "vectors/basic-update/java-eecc/resolutionResult.json": "37ed32d0fb58d6fed72db1e121c57c95e019b8b9692a299dd1a1e61e19d055d5",
+    "vectors/basic-update/python/did.jsonl": "8c13137f1cbd3ae586833fc10c322b322f6ff2f5b93aad94a875e9bc71b54715",
+    "vectors/basic-update/python/resolutionResult.json": "4fedfcf2392c4dc0273b3070d2e3876919d3d24498b7eb5f0a476d691c870478",
+    "vectors/basic-update/rust/did.jsonl": "03fed0318b7b3272b94e829b62c0886538baacc5d328f9cb8a460d3400b4edad",
+    "vectors/basic-update/rust/resolutionResult.json": "5ed032d2d0faf78f46b12ce959ba6692991742834c725c5adccd5d34052b0619",
+    "vectors/basic-update/ts/did.jsonl": "ac0004384a36d65be76a80bc204d681f6579effcf2c890e39681b49652d9f99b",
+    "vectors/basic-update/ts/resolutionResult.json": "1c58c3ab38ff2d976bc6c229def4aa48c4f4e3220b4bf692c8f77c84f30f02b2",
+    "vectors/deactivate/dart/did.jsonl": "a28400352087c9d66183d8fab98fcf5af56d36ca0440dbbfbb5af6fee450a5ad",
+    "vectors/deactivate/dart/resolutionResult.json": "032b69b1cb13a2a166d41fa63b0758bf4bf4b6a5236c905a02ff7569019ec425",
+    "vectors/deactivate/java/did.jsonl": "bce6d9ff484a43bc4301783adf7af950c9121f0bc2894bf2072d19bd60555942",
+    "vectors/deactivate/java/resolutionResult.json": "74a54e84895623397297b1aeaeeefebcd15baa4448047e086c874ea38b2d53bf",
+    "vectors/deactivate/java-eecc/did.jsonl": "a605c4099f7f78b358681c9ee03ec0abdaec723074b063a1626797a75c80c879",
+    "vectors/deactivate/java-eecc/resolutionResult.json": "99e5236ced3ab7c1fae8810300fb1ddd91fb797afe962059a6dd714320e0108f",
+    "vectors/deactivate/python/did.jsonl": "425d67c770117cd55036ab107ef09743941aaaf0513cb8f73894bd88b9a63690",
+    "vectors/deactivate/python/resolutionResult.json": "fe8e5c66b84da21cc49347d5eacfbd7d1b25b8929d66d45ad6e3b242713d2347",
+    "vectors/deactivate/rust/did.jsonl": "d9167d7e2583b7e92fac548ff5530aebd591d6d723d3a7411ce1f69958c215f2",
+    "vectors/deactivate/rust/resolutionResult.json": "b75639ee202dd0114631e48284f5e4f96058edb73b1c21f2b62c2f69f24b44ff",
+    "vectors/deactivate/ts/did.jsonl": "eeddd4b10b9603b12f271a328f39846e09626a9666d20ece4287e427ea7bd310",
+    "vectors/deactivate/ts/resolutionResult.json": "9d99d04ad0c693b3bb68497352e905d5a5df8af30d4b7dd5fdd66102c585b7f2",
+    "vectors/key-rotation/dart/did.jsonl": "dfa989eea42b4dc87b9d0aed4e812d6288d2abc79ddb71f9aac2fad1941b9575",
+    "vectors/key-rotation/dart/resolutionResult.json": "4034d563b81fd7c2e4fe7e8c93d45d1f868e8636f122c93612d65fc7f576d507",
+    "vectors/key-rotation/java/did.jsonl": "1953dda73db072b93aca10ebcba9be6a507680ba9608410e742703a62e763633",
+    "vectors/key-rotation/java/resolutionResult.json": "e3613ee37653ad68c927c6173b0a1ebefae22432bdd7c66af03c7c351d274eba",
+    "vectors/key-rotation/java-eecc/did.jsonl": "22d06f8a18551d41c22ceeb9c600c670d12361d7854a9bfa5a6be7b6fbe9e2a8",
+    "vectors/key-rotation/java-eecc/resolutionResult.json": "d6789840e4909bf126f8c599380d613c3421af5c4f0653334f562ea6f65a02b2",
+    "vectors/key-rotation/python/did.jsonl": "ce4d5c365295a7c6668a00a79396c66b7399ae54c458a3cfed6f7dcd668f2f89",
+    "vectors/key-rotation/python/resolutionResult.json": "fcbfda71d48e9867f2a4c4a2b47d89b8a851c70d01e4df5c173f72a2b82e6114",
+    "vectors/key-rotation/rust/did.jsonl": "0347e59966d7afa8188eba57ceed799bdf969a2c97173082e727b76e1a5cd055",
+    "vectors/key-rotation/rust/resolutionResult.json": "be13612810e6ade7b69698a34e85e96620606915486734c2f6c8ee9664c99224",
+    "vectors/key-rotation/ts/did.jsonl": "edcbf4b9ac81ef0327ddf91884866f8e6b03898c9e7405e6f8f891572548fc37",
+    "vectors/key-rotation/ts/resolutionResult.json": "3ac5f17666f37e7f9c2d604119f4e86dad560ff668ee0344f30cab0ec3afe8a8",
+    "vectors/multi-update/dart/did.jsonl": "00885b05f08c82db658814d83762777d66cc9a2cc89806655c39212bf87535a2",
+    "vectors/multi-update/dart/resolutionResult.1.json": "115a8e9cd76b439c66a628a6e29668b41ace62c8d91f114c1120a0a575a62cc4",
+    "vectors/multi-update/dart/resolutionResult.2.json": "82cb29ca60395b9ce53a6b631c7c9a83356858f1fe5b9d800d705ba97cb1ed7d",
+    "vectors/multi-update/dart/resolutionResult.json": "3dcf8e51b7ac0da7a79cb02dc73fcf51db53b3794b0ce8418d2b9b0fa5a476a4",
+    "vectors/multi-update/java/did.jsonl": "a9258a095c8c9a4f9dc206a7400b4aa550cf3b005c56eb614b5d8bc79eee3e99",
+    "vectors/multi-update/java/resolutionResult.1.json": "8359cc4c2ba3add35c7274f961f47f5846624463929d71cc0ff94095f1c1f612",
+    "vectors/multi-update/java/resolutionResult.2.json": "6c619193842fa490f88b9fa3f2ea510990c7a41bd9baccecdc426738e4da8982",
+    "vectors/multi-update/java/resolutionResult.json": "5cfbc717e5bf10d22d2486b8a5977847c41d54f66015b4bf72b6b69d983ac405",
+    "vectors/multi-update/java-eecc/did.jsonl": "e2699358753177347dc2eb09fb2dce519a3f7807fed586e9ce77af1a10d699ef",
+    "vectors/multi-update/java-eecc/resolutionResult.1.json": "5b69fb0e566e6751053d4de2d7325184b0cda4c5d68440ab689c66110614fdde",
+    "vectors/multi-update/java-eecc/resolutionResult.2.json": "37ed32d0fb58d6fed72db1e121c57c95e019b8b9692a299dd1a1e61e19d055d5",
+    "vectors/multi-update/java-eecc/resolutionResult.json": "e84bdf95a0a42c5791e9938f8516e8bde395090c0eb2f211673034660f43191b",
+    "vectors/multi-update/python/did.jsonl": "ea8099080019e313370ccc5d4aa705a856f62f2ae65212e5611aa690592f5bc7",
+    "vectors/multi-update/python/resolutionResult.1.json": "ff64f85ce5d2f4e78fff8794598b7ed3e8a831bffbf62d3dd9fd89fa7a5fe61f",
+    "vectors/multi-update/python/resolutionResult.2.json": "ff64f85ce5d2f4e78fff8794598b7ed3e8a831bffbf62d3dd9fd89fa7a5fe61f",
+    "vectors/multi-update/python/resolutionResult.json": "ff64f85ce5d2f4e78fff8794598b7ed3e8a831bffbf62d3dd9fd89fa7a5fe61f",
+    "vectors/multi-update/rust/did.jsonl": "6d6da3d316711ce8390580847d0f5d51f08ad984f8043a42d02d20b5877b09b2",
+    "vectors/multi-update/rust/resolutionResult.1.json": "6bd727e33e6c55f0f35997b08c2c7c863425a32152c7486d65d5daaf84f42e8c",
+    "vectors/multi-update/rust/resolutionResult.2.json": "be8869ed3c907b5f1df134e9753a897c5735ef1aac016da1312d938a3952b4e3",
+    "vectors/multi-update/rust/resolutionResult.json": "215220dbb66116a1dff199b6be0e0973323e0eedf8e63fa7b061811c342a6321",
+    "vectors/multi-update/ts/did.jsonl": "e18590ed572a519c9f0fadb47202c66891c75ade900bb19e7101131cab6bc5ce",
+    "vectors/multi-update/ts/resolutionResult.1.json": "4a5a88971c9f3ef5a7a2e244ebde4c0fa91e5245dbd15ba34d881288a47240ad",
+    "vectors/multi-update/ts/resolutionResult.2.json": "1c58c3ab38ff2d976bc6c229def4aa48c4f4e3220b4bf692c8f77c84f30f02b2",
+    "vectors/multi-update/ts/resolutionResult.json": "37fb5fac503bfdce88910effda38e01d6158215abe341e1c3a7cc3a8c932cac1",
+    "vectors/multiple-update-keys/java-eecc/did.jsonl": "f2a0e3fdae9b07ccd4eda1ce432c093bbfffd0fc65535ee2768a0d15f0187ef3",
+    "vectors/multiple-update-keys/java-eecc/resolutionResult.json": "d154ce39eee5549a63a023b8aa906215e63d2163ac3cb5b262f9d685662c9e89",
+    "vectors/multiple-update-keys/python/did.jsonl": "753c34753ca0bd64ffee0bfd41cf7c65e8c7c1747e17c56d7068ba6b56bf4dac",
+    "vectors/multiple-update-keys/python/resolutionResult.json": "495bce635ca4013aa80250d633b3342bf2a151f0be2e8373d43918ab6c945e8f",
+    "vectors/multiple-update-keys/rust/did.jsonl": "1f7e38105fbb990bd6c62282edaf304ec22ad8591a3d95c0a4d01f1af7e77218",
+    "vectors/multiple-update-keys/rust/resolutionResult.json": "748fe2400fd29c45b1f58552da93c35fb8d77518cbe59c0a84521b77cfa786ae",
+    "vectors/multiple-update-keys/ts/did.jsonl": "bc760ed07662bb03eead1048c2d12afc99596f76936a799123fe56c8f43c740e",
+    "vectors/multiple-update-keys/ts/resolutionResult.json": "92bd9275f18d504ff57579bae020e43a2efe982bed185255f9dfdf2af392b3e7",
+    "vectors/portable/dart/did.jsonl": "75adbbfecb5aac1dc4dbf9dc60eabecc4e8ebe5d5c1be14db0d83c37d33ea906",
+    "vectors/portable/dart/resolutionResult.json": "5896f584f1cb09c33a45600dc261d9e1c7f39482159459a1f23b5f1c40a516b8",
+    "vectors/portable/java/did.jsonl": "3c83870749d318c345670951674182bd7c0fc5ce2ebdca6f449d062978a22cc6",
+    "vectors/portable/java/resolutionResult.json": "708366c0662e09ab37d7a1ce9d296cd0322f9543feee9537804ca1fc5248da0e",
+    "vectors/portable/java-eecc/did.jsonl": "37b9b4dcf2bdf8030edb6a0a86cf81ff8b27b8788eed00d727e066fe336f75f9",
+    "vectors/portable/java-eecc/resolutionResult.json": "64dd7a11423801aff76d6446718032ebaa8b6e1e2c89ca19a02fd9283bda27bb",
+    "vectors/portable/python/did.jsonl": "499d6f6e9ae5ecc5d0b41c31ecc830f7912b35413cfbeef474dec749d4294a4e",
+    "vectors/portable/python/resolutionResult.json": "2188b9bf0d647c6ce06b0179286856a4bfe482eac9ac0c280c545940c123fd85",
+    "vectors/portable/rust/did.jsonl": "28eb4993c48e54a456b01c8700aed2bae891ae5fbd075f27b9683a8b0085d13e",
+    "vectors/portable/rust/resolutionResult.json": "acd7b45399b18efba55c87e5ea927fe4f9794ede9f1165312b7a757a41927066",
+    "vectors/portable/ts/did.jsonl": "5723837fcba773f8237c9eb8b115f8fe5568ee8991905747860cd0db8a14cf91",
+    "vectors/portable/ts/resolutionResult.json": "7e30eb51d70eeaa4a82c0aab39c89b2d9e0ccf2570b587a54e74e701b0b302a6",
+    "vectors/portable-move/dart/did.jsonl": "6be84ef54f53922cff240036a180910481ec8c7717df7834444bd40eec4d22dc",
+    "vectors/portable-move/dart/resolutionResult.json": "694d6f341ea0777bc14d12931611ec07800c6729385b88504ebff5393d431143",
+    "vectors/portable-move/java/did.jsonl": "69b085a68ccb6a6b3ec47ef0fc91c399effcba13e4d71f7a089b9146b7cd5fea",
+    "vectors/portable-move/java/resolutionResult.json": "921bfbac4ab7334ec31d112c9d3c9b9d79b1dd09a051680818e8b4d68cb790ef",
+    "vectors/portable-move/java-eecc/did.jsonl": "69f6a0b7711780b0b2a2dffafcf495a8fee29a678e8b59d922f724102644d7c3",
+    "vectors/portable-move/java-eecc/resolutionResult.json": "b1038d6926aabbc8f5b0d2454b0d2edef0ccbbd75112dced33ae4d7d45ec925b",
+    "vectors/portable-move/python/did.jsonl": "acdac87f5f566aa79488eccfb25495d9b8adc2cb5dd99551e66f1208dc7e763d",
+    "vectors/portable-move/python/resolutionResult.json": "af8c93cd42d2d1a62d8e603d0b86f4f0c6863873322c8d0f0f64109236883cab",
+    "vectors/portable-move/rust/did.jsonl": "0b51a427a9b661eb8effe479ed57b6946a08743394e03d33a6eb05f3751dde14",
+    "vectors/portable-move/rust/resolutionResult.json": "8f76efc1e890f76a0bdc63ff8c4f1326d167a3916d8ea3c82366cafe4f4dfac1",
+    "vectors/portable-move/ts/did.jsonl": "8ebd18182c8044c6082c54004329ee484858260f903291f8d017f28201d219dd",
+    "vectors/portable-move/ts/resolutionResult.json": "9c0965eed801c06a26710587970999cef062fb6c10129e1fe609819d22d51c98",
+    "vectors/pre-rotation/dart/did.jsonl": "59b07adb2cba19728b1831b8c739b63015f3ddbc44d6e6481e0550b05ea51e00",
+    "vectors/pre-rotation/dart/resolutionResult.json": "043b9bfeadd8bb4fdd602ab1697bd94f228bda6aee23fdbd7847fb0ba5a88f3f",
+    "vectors/pre-rotation/java/did.jsonl": "50cae11eb76fd4a6c79eb69f3de54413a755be2098ab17f18e9b328a79a48b1a",
+    "vectors/pre-rotation/java/resolutionResult.json": "3b28d88a6c05c4f5a3b1343be4bab123b609d5976675be28509d29845e5ae294",
+    "vectors/pre-rotation/java-eecc/did.jsonl": "adc242ef46aadd1acf0ec36a8deaa635b577edd8137ea28931a0fcf17c7ee6f1",
+    "vectors/pre-rotation/java-eecc/resolutionResult.json": "9e627e6e8f71b1eaee75e349122d8522a8a7c55db0cdbe2eeaf1e528729c0f9d",
+    "vectors/pre-rotation/python/did.jsonl": "7d6915dbaf000647e247666a6a0c446fe9069dd2c4b5e322456ba8e5a3d2c9e7",
+    "vectors/pre-rotation/python/resolutionResult.json": "7c9db498166f55de99fd6e5dca5050d476d9d819f5a2ff90ad13d3ddf91b2de4",
+    "vectors/pre-rotation/rust/did.jsonl": "7b2d2038b3ef72a5705a8263ad5a3ce4a79c2f463f6e18b710a5e955b18c491b",
+    "vectors/pre-rotation/rust/resolutionResult.json": "4567b509382985188bade97a9a0badbd34da090486f4716de758c1e87fef2e1e",
+    "vectors/pre-rotation/ts/did.jsonl": "bc5f2348342a9c54d9c78429529d94731cfa4089bd3ab57ad0ae5917eccafc11",
+    "vectors/pre-rotation/ts/resolutionResult.json": "322c3276d125529cbeb10c1ce491f59d6c8d7cf469805bc856a1d4c18ada3809",
+    "vectors/pre-rotation-consume/dart/did.jsonl": "75a00f9f12b95d73f6b8bdb43c77f94dbda400c18e3409f5a7c215ba03e430f6",
+    "vectors/pre-rotation-consume/dart/resolutionResult.json": "b44de0c0d17187b195c69a0eb913403e76d88ab7696089de8c10c6287724c55b",
+    "vectors/pre-rotation-consume/java/did.jsonl": "b95e613b73ea96e920684d4663452348a0003dedadb1473b580cae032c2c8ed4",
+    "vectors/pre-rotation-consume/java/resolutionResult.json": "0f1291737212cf3ae4a65864751c3993fc56f81c8dbde9205a855add052d3393",
+    "vectors/pre-rotation-consume/java-eecc/did.jsonl": "f4ac7cc8848f11c988e61e5ca437e5b0b0b33ef9c5cbeef367ef1308ffee2f8a",
+    "vectors/pre-rotation-consume/java-eecc/resolutionResult.json": "a100f8e62f87e25271e7127d82b354da2bef942ab9ea1bf44bcf728f85dc5bce",
+    "vectors/pre-rotation-consume/python/did.jsonl": "2278e22915009d2207c3494c37cf673304eba2eb30c00aa880a3be4cfd214bba",
+    "vectors/pre-rotation-consume/python/resolutionResult.json": "88d30a44489d6d6d216adb0998a0a62be70fe372327ccf1464d99672986553fb",
+    "vectors/pre-rotation-consume/rust/did.jsonl": "f1654a5de0200a9423b7f676f02ab1a5fb31bf218204274a64ee7ebce801adef",
+    "vectors/pre-rotation-consume/rust/resolutionResult.json": "0b2d4ee7e9a33611de25ef6d203960143d9434efb26c8f9de5500421556f56aa",
+    "vectors/pre-rotation-consume/ts/did.jsonl": "7bea7c0761ac5de8f2cfa61c0a4500161401de5962c256fb67d3a2eba4c4d5a7",
+    "vectors/pre-rotation-consume/ts/resolutionResult.json": "cf81b92aa1258b8f8c66152bfc16acef1579e244864caa02b4d33e35b92e4f5f",
+    "vectors/services/dart/did.jsonl": "3acb8525bee6a53854811f86dd6a469d821d3c2b1226547ddfd22eb67a55a588",
+    "vectors/services/dart/resolutionResult.json": "97bbfbf56b91a8a5e08f65588e3d3e776bd07f206087363142d6055580417ddf",
+    "vectors/services/java/did.jsonl": "51870b7e3bb50ac2dd1d14da371265a8074471bb6e1927f3e19f72a409c8073d",
+    "vectors/services/java/resolutionResult.json": "ddbb931d3188512efc8c0293fd6f60174534d296c6e1a42f33fc7e01bd3aa9e8",
+    "vectors/services/java-eecc/did.jsonl": "6f18d6656030342de468e361a506a08e9592d23255383924b8f7fa17de1a6a65",
+    "vectors/services/java-eecc/resolutionResult.json": "6891475d810fd679d0800fd211bf291668cedd9a31382c0492d984f03a83f2cf",
+    "vectors/services/python/did.jsonl": "91baeb0753118b21847ad6ee3dd2662e5d3a2e1920aa8f29fb0349137f948fbb",
+    "vectors/services/python/resolutionResult.json": "68a1f8a79d2d513359a1de1d695a461fb33a8b2421405eceece75e5753ef6d3f",
+    "vectors/services/rust/did.jsonl": "41b5aa1fe8db826686e139c103eb53e3068138efbdb4adf9602903b55550e022",
+    "vectors/services/rust/resolutionResult.json": "3dafb16b95586b610ba85b9829775c73ed3f10d4c40104a35353000bbfd46614",
+    "vectors/services/ts/did.jsonl": "919278cc5ad009b463348615dbab5c4538f883a2857636e588dde02fe01e417d",
+    "vectors/services/ts/resolutionResult.json": "7a1b5ef312696bf5f60d8f6568f4266348cf3630fc5374efd57cdce1c2d2bf26",
+    "vectors/witness-threshold/dart/did.jsonl": "f0a9d94a48d202841b2ba2bca0ed84f3560e3ba2072e0bd253eca90cfde8f999",
+    "vectors/witness-threshold/dart/did-witness.json": "dd21e60864cc82d20e5f1bbc3d4b2b13b58631ec82f5743288c355cce5873912",
+    "vectors/witness-threshold/dart/resolutionResult.json": "8b051e7bb88b391beb420e0c92355b90de6d44976ad28c7af8749fcdd7221fbe",
+    "vectors/witness-threshold/java/did.jsonl": "845bac9d3020c8604bdf7e75cfa7025e50e9ab3a610a86b01a9d52385fb433b9",
+    "vectors/witness-threshold/java/did-witness.json": "ec7248b4c20dee32745f59ea4125f86b4523db9e43084232077a2bab8265ab5c",
+    "vectors/witness-threshold/java/resolutionResult.json": "5c18dc995cb0a3e5355b09b0f335a161d5293e62ab001f111ce023fdaead710a",
+    "vectors/witness-threshold/java-eecc/did.jsonl": "e21ffbe2d0738e2ac62def6ec6f6df07af73fd28db617b8d6323daa815796e43",
+    "vectors/witness-threshold/java-eecc/did-witness.json": "5a443abbb373f1a2572051aa0a165a8b62e7437ad1ce65e4fa8abb81a385168f",
+    "vectors/witness-threshold/java-eecc/resolutionResult.json": "f4c40502a9da15d7f3b5bccd1a7e153f034bdaffe3eaaed3851404427d34e17e",
+    "vectors/witness-threshold/python/did.jsonl": "a43f40ceec8e624173015920b3322e0cbebb81815619d4fa1881bcbc1b5c9141",
+    "vectors/witness-threshold/python/did-witness.json": "40aaf68b253ee7b122a92c8634c7fd703faa000a9f0ac343d3caa195c4ee757b",
+    "vectors/witness-threshold/python/resolutionResult.json": "20aaed394f3b8ee20b613642faba7efeaf99b8a295e69a30dc0a530f510aab59",
+    "vectors/witness-threshold/rust/did.jsonl": "27994cca35dad4ec2285beb1a6e4ef89d4d4201e9e8bf08f437cc93aacd2871a",
+    "vectors/witness-threshold/rust/did-witness.json": "fc02d8b8f93369cdb676f7e16f3483c807f7cd90d0c59892b43f04202395f899",
+    "vectors/witness-threshold/rust/resolutionResult.json": "951586a4dc0308babf7564c401724c0bdd97b1af56a9832c8fb2788dfc737112",
+    "vectors/witness-threshold/ts/did.jsonl": "eab58bfa6eec9b72d23d589a642a54d6fb10f3ffd27e383ef6e7988f60cce645",
+    "vectors/witness-threshold/ts/did-witness.json": "496be291bcc9a24cf8599a3892b23dac515d0f4611eac62da76d005159affcbf",
+    "vectors/witness-threshold/ts/resolutionResult.json": "a085674849e6785b1bb2a42c026e7aae41fab9b252e74d0512566a9a9a55a079",
+    "vectors/witness-update/dart/did.jsonl": "5d17904ffa0c83da8a4647c3f690986196c80051a777e92eb400cbed208c1623",
+    "vectors/witness-update/dart/did-witness.json": "f5eaeb1ed39569989a69889122a812c7e7feb946521a32895d8a0d3a7228fc8e",
+    "vectors/witness-update/dart/resolutionResult.json": "41945e995f80d4b08a0bebfd569f6e43c2a914bb587e0eeff3dca3d4b98c7815",
+    "vectors/witness-update/java/did.jsonl": "5d114cfcc1e701c9eea701c47bce2e83d9c702fd61ae9e5acacf88c780674714",
+    "vectors/witness-update/java/did-witness.json": "78b8615957ca1d5f13006ccdf719dc846c741ef0e907928af883161a442afbd8",
+    "vectors/witness-update/java/resolutionResult.json": "0a3516c8ed0273f6cfac111879df1ae7e35d6bdbb99c0aec45904f94b953e139",
+    "vectors/witness-update/java-eecc/did.jsonl": "7387df20c12b4e25837f1de511ac47184a7bf05385710b56a99ae3bc13b3e5d7",
+    "vectors/witness-update/java-eecc/did-witness.json": "f7abf02ed7134004d15740178a06ac457a6b4bf97a95f3d90220b8bb7da9747b",
+    "vectors/witness-update/java-eecc/resolutionResult.json": "45fb56577c3e5a22f1faa0dd1b031b254a7719155d09401abf14a09ecad31f88",
+    "vectors/witness-update/python/did.jsonl": "ae0e28314735774723e8ee4a496c6c263ef8087cc98a35a88eeaa1b9c0ae5fb3",
+    "vectors/witness-update/python/did-witness.json": "7c5190216dec09ef361d8c98a987fced1ac2e154c296d1739db3a041e75f3847",
+    "vectors/witness-update/python/resolutionResult.json": "452398b943149295be1fcad7ecf66f5fb866d412188b04f87794b55fe726a150",
+    "vectors/witness-update/rust/did.jsonl": "077471a2d8614eeb382a021a2d769b23bb54d3ffbc3533e43d9cc496b493c56c",
+    "vectors/witness-update/rust/did-witness.json": "cdcf67d3331b1cffb92c762ccede378bbc6a2017d3843890b282c60b43561f8e",
+    "vectors/witness-update/rust/resolutionResult.json": "5baec8ef883c17f5783a9232e28aec47a70a1454ef107e6662c6d86b0825a159",
+    "vectors/witness-update/ts/did.jsonl": "7b9bceded832e6aad8a5cd003aa29be8c2b1132e0e3d7fc05ddb168dbc6cb737",
+    "vectors/witness-update/ts/did-witness.json": "d5f0b5751cd33365eeaa59634a2c128863974844b541d541e21975a847e0b514",
+    "vectors/witness-update/ts/resolutionResult.json": "6d77bd68bb5b999d10bd00815bc9ae0e19cb6fee4ee5f31712c0a764eecdbca1"
+  }
+}

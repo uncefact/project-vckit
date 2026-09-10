@@ -1,0 +1,214 @@
+diff --git a/implementations/dart/bin/test_vectors.dart b/implementations/dart/bin/test_vectors.dart
+index eda0d66..826f708 100644
+--- a/implementations/dart/bin/test_vectors.dart
++++ b/implementations/dart/bin/test_vectors.dart
+@@ -36,6 +36,7 @@ void main() async {
+   final diffsFile = File(p.join(implRoot.path, 'diffs.txt'));
+   if (statusFile.existsSync()) statusFile.deleteSync();
+   if (diffsFile.existsSync()) diffsFile.deleteSync();
++  File(p.join(implRoot.path, 'actual-results.jsonl')).writeAsStringSync('');
+ 
+   final scenarios = vectorsRoot
+       .listSync()
+@@ -403,6 +404,12 @@ Future<_Outcome> _runTest(File jsonlFile, File resultFile) async {
+     }
+ 
+     final actual = _buildActualResult(didDocJson, result.metadata);
++    File(p.join(Directory.current.path, 'actual-results.jsonl')).writeAsStringSync(jsonEncode({
++      'scenario': p.basename(p.dirname(p.dirname(resultFile.path))),
++      'source': p.basename(p.dirname(resultFile.path)), 'file': p.basename(resultFile.path),
++      'nativeDocumentPresent': result.didDocument != null, 'actual': actual,
++    }) + '\n', mode: FileMode.append);
++
+     _normalizePair(actual, expected);
+ 
+     final actualJcs = jcs(actual);
+diff --git a/implementations/java-eecc/src/main/java/org/didwebvh/compliance/TestVectors.java b/implementations/java-eecc/src/main/java/org/didwebvh/compliance/TestVectors.java
+index 2e01a6e..e9ba764 100644
+--- a/implementations/java-eecc/src/main/java/org/didwebvh/compliance/TestVectors.java
++++ b/implementations/java-eecc/src/main/java/org/didwebvh/compliance/TestVectors.java
+@@ -76,6 +76,7 @@ public class TestVectors {
+         // Delete stale output files from previous runs
+         Files.deleteIfExists(IMPL_ROOT.resolve("status.md"));
+         Files.deleteIfExists(IMPL_ROOT.resolve("diffs.txt"));
++        Files.deleteIfExists(IMPL_ROOT.resolve("actual-results.jsonl"));
+ 
+         List<Path> scenarios;
+         try (Stream<Path> stream = Files.list(VECTORS_ROOT)) {
+@@ -421,7 +422,19 @@ public class TestVectors {
+             }
+ 
+ 
++            if (result.resolutionMetadata() != null && result.resolutionMetadata().error() != null) {
++                return TestOutcome.fail("resolve error: " + result.resolutionMetadata().error());
++            }
+             ObjectNode actual = buildActualResult(result, log, options, did);
++            ObjectNode captured = MAPPER.createObjectNode();
++            captured.put("scenario", implDir.getParent().getFileName().toString());
++            captured.put("source", implDir.getFileName().toString());
++            captured.put("file", resultFile.getFileName().toString());
++            captured.put("nativeDocumentPresent", result.document() != null);
++            captured.set("actual", actual);
++            Files.writeString(IMPL_ROOT.resolve("actual-results.jsonl"), MAPPER.writeValueAsString(captured) + "\n",
++                    java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);
++
+             normalizePair(actual, expected);
+ 
+             String actualJcs = canonicalize(MAPPER.writeValueAsString(actual));
+diff --git a/implementations/java/src/main/java/org/didwebvh/compliance/TestVectors.java b/implementations/java/src/main/java/org/didwebvh/compliance/TestVectors.java
+index ab8761b..a37a12f 100644
+--- a/implementations/java/src/main/java/org/didwebvh/compliance/TestVectors.java
++++ b/implementations/java/src/main/java/org/didwebvh/compliance/TestVectors.java
+@@ -73,6 +73,7 @@ public class TestVectors {
+         // Delete stale output files from previous runs
+         Files.deleteIfExists(IMPL_ROOT.resolve("status.md"));
+         Files.deleteIfExists(IMPL_ROOT.resolve("diffs.txt"));
++        Files.deleteIfExists(IMPL_ROOT.resolve("actual-results.jsonl"));
+ 
+         List<Path> scenarios;
+         try (Stream<Path> stream = Files.list(VECTORS_ROOT)) {
+@@ -428,6 +429,15 @@ public class TestVectors {
+             }
+ 
+             JsonObject actual = buildActualResult(didDocJson, result.getMetadata());
++            JsonObject captured = new JsonObject();
++            captured.addProperty("scenario", implDir.getParent().getFileName().toString());
++            captured.addProperty("source", implDir.getFileName().toString());
++            captured.addProperty("file", resultFile.getFileName().toString());
++            captured.addProperty("nativeDocumentPresent", result.getDidDocument() != null);
++            captured.add("actual", actual);
++            Files.writeString(IMPL_ROOT.resolve("actual-results.jsonl"), captured.toString() + "\n",
++                    java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);
++
+ 
+             String actualJcs = canonicalize(actual.toString());
+             String expectedJcs = canonicalize(expected.toString());
+diff --git a/implementations/python/conftest.py b/implementations/python/conftest.py
+index 3e8db40..44cc288 100644
+--- a/implementations/python/conftest.py
++++ b/implementations/python/conftest.py
+@@ -25,6 +25,7 @@ _neg_rows: list[dict] = []
+ # ---------------------------------------------------------------------------
+ 
+ def pytest_sessionstart(session):
++    (IMPL_DIR / "actual-results.jsonl").write_text("")
+     _rows.clear()
+     _diffs.clear()
+     _neg_rows.clear()
+@@ -78,6 +79,10 @@ def pytest_runtest_makereport(item, call):
+                       "result": "⚠️ XFAIL", "notes": notes})
+ 
+     elif report.failed:
++        actual_error = ((store.get("actual") or {}).get("didResolutionMetadata") or {}).get("error")
++        if actual_error:
++            _rows.append({"testCase": scenario, "logSource": impl, "result": "❌ FAIL", "notes": str(actual_error)})
++            return
+         if store.get("actual") is not None and store.get("expected") is not None:
+             diff = _compute_diff(store["expected"], store["actual"])
+             if diff:
+diff --git a/implementations/python/test_vectors.py b/implementations/python/test_vectors.py
+index 957ec29..6db6fc6 100644
+--- a/implementations/python/test_vectors.py
++++ b/implementations/python/test_vectors.py
+@@ -95,16 +95,21 @@ def test_vector(scenario: str, impl: str, result_file: str, _status_data: dict)
+     log = VECTORS_ROOT / scenario / impl / "did.jsonl"
+     expected = json.loads((VECTORS_ROOT / scenario / impl / result_file).read_text())
+ 
+-    did = json.loads(log.read_text().splitlines()[0])["state"]["id"]
+-
++    entries = [json.loads(line) for line in log.read_text().splitlines() if line.strip()]
+     version_number = _version_number_from_stem(Path(result_file).stem)
+-    kwargs = {"version_number": version_number} if version_number is not None else {}
++    selected = entries[version_number - 1] if version_number is not None else entries[-1]
++    did = selected["state"]["id"]
++    # The native resolver drops integer version_number values; its string API works.
++    kwargs = {"version_number": str(version_number)} if version_number is not None else {}
+ 
+     result = asyncio.run(resolve_did(did, local_history=log, **kwargs))
+     actual = result.serialize()
+ 
++    with (Path(__file__).parent / "actual-results.jsonl").open("a") as output:
++        output.write(json.dumps({"scenario": scenario, "source": impl, "file": result_file, "actual": actual}) + "\n")
+     _status_data["actual"] = actual
+     _status_data["expected"] = expected
++    assert not (actual.get("didResolutionMetadata") or {}).get("error"), actual
+     assert jcs.canonicalize(actual) == jcs.canonicalize(expected)
+ 
+ 
+diff --git a/implementations/rust/src/main.rs b/implementations/rust/src/main.rs
+index f661a9c..4cb45d5 100644
+--- a/implementations/rust/src/main.rs
++++ b/implementations/rust/src/main.rs
+@@ -44,6 +44,7 @@ async fn main() {
+     let diffs_path = impl_dir.join("diffs.txt");
+     let _ = std::fs::remove_file(&status_path);
+     let _ = std::fs::remove_file(&diffs_path);
++    let _ = std::fs::remove_file(impl_dir.join("actual-results.jsonl"));
+ 
+     let mut scenarios: Vec<_> = match std::fs::read_dir(vectors_root) {
+         Ok(rd) => rd
+@@ -478,6 +479,15 @@ async fn run_vector_test(impl_dir: &Path, result_file: &str) -> TestOutcome {
+         "didResolutionMetadata": {"contentType": "application/did+ld+json"},
+     });
+ 
++    use std::io::Write;
++    let record = json!({
++        "scenario": impl_dir.parent().unwrap().file_name().unwrap().to_str().unwrap(),
++        "source": impl_dir.file_name().unwrap().to_str().unwrap(), "file": result_file, "actual": actual,
++    });
++    let capture_path = Path::new(env!("CARGO_MANIFEST_DIR")).join("actual-results.jsonl");
++    let mut capture = std::fs::OpenOptions::new().create(true).append(true).open(capture_path).unwrap();
++    writeln!(capture, "{}", record).unwrap();
++
+     let actual_jcs = match serde_jcs::to_vec(&actual) {
+         Ok(b) => b,
+         Err(e) => return TestOutcome::Fail(format!("JCS serialize actual: {e}")),
+diff --git a/implementations/ts/src/generator.ts b/implementations/ts/src/generator.ts
+index f100c1d..5b86c4f 100644
+--- a/implementations/ts/src/generator.ts
++++ b/implementations/ts/src/generator.ts
+@@ -196,7 +196,7 @@ async function processScript(scriptPath: string, verify: boolean): Promise<void>
+       );
+       const verifier = signerInCurrentKeys
+         ? new Ed25519Signer({ verificationMethod: signerVM })
+-        : new PermissiveVerifier({ verificationMethod: signerVM });
++        : new Ed25519Signer({ verificationMethod: signerVM });
+ 
+       if (s.params?.updateKeys) {
+         currentUpdateVMs = resolveKeyVMs(s.params.updateKeys, keyMap);
+@@ -429,13 +429,17 @@ async function runVectorTest(
+ 
+     const versionNumber = extractVersionNumber(resultFile);
+     const dummyVM = keyFromSeed('0'.repeat(64));
+-    const verifier = new PermissiveVerifier({ verificationMethod: dummyVM });
++    const verifier = new Ed25519Signer({ verificationMethod: dummyVM });
+ 
+     const opts: Record<string, unknown> = { verifier };
+     if (witnessProofs.length > 0) opts.witnessProofs = witnessProofs;
+     if (versionNumber !== null) opts.versionNumber = versionNumber;
+ 
+     const actual = await resolveDIDFromLog(log, opts as any);
++    fs.appendFileSync(path.join(TS_IMPL_DIR, 'actual-results.jsonl'), JSON.stringify({
++      scenario: path.basename(path.dirname(implDir)), source: path.basename(implDir), file: resultFile, actual,
++    }) + '\n');
++    if (actual.didResolutionMetadata?.error) return { type: 'fail', reason: JSON.stringify(actual.didResolutionMetadata) };
+ 
+     if (canonicalize(actual) === canonicalize(expected)) return { type: 'pass' };
+     return { type: 'diff', diff: computeUnifiedDiff(expected, actual) };
+@@ -530,7 +534,7 @@ async function runNegativeResolutionTest(
+ 
+   const log = logContent.split('\n').filter((l: string) => l.trim()).map((l: string) => JSON.parse(l)) as DIDLog;
+   const dummyVM = keyFromSeed('0'.repeat(64));
+-  const verifier = new PermissiveVerifier({ verificationMethod: dummyVM });
++  const verifier = new Ed25519Signer({ verificationMethod: dummyVM });
+ 
+   const witnessPath = path.join(tsDir, 'did-witness.json');
+   const witnessProofs = fs.existsSync(witnessPath)
+@@ -626,6 +630,7 @@ async function crossResolveStatus(
+ // ---------------------------------------------------------------------------
+ 
+ async function main() {
++  fs.writeFileSync(path.join(TS_IMPL_DIR, 'actual-results.jsonl'), '');
+   const args = process.argv.slice(2);
+   const verify = args.includes('--verify');
+   const targets = args.filter((a: string) => !a.startsWith('--'));

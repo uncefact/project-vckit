@@ -45,6 +45,7 @@
     "@uncefact/vckit-credential-merkle-disclosure-proof": "workspace:1.0.0",
     "@uncefact/vckit-credential-oa": "workspace:1.0.0",
     "@uncefact/vckit-credential-router": "workspace:^",
+    "@uncefact/vckit-did-provider-webvh": "workspace:^",
     "@uncefact/vckit-encrypted-storage": "workspace:^",
     "@uncefact/vckit-example-documents": "workspace:1.0.0",
     "@uncefact/vckit-remote-server": "workspace:1.0.0",
