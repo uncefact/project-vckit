@@ -1,59 +1,35 @@
-import { describe, it, expect, jest, beforeEach } from '@jest/globals';
+import { describe, it, expect, jest } from '@jest/globals';
+import { createHash, generateKeyPairSync, sign, verify } from 'node:crypto';
+import { base58ToBytes } from '@veramo/utils';
 import { VeramoSigner, VeramoVerifier } from '../veramo-signer.js';
 
-// Mock didwebvh-ts
-jest.unstable_mockModule('didwebvh-ts', () => ({
-  prepareDataForSigning: jest.fn().mockResolvedValue(new Uint8Array([1, 2, 3, 4])),
-  multibaseEncode: jest.fn().mockReturnValue('zmockencodedvalue'),
-}));
+const document = { id: 'test' };
+const proof = {
+  created: '2026-01-01T00:00:00Z', cryptosuite: 'eddsa-jcs-2022',
+  proofPurpose: 'assertionMethod', type: 'DataIntegrityProof', verificationMethod: 'did:key:test#test',
+};
+const hash = (value: unknown) => createHash('sha256').update(JSON.stringify(value)).digest();
+const message = Buffer.concat([hash(proof), hash(document)]);
 
-describe('VeramoSigner', () => {
-  let signer: VeramoSigner;
-  let mockContext: any;
-
-  beforeEach(() => {
-    mockContext = {
-      agent: {
-        keyManagerSign: jest
-          .fn<any>()
-          .mockResolvedValue('bW9jay1zaWduYXR1cmU'), // base64url of "mock-signature"
-      },
-    };
-
-    signer = new VeramoSigner(
-      'test-key-id',
-      'did:key:z6Mktest#z6Mktest',
-      mockContext,
-    );
+describe('Veramo Ed25519 bridge', () => {
+  it('produces a base58btc proof that an independent Ed25519 verifier accepts', async () => {
+    const { privateKey, publicKey } = generateKeyPairSync('ed25519');
+    const keyManagerSign = jest.fn(async ({ data, encoding }: { data: string; encoding: BufferEncoding }) =>
+      sign(null, Buffer.from(data, encoding), privateKey).toString('base64url'));
+    const signer = new VeramoSigner('kms-key', proof.verificationMethod, { agent: { keyManagerSign } } as any);
+    const result = await signer.sign({ document, proof } as any);
+    expect(result.proofValue).toMatch(/^z[1-9A-HJ-NP-Za-km-z]+$/);
+    expect(verify(null, message, publicKey, base58ToBytes(result.proofValue.slice(1)))).toBe(true);
+    expect(keyManagerSign).toHaveBeenCalledWith({ keyRef: 'kms-key', algorithm: 'EdDSA', encoding: 'hex', data: message.toString('hex') });
   });
 
-  it('should return the verification method ID', () => {
-    expect(signer.getVerificationMethodId()).toBe('did:key:z6Mktest#z6Mktest');
-  });
-
-  it('should sign using Veramo keyManagerSign', async () => {
-    const result = await signer.sign({
-      document: { id: 'test-doc' },
-      proof: { type: 'DataIntegrityProof' },
-    });
-
-    expect(result).toHaveProperty('proofValue');
-    expect(typeof result.proofValue).toBe('string');
-
-    // Verify keyManagerSign was called with the right key
-    expect(mockContext.agent.keyManagerSign).toHaveBeenCalledWith(
-      expect.objectContaining({
-        keyRef: 'test-key-id',
-        algorithm: 'EdDSA',
-        encoding: 'hex',
-      }),
-    );
-  });
-});
-
-describe('VeramoVerifier', () => {
-  it('should expose a verify method', () => {
+  it('accepts authentic signatures and rejects changed data and malformed signatures', async () => {
+    const { privateKey, publicKey } = generateKeyPairSync('ed25519');
+    const publicBytes = publicKey.export({ format: 'der', type: 'spki' }).subarray(-32);
+    const signature = sign(null, message, privateKey);
     const verifier = new VeramoVerifier();
-    expect(typeof verifier.verify).toBe('function');
+    expect(await verifier.verify(signature, message, publicBytes)).toBe(true);
+    expect(await verifier.verify(signature, new Uint8Array([1]), publicBytes)).toBe(false);
+    expect(await verifier.verify(new Uint8Array([1]), message, publicBytes)).toBe(false);
   });
 });
