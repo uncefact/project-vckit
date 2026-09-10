@@ -88,6 +88,40 @@ describe('managed pre-rotation', () => {
   });
 });
 
+describe('atomic portability', () => {
+  it('moves the managed alias and existing keys, preserving the active history and old DID', async () => {
+    const { agent, logStore, context } = fixture;
+    const original = await agent.didManagerCreate({ alias: 'issuer' });
+    const ported = await agent.didManagerUpdate({ did: original.did, document: {}, options: { portToDomain: 'new.example', portToPaths: ['issuers', 'one'] } });
+    expect(ported.did).toMatch(/:new.example:issuers:one$/);
+    expect(ported.alias).toBe('issuer');
+    expect(ported.keys.map(key => key.kid)).toEqual(original.keys.map(key => key.kid));
+    expect((await agent.didManagerGetByAlias({ alias: 'issuer', provider: 'did:webvh' })).did).toBe(ported.did);
+    const old = await agent.didManagerGet({ did: original.did });
+    expect(old.provider).toBeNull();
+    expect(old.keys).toEqual([]);
+    await fixture.provider.addService({ identifier: ported, service: { id: '#profile', type: 'Profile', serviceEndpoint: 'https://new.example/profile' } }, context);
+    const log = (await logStore.getLogForDid(ported.did))!;
+    expect(log).toHaveLength(3);
+    expect(await logStore.getLogForDid(original.did)).toEqual(log);
+    const resolved = await resolveDIDFromLog(log, { verifier: new VeramoVerifier() });
+    expect(resolved.meta.deactivated).toBe(false);
+    expect(resolved.did).toBe(ported.did);
+  });
+
+  it('rolls back the log and managed alias if the identifier move fails', async () => {
+    const { agent, logStore, db } = fixture;
+    const original = await agent.didManagerCreate({ alias: 'issuer' });
+    const before = await logStore.getByDid(original.did);
+    await db.query("CREATE TRIGGER fail_port BEFORE INSERT ON identifier WHEN NEW.did LIKE '%:new.example' BEGIN SELECT RAISE(ABORT, 'injected identifier failure'); END");
+    await expect(agent.didManagerUpdate({ did: original.did, document: {}, options: { portToDomain: 'new.example' } })).rejects.toThrow('injected identifier failure');
+    expect(await logStore.getByDid(original.did)).toEqual(before);
+    expect((await agent.didManagerGetByAlias({ alias: 'issuer', provider: 'did:webvh' })).did).toBe(original.did);
+    await agent.didManagerUpdate({ did: original.did, document: {} });
+    expect(await logStore.getLogForDid(original.did)).toHaveLength(2);
+  });
+});
+
 it('supports explicit managed future keys across consecutive pre-rotation updates', async () => {
   const { agent, logStore } = fixture;
   const first = await agent.keyManagerCreate({ kms: 'local', type: 'Ed25519' });

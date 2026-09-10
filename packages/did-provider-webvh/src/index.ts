@@ -31,3 +31,9 @@ export type {
   WebvhDidMetadata,
   WebvhProviderContext,
 } from './types.js';
+
+// Combined configuration for the shared Veramo/WebVH database used by portability.
+import { Entities as VeramoEntities, migrations as VeramoMigrations } from '@veramo/data-store';
+import { migrations as WebvhMigrations } from './migrations/index.js';
+export const SharedEntities = [...VeramoEntities, WebvhDidLog];
+export const SharedMigrations = [...VeramoMigrations, ...WebvhMigrations];

@@ -1,5 +1,9 @@
 import { OrPromise } from '@veramo/utils';
 import { DataSource } from 'typeorm';
+import { Identifier, Key, Service } from '@veramo/data-store';
+
+// A single-connection driver must not admit another operation into an active transaction.
+const queues = new WeakMap<DataSource, Promise<unknown>>();
 import { WebvhDidLog } from '../entities/webvh-did-log.js';
 
 /**
@@ -21,6 +25,14 @@ export class WebvhDidLogStore {
     return db;
   }
 
+  private async withDb<T>(operation: (db: DataSource) => Promise<T>): Promise<T> {
+    const db = await this.getDb();
+    const previous = queues.get(db) ?? Promise.resolve();
+    const next = previous.catch(() => undefined).then(() => operation(db));
+    queues.set(db, next.catch(() => undefined));
+    return next;
+  }
+
   /**
    * Save a new DID log entry (used on create).
    */
@@ -31,7 +43,7 @@ export class WebvhDidLogStore {
     portable: boolean;
     updateKeyRefs?: Record<string, string>;
   }): Promise<WebvhDidLog> {
-    const db = await this.getDb();
+    return this.withDb(async db => {
     const entity = new WebvhDidLog();
     entity.scid = params.scid;
     entity.currentDid = params.currentDid;
@@ -42,6 +54,7 @@ export class WebvhDidLogStore {
     entity.updateKeyRefs = JSON.stringify(params.updateKeyRefs || {});
     await db.getRepository(WebvhDidLog).insert(entity);
     return entity;
+    });
   }
 
   /**
@@ -53,10 +66,12 @@ export class WebvhDidLogStore {
     previousDids?: string[];
     log: any[];
     deactivated?: boolean;
+    /** Move managed identifier relations in the same transaction as the history. */
+    port?: { fromDid: string; toDid: string; controllerKeyId: string };
     updateKeyRefs?: Record<string, string>;
   }): Promise<WebvhDidLog> {
-    const db = await this.getDb();
-    const existing = await this.getByScid(params.scid);
+    return this.withDb(async db => db.transaction(async manager => {
+    const existing = await manager.getRepository(WebvhDidLog).findOneBy({ scid: params.scid });
     if (!existing) {
       throw new Error(`did:webvh log not found for SCID: ${params.scid}`);
     }
@@ -75,29 +90,43 @@ export class WebvhDidLogStore {
       ...(params.previousDids !== undefined ? { previousDids: JSON.stringify(params.previousDids) } : {}),
       ...(params.deactivated !== undefined ? { deactivated: params.deactivated } : {}),
     };
-    const result = await db.getRepository(WebvhDidLog).createQueryBuilder()
+    const result = await manager.getRepository(WebvhDidLog).createQueryBuilder()
       .update().set(changes)
       .where({ scid: params.scid, log: predecessor })
       .execute();
     if (result.affected !== 1) {
       throw new Error('WebVH update conflict: reload the DID history and retry');
     }
+    if (params.port) {
+      const { fromDid, toDid, controllerKeyId } = params.port;
+      if (!db.hasMetadata(Identifier)) throw new Error('Portability requires WebVH and Veramo DIDStore to share a DataSource');
+      const identifiers = manager.getRepository(Identifier);
+      const old = await identifiers.findOneBy({ did: fromDid });
+      if (!old?.provider) throw new Error('Managed source identifier not found in the shared DataSource');
+      // Retain the historical DID and its credential/message relations. Release only
+      // its managed alias and move the managed key/service relations to the new DID.
+      await identifiers.update({ did: fromDid }, { alias: null as any, provider: null as any, controllerKeyId: null as any });
+      const next = identifiers.create({ did: toDid, alias: old.alias, provider: old.provider, controllerKeyId });
+      await identifiers.insert(next);
+      await manager.getRepository(Key).update({ identifier: { did: fromDid } }, { identifier: { did: toDid } });
+      await manager.getRepository(Service).update({ identifier: { did: fromDid } }, { identifier: { did: toDid } });
+    }
     return Object.assign(existing, changes);
+    }));
   }
 
   /**
    * Look up a DID log by its SCID (permanent identifier).
    */
   async getByScid(scid: string): Promise<WebvhDidLog | null> {
-    const db = await this.getDb();
-    return db.getRepository(WebvhDidLog).findOneBy({ scid });
+    return this.withDb(db => db.getRepository(WebvhDidLog).findOneBy({ scid }));
   }
 
   /**
    * Look up a DID log by its current DID string.
    */
   async getByDid(did: string): Promise<WebvhDidLog | null> {
-    const db = await this.getDb();
+    return this.withDb(async db => {
     // First try current DID
     const byCurrentDid = await db
       .getRepository(WebvhDidLog)
@@ -116,6 +145,7 @@ export class WebvhDidLogStore {
     }
 
     return null;
+    });
   }
 
   /**
@@ -140,17 +170,17 @@ export class WebvhDidLogStore {
    * Delete a DID log (used on identifier deletion from Veramo store).
    */
   async deleteLog(scid: string): Promise<boolean> {
-    const db = await this.getDb();
-    const result = await db.getRepository(WebvhDidLog).delete({ scid });
-    return (result.affected ?? 0) > 0;
+    return this.withDb(async db => {
+      const result = await db.getRepository(WebvhDidLog).delete({ scid });
+      return (result.affected ?? 0) > 0;
+    });
   }
 
   /**
    * Get all stored DID logs.
    */
   async getAllLogs(): Promise<WebvhDidLog[]> {
-    const db = await this.getDb();
-    return db.getRepository(WebvhDidLog).find();
+    return this.withDb(db => db.getRepository(WebvhDidLog).find());
   }
 
   /**

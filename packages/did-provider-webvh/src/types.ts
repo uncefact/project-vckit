@@ -16,7 +16,7 @@ export interface WebvhDIDProviderOptions {
   /** Default value for portable flag on new DIDs (defaults to true) */
   defaultPortable?: boolean;
 
-  /** Database connection for storing DID logs */
+  /** Database connection for DID logs. Portability requires the same DataSource as Veramo DIDStore, with SharedEntities and SharedMigrations. */
   dbConnection: OrPromise<DataSource>;
 }
 

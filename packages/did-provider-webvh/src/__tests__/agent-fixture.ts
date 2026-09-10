@@ -2,15 +2,16 @@ import { createAgent, type IDIDManager, type IKeyManager } from '@veramo/core';
 import { DIDManager } from '@veramo/did-manager';
 import { KeyManager } from '@veramo/key-manager';
 import { KeyManagementSystem, SecretBox } from '@veramo/kms-local';
-import { DIDStore, KeyStore, PrivateKeyStore, Entities as VeramoEntities } from '@veramo/data-store';
+import { DIDStore, KeyStore, PrivateKeyStore, Entities as VeramoEntities, migrations as VeramoMigrations } from '@veramo/data-store';
 import { DataSource } from 'typeorm';
 import { WebvhDIDProvider } from '../webvh-did-provider.js';
 import { WebvhDidLog } from '../entities/webvh-did-log.js';
 import { WebvhDidLogStore } from '../store/webvh-did-log-store.js';
+import { migrations } from '../migrations/index.js';
 import type { WebvhDIDProviderOptions } from '../types.js';
 
 export async function agentFixture(options: Partial<WebvhDIDProviderOptions> = {}) {
-  const db = await new DataSource({ type: 'sqljs', entities: [...VeramoEntities, WebvhDidLog], synchronize: true }).initialize();
+  const db = await new DataSource({ type: 'sqljs', entities: [...VeramoEntities, WebvhDidLog], migrations: [...VeramoMigrations, ...migrations], migrationsRun: true }).initialize();
   const keyManager = new KeyManager({
     store: new KeyStore(db),
     kms: { local: new KeyManagementSystem(new PrivateKeyStore(db, new SecretBox('0'.repeat(64)))) },

@@ -309,6 +309,7 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
     // Handle domain portability
     if (isPorting) {
       updateOptions.domain = options.portToDomain;
+      if (options.portToPaths !== undefined) updateOptions.paths = options.portToPaths;
       // Add the current DID to alsoKnownAs for discoverability
       const currentAlsoKnownAs = updateOptions.alsoKnownAs || [];
       if (!currentAlsoKnownAs.includes(logEntity.currentDid)) {
@@ -333,28 +334,10 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
       previousDids: isPorting ? previousDids : undefined,
       log: newLog,
       updateKeyRefs,
+      port: isPorting && newDid !== logEntity.currentDid
+        ? { fromDid: logEntity.currentDid, toDid: newDid, controllerKeyId: controllerKey.kid }
+        : undefined,
     });
-
-    // 7. If ported, update Veramo's DID store
-    if (isPorting && newDid !== logEntity.currentDid) {
-      // Import the new DID with the same keys
-      try {
-        await context.agent.didManagerImport({
-          did: newDid,
-          provider: 'did:webvh',
-          controllerKeyId: controllerKey.kid,
-          keys: identifier.keys,
-          services: identifier.services,
-        });
-        // Delete the old DID reference
-        await context.agent.didManagerDelete({ did: logEntity.currentDid });
-      } catch (e: any) {
-        // If import fails, the log is already updated — log a warning
-        console.warn(
-          `did:webvh port: log updated but Veramo DID store update failed: ${e.message}`,
-        );
-      }
-    }
 
     // 8. Return the updated identifier
     const updatedIdentifier = await context.agent.didManagerGet({ did: newDid });

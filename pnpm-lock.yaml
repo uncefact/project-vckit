@@ -949,6 +949,9 @@ importers:
       '@veramo/core':
         specifier: 5.5.3
         version: 5.5.3
+      '@veramo/data-store':
+        specifier: 5.5.3
+        version: 5.5.3(sql.js@1.10.3)(ts-node@10.9.2)
       '@veramo/did-manager':
         specifier: 5.5.3
         version: 5.5.3
@@ -974,9 +977,6 @@ importers:
       '@types/express':
         specifier: 4.17.21
         version: 4.17.21
-      '@veramo/data-store':
-        specifier: 5.5.3
-        version: 5.5.3(sql.js@1.10.3)(ts-node@10.9.2)
       '@veramo/key-manager':
         specifier: 5.5.3
         version: 5.5.3

@@ -122,20 +122,11 @@ dbConnectionRevocationList:
       entities:
         $require: '@uncefact/vckit-revocation-list-2020?t=object#Entities'
 
-# did:webvh DID log database — uncomment to enable did:webvh support
-# dbConnectionWebvh:
-#   $require: typeorm#DataSource
-#   $args:
-#     - type: sqlite
-#       database:
-#         $ref: /constants/databaseFile
-#       synchronize: false
-#       migrationsRun: true
-#       migrations:
-#         $require: '@uncefact/vckit-did-provider-webvh?t=object#migrations'
-#       logging: false
-#       entities:
-#         $require: '@uncefact/vckit-did-provider-webvh?t=object#Entities'
+# To enable WebVH, use the shared /dbConnection above for both DIDManager and
+# WebvhDIDProvider. Replace its entity/migration exports with:
+#   entities:   { $require: '@uncefact/vckit-did-provider-webvh?t=object#SharedEntities' }
+#   migrations: { $require: '@uncefact/vckit-did-provider-webvh?t=object#SharedMigrations' }
+# This keeps portability and managed identifier changes in one transaction.
 
 revocationList:
   $require: '@uncefact/vckit-revocation-list-2020#RevocationStatus2020'
@@ -170,7 +161,7 @@ server:
     # - - $require: '@uncefact/vckit-did-provider-webvh?t=function#WebvhDidDocRouter'
     #     $args:
     #       - dbConnection:
-    #           $ref: /dbConnectionWebvh
+    #           $ref: /dbConnection
     #         serveDidJson: true
 
     # VC API v1
@@ -394,7 +385,7 @@ didManager:
         #       defaultDomain: localhost
         #       defaultPortable: true
         #       dbConnection:
-        #         $ref: /dbConnectionWebvh
+        #         $ref: /dbConnection
         # did:pkh:
         #   $require: '@veramo/did-provider-pkh#PkhDIDProvider'
         #   $args:

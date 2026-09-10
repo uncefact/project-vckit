@@ -19,6 +19,7 @@
     "@noble/hashes": "1.8.0",
     "@uncefact/vckit-core-types": "workspace:^",
     "@veramo/core": "5.5.3",
+    "@veramo/data-store": "5.5.3",
     "@veramo/did-manager": "5.5.3",
     "@veramo/utils": "5.5.3",
     "canonicalize": "2.0.0",
@@ -29,7 +30,6 @@
   },
   "devDependencies": {
     "@types/express": "4.17.21",
-    "@veramo/data-store": "5.5.3",
     "@veramo/key-manager": "5.5.3",
     "@veramo/kms-local": "5.5.3",
     "js-yaml": "4.1.0",
