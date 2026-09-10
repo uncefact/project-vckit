@@ -1,4 +1,4 @@
-import { IAgentContext, IKeyManager, IIdentifier, IService, IKey } from '@uncefact/vckit-core-types';
+import type { IAgentContext, IKeyManager } from '@veramo/core';
 import { OrPromise } from '@veramo/utils';
 import { DataSource } from 'typeorm';
 
@@ -46,6 +46,12 @@ export interface WebvhCreateIdentifierOptions {
   /** Watcher webhook URLs for tamper detection notifications */
   watchers?: string[];
 
+  /** Existing KMS key IDs to authorize updates; generates one Ed25519 key when omitted. */
+  updateKeys?: string[];
+
+  /** Select an authorized KMS signing key when several update keys are available. */
+  signingKey?: string;
+
   /** Key type for the DID's primary key. Defaults to 'Ed25519'. */
   keyType?: 'Ed25519';
 }
@@ -63,6 +69,9 @@ export interface WebvhUpdateIdentifierOptions {
 
   /** Rotate update keys. Provide new key references. */
   updateKeys?: string[];
+
+  /** Select the KMS key to sign this update. It must be authorized by the log. */
+  signingKey?: string;
 
   /** New pre-rotation key hashes (activates/changes pre-rotation) */
   nextKeyHashes?: string[];

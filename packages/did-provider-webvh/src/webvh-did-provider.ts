@@ -1,3 +1,5 @@
+import { resolveDIDFromLog } from 'didwebvh-ts';
+import type { WebvhDidLog } from './entities/webvh-did-log.js';
 import { AbstractIdentifierProvider } from '@veramo/did-manager';
 import { IIdentifier, IKey, IService, IAgentContext, IKeyManager } from '@uncefact/vckit-core-types';
 import { bytesToMultibase, hexToBytes } from '@veramo/utils';
@@ -33,6 +35,35 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
     this.logStore = new WebvhDidLogStore(options.dbConnection);
   }
 
+  private multikey(key: IKey): string {
+    if (key.type !== 'Ed25519') throw new Error('WebVH update keys must be Ed25519');
+    return bytesToMultibase(hexToBytes(key.publicKeyHex), 'Ed25519');
+  }
+
+  private async managedKey(reference: string, refs: Record<string, string>, context: WebvhProviderContext): Promise<IKey> {
+    const key = await context.agent.keyManagerGet({ kid: refs[reference] || reference });
+    const multikey = this.multikey(key);
+    if (reference.startsWith('z') && multikey !== reference) throw new Error('KMS key does not match the requested update multikey');
+    return key;
+  }
+
+  private async signingKey(entity: WebvhDidLog, identifier: IIdentifier, context: WebvhProviderContext, requested?: string): Promise<IKey> {
+    const { meta } = await resolveDIDFromLog(JSON.parse(entity.log), { verifier: new VeramoVerifier() });
+    const refs: Record<string, string> = JSON.parse(entity.updateKeyRefs || '{}');
+    for (const key of identifier.keys) {
+      if (key.type === 'Ed25519') refs[this.multikey(key)] = key.kid;
+    }
+    if (requested) {
+      const key = await this.managedKey(requested, refs, context);
+      if (!meta.updateKeys.includes(this.multikey(key))) throw new Error('Signing key is not authorized to update this DID');
+      return key;
+    }
+    for (const multikey of meta.updateKeys) {
+      if (refs[multikey]) return this.managedKey(multikey, refs, context);
+    }
+    throw new Error('No locally managed key is authorized to update this DID');
+  }
+
   /**
    * Creates a new did:webvh DID.
    *
@@ -53,11 +84,15 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
 
     const portable = options?.portable ?? this.defaultPortable;
 
-    // 1. Create the Ed25519 key via Veramo KMS
-    const key = await context.agent.keyManagerCreate({
-      kms: keyManagementSystem,
-      type: 'Ed25519',
-    });
+    if (options?.updateKeys?.length === 0) throw new Error('At least one update key is required at creation');
+    const initialKeys = options?.updateKeys
+      ? await Promise.all(options.updateKeys.map(ref => this.managedKey(ref, {}, context)))
+      : [await context.agent.keyManagerCreate({ kms: keyManagementSystem, type: 'Ed25519' })];
+    const key = options?.signingKey ? await this.managedKey(options.signingKey, {}, context) : initialKeys[0];
+    if (!initialKeys.some(candidate => this.multikey(candidate) === this.multikey(key))) {
+      throw new Error('Signing key is not authorized to create this DID');
+    }
+    const updateKeyRefs = Object.fromEntries(initialKeys.map(candidate => [this.multikey(candidate), candidate.kid]));
 
     // 2. Derive the multibase-encoded public key for didwebvh-ts
     const publicKeyMultibase = bytesToMultibase(
@@ -86,7 +121,7 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
     const createOptions: any = {
       domain,
       signer,
-      updateKeys: [publicKeyMultibase],
+      updateKeys: initialKeys.map(candidate => this.multikey(candidate)),
       verificationMethods,
       portable,
       verifier: new VeramoVerifier(),
@@ -133,13 +168,14 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
       currentDid: did,
       log,
       portable,
+      updateKeyRefs,
     });
 
     // 10. Build and return the Veramo IIdentifier
     const identifier: Omit<IIdentifier, 'provider'> = {
       did,
       controllerKeyId: key.kid,
-      keys: [key],
+      keys: initialKeys,
       services: [],
     };
 
@@ -176,9 +212,10 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
     // 2. Get the controlling key for signing
     // Look up the identifier in Veramo's DID store to find the controller key
     const identifier = await context.agent.didManagerGet({ did: logEntity.currentDid });
-    const controllerKey = identifier.keys[0];
-    if (!controllerKey) {
-      throw new Error(`No controller key found for DID: ${did}`);
+    const controllerKey = await this.signingKey(logEntity, identifier, context, options?.signingKey);
+    const updateKeyRefs: Record<string, string> = JSON.parse(logEntity.updateKeyRefs || '{}');
+    for (const key of identifier.keys) {
+      if (key.type === 'Ed25519') updateKeyRefs[this.multikey(key)] = key.kid;
     }
 
     const publicKeyMultibase = bytesToMultibase(
@@ -233,7 +270,9 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
 
     // Apply provider-specific options
     if (options?.updateKeys) {
-      updateOptions.updateKeys = options.updateKeys;
+      const nextKeys = await Promise.all(options.updateKeys.map(ref => this.managedKey(ref, updateKeyRefs, context)));
+      updateOptions.updateKeys = nextKeys.map(key => this.multikey(key));
+      for (const key of nextKeys) updateKeyRefs[this.multikey(key)] = key.kid;
     }
     if (options?.nextKeyHashes) {
       updateOptions.nextKeyHashes = options.nextKeyHashes;
@@ -265,6 +304,7 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
       currentDid: newDid,
       previousDids: isPorting ? previousDids : undefined,
       log: newLog,
+      updateKeyRefs,
     });
 
     // 7. If ported, update Veramo's DID store
@@ -316,10 +356,7 @@ export class WebvhDIDProvider extends AbstractIdentifierProvider {
     const existingLog = JSON.parse(logEntity.log);
 
     // Get the controller key for signing the deactivation entry
-    const controllerKey = identifier.keys[0];
-    if (!controllerKey) {
-      throw new Error(`No controller key found for DID: ${identifier.did}`);
-    }
+    const controllerKey = await this.signingKey(logEntity, identifier, context);
 
     const publicKeyMultibase = bytesToMultibase(
       hexToBytes(controllerKey.publicKeyHex),

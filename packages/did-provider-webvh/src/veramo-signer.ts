@@ -10,7 +10,7 @@ export class VeramoSigner implements Signer {
   constructor(
     private kid: string,
     private verificationMethodId: string,
-    private context: IAgentContext<IKeyManager>,
+    private context: IAgentContext<Pick<IKeyManager, 'keyManagerSign'>>,
   ) {}
 
   getVerificationMethodId(): string {

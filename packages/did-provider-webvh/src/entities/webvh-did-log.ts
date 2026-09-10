@@ -59,6 +59,10 @@ export class WebvhDidLog extends BaseEntity {
   @Column({ default: false })
   deactivated!: boolean;
 
+  /** Multikey to KMS key ID mapping for authorized DID history updates. */
+  @Column({ type: 'text', default: '{}' })
+  updateKeyRefs!: string;
+
   @BeforeInsert()
   setSaveDate() {
     this.createdAt = new Date();

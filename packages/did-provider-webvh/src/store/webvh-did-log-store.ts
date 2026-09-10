@@ -29,6 +29,7 @@ export class WebvhDidLogStore {
     currentDid: string;
     log: any[];
     portable: boolean;
+    updateKeyRefs?: Record<string, string>;
   }): Promise<WebvhDidLog> {
     const db = await this.getDb();
     const entity = new WebvhDidLog();
@@ -38,6 +39,7 @@ export class WebvhDidLogStore {
     entity.log = JSON.stringify(params.log);
     entity.portable = params.portable;
     entity.deactivated = false;
+    entity.updateKeyRefs = JSON.stringify(params.updateKeyRefs || {});
     await db.getRepository(WebvhDidLog).insert(entity);
     return entity;
   }
@@ -51,6 +53,7 @@ export class WebvhDidLogStore {
     previousDids?: string[];
     log: any[];
     deactivated?: boolean;
+    updateKeyRefs?: Record<string, string>;
   }): Promise<WebvhDidLog> {
     const db = await this.getDb();
     const existing = await this.getByScid(params.scid);
@@ -67,6 +70,7 @@ export class WebvhDidLogStore {
     const changes = {
       log: JSON.stringify(params.log),
       updatedAt: new Date(),
+      ...(params.updateKeyRefs ? { updateKeyRefs: JSON.stringify(params.updateKeyRefs) } : {}),
       ...(params.currentDid !== undefined ? { currentDid: params.currentDid } : {}),
       ...(params.previousDids !== undefined ? { previousDids: JSON.stringify(params.previousDids) } : {}),
       ...(params.deactivated !== undefined ? { deactivated: params.deactivated } : {}),
