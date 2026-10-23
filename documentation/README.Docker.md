@@ -3,7 +3,7 @@
 When you're ready, start your application by running:
 `docker compose up --build`.
 
-Your application will be available at http://localhost:3000.
+Your application will be available at http://localhost:3000. Inside the container, nginx runs without root and listens on port 8080, which the compose file publishes on 3000.
 
 ### Deploying your application to the cloud
 

@@ -146,6 +146,16 @@ docker run -p 3332:3332 vckit-api
 
 This will expose the VCkit API on port 3332 of your Docker host.
 
+### Runtime user and health check
+
+The API image runs as the unprivileged `node` user (uid 1000), not root. `/app` is owned by `root` with group `node` and mode `1775`, so the process can create `agent.yml` and `logs` there but cannot rename or delete the files that ship in the image. A custom entrypoint that edits `/app/agent.yml`, and anything else the container writes to, such as a mounted volume, must be writable by uid 1000 or the `node` group.
+
+The image declares a health check that requests `/open-api.json` on `PORT` every 30 seconds, allowing a 30 second start period and three retries. The route is public and answers once the agent has started. The check reads `PORT` from the container's environment when it runs, so set it with `-e PORT=...` or `--env-file` and keep it equal to the port the server listens on.
+
+### The demo explorer and documentation images
+
+The demo explorer image (`packages/demo-explorer/Dockerfile`) and the documentation image (`documentation/Dockerfile`) serve their sites with `nginxinc/nginx-unprivileged`. nginx runs as uid 101 and listens on port 8080 inside the container, not 80. Docker Compose publishes it as http://localhost:3000 (`3000:8080`). If you run either image with `docker run`, map the host port to 8080, for example `-p 3000:8080`. Both images declare a health check that requests `/` on port 8080.
+
 ### Running the Docker container with Docker Compose
 
 You can use Docker Compose to manage your VCkit API along with a PostgreSQL database. Docker Compose simplifies the process of orchestrating multiple containers and their dependencies.

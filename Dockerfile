@@ -137,6 +137,21 @@ COPY version.json .
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
 
+# At run time the entrypoint writes /app/agent.yml from agent.template.yml,
+# deployments that replace the entrypoint write and sed -i edit the same file,
+# and the agent writes /app/logs. So the node group may create files in /app,
+# and the sticky bit stops it renaming or deleting the root-owned files already
+# there.
+RUN chown root:node /app && chmod 1775 /app
+
+USER node
+
+# There is no dedicated health route. /open-api.json is public and answers once
+# the agent has started. Shell form so PORT, which is runtime configuration,
+# expands when the check runs.
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD wget -q --spider "http://127.0.0.1:${PORT:-3332}/open-api.json" || exit 1
+
 # Specify the script to run on container start
 ENTRYPOINT ["./entrypoint.sh"]
 
