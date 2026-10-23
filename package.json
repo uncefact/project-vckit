@@ -88,7 +88,7 @@
     "jsonld": "npm:@digitalcredentials/jsonld@5.2.1",
     "handlebars": "^4.7.10",
     "axios@^1.0.0": "^1.20.0",
-    "axios@<1.0.0": "^0.32.0",
+    "axios@<1.0.0": "^0.34.0",
     "undici": "^6.29.1",
     "fast-uri": "^3.1.7",
     "follow-redirects": "^1.16.1",
@@ -100,7 +100,8 @@
     "loader-utils@^1.0.0": "^1.4.2",
     "loader-utils@<1.0.0": "^1.4.2",
     "loader-utils@^2.0.0": "^2.0.4",
-    "ejs": "^3.1.10"
+    "ejs": "^3.1.10",
+    "proxy-addr": "~2.0.8"
   },
   "engines": {
     "node": ">=22"
