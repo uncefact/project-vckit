@@ -1,4 +1,4 @@
-import w3id_org_vc_revocation_list_2020_v1 from './contexts/w3id.org_vc-revocation-list-2020_v1.json' assert { type: 'json' };
+import w3id_org_vc_revocation_list_2020_v1 from './contexts/w3id.org_vc-revocation-list-2020_v1.json' with { type: 'json' };
 
 /**
  * @beta

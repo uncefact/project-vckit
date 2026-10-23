@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:20 as build
+FROM node:22 as build
 
 WORKDIR /app
 
@@ -10,6 +10,7 @@ COPY pnpm-workspace.yaml .
 COPY lerna.json .
 COPY packages/cli/default/agent.template.yml .
 COPY entrypoint.sh .
+COPY patches/ patches/
 
 COPY packages/tsconfig.json packages/
 COPY packages/tsconfig.settings.json packages/
@@ -58,7 +59,7 @@ COPY packages/vc-api/ packages/vc-api/
 RUN pnpm build
 
 # Stage 2: Run
-FROM node:20-alpine as vckit-api
+FROM node:22-alpine as vckit-api
 
 WORKDIR /app
 

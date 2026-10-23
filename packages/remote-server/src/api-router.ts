@@ -2,7 +2,7 @@ import { IAgent } from '@uncefact/vckit-core-types';
 import swaggerUi from 'swagger-ui-express';
 import { Request, Response, NextFunction, Router } from 'express';
 import Debug from 'debug';
-import swaggerDocument from './swagger/swagger.json' assert { type: 'json' };
+import swaggerDocument from './swagger/swagger.json' with { type: 'json' };
 import { updateSwagger } from './swagger/helpers.js';
 import fs from 'fs';
 

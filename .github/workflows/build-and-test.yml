@@ -25,7 +25,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20.12.2'
+          node-version: '22'
 
       - name: Install dependencies
         run: pnpm i --filter ${{ env.EXCLUDED_PACKAGE_OA_RENDERERS }} --filter ${{ env.EXCLUDED_PACKAGE_CREDENTIAL_OA }} --filter ${{ env.EXCLUDED_PACKAGE_EXPLORER }} --no-frozen-lockfile
@@ -51,7 +51,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: documentation/package-lock.json
 

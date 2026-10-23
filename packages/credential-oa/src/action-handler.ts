@@ -25,7 +25,7 @@ import {
   processEntryToArray,
 } from '@veramo/utils';
 
-import schema from '@uncefact/vckit-core-types/build/plugin.schema.json' assert { type: 'json' };
+import schema from '@uncefact/vckit-core-types/build/plugin.schema.json' with { type: 'json' };
 
 import {
   isValid,

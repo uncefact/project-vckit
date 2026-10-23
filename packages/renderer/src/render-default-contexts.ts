@@ -1,10 +1,10 @@
-import dev_render_method_context from './contexts/dev-render-method-context.json' assert { type: 'json' };
-import www_w3_org_ns_odrl from './contexts/www.w3.org_ns_odrl.json' assert { type: 'json' };
-import render_template_context_2024 from './contexts/render-template-context-2024.json' assert { type: 'json' };
-import contextCredentialV1 from './contexts/www.w3.org_2018_credentials_v1.json' assert { type: 'json' }
-import contextCredentialV2 from './contexts/www.w3.org_ns_credentials_v2.json' assert { type: 'json' }
-import contextCredentialExamplesV1 from './contexts/www.w3.org_2018_credentials_examples_v1.json' assert { type: 'json' }
-import contextCredentialExamplesV2 from './contexts/www.w3.org_ns_credentials_examples_v2.json' assert { type: 'json' }
+import dev_render_method_context from './contexts/dev-render-method-context.json' with { type: 'json' };
+import www_w3_org_ns_odrl from './contexts/www.w3.org_ns_odrl.json' with { type: 'json' };
+import render_template_context_2024 from './contexts/render-template-context-2024.json' with { type: 'json' };
+import contextCredentialV1 from './contexts/www.w3.org_2018_credentials_v1.json' with { type: 'json' }
+import contextCredentialV2 from './contexts/www.w3.org_ns_credentials_v2.json' with { type: 'json' }
+import contextCredentialExamplesV1 from './contexts/www.w3.org_2018_credentials_examples_v1.json' with { type: 'json' }
+import contextCredentialExamplesV2 from './contexts/www.w3.org_ns_credentials_examples_v2.json' with { type: 'json' }
 
 /**
  * @beta

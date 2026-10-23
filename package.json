@@ -2,7 +2,7 @@
   "name": "vckit",
   "version": "1.2.1",
   "scripts": {
-    "postinstall": "mkdir .tmp_npm; cd .tmp_npm; mkdir veramo; cd veramo; git init; git remote add -f origin https://github.com/gs-gs/veramo.git; git pull --depth=1 origin vc-v2; pnpm install; pnpm build;",
+    "postinstall": "mkdir .tmp_npm; cd .tmp_npm; mkdir veramo; cd veramo; git init; git remote add -f origin https://github.com/gs-gs/veramo.git; git pull --depth=1 origin vc-v2; pnpm install; pnpm build; node -e \"const fs=require('fs'),f='packages/credential-ld/build/ld-default-contexts.js',re=/\\bassert(\\s*\\{\\s*type\\s*:\\s*[\\x27\\x22]json[\\x27\\x22]\\s*\\})/g,s=fs.readFileSync(f,'utf8'),t=s.replace(re,(m,a)=>'with'+a);if(t!==s)fs.writeFileSync(f,t);if(/\\bassert\\s*\\{\\s*type/.test(t))throw new Error(f+' still has an assert import')\"",
     "build": "pnpm build:agent && pnpm build:explorer",
     "build:agent": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --experimental-json-modules\" pnpm --ignore-scripts build:js && pnpm --ignore-scripts build:api && pnpm --ignore-scripts build:schema",
     "build:js": "pnpm -r --stream --filter !./packages/vckit-oa-renderers/ --filter !./packages/credential-oa/ --filter !./packages/demo-explorer/ build",
@@ -72,7 +72,7 @@
     "ts-json-schema-generator": "1.5.0",
     "ts-node": "10.9.2",
     "typeorm": "^0.3.19",
-    "typescript": "5.1.6",
+    "typescript": "5.3.3",
     "uint8arrays": "5.0.1",
     "web-did-resolver": "^2.0.27"
   },
@@ -85,12 +85,40 @@
   },
   "resolutions": {
     "@types/eslint": "^8.4.6",
-    "jsonld": "npm:@digitalcredentials/jsonld@5.2.1"
+    "jsonld": "npm:@digitalcredentials/jsonld@5.2.1",
+    "handlebars": "^4.7.10",
+    "axios@^1.0.0": "^1.20.0",
+    "axios@<1.0.0": "^0.32.0",
+    "undici": "^6.29.1",
+    "fast-uri": "^3.1.7",
+    "follow-redirects": "^1.16.1",
+    "form-data@^4.0.0": "^4.0.6",
+    "form-data@^3.0.0": "^3.0.5",
+    "form-data@^2.0.0": "^2.5.6",
+    "shell-quote": "^1.12.0",
+    "websocket-driver": "^0.7.5",
+    "loader-utils@^1.0.0": "^1.4.2",
+    "loader-utils@<1.0.0": "^1.4.2",
+    "loader-utils@^2.0.0": "^2.0.4",
+    "ejs": "^3.1.10"
   },
   "engines": {
-    "node": "20.12.2"
+    "node": ">=22"
   },
   "dependencies": {
     "debug": "^4.3.7"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@veramo/credential-eip712@5.5.3": "patches/@veramo__credential-eip712@5.5.3.patch",
+      "@veramo/data-store@5.5.3": "patches/@veramo__data-store@5.5.3.patch",
+      "@veramo/did-comm@5.5.3": "patches/@veramo__did-comm@5.5.3.patch",
+      "@veramo/did-discovery@5.5.3": "patches/@veramo__did-discovery@5.5.3.patch",
+      "@veramo/did-manager@5.5.3": "patches/@veramo__did-manager@5.5.3.patch",
+      "@veramo/did-resolver@5.5.3": "patches/@veramo__did-resolver@5.5.3.patch",
+      "@veramo/key-manager@5.5.3": "patches/@veramo__key-manager@5.5.3.patch",
+      "@veramo/message-handler@5.5.3": "patches/@veramo__message-handler@5.5.3.patch",
+      "@veramo/selective-disclosure@5.5.3": "patches/@veramo__selective-disclosure@5.5.3.patch"
+    }
   }
 }
