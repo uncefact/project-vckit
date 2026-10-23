@@ -2,7 +2,7 @@
   "name": "vckit",
   "version": "1.2.1",
   "scripts": {
-    "postinstall": "mkdir .tmp_npm; cd .tmp_npm; mkdir veramo; cd veramo; git init; git remote add -f origin https://github.com/gs-gs/veramo.git; git pull --depth=1 origin vc-v2; pnpm install; pnpm build; node -e \"const fs=require('fs'),f='packages/credential-ld/build/ld-default-contexts.js',re=/\\bassert(\\s*\\{\\s*type\\s*:\\s*[\\x27\\x22]json[\\x27\\x22]\\s*\\})/g,s=fs.readFileSync(f,'utf8'),t=s.replace(re,(m,a)=>'with'+a);if(t!==s)fs.writeFileSync(f,t);if(/\\bassert\\s*\\{\\s*type/.test(t))throw new Error(f+' still has an assert import')\"",
+    "postinstall": "SHA=a02f09bc068f20eb652fd740b43fb2220570b3ba && rm -rf .tmp_npm && mkdir -p .tmp_npm/veramo && cd .tmp_npm/veramo && git init -q && git remote add origin https://github.com/gs-gs/veramo.git && git fetch --depth=1 origin \"$SHA\" && git checkout -q --detach FETCH_HEAD && test \"$(git rev-parse HEAD)\" = \"$SHA\" && pnpm install --frozen-lockfile && pnpm build && node -e \"const fs=require('fs'),f='packages/credential-ld/build/ld-default-contexts.js',re=/\\bassert(\\s*\\{\\s*type\\s*:\\s*[\\x27\\x22]json[\\x27\\x22]\\s*\\})/g,s=fs.readFileSync(f,'utf8'),t=s.replace(re,(m,a)=>'with'+a);if(t!==s)fs.writeFileSync(f,t);if(/\\bassert\\s*\\{\\s*type/.test(t))throw new Error(f+' still has an assert import')\"",
     "build": "pnpm build:agent && pnpm build:explorer",
     "build:agent": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --experimental-json-modules\" pnpm --ignore-scripts build:js && pnpm --ignore-scripts build:api && pnpm --ignore-scripts build:schema",
     "build:js": "pnpm -r --stream --filter !./packages/vckit-oa-renderers/ --filter !./packages/credential-oa/ --filter !./packages/demo-explorer/ build",

@@ -85,7 +85,7 @@ import { WebRenderingTemplate2022 } from '@uncefact/vckit-renderer';
 
 const params = {
   credential: {
-    '@context': ['https://www.w3.org/ns/credentials/v2', 'https://www.w3.org/ns/credentials/examples/v2'],
+    '@context': ['https://www.w3.org/ns/credentials/v2'],
     id: 'data:application/vc+jwt,eyJhbGciOiJFZERTQSIsIm...', // The JWT should contain render field with the template.
     type: 'EnvelopedVerifiableCredential',
   },
