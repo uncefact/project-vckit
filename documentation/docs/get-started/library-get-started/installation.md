@@ -21,6 +21,10 @@ import Disclaimer from './../../\_disclaimer.mdx';
 
 This project has been tested with Node.js 22 and pnpm version 8.14.1. It is strongly recommended to use these versions for running and testing the project. Deviating from these versions may result in unforeseen compatibility issues or unexpected behavior.
 
+:::warning
+The VCkit packages published to npm so far were built before the move to Node.js 22, and they and some of the Veramo 5.5.3 packages they depend on use `assert { type: 'json' }` imports, which Node.js 22 rejects. To follow this guide with the published packages, use Node.js 20 until they are republished. Running VCkit from this repository uses Node.js 22.
+:::
+
 ## Create a new project
 
 Let's start by creating a new project
