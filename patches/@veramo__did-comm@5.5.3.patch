@@ -1,0 +1,13 @@
+diff --git a/build/didcomm.js b/build/didcomm.js
+index 8e30821c482dda6679cb485b9b62ebdf81e4e457..48df1131eff273401499b74276bb6ea387e43194 100644
+--- a/build/didcomm.js
++++ b/build/didcomm.js
+@@ -2,7 +2,7 @@ import { createJWE, decryptJWE, verifyJWS, } from 'did-jwt';
+ import { parse as parseDidUrl, } from 'did-resolver';
+ import { a256cbcHs512AnonDecrypterX25519WithA256KW, a256cbcHs512AnonEncrypterX25519WithA256KW, a256cbcHs512AuthDecrypterX25519WithA256KW, a256cbcHs512AuthEncrypterX25519WithA256KW, a256gcmAnonDecrypterX25519WithA256KW, a256gcmAnonEncrypterX25519WithA256KW, a256gcmAuthDecrypterEcdh1PuV3x25519WithA256KW, a256gcmAuthEncrypterEcdh1PuV3x25519WithA256KW, xc20pAnonDecrypterX25519WithA256KW, xc20pAnonEncrypterX25519WithA256KW, xc20pAuthDecrypterEcdh1PuV3x25519WithA256KW, xc20pAuthEncrypterEcdh1PuV3x25519WithA256KW, } from './encryption/a256kw-encrypters.js';
+ import { a256cbcHs512AnonDecrypterX25519WithXC20PKW, a256cbcHs512AnonEncrypterX25519WithXC20PKW, a256cbcHs512AuthDecrypterX25519WithXC20PKW, a256cbcHs512AuthEncrypterX25519WithXC20PKW, a256gcmAnonDecrypterX25519WithXC20PKW, a256gcmAnonEncrypterX25519WithXC20PKW, a256gcmAuthDecrypterEcdh1PuV3x25519WithXC20PKW, a256gcmAuthEncrypterEcdh1PuV3x25519WithXC20PKW, xc20pAnonDecrypterX25519WithXC20PKW, xc20pAnonEncrypterX25519WithXC20PKW, xc20pAuthDecrypterEcdh1PuV3x25519WithXC20PKW, xc20pAuthEncrypterEcdh1PuV3x25519WithXC20PKW, } from './encryption/xc20pkw-encrypters.js';
+-import schema from './plugin.schema.json' assert { type: 'json' };
++import schema from './plugin.schema.json' with { type: 'json' };
+ import { v4 as uuidv4 } from 'uuid';
+ import { createEcdhWrapper, extractManagedRecipients, extractSenderEncryptionKey, mapRecipientsToLocalKeys, } from './utils.js';
+ import { bytesToUtf8String, decodeJoseBlob, dereferenceDidKeys, encodeJoseBlob, hexToBytes, isDefined, mapIdentifierKeysToDoc, resolveDidOrThrow, stringToUtf8Bytes, } from '@veramo/utils';

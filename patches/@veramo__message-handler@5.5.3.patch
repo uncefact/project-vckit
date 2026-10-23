@@ -1,0 +1,11 @@
+diff --git a/build/message-handler.js b/build/message-handler.js
+index d2dca96593d2b4e720b1bb2f2f489afa88d26f55..ee81cb509f55c1c11a8205f16ffea4d4159f3fa8 100644
+--- a/build/message-handler.js
++++ b/build/message-handler.js
+@@ -1,5 +1,5 @@
+ import { CoreEvents, } from '@veramo/core-types';
+-import schema from '@veramo/core-types/build/plugin.schema.json' assert { type: 'json' };
++import schema from '@veramo/core-types/build/plugin.schema.json' with { type: 'json' };
+ import { Message } from './message.js';
+ import Debug from 'debug';
+ const debug = Debug('veramo:message-handler');

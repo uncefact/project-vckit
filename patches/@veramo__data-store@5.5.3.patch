@@ -1,0 +1,20 @@
+diff --git a/build/data-store-orm.js b/build/data-store-orm.js
+index da2dc5318b42321293aa0cd220c03e7f392c0384..7d15fe964bf6171db784af63bd20c4633d38ec6e 100644
+--- a/build/data-store-orm.js
++++ b/build/data-store-orm.js
+@@ -1,4 +1,4 @@
+-import schema from '@veramo/core-types/build/plugin.schema.json' assert { type: 'json' };
++import schema from '@veramo/core-types/build/plugin.schema.json' with { type: 'json' };
+ import { createMessage, Message } from './entities/message.js';
+ import { Claim } from './entities/claim.js';
+ import { Credential } from './entities/credential.js';
+diff --git a/build/data-store.js b/build/data-store.js
+index 6ffb2fac25041b9585005c4dd587beaf90ffe8a9..2c2f5bfd4d038433594a299656c5620718e80f2f 100644
+--- a/build/data-store.js
++++ b/build/data-store.js
+@@ -1,4 +1,4 @@
+-import schema from '@veramo/core-types/build/plugin.schema.json' assert { type: 'json' };
++import schema from '@veramo/core-types/build/plugin.schema.json' with { type: 'json' };
+ import { createMessage, createMessageEntity, Message } from './entities/message.js';
+ import { createCredentialEntity, Credential } from './entities/credential.js';
+ import { Claim } from './entities/claim.js';

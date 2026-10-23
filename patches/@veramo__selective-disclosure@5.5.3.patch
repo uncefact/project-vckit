@@ -1,0 +1,11 @@
+diff --git a/build/action-handler.js b/build/action-handler.js
+index f891640f1fb9fb245c2a82f3f4691f4d934ff1df..437855c599feb9dd85d0aa2dd769e093a9001a5f 100644
+--- a/build/action-handler.js
++++ b/build/action-handler.js
+@@ -1,5 +1,5 @@
+ import { KEY_ALG_MAPPING, } from '@veramo/core-types';
+-import schema from './plugin.schema.json' assert { type: 'json' };
++import schema from './plugin.schema.json' with { type: 'json' };
+ import { createJWT } from 'did-jwt';
+ import Debug from 'debug';
+ import { asArray, bytesToBase64, computeEntryHash, decodeCredentialToObject, extractIssuer, intersect, } from '@veramo/utils';

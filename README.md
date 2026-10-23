@@ -18,13 +18,13 @@ The vckit is built on top of the [Veramo](https://veramo.io/) agent framework. V
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/en/) version 20.12.2
+- [Node.js](https://nodejs.org/en/) version 22
 - [pnpm](https://pnpm.io/) version 8.14.1
 - [yarn](https://yarnpkg.com/) version 1.22.22
 
 > :warning: **Notice**: You should install the pnpm package manager globally on your machine by using the npm package manager. You can install pnpm by running the following command: `npm install -g pnpm@8.14.1`. Using [Corepack](https://nodejs.org/api/corepack.html) to install pnpm that will have some conflicts with the project dependencies that are using yarn package manager to install and build.
 
-This project has been tested and optimized for Node.js version v20.12.2 and pnpm version 8.14.1. Please note that using a Node.js version later than v20.12.2 may result incorrect functionality and potential bugs. It is strongly recommended to use these specific versions for running and testing the project. Deviating from these versions may result in unforeseen compatibility issues or unexpected behavior.
+This project has been tested with Node.js 22 and pnpm version 8.14.1. It is strongly recommended to use these versions for running and testing the project. Deviating from these versions may result in unforeseen compatibility issues or unexpected behavior.
 
 ## Installation and Setup
 
@@ -43,6 +43,8 @@ pnpm vckit config
 ```
 
 The `pnpm vckit config` command will create a `agent.yml` file in the root of the project. This file contains the configuration for the Veramo agent. You can edit this file to configure the agent to your needs. The default configuration is sufficient to get started.
+
+`pnpm install` also runs the root `postinstall` script, which fetches the [gs-gs/veramo](https://github.com/gs-gs/veramo) fork and builds it into `.tmp_npm/veramo`, so it needs git and network access to GitHub (see Troubleshooting). The nine `@veramo/*` 5.5.3 packages that come from npm ship `assert { type: 'json' }` imports, which Node 22 rejects. The `patches/` folder holds a pnpm patch for each one, listed under `pnpm.patchedDependencies` in `package.json`, and `pnpm install` applies them. The patches are tied to version 5.5.3, so upgrading one of those packages means regenerating its patch (`pnpm patch`) or removing it.
 
 ## Seed Identifier
 
@@ -202,24 +204,19 @@ We need to change manually the `version`, `apiVersion`, and `docVersion` fields.
 
 ### Troubleshooting
 
-#### Issue: Old Version of Veramo's Modified Code Running
+#### Issue: Changes to the Veramo fork do not appear
 
 **Symptoms**:
 
-- Unexpected behavior from Veramo despite recent code updates.
-- Changes to Veramo's code not reflecting in builds or runtime.
+- A change pushed to the [gs-gs/veramo](https://github.com/gs-gs/veramo) fork does not show up in builds or at runtime.
 
 **Cause**:
-The .tmp_npm folder caches modified Veramo code. When new code is pushed to the repository, this folder may retain outdated versions. Notably, pnpm build-clean does not remove this folder, leading to stale code execution.
+The `postinstall` script in `package.json` builds the fork into `.tmp_npm/veramo` from one fixed commit, set by `SHA=` at the start of the script. Each `pnpm install` deletes `.tmp_npm` and fetches that commit again, so new commits on the fork's `vc-v2` branch are not used until the SHA changes. The install fails if the commit cannot be fetched. The script also rewrites the `assert { type: 'json' }` imports in the fork's `credential-ld` build to `with`, which Node 22 requires, and fails the install if one remains.
 
 **Solution:**
 
-```sh
-# Delete the .tmp_npm Folder
-# This removes the temporary folder that may contain outdated code
-rm -rf .tmp_npm
+Set `SHA=` in the `postinstall` script to the fork commit you want, then reinstall:
 
-# Install dependencies and build the latest Veramo code
-# This ensures you have the latest code and dependencies
+```sh
 pnpm install
 ```
