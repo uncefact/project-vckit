@@ -1,0 +1,10 @@
+diff --git a/build/data-store-json.js b/build/data-store-json.js
+index b791f738a27baa29a999f56c562a7a0c42a99585..ef2bdfaf85a2b656650a186310c63727db109139 100644
+--- a/build/data-store-json.js
++++ b/build/data-store-json.js
+@@ -1,4 +1,4 @@
+-import schema from '@veramo/core-types/build/plugin.schema.json' assert { type: 'json' };
++import schema from '@veramo/core-types/build/plugin.schema.json' with { type: 'json' };
+ import { asArray, computeEntryHash, extractIssuer } from '@veramo/utils';
+ import { deserialize, serialize } from '@ungap/structured-clone';
+ import { normalizeCredential } from 'did-jwt-vc';

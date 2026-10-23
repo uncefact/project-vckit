@@ -11,8 +11,8 @@ else
     sudo yum install gcc-c++ make -y
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
     . ~/.nvm/nvm.sh
-    nvm install 18.17.0
-    nvm use 18.17.0
+    nvm install 22
+    nvm use 22
     npm install -g pnpm@8.14.0
     npm install pm2 -g
 fi

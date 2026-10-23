@@ -109,9 +109,11 @@
     "debug": "^4.3.7"
   },
   "pnpm": {
+    "allowNonAppliedPatches": true,
     "patchedDependencies": {
       "@veramo/credential-eip712@5.5.3": "patches/@veramo__credential-eip712@5.5.3.patch",
       "@veramo/data-store@5.5.3": "patches/@veramo__data-store@5.5.3.patch",
+      "@veramo/data-store-json@5.5.3": "patches/@veramo__data-store-json@5.5.3.patch",
       "@veramo/did-comm@5.5.3": "patches/@veramo__did-comm@5.5.3.patch",
       "@veramo/did-discovery@5.5.3": "patches/@veramo__did-discovery@5.5.3.patch",
       "@veramo/did-manager@5.5.3": "patches/@veramo__did-manager@5.5.3.patch",
