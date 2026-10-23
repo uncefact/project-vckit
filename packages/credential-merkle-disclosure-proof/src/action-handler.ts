@@ -19,7 +19,7 @@ import {
   RecordLike,
 } from '@veramo/utils';
 import Debug from 'debug';
-import schema from './plugin.schema.json' assert { type: 'json' };
+import schema from './plugin.schema.json' with { type: 'json' };
 
 import { MerkleDisclosureProof2021Module } from './merkle-disclosure-proof2021-module.js';
 import { MDP2021ContextLoader } from './mdp-2021-context-loader.js';

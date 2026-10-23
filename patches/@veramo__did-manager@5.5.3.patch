@@ -1,0 +1,10 @@
+diff --git a/build/id-manager.js b/build/id-manager.js
+index dd1ff23c07a9a23ba00d3c70b467d3265436920c..2a5ecd17ee7021e09dfa1d9302bce3f22a01dc51 100644
+--- a/build/id-manager.js
++++ b/build/id-manager.js
+@@ -1,4 +1,4 @@
+-import schema from '@veramo/core-types/build/plugin.schema.json' assert { type: 'json' };
++import schema from '@veramo/core-types/build/plugin.schema.json' with { type: 'json' };
+ /**
+  * Agent plugin that implements {@link @veramo/core-types#IDIDManager} interface
+  * @public

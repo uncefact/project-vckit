@@ -1,0 +1,10 @@
+diff --git a/build/action-handler.js b/build/action-handler.js
+index f37938514062e7f5645bf2a248bbe6f2164da36e..7610b6e83f30afe24dcb0a7475a7277d1c44bd26 100644
+--- a/build/action-handler.js
++++ b/build/action-handler.js
+@@ -1,4 +1,4 @@
+-import schema from './plugin.schema.json' assert { type: 'json' };
++import schema from './plugin.schema.json' with { type: 'json' };
+ import Debug from 'debug';
+ const debug = Debug('veramo:did-discovery');
+ /**

@@ -1,0 +1,10 @@
+diff --git a/build/key-manager.js b/build/key-manager.js
+index f80a7a7c80be2fbc658d6360c9ef91d8ca623ddc..e5de44acfc69e3ecef26e12d97c268bde031599c 100644
+--- a/build/key-manager.js
++++ b/build/key-manager.js
+@@ -1,4 +1,4 @@
+-import schema from '@veramo/core-types/build/plugin.schema.json' assert { type: 'json' };
++import schema from '@veramo/core-types/build/plugin.schema.json' with { type: 'json' };
+ import * as u8a from 'uint8arrays';
+ import { createAnonDecrypter, createAnonEncrypter, createJWE, decryptJWE } from 'did-jwt';
+ import { arrayify, hexlify } from '@ethersproject/bytes';

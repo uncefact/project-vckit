@@ -11,7 +11,7 @@ import {
 import { BitstringStatusListEntryStore } from './identifier/bitstring-status-list-entry-store.js';
 import { OrPromise } from '@veramo/utils';
 import { DataSource } from 'typeorm';
-import schema from '@uncefact/vckit-core-types/build/plugin.schema.json' assert { type: 'json' };
+import schema from '@uncefact/vckit-core-types/build/plugin.schema.json' with { type: 'json' };
 import { checkStatus } from './bitstring-status-list-status.js';
 
 export class BitstringStatusList implements IAgentPlugin {

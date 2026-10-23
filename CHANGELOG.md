@@ -1,5 +1,18 @@
 # Change Log
 
+## [1.2.2](https://github.com/uncefact/project-vckit/compare/1.2.1...1.2.2) (2026-10-23)
+
+
+### Bug Fixes
+
+* **deps:** Move to Node 22 and update dependencies with security advisories ([#308](https://github.com/uncefact/project-vckit/issues/308)) ([f733009](https://github.com/uncefact/project-vckit/commit/f733009e1baca10a68c50a10185bb63186ab9e9d))
+
+
+### Miscellaneous
+
+* Release 1.2.2 ([bc146e0](https://github.com/uncefact/project-vckit/commit/bc146e0dad4a19568c38914d9bc6834b75df0dda))
+* **release:** Prepare release 1.2.2 ([f0a3f66](https://github.com/uncefact/project-vckit/commit/f0a3f66b419601670f54de025c764dc400fcd223))
+
 ## [1.2.1](https://github.com/uncefact/project-vckit/compare/1.2.0...v1.2.1) (2026-05-01)
 
 

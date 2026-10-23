@@ -1,0 +1,10 @@
+diff --git a/build/resolver.js b/build/resolver.js
+index 242d418375d7fe6ad858f28113010394e2b7c74c..f9830eb63bd72c950f7488a629bf99a9705fb93c 100644
+--- a/build/resolver.js
++++ b/build/resolver.js
+@@ -1,4 +1,4 @@
+-import schema from '@veramo/core-types/build/plugin.schema.json' assert { type: 'json' };
++import schema from '@veramo/core-types/build/plugin.schema.json' with { type: 'json' };
+ import { isDefined } from '@veramo/utils';
+ import { parse as parseDID, Resolver, } from 'did-resolver';
+ import Debug from 'debug';
