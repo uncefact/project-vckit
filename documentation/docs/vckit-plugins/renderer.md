@@ -80,6 +80,8 @@ const result = await renderer.renderCredential(params, context);
 
 #### Verifiable credential data with EnvelopedVerifiableCredential
 
+The renderer reads the credential from the JWT in `id`, not from the envelope. An envelope issued by VCkit has an `@context` of `https://www.w3.org/ns/credentials/v2` only, and the credential's own contexts and render method are in the JWT payload.
+
 ```typescript
 import { WebRenderingTemplate2022 } from '@uncefact/vckit-renderer';
 

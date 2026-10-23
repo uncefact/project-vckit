@@ -44,6 +44,8 @@ pnpm vckit config
 
 The `pnpm vckit config` command will create a `agent.yml` file in the root of the project. This file contains the configuration for the Veramo agent. You can edit this file to configure the agent to your needs. The default configuration is sufficient to get started.
 
+`pnpm install` also runs the root `postinstall` script, which fetches the [gs-gs/veramo](https://github.com/gs-gs/veramo) fork and builds it into `.tmp_npm/veramo`, so it needs git and network access to GitHub (see Troubleshooting). The nine `@veramo/*` 5.5.3 packages that come from npm ship `assert { type: 'json' }` imports, which Node 22 rejects. The `patches/` folder holds a pnpm patch for each one, listed under `pnpm.patchedDependencies` in `package.json`, and `pnpm install` applies them. The patches are tied to version 5.5.3, so upgrading one of those packages means regenerating its patch (`pnpm patch`) or removing it.
+
 ## Seed Identifier
 
 This feature automates the process of seeding a predefined DID document for use in development environments.
@@ -209,7 +211,7 @@ We need to change manually the `version`, `apiVersion`, and `docVersion` fields.
 - A change pushed to the [gs-gs/veramo](https://github.com/gs-gs/veramo) fork does not show up in builds or at runtime.
 
 **Cause**:
-The `postinstall` script in `package.json` builds the fork into `.tmp_npm/veramo` from one fixed commit, set by `SHA=` at the start of the script. Each `pnpm install` deletes `.tmp_npm` and fetches that commit again, so new commits on the fork's `vc-v2` branch are not used until the SHA changes. The install fails if the commit cannot be fetched.
+The `postinstall` script in `package.json` builds the fork into `.tmp_npm/veramo` from one fixed commit, set by `SHA=` at the start of the script. Each `pnpm install` deletes `.tmp_npm` and fetches that commit again, so new commits on the fork's `vc-v2` branch are not used until the SHA changes. The install fails if the commit cannot be fetched. The script also rewrites the `assert { type: 'json' }` imports in the fork's `credential-ld` build to `with`, which Node 22 requires, and fails the install if one remains.
 
 **Solution:**
 
