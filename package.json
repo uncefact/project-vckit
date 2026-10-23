@@ -1,6 +1,6 @@
 {
   "name": "vckit",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "scripts": {
     "postinstall": "SHA=a02f09bc068f20eb652fd740b43fb2220570b3ba && rm -rf .tmp_npm && mkdir -p .tmp_npm/veramo && cd .tmp_npm/veramo && git init -q && git remote add origin https://github.com/gs-gs/veramo.git && git fetch --depth=1 origin \"$SHA\" && git checkout -q --detach FETCH_HEAD && test \"$(git rev-parse HEAD)\" = \"$SHA\" && pnpm install --frozen-lockfile && pnpm build && node -e \"const fs=require('fs'),f='packages/credential-ld/build/ld-default-contexts.js',re=/\\bassert(\\s*\\{\\s*type\\s*:\\s*[\\x27\\x22]json[\\x27\\x22]\\s*\\})/g,s=fs.readFileSync(f,'utf8'),t=s.replace(re,(m,a)=>'with'+a);if(t!==s)fs.writeFileSync(f,t);if(/\\bassert\\s*\\{\\s*type/.test(t))throw new Error(f+' still has an assert import')\"",
     "build": "pnpm build:agent && pnpm build:explorer",
